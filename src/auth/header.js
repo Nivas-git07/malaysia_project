@@ -1,8 +1,8 @@
+import logo from "../assets/logo.jpg"
+import background from "../assets/background.png"
 export default function Header() {
   return (
     <section className="hero">
-
-      {/* ===== TOP HEADER ===== */}
       <div className="topbar">
         <div className="container topbarFlex">
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -14,10 +14,10 @@ export default function Header() {
         </div>
       </div>
 
-      {/* ===== NAVBAR ===== */}
+      
       <nav className="navbar container">
         <div className="logo">
-          <img src="/logo.png" alt="logo"/>
+          <img src={logo} alt="logo"/>
         </div>
 
         <ul className="menu">
@@ -36,7 +36,7 @@ export default function Header() {
         </div>
       </nav>
 
-      {/* ===== HERO CONTENT ===== */}
+     
       <div className="container heroContent">
         <div className="left">
           <h1>

@@ -14,12 +14,22 @@
 
 /* ===== HERO BACKGROUND ===== */
 .hero{
-  background-image:url("/swimmer.jpg");
+  background-image:url("../assets/background.png");
   background-size:cover;
   background-position:center;
   min-height:650px;
   color:white;
   position:relative;
+  z-index:1;
+}
+
+/* 🔥 opacity overlay */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.5); /* change opacity here */
+  z-index:-1;
 }
 
 /* ===== TOP BAR ===== */

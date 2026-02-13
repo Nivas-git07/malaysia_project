@@ -1,9 +1,10 @@
 import Header from "../auth/header";
 
 
-
-export default function Register(){
-    return(
-        <Header/>
+export default function Register() {
+    return (
+        <div>
+            <Header />
+        </div>
     )
 }
