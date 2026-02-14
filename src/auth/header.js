@@ -1,6 +1,7 @@
-import logo from "../assets/logo.jpg"
+
 import background from "../assets/background.png"
 import { FiMail, FiPhone } from "react-icons/fi";
+import Navbar from "../layout/navbar";
 
 export default function Header() {
   return (
@@ -29,26 +30,7 @@ export default function Header() {
       </div>
 
 
-      <nav className="navbar container">
-        <div className="logo">
-          <img src={logo} alt="logo" />
-        </div>
-
-        <ul className="menu">
-          <li>HOME</li>
-          <li>ABOUT US</li>
-          <li>MEMBERSHIP</li>
-          <li>ASSOCIATIONS</li>
-          <li>EVENTS</li>
-          <li>NEWS</li>
-          <li>CONTACT</li>
-        </ul>
-
-        <div className="navBtns">
-          <button className="btnOutline">MEMBER</button>
-          <button className="btnFill">LOG IN</button>
-        </div>
-      </nav>
+      <Navbar />
 
 
       <div className="container heroContent">

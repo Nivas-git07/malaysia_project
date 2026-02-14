@@ -455,3 +455,71 @@ body{
     grid-template-columns:1fr;
   }
 }
+
+.loginSection{
+  background:#ffffff;
+  padding:80px 20px;
+}
+
+.loginContainer{
+  max-width:900px;
+  margin:auto;
+}
+
+.loginTitle{
+  color:#d00000;
+  font-weight:700;
+  margin-bottom:30px;
+ 
+  text-align: center;
+}
+
+.loginForm{
+  display:flex;
+  flex-direction:column;
+  gap:30px;
+}
+
+/* FIELD */
+.loginField{
+  width:100%;
+}
+
+.loginLabel{
+  display:block;
+  margin-bottom:6px;
+  font-size:14px;
+  color:#333;
+}
+
+.loginInput{
+  width:100%;
+  padding:14px;
+  border:1px solid #ccc;
+  outline:none;
+  background:#fff;
+}
+
+/* BUTTON */
+.loginBtnWrap{
+  display:flex;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.loginBtn{
+  background:#d00000;
+  color:#fff;
+  border:none;
+  padding:14px 50px;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .loginContainer{
+    padding:0 10px;
+  }
+}
