@@ -384,7 +384,7 @@ body{
   max-width: 100px;
 }
 .contact-address{
-  max-width: 100px;
+  white-space:nowrap; 
 }
 
 .footCol h4{

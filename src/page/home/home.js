@@ -4,6 +4,7 @@ import HomeAbout from "../../components/homeabout";
 import UpcomingEvents from "../../components/upcomingevent";
 import HomeRecords from "../../components/homerecord";
 import BestRecords from "../../components/bestrecord";
+import Footer from "../../layout/footer";
 export default function Home() {
     return (
         <div className="home-page">
@@ -35,6 +36,7 @@ export default function Home() {
             <UpcomingEvents/>
             <HomeRecords/>
             <BestRecords />
+            <Footer/>
         </div>
     )
 }

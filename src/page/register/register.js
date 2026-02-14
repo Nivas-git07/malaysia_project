@@ -1,6 +1,6 @@
 import Header from "../../auth/top";
 import RegistrationForm from "../../auth/registerform";
-import Footer from "../../components/footer";
+import Footer from "../../layout/footer";
 export default function Register() {
     return (
         <div>

@@ -1,6 +1,6 @@
 import Header from "../../auth/top";
 import MemberLogin from "../../auth/form/loginform";
-import Footer from "../../components/footer";
+import Footer from "../../layout/footer";
 export default function Login() {
     return (
         <div>

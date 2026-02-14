@@ -1,74 +1,83 @@
 import { useState } from "react";
 import RecordCard from "./recordcard";
 
-export default function BestRecords(){
+export default function BestRecords() {
 
-  const [active,setActive] = useState("Surface");
+    const [active, setActive] = useState("Surface");
 
-  const records = [
-    {
-      name:"Cesar CIELO FILHO",
-      time:"20.91",
-      championship:"Brazilian National Championships (50m)",
-      state:"Kuala Lumpur",
-      date:"18 Dec 2009"
-    },
-    {
-      name:"Cesar CIELO FILHO",
-      time:"20.91",
-      championship:"Brazilian National Championships (50m)",
-      state:"Kuala Lumpur",
-      date:"18 Dec 2009"
-    },
-    {
-      name:"Cesar CIELO FILHO",
-      time:"20.91",
-      championship:"Brazilian National Championships (50m)",
-      state:"Kuala Lumpur",
-      date:"18 Dec 2009"
-    }
-  ];
+    const records = [
+        {
+            name: "Cesar CIELO FILHO",
+            time: "20.91",
+            championship: "Brazilian National Championships (50m)",
+            state: "Kuala Lumpur",
+            date: "18 Dec 2009"
+        },
+        {
+            name: "Cesar CIELO FILHO",
+            time: "20.91",
+            championship: "Brazilian National Championships (50m)",
+            state: "Kuala Lumpur",
+            date: "18 Dec 2009"
+        },
+        {
+            name: "Cesar CIELO FILHO",
+            time: "20.91",
+            championship: "Brazilian National Championships (50m)",
+            state: "Kuala Lumpur",
+            date: "18 Dec 2009"
+        }
+    ];
 
-  const categories = ["Surface","Bi-fins","Apnea","Immersion"];
+    const categories = ["Surface", "Bi-fins", "Apnea", "Immersion"];
 
-  return(
+    return (
 
-    <section className="bestRecordsSection">
+        <section className="bestRecordsSection">
 
-      <div className="bestRecordsContainer">
+            <div className="bestRecordsContainer">
 
-        <h2 className="bestRecordsTitle">BEST RECORDS</h2>
+                <h2 className="bestRecordsTitle">BEST RECORDS</h2>
 
-        <div className="bestRecordsLayout">
+                <div className="bestRecordsLayout">
 
-          {/* LEFT MENU */}
-          <div className="bestRecordsMenu">
+                    {/* LEFT MENU */}
+                    <div className="bestRecordsMenu">
 
-            {categories.map((item)=>(
-              <button
-                key={item}
-                onClick={()=>setActive(item)}
-                className={`bestMenuItem ${active===item?"active":""}`}
-              >
-                {item}
-              </button>
-            ))}
 
-          </div>
 
-          {/* RIGHT CARDS */}
-          <div className="bestRecordsGrid">
+                        {categories.map((item) => (
+                            <button
+                                key={item}
+                                onClick={() => setActive(item)}
+                                className={`bestMenuItem ${active === item ? "active" : ""}`}
+                            >
+                                {item}
+                            </button>
+                        ))}
 
-            {records.map((rec,index)=>(
-              <RecordCard key={index} {...rec}/>
-            ))}
+                    </div>
 
-          </div>
+                    {/* RIGHT CARDS */}
+                    <div className="bestRecordsRight">
 
-        </div>
+                        {/* 🔥 Dynamic Title */}
+                        <h3 className="bestRecordsActiveTitle">
+                            {active}
+                        </h3>
 
-      </div>
+                        <div className="bestRecordsGrid">
+                            {records.map((rec, index) => (
+                                <RecordCard key={index} {...rec} />
+                            ))}
+                        </div>
 
-    </section>
-  )
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+    )
 }
