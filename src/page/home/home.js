@@ -6,10 +6,12 @@ import HomeRecords from "../../components/homerecord";
 import BestRecords from "../../components/bestrecord";
 import Footer from "../../layout/footer";
 import HomeGallery from "../../components/homegallery";
+import HomeNews from "../../components/homenews";
 export default function Home() {
     return (
         <div className="home-page">
             <section className="hero">
+                
                 <Head />
                 <Navbar />
                 <div className="homeHeroContent">
@@ -38,6 +40,7 @@ export default function Home() {
             <HomeRecords/>
             <BestRecords />
             <HomeGallery/>
+            <HomeNews/>
             <Footer/>
         </div>
     )
