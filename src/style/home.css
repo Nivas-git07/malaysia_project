@@ -1,0 +1,50 @@
+.homeHeroContent{
+  max-width:1000px;
+  margin:auto;
+  text-align:center;
+  padding-top:120px;
+  color:#fff;
+}
+
+.homeHeroTitle{
+    font-family:'Montserrat', sans-serif !important;
+  font-weight:700;
+  font-size:52px;
+  line-height:1;
+  text-transform:uppercase;
+  text-align:center;
+  letter-spacing:0;
+}
+
+.homeHeroBig{
+  font-weight:600;
+   color:#cc0001;
+}
+
+.next_title{
+    margin-top: 10px;
+}
+.red{
+  color:#cc0001;
+
+}
+
+.homeHeroSub{
+  margin-top:20px;
+  font-size:18px;
+  color:#ddd;
+  line-height:1.6;
+}
+@media(max-width:768px){
+  .homeHeroTitle{
+    font-size:32px;
+  }
+
+  .homeHeroBig{
+    font-size:40px;
+  }
+
+  .homeHeroContent{
+    padding-top:80px;
+  }
+}
