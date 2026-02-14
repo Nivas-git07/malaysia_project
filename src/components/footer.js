@@ -9,15 +9,15 @@ export default function Footer() {
 
             <div className="footContainer">
 
-                {/* ===== LEFT COLUMN ===== */}
+              
                 <div className="footCol footBrandWrap">
 
-                    {/* LOGO COLUMN */}
+                  
                     <div className="footBrandLogo">
                         <img src={logo} alt="logo" className="footLogo" />
                     </div>
 
-                    {/* CONTACT COLUMN */}
+                
                     <div className="footBrandInfo">
 
                         <div className="footSocial">
@@ -28,14 +28,12 @@ export default function Footer() {
 
                         <p>Email: info@finswim.org</p>
                         <p>Phone: +91 12345 67890</p>
-                        <p>Address: 123 Aquatic Lane, Malaysia</p>
+                        <p className="contact-address">Address: 123 Aquatic Lane, Malaysia</p>
 
                     </div>
 
                 </div>
 
-
-                {/* ===== EXPLORE ===== */}
                 <div className="footCol">
                     <h4>Explore</h4>
                     <ul>
@@ -46,7 +44,6 @@ export default function Footer() {
                     </ul>
                 </div>
 
-                {/* ===== QUICK ACCESS ===== */}
                 <div className="footCol">
                     <h4>Quick Access</h4>
                     <ul>
@@ -58,7 +55,7 @@ export default function Footer() {
                     </ul>
                 </div>
 
-                {/* ===== CMAS ===== */}
+               
                 <div className="footCol footCmas">
                     <img src={cmas} alt="cmas" className="footCmasLogo" />
 
@@ -70,7 +67,6 @@ export default function Footer() {
 
             </div>
 
-            {/* ===== SMALL FOOTER ===== */}
             <div className="footBottom">
                 <p>© 2025 Malaysia fin Swimming Association. All Rights Reserved.</p>
             </div>
