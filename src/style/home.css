@@ -1,9 +1,13 @@
+.home-page{
+    background-color: white !important;
+}
+
 .homeHeroContent{
   max-width:1000px;
   margin:auto;
   text-align:center;
   padding-top:120px;
-  color:#fff;
+  color:#ffffff;
 }
 
 .homeHeroTitle{
@@ -50,7 +54,7 @@
 }
 
 .homeAboutSection{
-  background:#f1f1f1;
+  background:#ffffff;
   padding:80px 20px;
 }
 
@@ -118,7 +122,7 @@
 
 .homeEventsSection{
   padding:40px 20px;
-  background:#f1f1f1;
+  background:#ffffff;
 }
 
 .homeEventsHeader{
@@ -147,7 +151,7 @@
   height:34px;
   border-radius:50%;
   border:1px solid #ccc;
-  background:#fff;
+  background:#ffffff;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -286,4 +290,205 @@
     font-size:14px;
   }
 
+}
+
+.homeRecordsSection{
+  width:100%;
+  margin-top: 40px;
+  background:#FFF6FD;
+  padding:60px 20px;
+}
+
+/* CONTAINER */
+.homeRecordsContainer{
+  max-width:1300px;
+  margin:auto;
+
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:60px;
+  align-items:flex-start;
+}
+
+/* ITEM */
+.homeRecordItem{
+  text-align:left;
+}
+
+/* COUNT */
+.homeRecordCount{
+  font-family:'Montserrat', sans-serif;
+  font-weight:700;
+  font-size:32px;
+  margin-bottom:6px;
+}
+
+/* TITLE */
+.homeRecordTitle{
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+/* PARA */
+.homeRecordPara{
+  font-size:12px;
+  color:#555;
+  line-height:1.6;
+  max-width:180px;
+}
+
+/* TABLET */
+@media(max-width:1024px){
+
+  .homeRecordsContainer{
+    grid-template-columns:repeat(2,1fr);
+    gap:40px;
+  }
+
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+  .homeRecordsContainer{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .homeRecordPara{
+    margin:auto;
+  }
+
+}
+
+.bestRecordsSection{
+  padding:80px 20px;
+  background:#ffffff;
+}
+
+.bestRecordsContainer{
+  max-width:1300px;
+  margin:auto;
+}
+
+.bestRecordsTitle{
+  color:#c10000;
+  font-family:'Montserrat';
+  margin-bottom:30px;
+}
+
+/* MAIN LAYOUT */
+.bestRecordsLayout{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:40px;
+}
+
+/* LEFT MENU */
+.bestRecordsMenu{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.bestMenuItem{
+  background:none;
+  border:none;
+  font-weight:600;
+  text-align:left;
+  cursor:pointer;
+}
+
+.bestMenuItem.active{
+  background:#d00000;
+  color:#fff;
+  padding:12px 20px;
+  border-radius:30px;
+}
+
+/* RIGHT GRID */
+.bestRecordsGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:40px;
+}
+
+/* CARD */
+.recordCard{
+  background:#F9F0F7;
+  border-radius:20px;
+  padding:40px 20px 20px;
+  text-align:center;
+  position:relative;
+  height: 300px;
+}
+
+.recordImgWrap{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#eee;
+  margin:auto;
+  overflow:hidden;
+    margin-top: 10px;
+}
+
+.recordImgWrap img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+}
+
+.recordName{
+  margin-top:20px;
+  font-size:12px;
+  font-weight: 600;
+}
+
+.recordTime{
+  font-size:28px;
+  margin:8px 0;
+}
+
+.recordChamp{
+  font-size:12px;
+  color:#555;
+}
+
+.recordBottom{
+  margin-top:30px;
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+}
+/* TABLET */
+@media(max-width:1024px){
+
+  .bestRecordsLayout{
+    grid-template-columns:1fr;
+  }
+
+  .bestRecordsMenu{
+    flex-direction:row;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .bestRecordsGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+  .bestRecordsGrid{
+    grid-template-columns:1fr;
+  }
+
+  .recordBottom{
+    font-size:10px;
+  }
 }

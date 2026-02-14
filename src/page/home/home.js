@@ -2,9 +2,11 @@ import Navbar from "../../layout/navbar";
 import Head from "../../layout/header";
 import HomeAbout from "../../components/homeabout";
 import UpcomingEvents from "../../components/upcomingevent";
+import HomeRecords from "../../components/homerecord";
+import BestRecords from "../../components/bestrecord";
 export default function Home() {
     return (
-        <div>
+        <div className="home-page">
             <section className="hero">
                 <Head />
                 <Navbar />
@@ -19,7 +21,6 @@ export default function Home() {
 
                     </h1>
 
-
                     <p className="homeHeroSub">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         <br />
@@ -32,6 +33,8 @@ export default function Home() {
             </section>
             <HomeAbout />
             <UpcomingEvents/>
+            <HomeRecords/>
+            <BestRecords />
         </div>
     )
 }
