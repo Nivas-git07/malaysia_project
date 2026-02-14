@@ -1,4 +1,4 @@
-import Register from "../page/register";
+import Register from "../page/register/register";
 import { Routes, Route } from "react-router-dom";
 
 function Page() {
