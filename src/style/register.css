@@ -18,7 +18,7 @@ body{
   background-image:url("../assets/background.png");
   background-size:cover;
   background-position:center;
-  min-height:500px;
+  min-height:550px;
   color:white;
   position:relative;
   z-index:1;
@@ -446,5 +446,12 @@ body{
 
   .footSocial{
     justify-content:center;
+  }
+}
+
+@media(max-width:768px){
+  .regGrid,
+  .regGridLabel{
+    grid-template-columns:1fr;
   }
 }
