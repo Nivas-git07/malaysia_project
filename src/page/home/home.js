@@ -1,6 +1,7 @@
 import Navbar from "../../layout/navbar";
 import Head from "../../layout/header";
 import HomeAbout from "../../components/homeabout";
+import UpcomingEvents from "../../components/upcomingevent";
 export default function Home() {
     return (
         <div>
@@ -30,6 +31,7 @@ export default function Home() {
 
             </section>
             <HomeAbout />
+            <UpcomingEvents/>
         </div>
     )
 }
