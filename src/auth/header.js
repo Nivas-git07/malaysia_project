@@ -8,7 +8,8 @@ export default function Header() {
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 
           <div className="contact">
-            <span>✉ malaysia@gmail.com</span>
+            <span>✉ malaysia@gmail.com  </span>
+            
             <span>📞 9997776643</span>
           </div>
         </div>
@@ -45,7 +46,7 @@ export default function Header() {
             ASSOCIATION
           </h1>
 
-          <button className="cta">Get Started</button>
+        
         </div>
 
         <div className="right">

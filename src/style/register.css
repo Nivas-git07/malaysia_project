@@ -8,7 +8,7 @@
 
 .container{
   width:90%;
-  max-width:1200px;
+  max-width:1300px;
   margin:auto;
 }
 
@@ -17,10 +17,11 @@
   background-image:url("../assets/background.png");
   background-size:cover;
   background-position:center;
-  min-height:650px;
+  min-height:500px;
   color:white;
   position:relative;
   z-index:1;
+   isolation:isolate;   
 }
 
 /* 🔥 opacity overlay */
@@ -28,9 +29,20 @@
   content:"";
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,0.5); /* change opacity here */
-  z-index:-1;
+  background:linear-gradient(
+    90deg,
+    rgba(0,25,45,0.85),
+    rgba(0,45,70,0.4)
+  );
+  z-index:0;
 }
+
+
+.hero > *{
+  position:relative;
+  z-index:1;
+}
+
 
 /* ===== TOP BAR ===== */
 .topbar{
@@ -60,12 +72,13 @@
 
 .logo img{
   width:70px;
+  border-radius: 50%;
 }
 
 .menu{
   list-style:none;
   display:flex;
-  gap:25px;
+  gap:30px;
   font-weight:600;
   font-size:14px;
 }
@@ -80,16 +93,18 @@
 }
 
 .btnOutline{
-  border:1px solid white;
+  border:1.5px solid white;
   background:transparent;
   color:white;
+   font-weight: 600;
   padding:8px 16px;
   border-radius:20px;
 }
 
 .btnFill{
   background:white;
-  color:#d00000;
+  color:#cc0001;
+  font-weight: 600;
   border:none;
   padding:8px 16px;
   border-radius:20px;
@@ -123,8 +138,9 @@
 }
 
 .right{
-  font-size:22px;
-  text-align:right;
+  font-size:28px;
+  text-align:left;     
+  max-width:280px;    
 }
 
 /* ===== RESPONSIVE ===== */
