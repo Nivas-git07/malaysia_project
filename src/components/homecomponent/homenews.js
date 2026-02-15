@@ -1,8 +1,8 @@
 import NewsCard from "./newscard";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
-import n1 from "../assets/news1.jpg";
-import n2 from "../assets/news2.jpg";
+import n1 from "../../assets/news1.jpg";
+import n2 from "../../assets/news2.jpg";
 
 export default function HomeNews(){
 

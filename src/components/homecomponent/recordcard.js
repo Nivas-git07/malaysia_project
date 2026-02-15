@@ -1,4 +1,4 @@
-import swimmer from "../assets/swimmer.png";
+import swimmer from "../../assets/swimmer.png";
 
 export default function RecordCard({
   name,

@@ -14,7 +14,7 @@ function Navbar() {
                 <li>ABOUT US</li>
                 <li>MEMBERSHIP</li>
                 <li>ASSOCIATIONS</li>
-                <li>EVENTS</li>
+                <li  onClick={() => { navigate("/event") }}>EVENTS</li>
                 <li>NEWS</li>
                 <li>CONTACT</li>
             </ul>

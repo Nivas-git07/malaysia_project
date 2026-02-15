@@ -1,9 +1,9 @@
 import EventCard from "./eventcard";
 import { FiArrowRight, FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import img1 from "../assets/image2.jpg"
-import img2 from "../assets/image3.jpg"
-import img3 from "../assets/background.png"
-import logo from "../assets/logo.jpg"
+import img1 from "../../assets/image2.jpg"
+import img2 from "../../assets/image3.jpg"
+import img3 from "../../assets/background.png"
+import logo from "../../assets/logo.jpg"
 export default function UpcomingEvents() {
 
     const events = [

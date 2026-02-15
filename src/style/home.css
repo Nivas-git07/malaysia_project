@@ -713,3 +713,78 @@
   font-size:11px;
   line-height:1.5;
 }
+
+
+/* eventpagecss */
+
+.eventsPageSection{
+  padding:60px 20px;
+  max-width: 1350px;
+  align-items: center;
+   margin:auto;
+}
+
+.eventsPageHeading{
+  color:#d00000;
+  margin-bottom:30px;
+}
+
+/* GRID LAYOUT */
+.eventsGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+
+/* 🔥 PAGINATION BAR */
+.eventsPaginationBar{
+  margin-top:30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.eventsInfo{
+  font-size:14px;
+  color:#666;
+}
+
+/* PAGINATION BUTTONS */
+.eventsPagination button{
+  margin-left:8px;
+  width:32px;
+  height:32px;
+  border-radius:6px;
+  border:none;
+  background:#eee;
+  cursor:pointer;
+}
+
+.eventsPagination button.active{
+  background:#d00000;
+  color:#fff;
+}
+
+/* TABLET */
+@media(max-width:1024px){
+
+  .eventsGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+  .eventsGrid{
+    grid-template-columns:1fr;
+  }
+
+  .eventsPaginationBar{
+    flex-direction:column;
+    gap:15px;
+    align-items:flex-start;
+  }
+
+}

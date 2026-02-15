@@ -1,12 +1,12 @@
 import Navbar from "../../layout/navbar";
 import Head from "../../layout/header";
-import HomeAbout from "../../components/homeabout";
-import UpcomingEvents from "../../components/upcomingevent";
-import HomeRecords from "../../components/homerecord";
-import BestRecords from "../../components/bestrecord";
+import HomeAbout from "../../components/homecomponent/homeabout";
+import UpcomingEvents from "../../components/homecomponent/upcomingevent";
+import HomeRecords from "../../components/homecomponent/homerecord";
+import BestRecords from "../../components/homecomponent/bestrecord";
 import Footer from "../../layout/footer";
-import HomeGallery from "../../components/homegallery";
-import HomeNews from "../../components/homenews";
+import HomeGallery from "../../components/homecomponent/homegallery";
+import HomeNews from "../../components/homecomponent/homenews";
 import video from "../../assets/animate2.mp4"
 export default function Home() {
     return (
