@@ -788,3 +788,128 @@
   }
 
 }
+
+/* ===== MAIN SECTION ===== */
+.eventDescSection{
+  width:100%;
+  padding:60px 20px;
+}
+
+.eventDescContainer{
+  max-width:1300px;
+  margin:auto;
+}
+
+/* ===== BANNER ===== */
+.eventBanner{
+  position:relative;
+  background:linear-gradient(90deg,#00005E,#282590);
+  border-radius:12px;
+  padding:60px 20px;
+  text-align:center;
+  color:#fff;
+  overflow:hidden;
+}
+
+/* LEFT & RIGHT WHITE GRADIENT BAR */
+.bannerBar{
+  position:absolute;
+  top:0;
+  width:50px;
+  height:100%;
+  background:linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.9),
+    rgba(255,255,255,0)
+  );
+}
+
+.leftBar{
+  left:60px;
+}
+
+.rightBar{
+  right:60px;
+}
+
+/* DATE TEXT */
+.eventDate{
+  font-size:14px;
+  letter-spacing:1px;
+  margin-bottom:10px;
+  opacity:0.9;
+}
+
+/* TITLE */
+.eventTitle{
+  font-size:42px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+/* ===== SUB TITLES ===== */
+.eventSubTitle{
+  color:#c10000;
+  margin-top:50px;
+  margin-bottom:25px;
+  font-size:24px;
+}
+
+/* ===== DETAILS GRID ===== */
+.eventDetailsGrid{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+.detailRow{
+  display:flex;
+  gap:40px;
+}
+
+.detailRow span{
+  min-width:150px;
+  font-weight:600;
+}
+
+.detailRow p{
+  color:#666;
+}
+
+.eventDescription{
+  max-width:1250px;
+  line-height:1.8;
+  color:#555;
+}
+@media(max-width:900px){
+
+  .eventTitle{
+    font-size:30px;
+  }
+
+  .leftBar{
+    left:20px;
+  }
+
+  .rightBar{
+    right:20px;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .eventBanner{
+    padding:40px 15px;
+  }
+
+  .eventTitle{
+    font-size:24px;
+  }
+
+  .detailRow{
+    flex-direction:column;
+    gap:5px;
+  }
+
+}
