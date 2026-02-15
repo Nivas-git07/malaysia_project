@@ -58,10 +58,10 @@ export default function BestRecords() {
 
                     </div>
 
-                    {/* RIGHT CARDS */}
+                  
                     <div className="bestRecordsRight">
 
-                        {/* 🔥 Dynamic Title */}
+                      
                         <h3 className="bestRecordsActiveTitle">
                             {active}
                         </h3>

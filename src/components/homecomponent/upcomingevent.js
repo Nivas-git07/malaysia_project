@@ -4,8 +4,9 @@ import img1 from "../../assets/image2.jpg"
 import img2 from "../../assets/image3.jpg"
 import img3 from "../../assets/background.png"
 import logo from "../../assets/logo.jpg"
+import { useNavigate } from "react-router-dom";
 export default function UpcomingEvents() {
-
+    const navigate = useNavigate();
     const events = [
         {
             bg: img1,
@@ -30,7 +31,7 @@ export default function UpcomingEvents() {
     return (
         <section className="homeEventsSection">
 
-            {/* HEADER */}
+            
             <div className="homeEventsHeader">
 
                 <h2 className="homeEventsTitle">
@@ -41,14 +42,13 @@ export default function UpcomingEvents() {
                     <button className="navArrow"><FiChevronLeft /></button>
                     <button className="navArrow"><FiChevronRight /></button>
 
-                    <span className="viewAll">
+                    <span className="viewAll" onClick={() => {navigate("/event")}}>
                         View All <FiArrowRight />
                     </span>
                 </div>
 
             </div>
 
-            {/* CARDS */}
             <div className="homeEventsGrid">
                 {events.map((item, index) => (
                     <EventCard

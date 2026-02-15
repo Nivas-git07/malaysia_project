@@ -1,21 +1,10 @@
 import Navbar from "../layout/navbar";
 import Head from "../layout/header";
 import video from "../assets/animate2.mp4"
+import Swimmer from "../layout/swimmer";
 export default function Header() {
   return (
-    <section className="hero">
-      <Head />
-      <Navbar />
-      <video
-        className="heroVideo"
-        autoPlay
-        muted
-        loop
-        playsInline
-      >
-        <source src={video} type="video/mp4" />
-      </video>  
-
+    <Swimmer>
       <div className="container heroContent">
         <div className="left">
           <h1>
@@ -35,7 +24,6 @@ export default function Header() {
           </p>
         </div>
       </div>
-
-    </section>
+    </Swimmer>
   );
 }

@@ -1,5 +1,3 @@
-import Navbar from "../../layout/navbar";
-import Head from "../../layout/header";
 import HomeAbout from "../../components/homecomponent/homeabout";
 import UpcomingEvents from "../../components/homecomponent/upcomingevent";
 import HomeRecords from "../../components/homecomponent/homerecord";
@@ -7,22 +5,11 @@ import BestRecords from "../../components/homecomponent/bestrecord";
 import Footer from "../../layout/footer";
 import HomeGallery from "../../components/homecomponent/homegallery";
 import HomeNews from "../../components/homecomponent/homenews";
-import video from "../../assets/animate2.mp4"
+import Swimmer from "../../layout/swimmer";
 export default function Home() {
     return (
         <div className="home-page">
-            <section className="hero">
-                <video
-                    className="heroVideo"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                >
-                    <source src={video} type="video/mp4" />
-                </video>
-                <Head />
-                <Navbar />
+            <Swimmer>
                 <div className="homeHeroContent">
 
                     <h1 className="homeHeroTitle">
@@ -41,9 +28,7 @@ export default function Home() {
                     </p>
 
                 </div>
-
-
-            </section>
+            </Swimmer>
             <HomeAbout />
             <UpcomingEvents />
             <HomeRecords />
