@@ -2,14 +2,16 @@ function Atheleform() {
     return (
         <form className="regForm">
 
-            {/* Athlete */}
+            <div className="regGridLabel">
             <p className="regRowLabel">Athlete</p>
+            <p className="regRowLabel">Govt-id</p>
+            </div>
             <div className="regGrid">
                 <input className="regInput" placeholder="First Name" />
-                <input className="regInput" placeholder="Last Name" />
+                <input className="regInput" placeholder="Govt-id" />
             </div>
 
-            {/* Email + Mobile */}
+       
             <div className="regGridLabel">
                 <p className="regRowLabel">Email</p>
                 <p className="regRowLabel">Mobile Number</p>
@@ -20,7 +22,6 @@ function Atheleform() {
                 <input className="regInput" placeholder="e.g., +60 12 345 678" />
             </div>
 
-            {/* DOB + Gender */}
             <div className="regGridLabel">
                 <p className="regRowLabel">Date of Birth</p>
                 <p className="regRowLabel">Gender</p>
@@ -30,8 +31,6 @@ function Atheleform() {
                 <input type="date" className="regInput" />
 
                 <div className="regField">
-
-
                     <select className="regSelect">
                         <option value="">Select Gender</option>
                         <option value="male">Male</option>
@@ -42,7 +41,7 @@ function Atheleform() {
 
             </div>
 
-            {/* State */}
+    
             <p className="regRowLabel">State / Region</p>
             <input className="regInput full" placeholder="State / Region" />
 
