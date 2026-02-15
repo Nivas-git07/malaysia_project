@@ -14,7 +14,7 @@ function CountUp({ value }) {
 
           let start = 0;
           const end = parseInt(value);
-          const duration = 1000; // animation speed
+          const duration = 1000; 
           const increment = end / (duration / 16);
 
           const timer = setInterval(() => {
