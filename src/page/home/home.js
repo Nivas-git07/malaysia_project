@@ -7,11 +7,20 @@ import BestRecords from "../../components/bestrecord";
 import Footer from "../../layout/footer";
 import HomeGallery from "../../components/homegallery";
 import HomeNews from "../../components/homenews";
+import video from "../../assets/animate2.mp4"
 export default function Home() {
     return (
         <div className="home-page">
             <section className="hero">
-                
+                <video
+                    className="heroVideo"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                >
+                    <source src={video} type="video/mp4" />
+                </video>
                 <Head />
                 <Navbar />
                 <div className="homeHeroContent">
@@ -36,12 +45,12 @@ export default function Home() {
 
             </section>
             <HomeAbout />
-            <UpcomingEvents/>
-            <HomeRecords/>
+            <UpcomingEvents />
+            <HomeRecords />
             <BestRecords />
-            <HomeGallery/>
-            <HomeNews/>
-            <Footer/>
+            <HomeGallery />
+            <HomeNews />
+            <Footer />
         </div>
     )
 }
