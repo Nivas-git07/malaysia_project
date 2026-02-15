@@ -1,3 +1,51 @@
+import { useEffect, useState, useRef } from "react";
+
+
+function CountUp({ value }) {
+
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+
+  useEffect(() => {
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+
+          let start = 0;
+          const end = parseInt(value);
+          const duration = 1000; // animation speed
+          const increment = end / (duration / 16);
+
+          const timer = setInterval(() => {
+            start += increment;
+
+            if (start >= end) {
+              start = end;
+              clearInterval(timer);
+            }
+
+            setCount(Math.floor(start));
+          }, 16);
+
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+
+  }, [value]);
+
+  return (
+    <h2 ref={ref} className="homeRecordCount">
+      {count}+
+    </h2>
+  );
+}
+
+/* 🔥 YOUR ORIGINAL COMPONENT */
 export default function HomeRecords(){
 
   const records = [
@@ -14,9 +62,10 @@ export default function HomeRecords(){
       <div className="homeRecordsContainer">
 
         {records.map((item,index)=>(
+
           <div className="homeRecordItem" key={index}>
 
-            <h2 className="homeRecordCount">{item.count}</h2>
+            <CountUp value={item.count.replace("+","")} />
 
             <p className="homeRecordTitle">{item.title}</p>
 
@@ -25,6 +74,7 @@ export default function HomeRecords(){
             </p>
 
           </div>
+
         ))}
 
       </div>
