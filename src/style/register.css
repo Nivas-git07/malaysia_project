@@ -26,6 +26,8 @@ body{
    
 }
 
+
+
 .hero::before{
   content:"";
   position:absolute;
