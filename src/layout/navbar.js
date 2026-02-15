@@ -11,7 +11,7 @@ function Navbar() {
 
             <ul className="menu">
                 <li onClick={() => { navigate("/") }}>HOME</li>
-                <li>ABOUT US</li>
+                <li onClick={() => { navigate("/about") }}>ABOUT US</li>
                 <li>MEMBERSHIP</li>
                 <li>ASSOCIATIONS</li>
                 <li  onClick={() => { navigate("/event") }}>EVENTS</li>
