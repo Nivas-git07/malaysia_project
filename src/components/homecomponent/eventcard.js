@@ -1,22 +1,22 @@
 import { FiArrowRight } from "react-icons/fi";
-
-export default function EventCard({ bg, logo, title, date, country }){
-
-  return(
+import { useNavigate } from "react-router-dom";
+export default function EventCard({ bg, logo, title, date, country }) {
+  const navigate = useNavigate();
+  return (
 
     <div className="eventCard">
 
-      <img src={bg} alt="event" className="eventBg"/>
+      <img src={bg} alt="event" className="eventBg" />
 
-      <div className="eventOverlay"/>
+      <div className="eventOverlay" />
 
       <div className="eventContent">
 
         <div className="eventLogoWrap">
-          <img src={logo} alt="logo"/>
+          <img src={logo} alt="logo" />
         </div>
 
-        <h3 className="eventTitle">
+        <h3 className="eventcardTitle">
           {title}
         </h3>
 
@@ -30,8 +30,8 @@ export default function EventCard({ bg, logo, title, date, country }){
           <span>{country}</span>
         </div>
 
-        <div className="eventRead">
-          Read More <FiArrowRight/>
+        <div className="eventRead" onClick={() => { navigate("/eventview") }}>
+          Read More <FiArrowRight />
         </div>
 
       </div>

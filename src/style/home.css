@@ -250,7 +250,7 @@
   width:80px;
 }
 
-.eventTitle{
+.eventcardTitle{
   margin-top:15px;
   font-weight:600;
    white-space:nowrap; 
@@ -789,7 +789,7 @@
 
 }
 
-/* ===== MAIN SECTION ===== */
+
 .eventDescSection{
   width:100%;
   padding:60px 20px;
@@ -800,7 +800,7 @@
   margin:auto;
 }
 
-/* ===== BANNER ===== */
+
 .eventBanner{
   position:relative;
   background:linear-gradient(90deg,#00005E,#282590);
@@ -811,7 +811,7 @@
   overflow:hidden;
 }
 
-/* LEFT & RIGHT WHITE GRADIENT BAR */
+
 .bannerBar{
   position:absolute;
   top:0;
@@ -832,7 +832,6 @@
   right:60px;
 }
 
-/* DATE TEXT */
 .eventDate{
   font-size:14px;
   letter-spacing:1px;
@@ -840,14 +839,13 @@
   opacity:0.9;
 }
 
-/* TITLE */
+
 .eventTitle{
   font-size:42px;
   font-weight:800;
   letter-spacing:1px;
 }
 
-/* ===== SUB TITLES ===== */
 .eventSubTitle{
   color:#c10000;
   margin-top:50px;
@@ -855,7 +853,6 @@
   font-size:24px;
 }
 
-/* ===== DETAILS GRID ===== */
 .eventDetailsGrid{
   display:flex;
   flex-direction:column;
