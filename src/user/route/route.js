@@ -5,8 +5,9 @@ import Home from "../page/home/home";
 import Event from "../page/event/event";
 import Eventview from "../page/eventdescription/eventview";
 import About from "../page/about/about";
-import Athelete from "../page/atheletes/athelete";
+import AllAthelete from "../page/allatheletes/athelete";
 import Association from "../page/association/association";
+import Athelete from "../page/athelete/athelteprofile";
 function Page() {
     return (
         <Routes>
@@ -16,8 +17,10 @@ function Page() {
             <Route path="/event" element={<Event />} />
             <Route path="/eventview" element={<Eventview />} />
             <Route path="/about" element={<About />} />
-            <Route path="/athelete" element={<Athelete />} />
+            <Route path="/allathelete" element={<AllAthelete />} />
             <Route path="/association" element={<Association />} />
+            <Route path="/athelete" element={<Athelete />} />
+
         </Routes>
     )
 }
