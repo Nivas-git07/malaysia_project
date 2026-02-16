@@ -13,8 +13,8 @@ function Navbar() {
                 <li onClick={() => { navigate("/") }}>HOME</li>
                 <li onClick={() => { navigate("/about") }}>ABOUT US</li>
                 <li onClick={() => { navigate("/athelete") }}>MEMBERSHIP</li>
-                <li>ASSOCIATIONS</li>
-                <li  onClick={() => { navigate("/event") }}>EVENTS</li>
+                <li onClick={() => { navigate("/association") }}>ASSOCIATIONS</li>
+                <li onClick={() => { navigate("/event") }}>EVENTS</li>
                 <li>NEWS</li>
                 <li>CONTACT</li>
             </ul>
