@@ -1,0 +1,111 @@
+/* ===== SECTION ===== */
+.featuredSection{
+  max-width:1300px;
+  margin:auto;
+  padding:80px 20px;
+}
+
+/* ===== HEADER ===== */
+.featuredTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:40px;
+  gap: 50px;
+}
+
+.featuredTitle{
+  font-family:"Oswald",sans-serif;
+  color:#c10000;
+  font-size:26px;
+  letter-spacing:1px;
+}
+
+.featuredNav button{
+  background:transparent;
+  border:1px solid #999;
+  border-radius:50%;
+  width:38px;
+  height:38px;
+  margin-left:8px;
+  cursor:pointer;
+}
+
+
+.featuredGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:45px;
+}
+
+
+.athleteCard{
+  position:relative;
+  border-radius:22px;
+  overflow:hidden;
+  height:420px;
+  cursor:pointer;
+}
+
+.athleteImg{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+
+.athleteOverlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,0.7),
+    rgba(0,0,0,0.2),
+    transparent
+  );
+}
+
+
+.athleteContent{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+
+  justify-content:flex-end;   
+  align-items:center;
+  text-align:center;
+
+  padding-bottom:70px;        
+  color:#fff;
+  z-index:2;
+}
+
+
+
+.athleteName{
+  font-size:18px;
+  margin-bottom:8px;
+}
+
+
+.athleteRecord{
+  font-size:32px;
+  font-weight:700;
+}
+
+
+@media(max-width:1024px){
+  .featuredAthleteGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+@media(max-width:600px){
+  .featuredAthleteGrid{
+    grid-template-columns:1fr;
+  }
+
+  .athleteRecord{
+    font-size:24px;
+  }
+}
