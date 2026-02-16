@@ -21,12 +21,15 @@ export default function FindAthlete() {
           
           <div className="findField">
             <label>Club</label>
-            <select className="findInput">
-              <option>--Select Club--</option>
-              <option>Selangor Finswimming Club</option>
-              <option>Kuala Lumpur Club</option>
-              <option>Johor Aquatic Club</option>
-            </select>
+           <div className="customSelect">
+    <select className="findInput">
+      <option>--Select Club--</option>
+      <option>Selangor Finswimming Club</option>
+      <option>Kuala Lumpur Club</option>
+      <option>Johor Aquatic Club</option>
+      <option>Penang Aquatic Club</option>
+    </select>
+  </div>
           </div>
 
          

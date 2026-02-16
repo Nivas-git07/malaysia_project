@@ -2,6 +2,7 @@
 import Footer from "../../layout/footer";
 import Swimmer from "../../layout/swimmer";
 import FeaturedAthletes from "../../components/athletecomponent/featuredathelete";
+import FindAthlete from "../../components/athletecomponent/findathelete";
 export default function Athelete() {
     return (
         <div>
@@ -12,7 +13,8 @@ export default function Athelete() {
                     </h1>
                 </div>
             </Swimmer>
-            <FeaturedAthletes/>
+            <FeaturedAthletes />
+            <FindAthlete />
 
 
             <Footer />

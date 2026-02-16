@@ -29,20 +29,7 @@ export default function FeaturedAthletes() {
             <div className="featuredGrid">
 
                 {athletes.map((item, index) => (
-                    //   <div className="featuredCard" key={index}>
-
-                    //     <img src={item.img} className="featuredImg"/>
-
-
-                    //     <div className="featuredStrip"/>
-
-
-                    //     <div className="featuredContent">
-                    //       <p className="featuredName">{item.name}</p>
-                    //       <h3 className="featuredRecord">{item.record}</h3>
-                    //     </div>
-
-                    //   </div>
+                 
                     <div className="athleteCard" key={index}>
 
                         <img src={item.img} alt="athlete" className="athleteImg" />

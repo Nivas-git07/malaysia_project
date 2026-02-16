@@ -109,3 +109,143 @@
     font-size:24px;
   }
 }
+
+/* ===== SECTION ===== */
+.findAthleteSection{
+  width:100%;
+  padding:30px 20px;
+}
+
+/* MAX WIDTH 1300PX */
+.findAthleteContainer{
+  max-width:1300px;
+  margin:auto;
+}
+
+/* TITLE */
+.findAthleteTitle{
+  color:#c10000;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+/* ROW */
+.findAthleteRow{
+  display:grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap:25px;
+  align-items:end;
+}
+
+/* FIELD */
+.findField{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+.findField label{
+  font-size:16px;
+  color:#444;
+  margin-top: 25px;
+}
+
+
+.findInput{
+  height:48px;
+  padding:0 14px;
+  border:1px solid #ddd;
+  outline:none;
+  background:#f7f7f7;
+  border-radius:4px;
+  font-size:15px;
+}
+
+
+.customSelect{
+  position:relative;
+}
+
+
+.customSelect select{
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+
+  width:100%;
+  height:48px;
+  padding:0 45px 0 14px;
+
+  border:1px solid #ddd;
+  border-radius:6px;
+  background:#f6f6f6;
+  font-size:15px;
+  cursor:pointer;
+  transition:0.25s;
+}
+
+
+.customSelect select:focus{
+  border-color:#d00000;
+  background:#fff;
+  box-shadow:0 0 0 2px rgba(208,0,0,0.08);
+}
+
+
+.customSelect::after{
+  content:"▼";
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:12px;
+  color:#d00000;
+  pointer-events:none;
+}
+
+.findButtonWrap{
+  display:flex;
+}
+
+.findBtn{
+  background:#c10000;
+  color:#fff;
+  border:none;
+  padding:0 28px;
+  height:48px;
+  border-radius:6px;
+  font-weight:600;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.findBtn:hover{
+  background:#a80000;
+}
+/* TABLET */
+@media(max-width:1024px){
+  .findAthleteRow{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .findButtonWrap{
+    grid-column: span 2;
+    justify-content:flex-start;
+  }
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .findAthleteRow{
+    grid-template-columns:1fr;
+  }
+
+  .findButtonWrap{
+    grid-column:auto;
+  }
+
+  .findBtn{
+    width:100%;
+  }
+}
+
