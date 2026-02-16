@@ -1,0 +1,206 @@
+/* Container & Background */
+.adminWrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.bgLayer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+}
+
+.bgLayer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Darkened background to match your photo */
+  background: rgba(0, 0, 0, 0.82); 
+  z-index: -1;
+}
+
+/* Back Link - Simple text, no border */
+.backNav {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  z-index: 10;
+}
+
+.backNav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.8;
+}
+
+/* Perfect Vertical and Horizontal Centering */
+.adminCenter {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* This ensures it won't go above the screen */
+  padding-top: 40px; /* Offset for the overlapping logo height */
+}
+
+/* THE PERFECT BOX */
+.adminBox {
+  width: 500px;           /* Balanced width: Not too thin, not too wide */
+  min-height: 440px;      /* Reduced height to keep it tight to the content */
+  background: #ffffff;
+  padding: 24px 45px;     /* Slightly more side padding for horizontal feel */
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers content vertically within the smaller height */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;     /* Optional: a tiny radius makes it look more "premium" */
+}
+/* THE FULLY COVERED LOGO CIRCLE */
+.logoWrapper {
+  position: absolute;
+  /* Reduced from -70px to -60px to keep it centered on the top edge */
+  top: -60px; 
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  
+  /* Slightly smaller dimensions */
+  width: 120px;
+  height: 120px;
+  
+  /* Perfect circle */
+  border-radius: 50%;
+  
+  /* Your specific Red Border */
+  border: 4px solid #ED1D24; 
+  
+  /* The Secret Sauce: Ensures the logo image is clipped to the circle */
+  overflow: hidden; 
+  background: #ffffff; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  
+  /* Centers the image perfectly inside */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoWrapper img {
+  /* This forces the logo to fill the entire 120px circle without gaps */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  display: block;
+}
+
+/* Adjust the title to be tight against the logo with no letter gaps */
+/* Title is close to logo, but fields stay below */
+/* Title positioned below the logo, slightly to the right, with a clean weight */
+.adminTitle {
+  /* Moves it below the logo so there is no overlap */
+  margin-top: 25px; 
+  
+  /* Pushes the text slightly to the right */
+  padding-left: 10px; 
+  
+  /* Space before the Email field starts */
+  margin-bottom: 30px; 
+  
+  text-align: center;
+  color: #ED1D24;
+  font-size: 28px; 
+  
+  /* "Little Bold" - 600 weight is clean and professional */
+  font-weight: 600; 
+  text-transform: uppercase;
+  
+  /* Tight letters as requested, no wide gaps */
+  letter-spacing: -0.2px; 
+  line-height: 1.1; 
+  display: block;
+}
+/* Form Layout */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* Extra breathing room between the Email and Password groups */
+  margin-bottom: 20px; 
+}
+
+.formGroup label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  display: block;         /* Ensures label stays above input */
+}
+
+.loginBtn {
+  margin-top: 15px;       /* Pushes the button just enough from the password field */
+  height: 52px;
+}
+
+.formGroup input {
+  height: 50px;
+  background: #fff;
+  border: 1px solid #C9C9C9;
+  padding: 0 15px;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+}
+
+.passwordInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 15px;
+  color: #777;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Button */
+.loginBtn {
+  width: 100%;
+  height: 56px;
+  background: #ED1D24;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.loginBtn:hover {
+  background: #d1191f;
+}
+
+/* Slim Footer */
+.footer {
+  height: 70px; 
+  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 12px;
+}
