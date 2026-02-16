@@ -1,6 +1,6 @@
 /* ===== SECTION ===== */
 .featuredSection{
-  max-width:1300px;
+  max-width:1350px;
   margin:auto;
   padding:80px 20px;
 }
@@ -96,12 +96,12 @@
 
 
 @media(max-width:1024px){
-  .featuredAthleteGrid{
+  .featuredGrid{
     grid-template-columns:repeat(2,1fr);
   }
 }
 @media(max-width:600px){
-  .featuredAthleteGrid{
+  .featuredGrid {
     grid-template-columns:1fr;
   }
 
@@ -118,7 +118,7 @@
 
 /* MAX WIDTH 1300PX */
 .findAthleteContainer{
-  max-width:1300px;
+  max-width:1350px;
   margin:auto;
 }
 
@@ -249,3 +249,162 @@
   }
 }
 
+.athListSection{
+  padding:60px 20px;
+}
+
+.athListContainer{
+  max-width:1350px;
+  margin:auto;
+}
+
+.athListGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:40px;
+}
+
+.athListCard{
+  background:#ece6ea;
+  border-radius:28px;
+  padding:70px 20px 30px;
+  position:relative;
+  text-align:center;
+  overflow:hidden;
+}
+
+.athListTop{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:90px;
+  background:#2c2a86;
+  border-top-left-radius:28px;
+  border-top-right-radius:28px;
+  clip-path:polygon(0 0,100% 0,100% 60%,70% 60%,50% 100%,30% 60%,0 60%);
+}
+
+.athListImgWrap{
+  position:absolute;
+  top:25px;
+  left:50%;
+  transform:translateX(-50%);
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  border:5px solid #2c2a86;
+  overflow:hidden;
+  background:#fff;
+}
+
+.athListImgWrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.athListName{
+  margin-top:80px;
+  font-size:18px;
+  font-weight:600;
+}
+
+.athListDivider{
+  width:80%;
+  height:1px;
+  background:#2c2a86;
+  margin:15px auto;
+}
+
+.athListInfo{
+  background:#2c2a86;
+  color:#fff;
+  border-radius:6px;
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  margin-top:15px;
+}
+
+.athListLabel{
+  font-size:12px;
+  opacity:.8;
+}
+
+.athListValue{
+  font-size:16px;
+  margin-top: 15px;
+  font-weight:600;
+}
+@media(max-width:1024px){
+  .athListGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+  .athListGrid{
+    grid-template-columns:1fr;
+  }
+}
+
+/* WRAPPER */
+.athPaginationWrap{
+  margin-top:40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+/* LEFT TEXT */
+.athPaginationInfo{
+  font-size:14px;
+  color:#666;
+}
+
+/* RIGHT PAGINATION */
+.eventsPagination{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.eventsPagination button{
+  width:36px;
+  height:36px;
+  border-radius:6px;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.eventsPagination button:hover{
+  background:#f3f3f3;
+}
+
+/* ACTIVE RED */
+.eventsPagination button.active{
+  background:#d00000;
+  color:#fff;
+}
+
+.dots{
+  padding:0 6px;
+  color:#888;
+}
+@media(max-width:600px){
+
+  .athPaginationWrap{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:15px;
+  }
+
+}
