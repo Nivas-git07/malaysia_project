@@ -1,7 +1,5 @@
-import Navbar from "../user/layout/navbar";
-import Head from "../user/layout/header";
-import video from "../assets/animate2.mp4"
-import Swimmer from "../user/layout/swimmer";
+
+import Swimmer from "../layout/swimmer";
 export default function Header() {
   return (
     <Swimmer>
