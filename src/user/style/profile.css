@@ -174,6 +174,7 @@ margin-top: 15px;
 
 .perfDateWrap{
   position:relative;
+  width:100%;
 }
 
 .perfDateIcon{
@@ -181,10 +182,12 @@ margin-top: 15px;
   right:12px;
   top:50%;
   transform:translateY(-50%);
-  color:#c10000;
+  font-size:18px;
+  color:#d00000;
+  pointer-events:none;   
 }
 
-/* FIND BUTTON */
+
 .perfFindBtn{
   height:48px;
   padding:0 32px;
@@ -196,7 +199,6 @@ margin-top: 15px;
   cursor:pointer;
 }
 
-/* TABLE */
 .perfTable{
   width:100%;
   margin-top: 35px;
@@ -220,7 +222,7 @@ margin-top: 15px;
   font-size:14px;
 }
 
-/* ALTERNATE ROW BACKGROUND */
+
 .perfRow:nth-child(even){
   background:#F9F6F9;
 }
@@ -242,4 +244,74 @@ margin-top: 15px;
     row-gap:10px;
   }
 
+}
+
+
+/* MAIN WRAPPER */
+.entityPaginationWrap{
+  max-width:1300px;
+  margin:40px auto 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:15px;
+}
+
+/* LEFT TEXT */
+.entityPaginationInfo{
+  font-size:14px;
+  color:#555;
+}
+
+/* RIGHT CONTROLS */
+.entityPaginationControls{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom: 50px;
+}
+
+/* NUMBER BUTTON */
+.entityPageBtn{
+  border:none;
+  background:transparent;
+  padding:8px 12px;
+  font-size:14px;
+  cursor:pointer;
+  border-radius:6px;
+  transition:0.25s;
+}
+
+/* ACTIVE PAGE */
+.entityPageBtn.active{
+  background:#c70000;
+  color:#fff;
+}
+
+/* ARROWS */
+.entityPageArrow{
+  border:none;
+  background:transparent;
+  font-size:18px;
+  cursor:pointer;
+  padding:6px;
+  color:#333;
+}
+
+.entityPageArrow:disabled{
+  opacity:0.3;
+  cursor:not-allowed;
+}
+
+@media(max-width:768px){
+
+  .entityPaginationWrap{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .entityPaginationControls{
+    flex-wrap:wrap;
+  }
 }
