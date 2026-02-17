@@ -7,6 +7,7 @@ import HomeGallery from "../../components/homecomponent/homegallery";
 import HomeNews from "../../components/homecomponent/homenews";
 import Swimmer from "../../layout/swimmer";
 export default function Home() {
+
     return (
         <div className="home-page">
             <Swimmer>
