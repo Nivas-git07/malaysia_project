@@ -247,7 +247,6 @@ margin-top: 15px;
 }
 
 
-/* MAIN WRAPPER */
 .entityPaginationWrap{
   max-width:1300px;
   margin:40px auto 0;
@@ -258,13 +257,11 @@ margin-top: 15px;
   gap:15px;
 }
 
-/* LEFT TEXT */
 .entityPaginationInfo{
   font-size:14px;
   color:#555;
 }
 
-/* RIGHT CONTROLS */
 .entityPaginationControls{
   display:flex;
   align-items:center;
@@ -272,7 +269,7 @@ margin-top: 15px;
   margin-bottom: 50px;
 }
 
-/* NUMBER BUTTON */
+
 .entityPageBtn{
   border:none;
   background:transparent;
@@ -285,7 +282,7 @@ margin-top: 15px;
 
 /* ACTIVE PAGE */
 .entityPageBtn.active{
-  background:#c70000;
+  background:#c10000;
   color:#fff;
 }
 

@@ -12,7 +12,8 @@ function Navbar() {
             <ul className="menu">
                 <li onClick={() => { navigate("/") }}>HOME</li>
                 <li onClick={() => { navigate("/about") }}>ABOUT US</li>
-                <li onClick={() => { navigate("/allathelete") }}>MEMBERSHIP</li>
+                <li onClick={() => { navigate("/allathelete") }}>ATHELETE</li>
+                <li>MEMBERSHIP</li>
                 <li onClick={() => { navigate("/association") }}>ASSOCIATIONS</li>
                 <li onClick={() => { navigate("/event") }}>EVENTS</li>
                 <li>NEWS</li>

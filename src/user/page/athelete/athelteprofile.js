@@ -9,14 +9,14 @@ export default function Athelete() {
             <Swimmer>
                 <div className="homeHeroContent">
                     <h1 className="homeHeroTitle">
-                        ATHELETE
+                       Cameron Williamson
                     </h1>
                 </div>
             </Swimmer>
 
             <AthleteProfile />
 
-            <AthletePerformance/>
+            <AthletePerformance />
 
             <Footer />
 

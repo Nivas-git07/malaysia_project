@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import a1 from "../../assets/image.png";
-export default function AthleteGrid() {
+import { useNavigate } from "react-router-dom";
 
+export default function AthleteGrid() {
+    const navigate = useNavigate();
     const athletes = Array.from({ length: 100 }, (_, i) => ({
         id: i + 1,
         name: "Cameron Williamson",
@@ -42,7 +44,9 @@ export default function AthleteGrid() {
                 <div className="athListGrid">
 
                     {currentAthletes.map(item => (
-                        <div className="athListCard" key={item.id}>
+                        <div className="athListCard" key={item.id} onClick={()=>{
+                            navigate("/athelete")
+                        }}>
 
                             <div className="athListTop" />
 

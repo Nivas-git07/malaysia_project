@@ -9,22 +9,22 @@ export default function AthleteProfile() {
 
       <div className="athProfileContainer">
 
-        {/* LEFT IMAGE */}
+       
         <div className="athProfileLeft">
           <div className="athProfileImgWrap">
             <img src={a1} alt="athlete" />
           </div>
         </div>
 
-        {/* RIGHT CONTENT */}
+       
         <div className="athProfileRight">
 
-          {/* NAME BAR */}
+        
           <div className="athProfileNameBar">
-            JANE COOPER
+           Cameron Williamson
           </div>
 
-          {/* INFO GRID */}
+          
           <div className="athProfileInfoGrid">
 
             <div>
@@ -44,7 +44,7 @@ export default function AthleteProfile() {
 
           </div>
 
-          {/* MEDALS */}
+          
           <div className="athMedalRow">
 
             <div className="athMedalMain">
