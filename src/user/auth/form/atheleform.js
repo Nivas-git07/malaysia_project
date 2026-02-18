@@ -14,7 +14,8 @@ function Atheleform() {
 
 
 
-    const handleclick = async () => {
+    const handleclick = async (e) => {
+         e.preventDefault();
         try {
             const response = athelete_register(name, govt_id, email, phonenumber, gender, dob, state, password);
             console.log(response.data);
@@ -25,7 +26,7 @@ function Atheleform() {
     }
 
     return (
-        <form className="regForm" onSubmit={handleclick()}>
+        <form className="regForm" onSubmit={handleclick}>
 
             <div className="regGridLabel">
                 <p className="regRowLabel">Athlete</p>
