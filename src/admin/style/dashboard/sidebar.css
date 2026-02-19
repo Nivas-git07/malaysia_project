@@ -1,0 +1,102 @@
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background: #000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s ease;
+  font-family: Arial, sans-serif;
+}
+
+/* LOGO AREA */
+.sidebarTop {
+  height: 140px;
+  background: #8b0e12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebarTop img {
+  width: 80px;
+}
+
+/* MENU */
+.sidebarMenu {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 26px;
+  text-decoration: none;
+  color: #ed1d24;
+  transition: 0.2s ease;
+  font-size: 15px;
+}
+
+.menuItem svg {
+  stroke: #ed1d24;
+}
+
+.menuItem:hover {
+  background: #0d0d0d;
+}
+
+/* ACTIVE ROUTE */
+.menuItem.active {
+  background: #ed1d24;
+  color: #fff;
+  font-weight: 600;
+}
+
+.menuItem.active svg {
+  stroke: #fff;
+}
+
+/* LOGOUT */
+.logoutBar {
+  margin-top: auto;
+  background: #3a0003;
+  padding: 18px 26px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+}
+
+/* MOBILE BUTTON */
+.mobileToggle {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  background: #ed1d24;
+  padding: 8px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+  .mobileToggle {
+    display: block;
+  }
+
+  .sidebar {
+    left: -260px;
+  }
+
+  .sidebar.show {
+    left: 0;
+  }
+}
