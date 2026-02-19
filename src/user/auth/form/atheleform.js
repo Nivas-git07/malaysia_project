@@ -6,18 +6,18 @@ function Atheleform() {
     const [name, setname] = useState("");
     const [govt_id, setgovt_id] = useState("");
     const [email, setemail] = useState("");
-    const [phonenumber, setphonenumber] = useState("");
+    const [phonenumber, setphonenumber] = useState();
     const [gender, setgender] = useState("");
     const [dob, setdob] = useState("");
     const [password, setpassword] = useState("");
     const [state, setstate] = useState("");
 
-
+    const role = "ATHELETE";
 
     const handleclick = async (e) => {
-         e.preventDefault();
+        e.preventDefault();
         try {
-            const response = athelete_register(name, govt_id, email, phonenumber, gender, dob, state, password);
+            const response = athelete_register(name, govt_id, email, phonenumber, role, gender, dob, state, password);
             console.log(response.data);
         }
         catch (e) {
@@ -70,8 +70,8 @@ function Atheleform() {
                     <select className="regSelect" value={gender}
                         onChange={(e) => setgender(e.target.value)}>
                         <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
                     </select>
                 </div>
 
