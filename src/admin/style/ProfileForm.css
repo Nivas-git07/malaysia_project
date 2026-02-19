@@ -1,0 +1,253 @@
+
+/* ===== FONT (EXACT DASHBOARD STYLE) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+body {
+  margin: 0;
+  background: #f5f1f3;
+  font-family: 'Inter', sans-serif;
+}
+
+.pageWrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+  position: relative;
+  height: 120px;
+}
+
+/* ===== SEARCH BAR (LIKE IMAGE) ===== */
+
+.navSearchWrapper {
+  position: absolute;
+  width: 418.46px;
+  height: 57.47px;
+  top: 39.58px;
+  left: 352.72px;
+  background: #ECEAEC;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+}
+
+.navSearchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ⭐ REAL SEARCH ICON (thin magnifier) */
+.searchIcon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.searchIcon::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 2px;
+  bottom: -3px;
+  right: -5px;
+  transform: rotate(45deg);
+}
+
+/* ===== BELL BUTTON (SOFT CIRCLE) ===== */
+
+.bell {
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  top: 39px;
+  left: 1280.05px;
+  background: #ECEAEC;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* red notification dot */
+.bellDot {
+  width: 8px;
+  height: 8px;
+  background: #ED1D24;
+  border-radius: 50%;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.navAvatar {
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  top: 39px;
+  left: 1340px;
+  border-radius: 50%;
+}
+
+/* ================= TITLE ================= */
+
+.personalTitle {
+  position: absolute;
+  width: 1040px;
+  height: 50px;
+  top: 137px;
+  left: 353px;
+  padding: 10px 14px;
+  background: #ED1D240D;   /* ⭐ EXACT COLOR YOU ASKED */
+  color: #ED1D24;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+}
+
+/* ================= CARD ================= */
+
+.profileContainer {
+  position: absolute;
+  width: 983px;
+  top: 230px;   /* slightly reduced to stop scroll */
+  left: 384px;
+  background: white;
+  padding: 35px 40px;
+  border-radius: 6px;
+}
+
+
+.avatarBox {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.avatarBox img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.editIcon {
+  position: absolute;
+  bottom: 5px;
+  left: 55px;
+  color: #ED1D24;
+}
+
+/* FORM GRID */
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.formGroup label {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  padding: 14px;
+  background: #F3F2F3;
+  border: none;
+  font-family: 'Inter', sans-serif;
+}
+
+/* BUTTONS */
+
+.buttonRow {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+}
+
+.discardBtn {
+  width: 45%;
+  padding: 18px;
+  border: 2px solid #ED1D24;
+  background: transparent;
+  color: #ED1D24;
+  font-weight: 600;
+}
+
+.saveBtn {
+  width: 45%;
+  padding: 18px;
+  background: #ED1D24;
+  border: none;
+  color: white;
+  font-weight: 600;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 1200px) {
+
+  .profileContainer,
+  .personalTitle,
+  .navSearchWrapper {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+  }
+
+ /* ===== BELL EXACT STYLE ===== */
+
+.bell {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  top: 50.58px;
+  left: 1280.05px;
+  background: #ECEAEC;   /* light grey like image */
+  border-radius: 50%;    /* perfect circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* red notification dot */
+.bellDot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #ED1D24;
+  border-radius: 50%;
+  top: 6px;
+  right: 6px;
+}
+
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .buttonRow {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .discardBtn,
+  .saveBtn {
+    width: 100%;
+  }
+}
