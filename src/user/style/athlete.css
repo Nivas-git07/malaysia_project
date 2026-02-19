@@ -1,0 +1,549 @@
+/* ===== SECTION ===== */
+.featuredSection{
+  max-width:1350px;
+  margin:auto;
+  padding:80px 20px;
+}
+
+/* ===== HEADER ===== */
+.featuredTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:40px;
+  gap: 50px;
+}
+
+.featuredTitle{
+  font-family:"Oswald",sans-serif;
+  color:#c10000;
+  font-size:26px;
+  letter-spacing:1px;
+}
+
+.featuredNav button{
+  background:transparent;
+  border:1px solid #999;
+  border-radius:50%;
+  width:38px;
+  height:38px;
+  margin-left:8px;
+  cursor:pointer;
+}
+
+
+.featuredGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:45px;
+}
+
+
+.athleteCard{
+  position:relative;
+  border-radius:22px;
+  overflow:hidden;
+  height:420px;
+  cursor:pointer;
+}
+
+.athleteImg{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+
+.athleteOverlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,0.7),
+    rgba(0,0,0,0.2),
+    transparent
+  );
+}
+
+
+.athleteContent{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;   
+  align-items:center;
+  text-align:center;
+  padding-bottom:70px;        
+  color:#fff;
+  z-index:2;
+}
+
+
+
+.athleteName{
+  font-size:18px;
+  margin-bottom:8px;
+}
+
+
+.athleteRecord{
+  font-size:32px;
+  font-weight:700;
+}
+
+
+@media(max-width:1024px){
+  .featuredGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+@media(max-width:600px){
+  .featuredGrid {
+    grid-template-columns:1fr;
+  }
+
+  .athleteRecord{
+    font-size:24px;
+  }
+}
+
+
+.findAthleteSection{
+  width:100%;
+  padding:30px 20px;
+}
+
+
+.findAthleteContainer{
+  max-width:1350px;
+  margin:auto;
+}
+
+
+.findAthleteTitle{
+  color:#c10000;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+
+.findAthleteRow{
+  display:grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap:25px;
+  align-items:end;
+}
+
+
+.findField{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+.findField label{
+  font-size:16px;
+  color:#444;
+  margin-top: 25px;
+}
+
+
+.findInput{
+  height:48px;
+  padding:0 14px;
+  border:1px solid #ddd;
+  outline:none;
+  background:#f7f7f7;
+  border-radius:4px;
+  font-size:15px;
+}
+
+
+.customSelect{
+  position:relative;
+}
+
+
+.customSelect select{
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+
+  width:100%;
+  height:48px;
+  padding:0 45px 0 14px;
+
+  border:1px solid #ddd;
+  border-radius:6px;
+  background:#f6f6f6;
+  font-size:15px;
+  cursor:pointer;
+  transition:0.25s;
+}
+
+
+.customSelect select:focus{
+  border-color:#d00000;
+  background:#fff;
+  box-shadow:0 0 0 2px rgba(208,0,0,0.08);
+}
+
+
+.customSelect::after{
+  content:"▼";
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:12px;
+  color:#d00000;
+  pointer-events:none;
+}
+
+.findButtonWrap{
+  display:flex;
+}
+
+.findBtn{
+  background:#c10000;
+  color:#fff;
+  border:none;
+  padding:0 28px;
+  height:48px;
+  border-radius:6px;
+  font-weight:600;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.findBtn:hover{
+  background:#a80000;
+}
+
+@media(max-width:1024px){
+  .findAthleteRow{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .findButtonWrap{
+    grid-column: span 2;
+    justify-content:flex-start;
+  }
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .findAthleteRow{
+    grid-template-columns:1fr;
+  }
+
+  .findButtonWrap{
+    grid-column:auto;
+  }
+
+  .findBtn{
+    width:100%;
+  }
+}
+
+.athListSection{
+  padding:60px 20px;
+}
+
+.athListContainer{
+  max-width:1350px;
+  margin:auto;
+}
+
+.athListGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:40px;
+}
+
+.athListCard{
+  background:#ece6ea;
+  border-radius:28px;
+  padding:70px 20px 30px;
+  position:relative;
+  text-align:center;
+  overflow:hidden;
+}
+
+.athListTop{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:90px;
+  background:#2c2a86;
+  border-top-left-radius:28px;
+  border-top-right-radius:28px;
+  clip-path:polygon(0 0,100% 0,100% 60%,70% 60%,50% 100%,30% 60%,0 60%);
+}
+
+.athListImgWrap{
+  position:absolute;
+  top:45px;
+  left:50%;
+  transform:translateX(-50%);
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  border:5px solid #2c2a86;
+  overflow:hidden;
+  background:#fff;
+}
+
+.athListImgWrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.athListName{
+  margin-top:120px;
+  font-size:18px;
+  font-weight:600;
+}
+
+.athListDivider{
+  width:80%;
+  height:1px;
+  background:#2c2a86;
+  margin:15px auto;
+}
+
+.athListInfo{
+  background:#2c2a86;
+  color:#fff;
+  border-radius:6px;
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  margin-top:15px;
+}
+
+.athListLabel{
+  font-size:12px;
+  opacity:.8;
+}
+
+.athListValue{
+  font-size:16px;
+  margin-top: 15px;
+  font-weight:600;
+}
+@media(max-width:1024px){
+  .athListGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+  .athListGrid{
+    grid-template-columns:1fr;
+  }
+}
+
+.athPaginationWrap{
+  margin-top:40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+/* LEFT TEXT */
+.athPaginationInfo{
+  font-size:14px;
+  color:#666;
+}
+
+/* RIGHT PAGINATION */
+.eventsPagination{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.eventsPagination button{
+  width:36px;
+  height:36px;
+  border-radius:6px;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.eventsPagination button:hover{
+  background:#f3f3f3;
+}
+
+
+.eventsPagination button.active{
+  background:#d00000;
+  color:#fff;
+}
+
+.dots{
+  padding:0 6px;
+  color:#888;
+}
+@media(max-width:600px){
+
+  .athPaginationWrap{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:15px;
+  }
+
+}
+
+
+/* associatedstate */
+
+
+.assocStateSection {
+  padding: 100px 24px;
+  background: #F7F7FB; 
+}
+
+
+.assocStateContainer {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+
+.assocStateHeader {
+  margin-bottom: 50px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.assocStateTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: #c10000;
+  letter-spacing:1px;
+}
+
+
+.assocStateGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 40px;
+  align-items: stretch;   
+}
+
+/* CARD */
+.assocCard {
+  background:#ECEAF1;
+  border-radius: 12px;
+  height:380px;
+  position:relative;
+  text-align:center;
+  padding-top:95px;  
+  transition:all .25s ease;
+}
+
+
+.assocCard:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 40px rgba(0,0,0,0.08);
+}
+
+
+.assocTopBar{
+  position:absolute;
+  top:95px;
+  left:0;
+  width:100%;
+  height:12px;
+  background:#D7D5E4;
+}
+
+
+
+.assocLogoWrap{
+  position:absolute;
+  top:30px;
+  left:50%;
+  transform:translateX(-50%);
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:#E7CFCF;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.assocLogoWrap img{
+  width:70px;
+  height:70px;
+  object-fit:contain;
+  border-radius: 50%;
+}
+
+.assocName{
+  margin-top:80px;
+  font-size:24px;
+  font-weight:700;
+  color:#2D2E8B;
+}
+
+.assocMeta{
+  margin-top:6px;
+  font-size:15px;
+  color:#666;
+}
+
+
+.assocBtn{
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:58px;
+  background:#2D2E8B;
+  color:#fff;
+  border:none;
+  font-weight:600;
+  cursor:pointer;
+    border-bottom-right-radius: 12px;
+     border-bottom-left-radius: 12px;
+}
+
+
+.assocStateFooter {
+  margin-top: 34px;
+  text-align: right;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+@media(max-width:1024px){
+  .assocStateGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+  .assocStateGrid{
+    grid-template-columns:1fr;
+  }
+
+  .assocStateTitle{
+    font-size:26px;
+  }
+
+}

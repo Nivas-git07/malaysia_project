@@ -17,7 +17,7 @@ export default function HomeNews(){
 
     <section className="homeNewsSection">
 
-      {/* HEADER */}
+     
       <div className="homeNewsHeader">
 
         <h2 className="homeNewsTitle">NEWS</h2>
@@ -29,7 +29,7 @@ export default function HomeNews(){
 
       </div>
 
-      {/* GRID */}
+      
       <div className="homeNewsGrid">
         {newsData.map((item,index)=>(
           <NewsCard key={index} {...item}/>

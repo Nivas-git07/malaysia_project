@@ -1,5 +1,34 @@
-export default function MemberLogin(){
-  return(
+import { useState } from "react"
+import { login_user } from "../../api/auth";
+
+export default function MemberLogin() {
+  const [formdata, setformdate] = useState({
+    email: "",
+    govt_id: "",
+    password: ""
+  })
+
+  const handlechange = (e) => {
+    const { name, value } = e.target;
+    setformdate(
+      prev => ({
+        ...prev,
+        [name]: value
+      })
+    )
+  }
+
+  const handlesubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = login_user(formdata.govt_id, formdata.email, formdata.password);
+      console.log(response.data)
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+  return (
 
     <section className="loginSection">
 
@@ -7,24 +36,24 @@ export default function MemberLogin(){
 
         <h2 className="loginTitle">MEMBER LOGIN</h2>
 
-        <form className="loginForm">
+        <form className="loginForm" onSubmit={handlesubmit}>
 
-          {/* NAME */}
+
           <div className="loginField">
-            <label className="loginLabel">Your Name</label>
-            <input type="text" className="loginInput"/>
+            <label className="loginLabel">Govt_id</label>
+            <input type="text" className="loginInput" name="govt_id" value={formdata.govt_id} onChange={handlechange} />
           </div>
 
-          {/* EMAIL */}
+
           <div className="loginField">
             <label className="loginLabel">Email</label>
-            <input type="email" className="loginInput"/>
+            <input type="email" className="loginInput" name="email" value={formdata.email} onChange={handlechange} />
           </div>
 
-          {/* PASSWORD */}
+
           <div className="loginField">
             <label className="loginLabel">Password</label>
-            <input type="password" className="loginInput"/>
+            <input type="password" className="loginInput" name="password" value={formdata.password} onChange={handlechange} />
           </div>
 
           <div className="loginBtnWrap">

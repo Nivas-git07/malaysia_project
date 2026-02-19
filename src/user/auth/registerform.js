@@ -11,7 +11,7 @@ export default function RegistrationForm() {
 
                 <h2 className="regTitle">REGISTRATION</h2>
 
-                {/* ===== TAB SWITCH ===== */}
+              
                 <div className="regTabs">
                     <button
                         className={`regTab ${activeTab === "state" ? "active" : ""}`}
