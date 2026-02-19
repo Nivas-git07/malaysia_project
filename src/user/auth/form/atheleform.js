@@ -6,24 +6,37 @@ function Atheleform() {
     const [name, setname] = useState("");
     const [govt_id, setgovt_id] = useState("");
     const [email, setemail] = useState("");
-    const [phonenumber, setphonenumber] = useState();
+    const [phonenumber, setphonenumber] = useState("");
     const [gender, setgender] = useState("");
     const [dob, setdob] = useState("");
     const [password, setpassword] = useState("");
     const [state, setstate] = useState("");
 
-    const role = "ATHELETE";
+    const role = "ATHLETE";
 
     const handleclick = async (e) => {
         e.preventDefault();
+
         try {
-            const response = athelete_register(name, govt_id, email, phonenumber, role, gender, dob, state, password);
+            const response = await athelete_register(
+                name,
+                govt_id,
+                email,
+                Number(phonenumber),
+                role,
+                gender,
+                dob,
+                state,
+                password
+            );
+
             console.log(response.data);
+            alert("register successfully")
+        } catch (e) {
+            console.log(e.response?.data);
         }
-        catch (e) {
-            console.log(e)
-        }
-    }
+    };
+
 
     return (
         <form className="regForm" onSubmit={handleclick}>

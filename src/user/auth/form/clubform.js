@@ -21,15 +21,28 @@ function ClubForm() {
   };
 
   const handlesumbit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = club_register(formData.email, formData.password, formData.clubOwner, formData.phone, formData.state, formData.clubName, formData.clubCode, formData.address);
-      console.log(response.date)
-    }
-    catch (e) {
-      console.log(e)
-    }
+  e.preventDefault();
+
+  try {
+    const response = await club_register(
+      formData.email,
+      formData.password,
+      formData.clubOwner,
+      Number(formData.phone),
+      formData.state,
+      formData.clubName,
+      formData.clubCode,
+      formData.address
+    );
+
+    console.log(response.data);
+    alert("Club Registration successfull ")
+
+  } catch (e) {
+    console.log(e.response?.data);
   }
+};
+
 
   return (
 

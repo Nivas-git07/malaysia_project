@@ -41,19 +41,19 @@ export default function MemberLogin() {
 
           <div className="loginField">
             <label className="loginLabel">Govt_id</label>
-            <input type="text" className="loginInput" value={formdata.govt_id} onChange={handlechange} />
+            <input type="text" className="loginInput" name="govt_id" value={formdata.govt_id} onChange={handlechange} />
           </div>
 
 
           <div className="loginField">
             <label className="loginLabel">Email</label>
-            <input type="email" className="loginInput" value={formdata.email} onChange={handlechange} />
+            <input type="email" className="loginInput" name="email" value={formdata.email} onChange={handlechange} />
           </div>
 
 
           <div className="loginField">
             <label className="loginLabel">Password</label>
-            <input type="password" className="loginInput" value={formdata.password} onChange={handlechange} />
+            <input type="password" className="loginInput" name="password" value={formdata.password} onChange={handlechange} />
           </div>
 
           <div className="loginBtnWrap">
