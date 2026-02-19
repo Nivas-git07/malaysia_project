@@ -23,7 +23,7 @@ function ClubForm() {
   const handlesumbit = async (e) => {
     e.preventDefault();
     try {
-      const response = athelete_register(formData.email, formData.password, formData.clubOwner, formData.phone, formData.state, formData.clubName, formData.clubCode, formData.address);
+      const response = club_register(formData.email, formData.password, formData.clubOwner, formData.phone, formData.state, formData.clubName, formData.clubCode, formData.address);
       console.log(response.date)
     }
     catch (e) {
