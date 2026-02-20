@@ -14,14 +14,12 @@ export default function StatePage() {
 
     const location = useLocation();
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [location.pathname]);
+    
 
     return (
         <>
-            <div className="home-page">
-                <Swimmer>
+            <div className="home-page" key={location.pathname}>
+                <Swimmer >
                     <div className="homeHeroContent">
 
                         <h1 className="homeHeroTitle animateTitle">
@@ -49,11 +47,11 @@ export default function StatePage() {
 
                     </div>
                 </Swimmer>
-                <HomeAbout />
+                <HomeAbout name={location.pathname.split("/")[1]} />
                 <UpcomingEvents />
                 <HomeRecords />
                 <BestRecords />
-                <Homeassoc />
+                {/* <Homeassoc /> */}
                 <HomeGallery />
                 <HomeNews />
                 <Footer />

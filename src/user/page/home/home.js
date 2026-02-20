@@ -40,7 +40,7 @@ export default function Home() {
 
                 </div>
             </Swimmer>
-            <HomeAbout />
+            <HomeAbout name="Malaysia" />
             <UpcomingEvents />
             <HomeRecords />
             <BestRecords />
