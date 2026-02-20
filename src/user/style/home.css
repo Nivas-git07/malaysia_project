@@ -1027,13 +1027,6 @@
 }
 
 /* GRID */
-.mfsaAssocCards{
-  /* margin-top: 20px; */
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:50px;
-  
-}
 
 /* CARD */
 .mfsaAssocItem{
@@ -1119,4 +1112,40 @@
   .mfsaAssocMainTitle{
     font-size:24px;
   }
+}
+
+
+.mfsaAssocSlider{
+  overflow:hidden;
+  width:100%;
+}
+
+.mfsaAssocTrack{
+  display:flex;
+  gap:50px;
+  width:max-content;
+
+  animation: mfsaSlideMove 20s linear infinite;
+}
+
+/* CARD SIZE */
+.mfsaAssocItem{
+  min-width:380px;
+}
+
+/* SLIDE ANIMATION */
+@keyframes mfsaSlideMove{
+
+  0%{
+    transform:translateX(0);
+  }
+
+  100%{
+    transform:translateX(-50%);
+  }
+
+}
+
+.mfsaAssocSlider:hover .mfsaAssocTrack{
+  animation-play-state: paused;
 }
