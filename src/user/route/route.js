@@ -10,6 +10,7 @@ import Association from "../page/association/association";
 import Athelete from "../page/athelete/athelteprofile";
 import ScrollToTop from "../hooks/scrolltotop";
 import StatePage from "../page/state/state";
+import ClubPage from "../page/club/club";
 function Page() {
     return (
         <>
@@ -19,6 +20,7 @@ function Page() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/:location" element={<StatePage />} />
+                <Route path="/:location/:club" element={<ClubPage />} />
                 <Route path="/event" element={<Event />} />
                 <Route path="/eventview" element={<Eventview />} />
                 <Route path="/about" element={<About />} />

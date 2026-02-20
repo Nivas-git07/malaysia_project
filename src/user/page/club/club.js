@@ -10,7 +10,7 @@ import HomeNews from "../../components/homecomponent/homenews";
 import Swimmer from "../../layout/swimmer";
 import Homeassoc from "../../components/homecomponent/assosiationstate";
 import HomeClub from "../../components/homecomponent/clubcard";
-export default function StatePage() {
+export default function ClubPage() {
 
     const location = useLocation();
 
@@ -27,7 +27,7 @@ export default function StatePage() {
                             <span className="word">WELCOME</span>
                             <span className="word">TO</span>
 
-                            <span className="word red">{decodeURIComponent(location.pathname.split("/")[1])}</span>
+                            <span className="word red">{decodeURIComponent(location.pathname.split("/")[2])}</span>
 
                             <br />
 
@@ -47,12 +47,12 @@ export default function StatePage() {
 
                     </div>
                 </Swimmer>
-                <HomeAbout name={decodeURIComponent(location.pathname.split("/")[1])} />
+                <HomeAbout name={decodeURIComponent(location.pathname.split("/")[2])} />
                 <UpcomingEvents />
                 <HomeRecords />
                 <BestRecords />
             
-                <HomeClub />
+                {/* <HomeClub /> */}
                 <HomeGallery />
                 <HomeNews />
                 <Footer />
