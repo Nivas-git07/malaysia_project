@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { login_user } from "../../api/auth";
-
+import { useNavigate } from "react-router-dom";
 export default function MemberLogin() {
+  const navigate = useNavigate();
   const [formdata, setformdate] = useState({
     email: "",
     govt_id: "",
@@ -23,6 +24,10 @@ export default function MemberLogin() {
     try {
       const response = login_user(formdata.govt_id, formdata.email, formdata.password);
       console.log(response.data)
+      alert("login successfully");
+
+      formdata("");
+      navigate("/")
     }
     catch (e) {
       console.log(e)
