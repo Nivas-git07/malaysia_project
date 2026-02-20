@@ -1005,3 +1005,118 @@
   }
 
 }
+
+
+.mfsaAssocBlock{
+  padding:20px 20px;
+  background:#fff;
+  margin-bottom: 20px;
+}
+
+.mfsaAssocWrap{
+  max-width:1350px;
+  margin:auto;
+}
+
+.mfsaAssocMainTitle{
+  font-size:28px;
+  font-weight:700;
+  color:#c10000;
+  margin-bottom:55px;
+  letter-spacing:1px;
+}
+
+/* GRID */
+.mfsaAssocCards{
+  /* margin-top: 20px; */
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:50px;
+  
+}
+
+/* CARD */
+.mfsaAssocItem{
+  background:#f9fafc;
+  border-radius:18px;
+  padding:40px 28px;    
+  text-align:center;
+  border:1px solid #eee;
+  transition:.35s ease;
+  min-height:350px;    
+  display:flex;
+  flex-direction:column;
+  justify-content:center; 
+}
+
+.mfsaAssocItem:hover{
+  transform:translateY(-8px);
+  box-shadow:0 12px 30px rgba(0,0,0,0.08);
+}
+
+/* TOP TEXT */
+.mfsaAssocTopText{
+  font-size:13px;
+  font-weight:600;
+  color:#282590;
+  margin-bottom:15px;
+}
+
+/* LOGO CIRCLE */
+.mfsaAssocCircle{
+  width:120px;
+  height:120px;
+  margin:auto;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+.mfsaAssocCircle img{
+  width:80px;
+}
+
+/* STATE NAME */
+.mfsaAssocName{
+  font-size:24px;
+  font-weight:700;
+  margin-top:16px;
+  color:#222;
+}
+
+/* BUTTON */
+.mfsaAssocViewBtn{
+  margin-top:22px;
+  padding:12px 26px;
+  border-radius:30px;
+  border:1px solid #282590;
+  background:transparent;
+  color:#282590;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.mfsaAssocViewBtn:hover{
+  background:#282590;
+  color:#fff;
+}
+
+@media(max-width:1024px){
+  .mfsaAssocCards{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+  .mfsaAssocCards{
+    grid-template-columns:1fr;
+  }
+
+  .mfsaAssocMainTitle{
+    font-size:24px;
+  }
+}
