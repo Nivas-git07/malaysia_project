@@ -50,7 +50,7 @@ export default function HomeAbout({ name }) {
 
         </div>
 
-        {/* RIGHT IMAGE */}
+    
         <div className="homeAboutRight">
           <img src={aboutImg} alt="about swimmer"/>
         </div>

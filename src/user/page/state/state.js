@@ -9,7 +9,7 @@ import HomeGallery from "../../components/homecomponent/homegallery";
 import HomeNews from "../../components/homecomponent/homenews";
 import Swimmer from "../../layout/swimmer";
 import Homeassoc from "../../components/homecomponent/assosiationstate";
-
+import HomeClub from "../../components/homecomponent/clubcard";
 export default function StatePage() {
 
     const location = useLocation();
@@ -51,7 +51,8 @@ export default function StatePage() {
                 <UpcomingEvents />
                 <HomeRecords />
                 <BestRecords />
-                {/* <Homeassoc /> */}
+            
+                <HomeClub />
                 <HomeGallery />
                 <HomeNews />
                 <Footer />
