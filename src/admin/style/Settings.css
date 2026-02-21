@@ -65,12 +65,13 @@ body {
 
 /* ===== BELL BUTTON (SOFT CIRCLE) ===== */
 
+/* ===== BELL ICON ===== */
 .bell {
   position: absolute;
-  width: 54px;
-  height: 54px;
+  width: 46px;      /* ⭐ reduced from 54px */
+  height: 46px;
   top: 39px;
-  left: 1280.05px;
+  right: 110px;
   background: #ECEAEC;
   border-radius: 50%;
   display: flex;
@@ -80,21 +81,22 @@ body {
 
 /* red notification dot */
 .bellDot {
-  width: 8px;
-  height: 8px;
+  width: 7px;       /* ⭐ slightly smaller */
+  height: 7px;
   background: #ED1D24;
   border-radius: 50%;
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 12px;        /* adjusted for new size */
+  right: 12px;
 }
 
+/* ===== AVATAR ===== */
 .navAvatar {
   position: absolute;
-  width: 54px;
-  height: 54px;
+  width: 46px;      /* ⭐ reduced from 54px */
+  height: 46px;
   top: 39px;
-  left: 1340px;
+  right: 40px;
   border-radius: 50%;
 }
 
@@ -102,16 +104,20 @@ body {
 
 .personalTitle {
   position: absolute;
-  width: 1040px;
-  height: 50px;
   top: 137px;
   left: 353px;
+  right: 40px;   /* 👈 leaves space on right side */
+
+  height: 50px;
   padding: 10px 14px;
-  background: #ED1D240D;   /* ⭐ EXACT COLOR YOU ASKED */
+
+  background: #ED1D240D;
   color: #ED1D24;
+
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 0.5px;
+
   display: flex;
   align-items: center;
 }
