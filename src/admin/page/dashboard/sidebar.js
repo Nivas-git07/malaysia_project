@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import '../../style/dashboard/sidebar.css'
 import { NavLink } from "react-router-dom";
+import logo from "../../assets/logo.jpg";
 import {
   Home,
   User,
@@ -28,7 +29,7 @@ export default function Sidebar() {
 
         {/* LOGO AREA */}
         <div className="sidebarTop">
-          <img src="/logo.png" alt="logo"/>
+          <img src={logo} alt="logo"/>
         </div>
 
         {/* MENU */}
