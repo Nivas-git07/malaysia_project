@@ -1,0 +1,10 @@
+/* ===== MAIN LAYOUT FIX ===== */
+
+.layout {
+  display: flex;
+}
+
+.content {
+  margin-left: 260px;   /* SAME as sidebar width */
+  width: calc(100% - 260px);
+}
