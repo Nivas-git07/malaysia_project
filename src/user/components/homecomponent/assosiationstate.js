@@ -25,7 +25,7 @@ export default function Homeassoc() {
                                 <img src={logo} alt="logo" />
                             </div>
 
-                            <h3 className="mfsaAssocName">Johor</h3>
+                            <h3 className="mfsaAssocName">Tamil Nadu</h3>
 
                             <button className="mfsaAssocViewBtn" onClick={() => goToState("tamilnadu")}>
                                 View State →
@@ -39,7 +39,7 @@ export default function Homeassoc() {
                                 <img src={logo} alt="logo" />
                             </div>
 
-                            <h3 className="mfsaAssocName">Penang</h3>
+                            <h3 className="mfsaAssocName">Kerala</h3>
 
                             <button className="mfsaAssocViewBtn" onClick={() => goToState("kerala")}>
                                 View State →
@@ -53,9 +53,9 @@ export default function Homeassoc() {
                                 <img src={logo} alt="logo" />
                             </div>
 
-                            <h3 className="mfsaAssocName">Kuala Lumpur</h3>
+                            <h3 className="mfsaAssocName">Jammu and Kashmir</h3>
 
-                            <button className="mfsaAssocViewBtn" onClick={() => goToState("tamilnadu")}>
+                            <button className="mfsaAssocViewBtn" onClick={() => goToState("JammuandKashmir")}>
                                 View State →
                             </button>
                         </div>
@@ -67,9 +67,9 @@ export default function Homeassoc() {
                                 <img src={logo} alt="logo" />
                             </div>
 
-                            <h3 className="mfsaAssocName">Johor</h3>
+                            <h3 className="mfsaAssocName">Andhra Pradesh</h3>
 
-                            <button className="mfsaAssocViewBtn" onClick={() => goToState("kerala")}>
+                            <button className="mfsaAssocViewBtn" onClick={() => goToState("AndhraPradesh")}>
                                 View State →
                             </button>
                         </div>
@@ -81,9 +81,9 @@ export default function Homeassoc() {
                                 <img src={logo} alt="logo" />
                             </div>
 
-                            <h3 className="mfsaAssocName"> Penang</h3>
+                            <h3 className="mfsaAssocName">Delhi</h3>
 
-                            <button className="mfsaAssocViewBtn" onClick={() => goToState("tamilnadu")}>
+                            <button className="mfsaAssocViewBtn" onClick={() => goToState("Delhi")}>
                                 View State →
                             </button>
                         </div>
@@ -95,9 +95,9 @@ export default function Homeassoc() {
                                 <img src={logo} alt="logo" />
                             </div>
 
-                            <h3 className="mfsaAssocName">Kuala Lumpur</h3>
+                            <h3 className="mfsaAssocName">Madhya Pradesh</h3>
 
-                            <button className="mfsaAssocViewBtn" onClick={() => goToState("Kuala Lumpur")}>
+                            <button className="mfsaAssocViewBtn" onClick={() => goToState("MadhyaPradesh")}>
                                 View State →
                             </button>
                         </div>
