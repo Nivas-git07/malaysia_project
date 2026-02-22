@@ -9,6 +9,8 @@
   flex-direction: column;
   transition: 0.3s ease;
   font-family: Arial, sans-serif;
+
+  z-index: 9999;   /* ⭐ ADD THIS LINE */
 }
 
 /* LOGO AREA */
