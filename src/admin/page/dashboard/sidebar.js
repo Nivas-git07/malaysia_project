@@ -73,10 +73,10 @@ export default function Sidebar() {
         </nav>
 
         {/* LOGOUT */}
-        <div className="logoutBar">
-          <LogOut size={18}/>
+       <NavLink to="/admin" className="logoutBar">
+           <LogOut size={18}/>
           <span>Logout</span>
-        </div>
+        </NavLink>
 
       </aside>
     </>
