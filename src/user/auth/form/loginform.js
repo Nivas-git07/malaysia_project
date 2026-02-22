@@ -19,20 +19,30 @@ export default function MemberLogin() {
     )
   }
 
-  const handlesubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = login_user(formdata.govt_id, formdata.email, formdata.password);
-      console.log(response.data)
-      alert("login successfully");
+const handlesubmit = async (e) => {
+  e.preventDefault();
 
-      formdata("");
-      navigate("/")
-    }
-    catch (e) {
-      console.log(e)
-    }
+  console.log("STEP 1"); // should print
+
+  try {
+    console.log("STEP 2"); // should print
+
+    const response = await login_user(
+      formdata.govt_id,
+      formdata.email,
+      formdata.password
+    );
+
+    console.log("STEP 3"); // ⭐ DOES THIS PRINT?
+    console.log(response);
+
+    alert("login successfully");
+    navigate("/");
+
+  } catch (e) {
+    console.log("ERROR OCCURED:", e);
   }
+};
   return (
 
     <section className="loginSection">

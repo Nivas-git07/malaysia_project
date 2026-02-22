@@ -63,5 +63,5 @@ export const club_register = (
 
 export const login_user = (gov_id, email_id, password) => {
     console.log(gov_id, email_id, password)
-    API.post("/auth/login/", { gov_id, email_id, password })
+    return API.post("/auth/login/", { gov_id, email_id, password })
 }
