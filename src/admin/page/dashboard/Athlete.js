@@ -47,7 +47,6 @@ function Athlete() {
 
       <div className="AthleteTitle">ATHLETE</div>
         <div className="athleteCard">
-
         {/* ===== FILTER BAR ===== */}
         <div className="athleteFilters">
           <select>
