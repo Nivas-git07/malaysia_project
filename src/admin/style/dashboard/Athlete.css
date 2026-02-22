@@ -30,6 +30,7 @@
   left:353px;
   right:40px;
   background:#ffffff;
+  padding:25px;
   box-sizing:border-box;
   height:auto;          /* ⭐ makes box end at content */
 }
