@@ -8,10 +8,11 @@ function Navbar() {
     // const navigate = useNavigate();
     const [user, setUser] = useState(null);
 
-    // ⭐ Check session from backend
+
     useEffect(() => {
         get_home_data()
             .then((res) => {
+                console.log("Home data response:", res.data);
                 setUser(res.data);
             })
             .catch(() => {
@@ -39,11 +40,11 @@ function Navbar() {
                 {user ? (
                     <div className="userBox">
                         <img
-                            src={user.profile_image}
+                            src="https://static.vecteezy.com/system/resources/previews/009/734/564/non_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"
                             alt="user"
                             className="userImg"
                         />
-                        <span className="userName">{user.name}</span>
+                        <span className="userName">{user.full_name}</span>
                     </div>
                 ) : (
                     <>
