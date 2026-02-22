@@ -2,6 +2,31 @@
     background-color: white !important;
 }
 
+/* ⭐ USER PROFILE BOX */
+.userBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+/* ⭐ PROFILE IMAGE */
+.userImg {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ED1D24;
+}
+
+/* ⭐ USER NAME */
+.userName {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+}
+
 .homeHeroContent{
   max-width:1000px;
   margin:auto;
