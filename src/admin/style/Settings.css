@@ -34,6 +34,41 @@ body {
   align-items: center;
   padding: 0 18px;
 }
+.profileContainer{
+  position: relative;   /* IMPORTANT */
+}
+
+/* RIGHT EDIT ICON */
+.profileEditIcon{
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 28px;
+  height: 28px;
+  background: #ED1D24;
+  color: #fff;
+  border-radius: 50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+.editBanner{
+  background: rgba(237, 29, 36, 0.06);
+  color:#ED1D24;
+  padding:5px 8px;        /* 🔥 smaller box size */
+  border-radius:6px;
+  font-size:17px;
+  font-weight:500;
+  margin-bottom:12px;
+  display:inline-block;   /* ⭐ prevents full-width stretch */
+}
+.readOnlyField{
+  background:#f5f5f5;
+  color:#888;
+  cursor:not-allowed;
+  border:1px solid #e0e0e0;
+}
 
 .navSearchInput {
   flex: 1;
