@@ -264,39 +264,131 @@
 .dot.black{ background:#000; }
 /* ================= MOBILE RESPONSIVE ================= */
 
+/* ================= RESPONSIVE FIX (TABLET + MOBILE) ================= */
+
 @media(max-width:1200px){
 
-  .nationalWrapper{
-    position:relative;
-    left:auto;
-    right:auto;
-    top:auto;
-    margin:20px;
-  }
+/* ===== TITLE BAR ===== */
+.AthleteReport{
+  position:relative;
+  left:auto;
+  right:auto;
+  top:auto;
+  margin:20px;
+}
+.tableBlock{
+  width:100%;
+  overflow-x:auto;      /* ⭐ allows horizontal scroll */
+}
 
-  .filterRow{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:14px;
-  }
+/* keep desktop grid layout */
+.tableHead,
+.tableRow{
+  min-width:850px;      /* ⭐ table keeps structure */
+}
 
-  .chartArea{
-    flex-direction:column;
-    gap:30px;
-  }
+/* smoother mobile look */
+.tableRow{
+  background:#fff;
+}
 
-  .legendBlock{
-    width:100%;
-  }
 
-  .tableHead{
-    display:none;
-  }
+/* ===== MAIN CARD ===== */
+.nationalWrapper{
+  position:relative;
+  left:auto;
+  right:auto;
+  top:auto;
+  margin:0 20px;
+}
 
-  .tableRow{
-    grid-template-columns:1fr;
-    gap:8px;
-    background:#fafafa;
-    margin-bottom:10px;
-  }
+/* ===== TABS WRAP ===== */
+
+
+/* ===== FILTER ROW STACK ===== */
+.filterRow{
+  flex-direction:column;
+  align-items:stretch;
+  gap:12px;
+}
+
+.filtersLeft{
+  flex-wrap:wrap;
+}
+
+.exportBtn{
+  width:100%;
+}
+
+/* ===== TABLE MOBILE STYLE ===== */
+
+
+/* ===== CHART AREA RESPONSIVE ===== */
+
+.chartArea{
+  width:100%;
+  height:auto;
+  flex-direction:column;
+  align-items:center;
+  gap:30px;
+}
+
+/* DONUT CENTER */
+.donut{
+  margin:0;
+  width:180px;
+  height:180px;
+}
+
+/* INNER HOLE SCALE */
+.donut::after{
+  width:105px;
+  height:105px;
+}
+
+/* LEGEND FULL WIDTH */
+.legendBlock{
+  width:100%;
+  height:auto;
+}
+
+/* SELECT ALIGN */
+.selectType{
+  justify-content:space-between;
+  width:100%;
+}
+
+.selectType select{
+  width:100%;
+}
+
+}
+
+/* ================= SMALL MOBILE ================= */
+
+@media(max-width:600px){
+
+.tab{
+  flex:1;
+  text-align:center;
+  padding:10px;
+  font-size:13px;
+}
+
+.filtersLeft select,
+.filtersLeft input{
+  width:100%;
+}
+
+.percent{
+  width:48px;
+  height:48px;
+  font-size:12px;
+}
+
+.legendItem{
+  grid-template-columns:20px 1fr 60px;
+  font-size:14px;
+}
+
 }

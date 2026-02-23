@@ -126,9 +126,9 @@ body {
 
 .profileContainer {
   position: absolute;
-  width: 983px;
+  width: 1119px;
   top: 230px;   /* slightly reduced to stop scroll */
-  left: 384px;
+  left: 355px;
   background: white;
   padding: 35px 40px;
   border-radius: 6px;
