@@ -205,55 +205,53 @@ body {
 
 /* ================= MOBILE ================= */
 
-@media (max-width: 1200px) {
+/* ================= MOBILE NAVBAR ALIGNMENT ================= */
 
-  .profileContainer,
-  .personalTitle,
-  .navSearchWrapper {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: 100%;
-  }
+@media (max-width:900px){
 
- /* ===== BELL EXACT STYLE ===== */
+/* SEARCH BAR POSITION */
+.navSearchWrapper{
+  position:absolute;
+  top:39px;
 
-.bell {
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  top: 50.58px;
-  left: 1280.05px;
-  background: #ECEAEC;   /* light grey like image */
-  border-radius: 50%;    /* perfect circle */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  left:70px;                 /* ⭐ space for menu icon */
+  right:120px;               /* ⭐ leaves space for bell + avatar */
+
+  width:auto;                /* ⭐ IMPORTANT */
+  height:42px;
 }
 
-/* red notification dot */
-.bellDot {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: #ED1D24;
-  border-radius: 50%;
-  top: 6px;
-  right: 6px;
+/* BELL POSITION */
+.bell{
+  position:absolute;
+  top:39px;
+  right:70px;                /* ⭐ sits before avatar */
+  width:38px;
+  height:38px;
+}
+
+/* AVATAR POSITION */
+.navAvatar{
+  position:absolute;
+  top:39px;
+  right:16px;
+  width:38px;
+  height:38px;
+}
+
+}
+
+/* ================= SMALL PHONES ================= */
+
+@media (max-width:480px){
+
+.navSearchWrapper{
+  left:60px;
+  right:110px;
+  height:38px;
+}
+
 }
 
 
-  .formGrid {
-    grid-template-columns: 1fr;
-  }
 
-  .buttonRow {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .discardBtn,
-  .saveBtn {
-    width: 100%;
-  }
-}
