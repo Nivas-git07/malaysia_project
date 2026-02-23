@@ -171,3 +171,57 @@
   text-decoration:underline;
   cursor:pointer;
 }
+/* ================= MOBILE FIX ================= */
+@media (max-width:768px){
+
+  /* REMOVE ABSOLUTE LAYOUT */
+  .dataTitle,
+  .overviewCards,
+  .stateTitle,
+  .stateCard{
+    position:relative;
+    left:auto;
+    right:auto;
+    top:auto;
+    margin-left:80px; /* space for mobile sidebar */
+    margin-right:15px;
+  }
+
+  /* STACK CARDS */
+  .overviewCards{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:10px;
+  }
+
+  .overviewCard{
+    width:100%;
+    text-align:left;
+    padding:18px;
+  }
+
+  .overviewCard h2{
+    font-size:22px;
+  }
+
+  /* FILTERS STACK */
+  .stateFilters{
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .findBtn{
+    width:100%;
+  }
+
+  /* TABLE SCROLL */
+  .stateTable{
+    overflow-x:auto;
+  }
+
+  .stateHead,
+  .stateRow{
+    min-width:650px;
+  }
+}
