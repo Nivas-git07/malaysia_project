@@ -1,25 +1,34 @@
+/* ================= SIDEBAR ================= */
+
 .sidebar {
   width: 260px;
   height: 100vh;
   background: #000;
+
   position: fixed;
   left: 0;
   top: 0;
+
   display: flex;
   flex-direction: column;
-  transition: 0.3s ease;
+
+  transition: left 0.3s ease;
   font-family: Arial, sans-serif;
 
-  z-index: 9999;   /* ⭐ ADD THIS LINE */
+  z-index: 9999;
 }
 
-/* LOGO AREA */
+/* ================= LOGO ================= */
+
 .sidebarTop {
   height: 140px;
   background: #8b0e12;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  flex-shrink: 0;   /* ⭐ prevents shrinking */
 }
 
 .sidebarTop img {
@@ -27,22 +36,28 @@
   border-radius: 50%;
 }
 
-/* MENU */
+/* ================= MENU ================= */
+
 .sidebarMenu {
   margin-top: 15px;
   display: flex;
   flex-direction: column;
+  flex: 1;                 /* ⭐ fills remaining space */
+  overflow-y: auto;        /* ⭐ scroll if many items */
 }
 
 .menuItem {
   display: flex;
   align-items: center;
   gap: 18px;
-  padding: 20px 26px;
+
+  padding: 18px 24px;
+
   text-decoration: none;
   color: #ed1d24;
-  transition: 0.2s ease;
   font-size: 15px;
+
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .menuItem svg {
@@ -54,6 +69,7 @@
 }
 
 /* ACTIVE ROUTE */
+
 .menuItem.active {
   background: #ed1d24;
   color: #fff;
@@ -64,31 +80,60 @@
   stroke: #fff;
 }
 
-/* LOGOUT */
+/* ================= LOGOUT ================= */
+
 .logoutBar {
   margin-top: auto;
   background: #3a0003;
   padding: 18px 26px;
   margin-bottom: 20px;
+
   display: flex;
   align-items: center;
   gap: 12px;
   color: #fff;
+
+  flex-shrink: 0;
 }
 
-/* MOBILE BUTTON */
+/* ================= MOBILE TOGGLE ================= */
+
 .mobileToggle {
   display: none;
   position: fixed;
-  top: 12px;
-  left: 12px;
+  top: 14px;
+  left: 14px;
+
   background: #ed1d24;
-  padding: 8px;
+  padding: 10px;
   cursor: pointer;
-  z-index: 1000;
+
+  z-index: 10000;
+  border-radius: 6px;
 }
 
-/* RESPONSIVE */
+/* ================= DESKTOP LARGE ================= */
+
+@media (max-width: 1200px) {
+
+  .sidebar {
+    width: 240px;      /* ⭐ slightly smaller on laptop */
+  }
+
+}
+
+/* ================= TABLET ================= */
+
+@media (max-width: 900px) {
+
+  .sidebar {
+    width: 220px;
+  }
+
+}
+
+/* ================= MOBILE ================= */
+
 @media (max-width: 768px) {
 
   .mobileToggle {
@@ -96,10 +141,11 @@
   }
 
   .sidebar {
-    left: -260px;
+    left: -260px;     /* hide sidebar */
+    width: 260px;
   }
 
   .sidebar.show {
-    left: 0;
+    left: 0;          /* slide in */
   }
 }

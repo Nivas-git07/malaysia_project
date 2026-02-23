@@ -18,6 +18,10 @@ export default function Sidebar() {
 
   const [open, setOpen] = useState(false);
 
+  const closeSidebar = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       {/* MOBILE MENU BUTTON */}
@@ -27,54 +31,51 @@ export default function Sidebar() {
 
       <aside className={`sidebar ${open ? "show" : ""}`}>
 
-        {/* LOGO AREA */}
         <div className="sidebarTop">
           <img src={logo} alt="logo"/>
         </div>
 
-        {/* MENU */}
         <nav className="sidebarMenu">
 
-          <NavLink to="/home" className="menuItem">
+          <NavLink to="/home" className="menuItem" onClick={closeSidebar}>
             <Home size={20}/>
             <span>Home</span>
           </NavLink>
 
-          <NavLink to="/athlete" className="menuItem">
+          <NavLink to="/athlete" className="menuItem" onClick={closeSidebar}>
             <User size={20}/>
             <span>Athlete</span>
           </NavLink>
 
-          <NavLink to="/calendar" className="menuItem">
+          <NavLink to="/calendar" className="menuItem" onClick={closeSidebar}>
             <Calendar size={20}/>
             <span>Calendar</span>
           </NavLink>
 
-          <NavLink to="/tickets" className="menuItem">
+          <NavLink to="/tickets" className="menuItem" onClick={closeSidebar}>
             <Ticket size={20}/>
             <span>Tickets</span>
           </NavLink>
 
-          <NavLink to="/report" className="menuItem">
+          <NavLink to="/report" className="menuItem" onClick={closeSidebar}>
             <BarChart2 size={20}/>
             <span>Report</span>
           </NavLink>
 
-          <NavLink to="/news" className="menuItem">
+          <NavLink to="/news" className="menuItem" onClick={closeSidebar}>
             <Newspaper size={20}/>
             <span>News</span>
           </NavLink>
 
-          <NavLink to="/settings" className="menuItem">
+          <NavLink to="/settings" className="menuItem" onClick={closeSidebar}>
             <Settings size={20}/>
             <span>Settings</span>
           </NavLink>
 
         </nav>
 
-        {/* LOGOUT */}
-       <NavLink to="/admin" className="logoutBar">
-           <LogOut size={18}/>
+        <NavLink to="/admin" className="logoutBar" onClick={closeSidebar}>
+          <LogOut size={18}/>
           <span>Logout</span>
         </NavLink>
 

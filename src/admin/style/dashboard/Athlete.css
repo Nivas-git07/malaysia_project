@@ -233,29 +233,84 @@
 
 @media(max-width:768px){
 
+/* ===== MAIN LAYOUT ===== */
+
 .AthleteTitle,
 .athleteCard{
   margin-left:0;
-  margin-right:20px;
+  margin-right:16px;
+  margin-top:20px;
 }
+
+/* ===== FILTERS ===== */
 
 .athleteFilters{
   flex-direction:column;
+  gap:12px;
 }
+
+.findBtn{
+  height:44px;
+}
+
+/* ===== TABLE HEADER HIDE ===== */
 
 .athleteHead{
   display:none;
 }
 
+/* ===== MOBILE ROW CARD STYLE ===== */
+
 .athleteRow{
   display:flex;
   flex-direction:column;
   align-items:flex-start;
-  gap:10px;
+  gap:14px;
+
+  background:#fff;
+  border:1px solid #f0f0f0;
+  border-radius:8px;
+  padding:16px;
+  margin-bottom:14px;
 }
+
+/* COUNTRY + FLAG */
+
+.country{
+  width:100%;
+}
+
+/* PROFILE SECTION */
+
+.athleteInfo{
+  width:100%;
+}
+
+/* TEXT IMPROVEMENT */
+
+.athleteInfo p{
+  font-size:13px;
+}
+
+/* VIEW PROFILE BUTTON RIGHT */
 
 .viewProfile{
   align-self:flex-end;
+  font-size:14px;
+  font-weight:600;
+}
+
+/* FOOTER STACK */
+
+.tableFooter{
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.pagination{
+  width:100%;
+  display:flex;
+  flex-wrap:wrap;
 }
 
 }
