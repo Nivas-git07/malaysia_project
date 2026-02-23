@@ -5,15 +5,26 @@ import Navbar from "../navbar/nav";
 
 function Settings() {
   const [editMode, setEditMode] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [firstName, setFirstName] = useState("Jane Cooper");
+  const [lastName, setLastName] = useState("Wade Warren");
+  const [phone, setPhone] = useState("252.555.0126");
   return (
     <>
       <Navbar />
       <div className="personalTitle">PERSONAL INFORMATION</div>
-    
 
       <div className="profileContainer">
-          {editMode && <div className="editBanner">Editing mode enabled</div>}
-        <div className="profileEditIcon" onClick={() => setEditMode(true)}>
+        {/* {editMode && <div className="editBanner">Editing mode enabled</div>} */}
+        {showPopup && <div className="editPopup">Editing enabled</div>}
+        <div
+          className="profileEditIcon"
+          onClick={() => {
+            setEditMode(true);
+            setShowPopup(true);
+            setTimeout(() => setShowPopup(false), 1500); // auto hide
+          }}
+        >
           <FiEdit2 size={14} />
         </div>
 
@@ -25,7 +36,8 @@ function Settings() {
           <div className="formGroup">
             <label>First Name</label>
             <input
-              value="Jane Cooper"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               readOnly={!editMode}
               className={!editMode ? "readOnlyField" : ""}
             />
@@ -34,7 +46,8 @@ function Settings() {
           <div className="formGroup">
             <label>Last Name</label>
             <input
-              value="Wade Warren"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
               readOnly={!editMode}
               className={!editMode ? "readOnlyField" : ""}
             />
@@ -52,7 +65,8 @@ function Settings() {
           <div className="formGroup">
             <label>Phone number</label>
             <input
-              value="252.555.0126"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               readOnly={!editMode}
               className={!editMode ? "readOnlyField" : ""}
             />
@@ -66,11 +80,9 @@ function Settings() {
           <div className="formGroup">
             <label>State</label>
 
-            <select
-              value="Malaysia"
-              disabled
-              className="readOnlyField"
-            ></select>
+            <select value="Malaysia" disabled className="readOnlyField">
+              <option value="Malaysia">Malaysia</option>
+            </select>
           </div>
         </div>
 

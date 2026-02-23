@@ -39,7 +39,7 @@ body {
 }
 
 /* RIGHT EDIT ICON */
-.profileEditIcon{
+/* .profileEditIcon{
   position: absolute;
   top: 16px;
   right: 16px;
@@ -52,6 +52,73 @@ body {
   align-items:center;
   justify-content:center;
   cursor:pointer;
+} */
+.profileEditIcon{
+  position:absolute;
+  top:16px;
+  right:16px;
+  width:34px;
+  height:34px;
+  background:#ED1D24;
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:5;                 /* ⭐ important for mobile tap */
+  touch-action:manipulation; /* ⭐ better mobile click */
+  transition:all 0.25s ease;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* 🔥 HOVER EFFECT */
+.profileEditIcon:hover{
+  transform:translateY(-2px) scale(1.05);
+  box-shadow:0 6px 14px rgba(237,29,36,0.25);
+}
+
+.editPopup{
+  position:absolute;
+  top:10px;      /* ⭐ keep inside container */
+  right:60px;
+  background:#111;
+  color:#fff;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:6px;
+  opacity:0.95;
+  white-space:nowrap;   /* prevents wrapping in mobile */
+  z-index:4;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(-4px);}
+  to{opacity:0.95; transform:translateY(0);}
+}
+/* BUTTON EFFECTS */
+.discardBtn,
+.saveBtn{
+  transition:all 0.2s ease;
+  cursor:pointer;
+}
+
+/* HOVER */
+.discardBtn:hover{
+  background:#ED1D24;
+  color:#fff;
+}
+
+.saveBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 14px rgba(237,29,36,0.25);
+}
+
+/* CLICK PRESS EFFECT */
+.discardBtn:active,
+.saveBtn:active{
+  transform:scale(0.97);
+  box-shadow:none;
 }
 .editBanner{
   background: rgba(237, 29, 36, 0.06);
@@ -249,6 +316,17 @@ body {
   right:auto;
   top:auto;
   margin:20px;
+}
+.saveBtn,
+.discardBtn{
+  transition:all 0.2s ease;
+}
+
+@media(max-width:900px){
+  .saveBtn:active,
+  .discardBtn:active{
+    transform:scale(0.96);
+  }
 }
 
 /* ===== MAIN CARD ===== */
