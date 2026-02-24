@@ -1,7 +1,9 @@
 import React from "react";
 import Navbar from "../navbar/nav";
 import "../../style/dashboard/Athlete.css";
-
+import { getAthletes } from "../../api/athlete_api";
+import { useQuery } from "@tanstack/react-query";
+import useQueryClient from "@tanstack/react-query";
 const data = [
   {
     country: "UAE",
@@ -40,13 +42,22 @@ const data = [
   },
 ];
 
+
+
 function Athlete() {
+ const { data: athleteData, isLoading, error } = useQuery({
+  queryKey: ["athletes"],
+  queryFn: getAthletes,
+  refetchOnWindowFocus: false,
+  retry: false,
+});
+
   return (
     <>
       <Navbar />
 
       <div className="AthleteTitle">ATHLETE</div>
-        <div className="athleteCard">
+      <div className="athleteCard">
         {/* ===== FILTER BAR ===== */}
         <div className="athleteFilters">
           <select>
