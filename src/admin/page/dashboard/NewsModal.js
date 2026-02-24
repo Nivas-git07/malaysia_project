@@ -58,7 +58,7 @@ export default function NewsModal({close,data}){
 
         <div className="modalActions">
           <button className="cancelBtn" onClick={close}>Cancel</button>
-          <button className="saveBtn">Save news</button>
+          <button className="savesBtn">Save news</button>
         </div>
 
       </div>
