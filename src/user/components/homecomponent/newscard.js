@@ -4,7 +4,7 @@ export default function NewsCard({ img, title }){
 
   return(
 
-    <div className="newsCard">
+    <div className="homenewsCard">
 
       <img src={img} className="newsImg" alt="news"/>
 

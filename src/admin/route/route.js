@@ -16,13 +16,13 @@ export default function AdminRoute() {
     <Routes>
 
       {/* LOGIN PAGE (NO SIDEBAR) */}
-      <Route path="/admin" element={<AdminLogin />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
 
       {/* ===== DASHBOARD ROUTES WITH SIDEBAR ===== */}
 
 
       <Route
-        path="/home"
+        path="/admin/home"
         element={
           <AdminLayout>
             <Home />
@@ -31,7 +31,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/athlete"
+        path="/admin/athlete"
         element={
           <AdminLayout>
             <Athlete />
@@ -40,7 +40,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/calendar"
+        path="/admin/calendar"
         element={
           <AdminLayout>
             <Calendar />
@@ -49,7 +49,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/tickets"
+        path="/admin/tickets"
         element={
           <AdminLayout>
             <Tickets />
@@ -58,7 +58,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/report"
+        path="/admin/report"
         element={
           <AdminLayout>
             <Report />
@@ -67,7 +67,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/news"
+        path="/admin/news"
         element={
           <AdminLayout>
             <News />
@@ -76,7 +76,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/settings"
+        path="/admin/settings"
         element={
           <AdminLayout>
             <Settings />
@@ -85,7 +85,7 @@ export default function AdminRoute() {
       />
 
       {/* DEFAULT ROUTE */}
-      <Route path="*" element={<Navigate to="/home" />} />
+      <Route path="/admin/home" element={<Navigate to="/admin/home" />} />
 
     </Routes>
   );

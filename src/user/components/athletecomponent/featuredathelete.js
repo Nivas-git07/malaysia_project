@@ -30,7 +30,7 @@ export default function FeaturedAthletes() {
 
                 {athletes.map((item, index) => (
                  
-                    <div className="athleteCard" key={index}>
+                    <div className="featureathleteCard" key={index}>
 
                         <img src={item.img} alt="athlete" className="athleteImg" />
 

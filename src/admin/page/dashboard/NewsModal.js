@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from "react";
 import "../../style/dashboard/NewsModal.css";
-
+import { postnews } from "../../api/news_api";
 export default function NewsModal({close,data}){
-
+ 
   const [form,setForm] = useState({
     title:"",
     description:"",
@@ -11,7 +11,15 @@ export default function NewsModal({close,data}){
     status:"Save as Draft"
   });
 
-  /* AUTO FILL WHEN EDIT */
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  }
+  
+
+ 
   useEffect(()=>{
     if(data){
       setForm({
@@ -38,27 +46,27 @@ export default function NewsModal({close,data}){
         <input value={form.title} placeholder="Enter news title"/>
 
         <label>Show description</label>
-        <textarea placeholder="Enter a short summary for preview..."/>
+        <textarea value={form.description} placeholder="Enter a short summary for preview..." onChange={handleChange} name="description"/>
 
         <label>Full Content</label>
-        <textarea placeholder="Filter by State"/>
+        <textarea value={form.content} placeholder="Filter by State" onChange={handleChange} name="content"/>
 
         <label>Upload Image</label>
-        <input type="file"/>
+        <input type="file" />
 
         <label>Visibility level</label>
-        <select>
+        <select value={form.visibility} onChange={handleChange} name="visibility">
           <option>Public</option>
         </select>
 
         <label>Status</label>
-        <select>
+        <select value={form.status} onChange={handleChange} name="status">
           <option>Save as Draft</option>
         </select>
 
         <div className="modalActions">
           <button className="cancelBtn" onClick={close}>Cancel</button>
-          <button className="savesBtn">Save news</button>
+          <button className="savesBtn" onClick={() => postnews(form.title, form.description, form.content, null, form.visibility, form.status)}>Save news</button>
         </div>
 
       </div>
