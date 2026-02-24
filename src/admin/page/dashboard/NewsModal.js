@@ -8,8 +8,8 @@ export default function NewsModal({close,data}){
     description:"",
     content:"",
     image:null,
-    visibility:"Public",
-    status:"Save as Draft"
+    visibility:"PUBLIC",
+    status:"DRAFT"
   });
 
   const handleChange = (e) => {
@@ -86,12 +86,15 @@ export default function NewsModal({close,data}){
 
         <label>Visibility level</label>
         <select value={form.visibility} onChange={handleChange} name="visibility">
-          <option>Public</option>
+          <option value="PUBLIC">Public</option>
+          <option value="STATE">state</option>
+          <option value="CLUB">Club</option>
         </select>
 
         <label>Status</label>
         <select value={form.status} onChange={handleChange} name="status">
-          <option>Save as Draft</option>
+          <option value="DRAFT">Save as Draft</option>
+          <option value="PUBLISHED">Publish</option>
         </select>
 
         <div className="modalActions">
