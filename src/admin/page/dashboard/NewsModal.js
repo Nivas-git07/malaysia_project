@@ -29,7 +29,16 @@ export default function NewsModal({close,data}){
     e.preventDefault();
     try{
       console.log(form);
-      postnews(form.title, form.description, form.content, form.image, form.visibility, form.status)
+      const formData = new FormData();
+      formData.append("title", form.title);
+      formData.append("description", form.description);
+      formData.append("content", form.content);
+      formData.append("visibility", form.visibility);
+      formData.append("status", form.status);
+      if(form.image){
+        formData.append("image", form.image);
+      }
+      postnews(formData)
       
         .then((res)=>{
           alert("News posted successfully!");
@@ -46,10 +55,6 @@ export default function NewsModal({close,data}){
    
   }
 
-  
-  
-
- 
   useEffect(()=>{
     if(data){
       setForm({

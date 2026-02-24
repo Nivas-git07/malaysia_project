@@ -1,12 +1,10 @@
 import API from "../../user/api/axiosmodal";
 
-export const postnews = (title, description, content, image, visibility, status) => {
-  return API.post("/admin/post_news/", {
-    title,
-    description,
-    content,
-    image,
-    visibility,
-    status
+export const postnews = (formData) => {
+  return API.post("/admin/post_news/", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
   });
 }
+   
