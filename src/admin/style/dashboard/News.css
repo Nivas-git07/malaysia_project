@@ -1,0 +1,150 @@
+/* ===== TITLE BAR ===== */
+.newsTitle{
+  position:absolute;
+  top:137px;
+  left:353px;
+  right:40px;
+  height:50px;
+  padding:10px 14px;
+  background:#ED1D240D;
+  color:#c10000;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+}
+
+/* ===== MAIN CARD ===== */
+.newsCard{
+  position:absolute;
+  top:210px;
+  left:353px;
+  right:40px;
+  background:#fff;
+  padding:25px;
+}
+
+/* TOP AREA */
+.newsTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.newsTop h2{
+  font-size:18px;
+  font-weight:600;
+}
+
+/* ADD BUTTON */
+.addNewsBtn{
+  background:#c10000;
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* FILTERS */
+.newsFilters{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.newsFilters input,
+.newsFilters select{
+  background:#F2F2F2;
+  border:none;
+  padding:10px;
+  min-width:160px;
+}
+
+/* TABLE */
+.newsHead{
+  background:#c10000;
+  color:#fff;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+  padding:12px;
+  font-weight:600;
+}
+
+.newsRow{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+  padding:14px 12px;
+  border-bottom:1px solid #eee;
+  font-size:14px;
+}
+
+/* STATUS COLORS */
+.status.published{color:#2e9e44;font-weight:600;}
+.status.draft{color:#999;}
+.status.scheduled{color:#1e40ff;font-weight:600;}
+.status.rejected{color:#ff2b2b;font-weight:600;}
+
+.editBtn{
+  color:#c10000;
+  cursor:pointer;
+}
+/* ================= MOBILE VIEW ================= */
+@media (max-width:768px){
+
+  /* TITLE BAR */
+  .newsTitle{
+    left:20px;
+    right:20px;
+    top:110px;
+    height:45px;
+    font-size:14px;
+  }
+
+  /* MAIN CARD */
+  .newsCard{
+    left:20px;
+    right:20px;
+    top:170px;
+    padding:18px;
+  }
+
+  /* HEADER */
+  .newsTop{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .addNewsBtn{
+    width:100%;
+    text-align:center;
+  }
+
+  /* FILTERS STACK */
+  .newsFilters{
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .newsFilters input,
+  .newsFilters select{
+    width:100%;
+  }
+
+  /* TABLE → SCROLLABLE */
+  .newsTable{
+    overflow-x:auto;
+  }
+
+   .newsHead,
+  .newsRow{
+    grid-template-columns:1.5fr 1fr 1fr 1fr 80px; /* smaller action column */
+  }
+
+  .editBtn{
+    white-space:nowrap;
+    font-size:13px;
+  }
+
+}

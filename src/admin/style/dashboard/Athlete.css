@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap');
+
+*{
+  box-sizing:border-box;
+  font-family:'DM Sans',sans-serif;
+}
+
+/* ================= TITLE BAR ================= */
+
+.AthleteTitle{
+  margin-left:353px;
+  margin-right:40px;
+  margin-top:30px;
+
+  height:50px;
+  padding:10px 14px;
+
+  background:#ED1D240D;
+  color:#c10000;
+
+  font-weight:600;
+  font-size:14px;
+  letter-spacing:.5px;
+
+  display:flex;
+  align-items:center;
+}
+
+/* ================= MAIN CARD ================= */
+
+.athleteCard{
+  margin-left:353px;
+  margin-right:40px;
+  margin-top:60px;
+
+  background:#fff;
+  padding:25px;
+}
+
+/* ================= FILTER BAR ================= */
+
+.athleteFilters{
+  width:100%;
+  min-height:50px;
+
+  display:flex;
+  flex-wrap:wrap;     /* ⭐ allows shrinking */
+  gap:20px;
+}
+
+.athleteFilters select{
+  flex:1;
+  min-width:180px;    /* ⭐ prevents collapse */
+  background:#ECEAEC;
+  border:none;
+  padding:12px;
+}
+
+.findBtn{
+  background:#c10000;
+  color:#fff;
+  border:none;
+  padding:0 20px;
+  font-weight:600;
+}
+
+/* ================= TABLE ================= */
+
+.athleteTable{
+  width:100%;
+  margin-top:20px;
+}
+
+/* HEADER */
+
+.athleteHead{
+  background:#c10000;
+  color:white;
+
+  display:grid;
+  grid-template-columns:
+    140px
+    2fr
+    1fr
+    1fr
+    1fr
+    120px;
+
+  padding:14px 18px;
+  font-size:14px;
+}
+
+/* MOVE ONLY ATHLETE HEADER */
+.athleteHead div:nth-child(2){
+  padding-left:40px;
+}
+
+/* ROW */
+
+.athleteRow{
+  display:grid;
+  grid-template-columns:
+    140px
+    2fr
+    1fr
+    1fr
+    1fr
+    120px;
+
+  align-items:center;
+  padding:18px;
+  border-bottom:1px solid #eee;
+}
+
+/* ================= COUNTRY ================= */
+
+.country{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:500;
+}
+
+/* FLAGS */
+
+.flag{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  display:inline-block;
+}
+
+.flag.uae{
+  background:
+    linear-gradient(to right,#ff0000 25%,transparent 25%),
+    linear-gradient(to bottom,#00732f 33%,#ffffff 33% 66%,#000000 66%);
+}
+
+.flag.arg{
+  background:
+    linear-gradient(to bottom,#75aadb 33%,#ffffff 33% 66%,#75aadb 66%);
+}
+
+.flag.ind{
+  background:
+    linear-gradient(to bottom,#ff9933 33%,#ffffff 33% 66%,#128807 66%);
+}
+
+/* ================= ATHLETE INFO ================= */
+
+.athleteInfo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;      /* ⭐ allows shrinking */
+}
+
+.athleteInfo img{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+}
+
+.athleteInfo p{
+  font-size:12px;
+  margin:0;
+  color:#777;
+}
+
+/* VIEW PROFILE */
+
+.viewProfile{
+  color:#c10000;
+  font-size:13px;
+  text-align:right;
+}
+
+/* ================= FOOTER ================= */
+
+.tableFooter{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;      /* ⭐ responsive */
+  gap:10px;
+  padding:15px 18px;
+  margin-top:20px;
+}
+
+.pagination button{
+  border:none;
+  background:#eee;
+  margin-left:6px;
+  padding:8px 12px;
+}
+
+.pagination .active{
+  background:#c10000;
+  color:white;
+}
+
+/* ================= LARGE LAPTOP ================= */
+
+@media(max-width:1200px){
+
+.AthleteTitle,
+.athleteCard{
+  margin-left:260px;   /* smaller sidebar */
+}
+
+}
+
+/* ================= TABLET ================= */
+
+@media(max-width:900px){
+
+.athleteHead,
+.athleteRow{
+  grid-template-columns:
+    120px
+    2fr
+    1fr
+    1fr;
+}
+
+.athleteHead div:nth-child(n+5),
+.athleteRow div:nth-child(n+5){
+  display:none;    /* hide extra columns */
+}
+
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+/* ===== MAIN LAYOUT ===== */
+
+.AthleteTitle,
+.athleteCard{
+  margin-left:0;
+  margin-right:16px;
+  margin-top:20px;
+}
+
+/* ===== FILTERS ===== */
+
+.athleteFilters{
+  flex-direction:column;
+  gap:12px;
+}
+
+.findBtn{
+  height:44px;
+}
+
+/* ===== TABLE HEADER HIDE ===== */
+
+.athleteHead{
+  display:none;
+}
+
+/* ===== MOBILE ROW CARD STYLE ===== */
+
+.athleteRow{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:14px;
+
+  background:#fff;
+  border:1px solid #f0f0f0;
+  border-radius:8px;
+  padding:16px;
+  margin-bottom:14px;
+}
+
+/* COUNTRY + FLAG */
+
+.country{
+  width:100%;
+}
+
+/* PROFILE SECTION */
+
+.athleteInfo{
+  width:100%;
+}
+
+/* TEXT IMPROVEMENT */
+
+.athleteInfo p{
+  font-size:13px;
+}
+
+/* VIEW PROFILE BUTTON RIGHT */
+
+.viewProfile{
+  align-self:flex-end;
+  font-size:14px;
+  font-weight:600;
+}
+
+/* FOOTER STACK */
+
+.tableFooter{
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.pagination{
+  width:100%;
+  display:flex;
+  flex-wrap:wrap;
+}
+
+}

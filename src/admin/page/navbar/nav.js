@@ -1,0 +1,39 @@
+import { FiSearch, FiBell } from "react-icons/fi";
+import "../../style/Settings.css";
+
+function Navbar() {
+  return (
+    <div className="pageWrapper">
+
+      {/* NAVBAR */}
+      <div className="navbar">
+
+        {/* SEARCH BAR */}
+        <div className="navSearchWrapper">
+          <input type="text" className="navSearchInput" />
+          <FiSearch className="searchIcon" />
+        </div>
+
+        <div className="navRight">
+          <div className="bell">
+            <FiBell size={20} color="#666" />
+            <span className="bellDot"></span>
+          </div>
+
+          <img
+            className="navAvatar"
+            src="https://i.pravatar.cc/80"
+            alt="profile"
+          />
+        </div>
+
+      </div>
+
+      {/* PERSONAL INFORMATION TITLE */}
+     
+
+    </div>  
+  );
+}
+
+export default Navbar;
