@@ -2,7 +2,6 @@
     background-color: white !important;
 }
 
-/* ⭐ USER PROFILE BOX */
 .userBox {
   display: flex;
   align-items: center;
@@ -10,7 +9,7 @@
   cursor: pointer;
 }
 
-/* ⭐ PROFILE IMAGE */
+
 .userImg {
   width: 42px;
   height: 42px;
@@ -19,7 +18,7 @@
   border: 2px solid #ED1D24;
 }
 
-/* ⭐ USER NAME */
+
 .userName {
   font-family: 'DM Sans', sans-serif;
   font-size: 16px;
@@ -36,7 +35,7 @@
 }
 
 .homeHeroTitle{
-    font-family: "Oswald", sans-serif;
+  font-family: "Oswald", sans-serif;
   font-weight:600;
   letter-spacing:1px;
   font-size:52px;

@@ -463,7 +463,7 @@
 
 .assocTopBar{
   position:absolute;
-  top:195px;
+  top:95px;
   left:0;
   width:100%;
   height:12px;
@@ -472,7 +472,7 @@
 
 .assocLogoWrap{
   position:absolute;
-  top:140px;
+  top:40px;
   left:50%;
   transform:translateX(-50%);
   width:120px;
