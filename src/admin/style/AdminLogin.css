@@ -84,7 +84,7 @@
   border-radius: 50%;
   
   /* Your specific Red Border */
-  border: 4px solid #ED1D24; 
+  border: 4px solid #c10000; 
   
   /* The Secret Sauce: Ensures the logo image is clipped to the circle */
   overflow: hidden; 
@@ -119,7 +119,7 @@
   margin-bottom: 30px; 
   
   text-align: center;
-  color: #ED1D24;
+  color: #c10000;
   font-size: 28px; 
   
   /* "Little Bold" - 600 weight is clean and professional */
@@ -179,7 +179,7 @@
 .loginBtn {
   width: 100%;
   height: 56px;
-  background: #ED1D24;
+  background: #c10000;
   border: none;
   color: #fff;
   font-size: 18px;

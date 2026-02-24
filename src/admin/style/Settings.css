@@ -59,7 +59,7 @@ body {
   right:16px;
   width:34px;
   height:34px;
-  background:#ED1D24;
+  background:#c10000;
   color:#fff;
   border-radius:50%;
   display:flex;
@@ -122,7 +122,7 @@ body {
 }
 .editBanner{
   background: rgba(237, 29, 36, 0.06);
-  color:#ED1D24;
+  color:#c10000;
   padding:5px 8px;        /* 🔥 smaller box size */
   border-radius:6px;
   font-size:17px;
@@ -184,7 +184,7 @@ body {
 .bellDot {
   width: 7px;       /* ⭐ slightly smaller */
   height: 7px;
-  background: #ED1D24;
+  background: #c10000;
   border-radius: 50%;
   position: absolute;
   top: 12px;        /* adjusted for new size */
@@ -213,7 +213,7 @@ body {
   padding: 10px 14px;
 
   background: #ED1D240D;
-  color: #ED1D24;
+  color: #c10000;
 
   font-weight: 600;
   font-size: 14px;
@@ -251,7 +251,7 @@ body {
   position: absolute;
   bottom: 5px;
   left: 55px;
-  color: #ED1D24;
+  color: #c10000;
 }
 
 /* FORM GRID */
@@ -289,16 +289,16 @@ body {
 .discardBtn {
   width: 45%;
   padding: 18px;
-  border: 2px solid #ED1D24;
+  border: 2px solid #c10000;
   background: transparent;
-  color: #ED1D24;
+  color: #c10000;
   font-weight: 600;
 }
 
 .saveBtn {
   width: 45%;
   padding: 18px;
-  background: #ED1D24;
+  background: #c10000;
   border: none;
   color: white;
   font-weight: 600;

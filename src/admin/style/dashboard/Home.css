@@ -7,7 +7,7 @@
   height:50px;
   padding:10px 14px;
   background:#ED1D240D;
-  color:#ED1D24;
+  color:#c10000;
   font-weight:600;
   display:flex;
   align-items:center;
@@ -25,7 +25,7 @@
 
 .overviewCard{
   flex:1;
-  background:#ED1D24;
+  background:#c10000;
   color:#fff;
   padding:25px;
   text-align:center;
@@ -84,7 +84,7 @@
   height:50px;
   padding:10px 14px;
   background:#ED1D240D;
-  color:#ED1D24;
+  color:#c10000;
   font-weight:600;
   display:flex;
   align-items:center;
@@ -115,7 +115,7 @@
 }
 
 .findBtn{
-  background:#ED1D24;
+  background:#c10000;
   color:#fff;
   border:none;
   padding:10px 18px;
@@ -124,7 +124,7 @@
 
 /* TABLE */
 .stateHead{
-  background:#ED1D24;
+  background:#c10000;
   color:#fff;
   display:grid;
   grid-template-columns:2fr 2fr 1fr 1fr;
@@ -159,7 +159,7 @@
 }
 
 .membersCell span{
-  background:#ED1D24;
+  background:#c10000;
   color:#fff;
   padding:3px 6px;
   border-radius:50%;
@@ -167,7 +167,7 @@
 }
 
 .website{
-  color:#ED1D24;
+  color:#c10000;
   text-decoration:underline;
   cursor:pointer;
 }

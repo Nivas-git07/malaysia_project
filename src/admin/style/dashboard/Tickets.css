@@ -25,7 +25,7 @@
   padding:10px 24px;
 
   background:#ED1D240D;
-  color:#ED1D24;
+  color:#c10000;
 
   display:flex;
   align-items:center;
@@ -40,7 +40,7 @@
   width:196px;
   height:50px;
 
-  background:#ED1D24;
+  background:#c10000;
   color:#fff;
   border:none;
 
@@ -89,7 +89,7 @@
 }
 
 .summaryCard h2{
-  color:#ED1D24;
+  color:#c10000;
   font-size:34px;
   font-weight:700;
   margin:0;
@@ -108,7 +108,7 @@
   height:50px;
 
   background:#ED1D240D;
-  color:#ED1D24;
+  color:#c10000;
 
   padding:10px 24px;
 

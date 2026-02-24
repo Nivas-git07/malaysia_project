@@ -16,7 +16,7 @@
   padding:10px 14px;
 
   background:#ED1D240D;
-  color:#ED1D24;
+  color:#c10000;
 
   font-weight:600;
   font-size:14px;
@@ -57,7 +57,7 @@
 }
 
 .findBtn{
-  background:#ED1D24;
+  background:#c10000;
   color:#fff;
   border:none;
   padding:0 20px;
@@ -74,7 +74,7 @@
 /* HEADER */
 
 .athleteHead{
-  background:#ED1D24;
+  background:#c10000;
   color:white;
 
   display:grid;
@@ -170,7 +170,7 @@
 /* VIEW PROFILE */
 
 .viewProfile{
-  color:#ED1D24;
+  color:#c10000;
   font-size:13px;
   text-align:right;
 }
@@ -194,7 +194,7 @@
 }
 
 .pagination .active{
-  background:#ED1D24;
+  background:#c10000;
   color:white;
 }
 

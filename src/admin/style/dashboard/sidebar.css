@@ -22,7 +22,7 @@
 
 .sidebarTop {
   height: 140px;
-  background: #8b0e12;
+  background: #c10000;
 
   display: flex;
   align-items: center;
@@ -54,14 +54,14 @@
   padding: 18px 24px;
 
   text-decoration: none;
-  color: #ed1d24;
+  color: #c10000;
   font-size: 15px;
 
   transition: background 0.2s ease, color 0.2s ease;
 }
 
 .menuItem svg {
-  stroke: #ed1d24;
+  stroke: #c10000;
 }
 
 .menuItem:hover {
@@ -71,7 +71,7 @@
 /* ACTIVE ROUTE */
 
 .menuItem.active {
-  background: #ed1d24;
+  background: #c10000;
   color: #fff;
   font-weight: 600;
 }
@@ -104,7 +104,7 @@
   top: 14px;
   left: 14px;
 
-  background: #ed1d24;
+  background: #c10000;
   padding: 10px;
   cursor: pointer;
 

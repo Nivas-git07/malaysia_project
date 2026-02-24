@@ -7,7 +7,7 @@
   height:50px;
   padding:10px 14px;
   background:#ED1D240D;
-  color:#ED1D24;
+  color:#c10000;
   font-weight:600;
   display:flex;
   align-items:center;
@@ -38,7 +38,7 @@
 
 /* ADD BUTTON */
 .addNewsBtn{
-  background:#ED1D24;
+  background:#c10000;
   color:#fff;
   border:none;
   padding:10px 14px;
@@ -63,7 +63,7 @@
 
 /* TABLE */
 .newsHead{
-  background:#ED1D24;
+  background:#c10000;
   color:#fff;
   display:grid;
   grid-template-columns:2fr 1fr 1fr 1fr 1fr;
@@ -86,7 +86,7 @@
 .status.rejected{color:#ff2b2b;font-weight:600;}
 
 .editBtn{
-  color:#ED1D24;
+  color:#c10000;
   cursor:pointer;
 }
 /* ================= MOBILE VIEW ================= */
