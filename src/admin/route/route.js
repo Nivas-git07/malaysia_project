@@ -22,7 +22,7 @@ export default function AdminRoute() {
 
 
       <Route
-        path="/admin/home"
+        path="/home"
         element={
           <AdminLayout>
             <Home />
@@ -31,7 +31,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/admin/athlete"
+        path="/athlete"
         element={
           <AdminLayout>
             <Athlete />
@@ -40,7 +40,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/admin/calendar"
+        path="/calendar"
         element={
           <AdminLayout>
             <Calendar />
@@ -49,7 +49,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/admin/tickets"
+        path="/tickets"
         element={
           <AdminLayout>
             <Tickets />
@@ -58,7 +58,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/admin/report"
+        path="/report"
         element={
           <AdminLayout>
             <Report />
@@ -67,7 +67,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/admin/news"
+        path="/news"
         element={
           <AdminLayout>
             <News />
@@ -76,7 +76,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/admin/settings"
+        path="/settings"
         element={
           <AdminLayout>
             <Settings />
@@ -85,7 +85,7 @@ export default function AdminRoute() {
       />
 
       {/* DEFAULT ROUTE */}
-      <Route path="/admin/home" element={<Navigate to="/admin/home" />} />
+      <Route path="*" element={<Navigate to="/home" />} />
 
     </Routes>
   );
