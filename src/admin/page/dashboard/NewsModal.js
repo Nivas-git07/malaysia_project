@@ -7,6 +7,7 @@ export default function NewsModal({close,data}){
     title:"",
     description:"",
     content:"",
+    image:null,
     visibility:"Public",
     status:"Save as Draft"
   });
@@ -17,6 +18,35 @@ export default function NewsModal({close,data}){
       [e.target.name]: e.target.value
     });
   }
+  const handleFileChange = (e) => {
+    setForm({
+      ...form,
+      image: e.target.files[0]
+    });
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try{
+      console.log(form);
+      postnews(form.title, form.description, form.content, form.image, form.visibility, form.status)
+      
+        .then((res)=>{
+          alert("News posted successfully!");
+          close();
+        })
+        .catch((err)=>{
+          console.error(err);
+          alert("Failed to post news. Please try again.");
+        });
+    }catch(err){
+      console.error(err);
+      alert("An error occurred. Please try again.");
+    }
+   
+  }
+
+  
   
 
  
@@ -43,7 +73,7 @@ export default function NewsModal({close,data}){
         </div>
 
         <label>Title</label>
-        <input value={form.title} placeholder="Enter news title"/>
+        <input value={form.title} placeholder="Enter news title" onChange={handleChange} name="title"/>
 
         <label>Show description</label>
         <textarea value={form.description} placeholder="Enter a short summary for preview..." onChange={handleChange} name="description"/>
@@ -52,7 +82,7 @@ export default function NewsModal({close,data}){
         <textarea value={form.content} placeholder="Filter by State" onChange={handleChange} name="content"/>
 
         <label>Upload Image</label>
-        <input type="file" />
+        <input type="file" onChange={handleFileChange}/>
 
         <label>Visibility level</label>
         <select value={form.visibility} onChange={handleChange} name="visibility">
@@ -66,7 +96,7 @@ export default function NewsModal({close,data}){
 
         <div className="modalActions">
           <button className="cancelBtn" onClick={close}>Cancel</button>
-          <button className="savesBtn" onClick={() => postnews(form.title, form.description, form.content, null, form.visibility, form.status)}>Save news</button>
+          <button className="savesBtn" onClick={handleSubmit}>Save news</button>
         </div>
 
       </div>
