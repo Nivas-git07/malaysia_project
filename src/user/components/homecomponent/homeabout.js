@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import aboutImg from "../../assets/image1.jpg";
 
-export default function HomeAbout(){
+export default function HomeAbout({ name }) {
 
   const sectionRef = useRef(null);
   const [show,setShow] = useState(false);
@@ -33,11 +33,11 @@ export default function HomeAbout(){
 
       <div className="homeAboutContainer">
 
-        {/* LEFT CONTENT */}
+      
         <div className="homeAboutLeft">
 
           <h3 className="homeAboutHeading">
-            ABOUT FINSWIMMING Association
+            ABOUT {name} FINSWIMMING Association
           </h3>
 
           <h2 className="homeAboutTitle">
@@ -50,7 +50,7 @@ export default function HomeAbout(){
 
         </div>
 
-        {/* RIGHT IMAGE */}
+    
         <div className="homeAboutRight">
           <img src={aboutImg} alt="about swimmer"/>
         </div>

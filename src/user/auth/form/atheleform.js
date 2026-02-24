@@ -31,7 +31,16 @@ function Atheleform() {
             );
 
             console.log(response.data);
-            alert("register successfully")
+            alert("register successfully");
+            // setname("");
+            // setgovt_id("");
+            // setemail("");
+            // setphonenumber("");
+            // setgender("");
+            // setdob("");
+            // setpassword("");
+            // setstate("");
+
         } catch (e) {
             console.log(e.response?.data);
         }
