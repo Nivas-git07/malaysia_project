@@ -45,12 +45,13 @@ const data = [
 
 
 function Athlete() {
- const { data: athleteData, isLoading, error } = useQuery({
-  queryKey: ["athletes"],
-  queryFn: getAthletes,
-  refetchOnWindowFocus: false,
-  retry: false,
-});
+  const { data: athleteData, isLoading, error } = useQuery({
+    queryKey: ["athletes"],
+    queryFn: getAthletes,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+  console.log(athleteData, isLoading, error);
 
   return (
     <>
