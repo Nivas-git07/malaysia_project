@@ -16,7 +16,7 @@ export default function AdminRoute() {
     <Routes>
 
       {/* LOGIN PAGE (NO SIDEBAR) */}
-      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/login" element={<AdminLogin />} />
 
       {/* ===== DASHBOARD ROUTES WITH SIDEBAR ===== */}
 

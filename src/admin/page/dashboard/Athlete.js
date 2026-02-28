@@ -4,43 +4,43 @@ import "../../style/dashboard/Athlete.css";
 import { getAthletes } from "../../api/athlete_api";
 import { useQuery } from "@tanstack/react-query";
 import useQueryClient from "@tanstack/react-query";
-const data = [
-  {
-    country: "UAE",
-    name: "Santo merline",
-    gender: "Female",
-    dob: "09/04/2008",
-    discipline: "Surface",
-  },
-  {
-    country: "ARG",
-    name: "Jane Cooper",
-    gender: "Male",
-    dob: "09/04/2008",
-    discipline: "Immersion",
-  },
-  {
-    country: "UAE",
-    name: "Esther Howard",
-    gender: "Female",
-    dob: "09/04/2008",
-    discipline: "Surface",
-  },
-  {
-    country: "IND",
-    name: "Guy Hawkins",
-    gender: "Male",
-    dob: "09/04/2008",
-    discipline: "Bi-fins",
-  },
-  {
-    country: "UAE",
-    name: "Jacob Jones",
-    gender: "Female",
-    dob: "09/04/2008",
-    discipline: "Surface",
-  },
-];
+// const data = [
+//   {
+//     country: "UAE",
+//     name: "Santo merline",
+//     gender: "Female",
+//     dob: "09/04/2008",
+//     discipline: "Surface",
+//   },
+//   {
+//     country: "ARG",
+//     name: "Jane Cooper",
+//     gender: "Male",
+//     dob: "09/04/2008",
+//     discipline: "Immersion",
+//   },
+//   {
+//     country: "UAE",
+//     name: "Esther Howard",
+//     gender: "Female",
+//     dob: "09/04/2008",
+//     discipline: "Surface",
+//   },
+//   {
+//     country: "IND",
+//     name: "Guy Hawkins",
+//     gender: "Male",
+//     dob: "09/04/2008",
+//     discipline: "Bi-fins",
+//   },
+//   {
+//     country: "UAE",
+//     name: "Jacob Jones",
+//     gender: "Female",
+//     dob: "09/04/2008",
+//     discipline: "Surface",
+//   },
+// ];
 
 
 
@@ -52,6 +52,7 @@ function Athlete() {
     retry: false,
   });
   console.log(athleteData, isLoading, error);
+  const data = athleteData?.data?.athletes_list || [];
 
   return (
     <>
@@ -87,20 +88,21 @@ function Athlete() {
           {data.map((item, i) => (
             <div className="athleteRow" key={i}>
               <div className="country">
-                <span className={`flag ${item.country.toLowerCase()}`}></span>
-                {item.country}
+                <div className="country">
+                  {item.state}
+                </div>
               </div>
 
               <div className="athleteInfo">
                 <img src="https://i.pravatar.cc/60" alt="" />
                 <div>
-                  <span className="athleteName">{item.name}</span>
+                  <span className="athleteName">{item.full_name}</span>
                   <p>IND</p>
                 </div>
               </div>
 
               <div>{item.gender}</div>
-              <div>{item.dob}</div>
+              <div>{item.date_of_birth}</div>
               <div>{item.discipline}</div>
 
               <div className="viewProfile">View Profile</div>
