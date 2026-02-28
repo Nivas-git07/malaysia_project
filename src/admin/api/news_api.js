@@ -7,4 +7,8 @@ export const postnews = (formData) => {
     }
   });
 }
+
+export const getnews = () => {
+  return API.get("/admin/fetch_all_news//");
+}
    

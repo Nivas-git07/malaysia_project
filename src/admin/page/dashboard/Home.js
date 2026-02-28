@@ -2,9 +2,19 @@ import React from "react";
 import Navbar from "../navbar/nav";
 import "../../style/dashboard/Home.css";
 import logo from "../../assets/logo.jpg";
-
+import { homeData } from "../../api/home_api";
+import { useQuery } from "@tanstack/react-query";
 export default function Home() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["homeData"],
+    queryFn: homeData,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+  console.log(data, isLoading, error);
+  console.log(data?.data.stats);
   return (
+    
     <>
       <Navbar />
 
@@ -15,17 +25,17 @@ export default function Home() {
       <div className="overviewCards">
         <div className="overviewCard">
           <p>Total States</p>
-          <h2>14</h2>
+          <h2>{data?.data.stats.total_states || 0}</h2>
         </div>
 
         <div className="overviewCard">
           <p>Total Clubs</p>
-          <h2>200</h2>
+          <h2>{data?.data.stats.total_clubs || 0}</h2>
         </div>
 
         <div className="overviewCard">
           <p>Total Members</p>
-          <h2>1200+</h2>
+          <h2>{data?.data.stats.total_athletes || 0} +</h2>
         </div>
       </div>
 
