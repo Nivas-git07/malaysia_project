@@ -133,14 +133,16 @@
   }
 
   /* TABLE → SCROLLABLE */
-  .newsTable{
-    overflow-x:auto;
-  }
+  /* TABLE → PROPER MOBILE ALIGNMENT */
+.newsCard{
+  overflow-x:auto;
+}
 
-   .newsHead,
-  .newsRow{
-    grid-template-columns:1.5fr 1fr 1fr 1fr 80px; /* smaller action column */
-  }
+.newsHead,
+.newsRow{
+  min-width:650px;   /* keeps proper alignment */
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+}
 
   .editBtn{
     white-space:nowrap;
