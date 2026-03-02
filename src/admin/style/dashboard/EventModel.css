@@ -1,0 +1,140 @@
+/* ===== OVERLAY ===== */
+.modalOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:20px;
+}
+
+/* ===== MODAL BOX ===== */
+.eventModal{
+  width:720px;
+  max-width:100%;
+  background:#fff;
+  padding:40px 45px;
+  position:relative;
+  max-height:90vh;
+  overflow-y:auto;
+  border-radius:4px;
+}
+
+/* ===== HEADER ===== */
+.modalHeader{
+  position:relative;
+  margin-bottom:25px;
+}
+
+.modalHeader h3{
+  color:#c10000;
+  font-size:16px;
+  letter-spacing:0.5px;
+  font-weight:600;
+}
+
+/* LEFT RED BAR */
+.modalHeader::before{
+  content:"";
+  position:absolute;
+  left:-20px;
+  top:4px;
+  width:4px;
+  height:28px;
+  background:#c10000;
+}
+
+/* CLOSE BUTTON (FIXED INSIDE MODAL) */
+.modalHeader span{
+  position:absolute;
+  right:0;
+  top:6px;   /* 👈 was 0, now slightly lower */
+  background:#c10000;
+  color:#fff;
+  width:32px;
+  height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:16px;
+  border-radius:2px;
+}
+
+/* ===== FORM ===== */
+.eventModal label{
+  display:block;
+  font-size:13px;
+  color:#333;
+  margin-bottom:6px;
+  margin-top:18px;
+}
+
+.eventModal input,
+.eventModal textarea,
+.eventModal select{
+  width:100%;
+  padding:11px 12px;
+  background:#f2f2f2;
+  border:1px solid #e4e4e4;
+  outline:none;
+  font-size:13px;
+  border-radius:2px;
+}
+
+.eventModal textarea{
+  min-height:90px;
+  resize:none;
+}
+
+.eventModal input[type="file"]{
+  background:transparent;
+  border:none;
+  padding:0;
+}
+
+/* ===== BUTTON AREA ===== */
+.modalActions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:30px;
+}
+
+.cancelBtn{
+  background:#dcdcdc;
+  border:none;
+  padding:8px 16px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.savesBtn{
+  background:#c10000;
+  color:#fff;
+  border:none;
+  padding:8px 16px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width:768px){
+
+  .eventModal{
+    width:100%;
+    padding:25px;
+    max-height:95vh;
+  }
+
+  .modalActions{
+    flex-direction:column;
+  }
+
+  .cancelBtn,
+  .savesBtn{
+    width:100%;
+  }
+}
