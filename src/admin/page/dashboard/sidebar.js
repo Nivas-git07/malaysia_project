@@ -49,7 +49,7 @@ export default function Sidebar() {
 
           <NavLink to="/admin/calendar" className="menuItem" onClick={closeSidebar}>
             <Calendar size={20}/>
-            <span>Calendar</span>
+            <span>Events</span>
           </NavLink>
 
           <NavLink to="/admin/tickets" className="menuItem" onClick={closeSidebar}>
