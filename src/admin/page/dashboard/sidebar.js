@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import '../../style/dashboard/sidebar.css'
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
+import ManageUser from "./Manageuser";
 
 import {
   Home,

@@ -8,8 +8,12 @@ import Tickets from "../page/dashboard/Tickets";
 import Report from "../page/dashboard/Report";
 import News from "../page/dashboard/News";
 import Settings from "../page/dashboard/Settings";
+<<<<<<< Updated upstream
 import ManageUser from "../page/dashboard/Manageuser";
 
+=======
+import AdminNotificationPage from "../page/dashboard/notification";
+>>>>>>> Stashed changes
 
 
 export default function AdminRoute() {
@@ -27,6 +31,14 @@ export default function AdminRoute() {
         element={
           <AdminLayout>
             <Home />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/notification"
+        element={
+          <AdminLayout>
+            <AdminNotificationPage />
           </AdminLayout>
         }
       />

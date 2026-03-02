@@ -1,0 +1,157 @@
+:root {
+  /* --white: #ffffff; */
+  --primary-red: #cc0001;
+  --primary-blue: #00008b;
+  --accent-yellow: #ffcc00;
+  --black: #000000;
+}
+
+/* Main Wrapper */
+.admin-notification-wrapper {
+  padding: 30px;
+  background-color: var(--white);
+  min-height: 100vh;
+}
+
+/* Header */
+.admin-notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.admin-notification-title {
+  color: var(--primary-blue);
+  font-weight: 600;
+}
+
+/* Filters */
+.admin-notification-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Default (Unselected) */
+.admin-notification-filter-btn {
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  background-color: #f2f2f2;
+  color: #000000; /* BLACK text */
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+/* Hover */
+.admin-notification-filter-btn:hover {
+  background-color: #FFCC00;
+  color: #000000;
+}
+
+/* Active (Selected) */
+.admin-filter-active {
+  background-color: #CC0001; /* Your primary red */
+  color: #FFFFFF !important; /* WHITE text */
+}
+
+.admin-notification-filter-btn:hover {
+  background-color: var(--accent-yellow);
+}
+
+.admin-filter-active {
+  background-color: var(--primary-red);
+  color: var(--white);
+}
+
+/* List */
+.admin-notification-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Card */
+.admin-notification-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 18px;
+  border-radius: 8px;
+  background-color: var(--white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease;
+}
+
+.admin-notification-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Left Strip */
+.admin-notification-left-strip {
+  width: 6px;
+  height: 100%;
+  background-color: var(--primary-blue);
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+/* Body */
+.admin-notification-body {
+  flex: 1;
+}
+
+.admin-notification-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-notification-card-title {
+  margin: 0;
+  color: var(--primary-red);
+}
+
+.admin-notification-time {
+  font-size: 12px;
+  color: gray;
+}
+
+.admin-notification-message {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--black);
+}
+
+/* Unread */
+.admin-notification-unread {
+  border-left: 4px solid var(--primary-red);
+  background-color: #fff8f8;
+}
+
+.admin-notification-unread-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--accent-yellow);
+  border-radius: 50%;
+  margin-left: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-notification-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .admin-notification-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
