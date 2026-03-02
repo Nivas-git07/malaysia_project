@@ -1,0 +1,113 @@
+/* ===== TITLE BAR ===== */
+.manageUserTitle{
+  position:absolute;
+  top:137px;
+  left:353px;
+  right:40px;
+  height:50px;
+  padding:10px 14px;
+  background:#ED1D240D;
+  color:#c10000;
+  font-weight:600;
+  font-size:14px;
+  letter-spacing:.5px;
+  display:flex;
+  align-items:center;
+}
+
+/* ===== MAIN CARD ===== */
+.manageUserCard{
+  position:absolute;
+  top:210px;
+  left:353px;
+  right:40px;
+  background:#fff;
+  padding:25px;
+}
+
+/* TOP AREA */
+.manageUserTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.manageUserTop h2{
+  font-size:18px;
+  font-weight:600;
+}
+
+/* ADD BUTTON */
+.addManageUserBtn{
+  background:#c10000;
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* TABLE */
+.manageUserHead{
+  background:#c10000;
+  color:#fff;
+  display:grid;
+  grid-template-columns:2fr 2fr 1fr 1fr 1fr;
+  padding:12px;
+  font-weight:600;
+}
+
+.manageUserRow{
+  display:grid;
+  grid-template-columns:2fr 2fr 1fr 1fr 1fr;
+  padding:14px 12px;
+  border-bottom:1px solid #eee;
+  font-size:14px;
+}
+
+.manageUserEditBtn{
+  color:#c10000;
+  cursor:pointer;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width:768px){
+
+  .manageUserTitle{
+    left:20px;
+    right:20px;
+    top:110px;
+    height:45px;
+  }
+
+  .manageUserCard{
+    left:20px;
+    right:20px;
+    top:170px;
+    padding:18px;
+    overflow-x:auto;
+  }
+
+  .manageUserTop{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .addManageUserBtn{
+    width:100%;
+    text-align:center;
+  }
+
+  .manageUserHead,
+  .manageUserRow{
+    min-width:700px;
+    grid-template-columns:2fr 2fr 1fr 1fr 1fr;
+  }
+
+  .manageUserEditBtn{
+    white-space:nowrap;
+    font-size:13px;
+  }
+}

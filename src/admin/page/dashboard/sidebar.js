@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import '../../style/dashboard/sidebar.css'
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
+
 import {
   Home,
   User,
@@ -50,6 +51,11 @@ export default function Sidebar() {
           <NavLink to="/admin/calendar" className="menuItem" onClick={closeSidebar}>
             <Calendar size={20}/>
             <span>Events</span>
+          </NavLink>
+
+           <NavLink to="/admin/user" className="menuItem" onClick={closeSidebar}>
+            <ManageUser size={20}/>
+            <span>Users</span>
           </NavLink>
 
           <NavLink to="/admin/tickets" className="menuItem" onClick={closeSidebar}>
