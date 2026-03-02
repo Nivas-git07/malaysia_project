@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import '../../style/dashboard/sidebar.css'
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
-import ManageUser from "./Manageuser";
+import Manageuser from "./Manageuser";
 
 import {
   Home,
@@ -55,7 +55,7 @@ export default function Sidebar() {
           </NavLink>
 
            <NavLink to="/admin/user" className="menuItem" onClick={closeSidebar}>
-            <ManageUser size={20}/>
+            <Manageuser size={20}/>
             <span>Users</span>
           </NavLink>
 

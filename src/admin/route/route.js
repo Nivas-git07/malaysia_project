@@ -8,7 +8,7 @@ import Tickets from "../page/dashboard/Tickets";
 import Report from "../page/dashboard/Report";
 import News from "../page/dashboard/News";
 import Settings from "../page/dashboard/Settings";
-import ManageUser from "../page/dashboard/Manageuser";
+import Manageuser from "../page/dashboard/Manageuser";
 
 import AdminNotificationPage from "../page/dashboard/notification";
 
@@ -89,7 +89,7 @@ export default function AdminRoute() {
         path="/user"
         element={
           <AdminLayout>
-            <ManageUser />
+            <Manageuser />
           </AdminLayout>
         }
       />

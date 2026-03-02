@@ -39,21 +39,21 @@ function ManageUser() {
     <>
       <Navbar />
 
-      <div className="manageUserTitle">MANAGE USERS</div>
+      <div className="mu-title">MANAGE USERS</div>
 
-      <div className="manageUserCard">
+      <div className="mu-card">
 
-        <div className="manageUserTop">
+        <div className="mu-top">
           <h2>User Management</h2>
           <button
-            className="addManageUserBtn"
+            className="mu-add-btn"
             onClick={handleAdd}
           >
             + Add User
           </button>
         </div>
 
-        <div className="manageUserHead">
+        <div className="mu-head">
           <div>Name</div>
           <div>Email</div>
           <div>Role</div>
@@ -62,13 +62,13 @@ function ManageUser() {
         </div>
 
         {usersData.map((item) => (
-          <div className="manageUserRow" key={item.id}>
+          <div className="mu-row" key={item.id}>
             <div>{item.name}</div>
             <div>{item.email}</div>
             <div>{item.role}</div>
             <div>{item.status}</div>
             <div
-              className="manageUserEditBtn"
+              className="mu-edit-btn"
               onClick={() => handleEdit(item)}
             >
               ✎ Edit

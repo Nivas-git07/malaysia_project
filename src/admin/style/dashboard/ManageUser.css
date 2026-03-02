@@ -1,5 +1,5 @@
 /* ===== TITLE BAR ===== */
-.manageUserTitle{
+.mu-title{
   position:absolute;
   top:137px;
   left:353px;
@@ -16,30 +16,27 @@
 }
 
 /* ===== MAIN CARD ===== */
-.manageUserCard{
-  position:absolute;
-  top:210px;
-  left:353px;
-  right:40px;
-  background:#fff;
-  padding:25px;
+.mu-card{
+  margin-left:353px;
+  margin-right:40px;
+  margin-top:20px;
 }
 
 /* TOP AREA */
-.manageUserTop{
+.mu-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
   margin-bottom:15px;
 }
 
-.manageUserTop h2{
+.mu-top h2{
   font-size:18px;
   font-weight:600;
 }
 
 /* ADD BUTTON */
-.addManageUserBtn{
+.mu-add-btn{
   background:#c10000;
   color:#fff;
   border:none;
@@ -49,7 +46,7 @@
 }
 
 /* TABLE */
-.manageUserHead{
+.mu-head{
   background:#c10000;
   color:#fff;
   display:grid;
@@ -58,7 +55,7 @@
   font-weight:600;
 }
 
-.manageUserRow{
+.mu-row{
   display:grid;
   grid-template-columns:2fr 2fr 1fr 1fr 1fr;
   padding:14px 12px;
@@ -66,7 +63,7 @@
   font-size:14px;
 }
 
-.manageUserEditBtn{
+.mu-edit-btn{
   color:#c10000;
   cursor:pointer;
 }
@@ -74,14 +71,14 @@
 /* ================= MOBILE ================= */
 @media (max-width:768px){
 
-  .manageUserTitle{
+  .mu-title{
     left:20px;
     right:20px;
     top:110px;
     height:45px;
   }
 
-  .manageUserCard{
+  .mu-card{
     left:20px;
     right:20px;
     top:170px;
@@ -89,24 +86,24 @@
     overflow-x:auto;
   }
 
-  .manageUserTop{
+  .mu-top{
     flex-direction:column;
     align-items:flex-start;
     gap:10px;
   }
 
-  .addManageUserBtn{
+  .mu-add-btn{
     width:100%;
     text-align:center;
   }
 
-  .manageUserHead,
-  .manageUserRow{
+  .mu-head,
+  .mu-row{
     min-width:700px;
     grid-template-columns:2fr 2fr 1fr 1fr 1fr;
   }
 
-  .manageUserEditBtn{
+  .mu-edit-btn{
     white-space:nowrap;
     font-size:13px;
   }

@@ -10,7 +10,6 @@ export default function ManageUserModal({ close, data }) {
     status: "Active"
   });
 
-  /* Prefill when editing */
   useEffect(() => {
     if (data) {
       setForm({
@@ -22,7 +21,6 @@ export default function ManageUserModal({ close, data }) {
     }
   }, [data]);
 
-  /* Prevent background scroll */
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -45,18 +43,18 @@ export default function ManageUserModal({ close, data }) {
 
   return (
     <div
-      className="manageUserOverlay"
+      className="mu-modal-overlay"
       onClick={close}
     >
       <div
-        className="manageUserModal"
+        className="mu-modal-box"
         onClick={(e) => e.stopPropagation()}
       >
 
-        <div className="manageUserHeader">
+        <div className="mu-modal-header">
           <h3>CREATE / EDIT USER</h3>
           <span
-            className="manageUserClose"
+            className="mu-modal-close"
             onClick={close}
           >
             ✕
@@ -98,16 +96,16 @@ export default function ManageUserModal({ close, data }) {
           <option value="Inactive">Inactive</option>
         </select>
 
-        <div className="manageUserActions">
+        <div className="mu-modal-actions">
           <button
-            className="manageUserCancel"
+            className="mu-modal-cancel"
             onClick={close}
           >
             Cancel
           </button>
 
           <button
-            className="manageUserSave"
+            className="mu-modal-save"
             onClick={handleSubmit}
           >
             Save User

@@ -1,5 +1,5 @@
 /* ===== OVERLAY ===== */
-.manageUserOverlay{
+.mu-modal-overlay{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,0.45);
@@ -11,7 +11,7 @@
 }
 
 /* ===== MODAL BOX ===== */
-.manageUserModal{
+.mu-modal-box{
   width:720px;
   max-width:100%;
   background:#fff;
@@ -23,18 +23,18 @@
 }
 
 /* ===== HEADER ===== */
-.manageUserHeader{
+.mu-modal-header{
   position:relative;
   margin-bottom:25px;
 }
 
-.manageUserHeader h3{
+.mu-modal-header h3{
   color:#c10000;
   font-size:16px;
   font-weight:600;
 }
 
-.manageUserHeader::before{
+.mu-modal-header::before{
   content:"";
   position:absolute;
   left:-20px;
@@ -44,7 +44,7 @@
   background:#c10000;
 }
 
-.manageUserClose{
+.mu-modal-close{
   position:absolute;
   right:0;
   top:6px;
@@ -61,15 +61,15 @@
 }
 
 /* ===== FORM ===== */
-.manageUserModal label{
+.mu-modal-box label{
   display:block;
   font-size:13px;
   margin-top:18px;
   margin-bottom:6px;
 }
 
-.manageUserModal input,
-.manageUserModal select{
+.mu-modal-box input,
+.mu-modal-box select{
   width:100%;
   padding:11px 12px;
   background:#f2f2f2;
@@ -79,20 +79,20 @@
 }
 
 /* BUTTONS */
-.manageUserActions{
+.mu-modal-actions{
   display:flex;
   justify-content:flex-end;
   gap:10px;
   margin-top:30px;
 }
 
-.manageUserCancel{
+.mu-modal-cancel{
   background:#dcdcdc;
   border:none;
   padding:8px 16px;
 }
 
-.manageUserSave{
+.mu-modal-save{
   background:#c10000;
   color:#fff;
   border:none;
@@ -102,18 +102,18 @@
 /* ===== MOBILE ===== */
 @media (max-width:768px){
 
-  .manageUserModal{
+  .mu-modal-box{
     width:100%;
     padding:25px;
     max-height:95vh;
   }
 
-  .manageUserActions{
+  .mu-modal-actions{
     flex-direction:column;
   }
 
-  .manageUserCancel,
-  .manageUserSave{
+  .mu-modal-cancel,
+  .mu-modal-save{
     width:100%;
   }
 }
