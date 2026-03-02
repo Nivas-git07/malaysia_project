@@ -135,12 +135,16 @@
     width:100%;
   }
 
-  /* TABLE RESPONSIVE */
-  .eventHead,
-  .eventRow{
-    grid-template-columns:1.5fr 1fr 1fr 1fr 80px;
-  }
 
+.eventCard{
+  overflow-x:auto;
+}
+
+.eventHead,
+.eventRow{
+  min-width:650px;   /* keeps columns properly aligned */
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+}
   .editBtn{
     white-space:nowrap;
     font-size:13px;
