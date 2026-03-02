@@ -85,14 +85,14 @@ export default function AdminRoute() {
         }
       />
       
-      <Route
+      {/* <Route
         path="/user"
         element={
           <AdminLayout>
             <Manageuser />
           </AdminLayout>
         }
-      />
+      /> */}
 
       <Route
         path="/settings"

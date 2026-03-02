@@ -1,7 +1,9 @@
 import { FiSearch, FiBell } from "react-icons/fi";
 import "../../style/Settings.css";
-
-function Navbar() {
+import { useNavigate } from "react-router-dom";
+function Navbar() 
+{
+  const navigate = useNavigate();
   return (
     <div className="pageWrapper">
 
@@ -15,8 +17,8 @@ function Navbar() {
         </div>
 
         <div className="navRight">
-          <div className="bell">
-            <FiBell size={20} color="#666" />
+          <div className="bell" onClick={() => { navigate("/admin/notification") }}>
+            <FiBell size={20} color="#666"  />
             <span className="bellDot"></span>
           </div>
 

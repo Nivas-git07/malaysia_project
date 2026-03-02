@@ -37,7 +37,7 @@ function ManageUser() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar />
 
       <div className="mu-title">MANAGE USERS</div>
 
@@ -83,7 +83,7 @@ function ManageUser() {
           close={() => setOpen(false)}
           data={editData}
         />
-      )}
+      )} */}
     </>
   );
 }

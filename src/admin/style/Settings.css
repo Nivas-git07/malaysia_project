@@ -169,6 +169,7 @@ body {
 /* ===== BELL ICON ===== */
 .bell {
   position: absolute;
+  cursor: pointer;
   width: 46px;      /* ⭐ reduced from 54px */
   height: 46px;
   top: 39px;
@@ -189,6 +190,7 @@ body {
   position: absolute;
   top: 12px;        /* adjusted for new size */
   right: 12px;
+    cursor: pointer;
 }
 
 /* ===== AVATAR ===== */
