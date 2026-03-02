@@ -4,7 +4,7 @@ export default function EventCard({ bg, logo, title, date, country }) {
   const navigate = useNavigate();
   return (
 
-    <div className="eventCard">
+    <div className="eventCards">
 
       <img src={bg} alt="event" className="eventBg" />
 

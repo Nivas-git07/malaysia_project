@@ -147,7 +147,7 @@ export default function EventModal({ close, data }) {
 
         <div className="modalActions">
           <button className="cancelBtn" onClick={close}>Cancel</button>
-          <button className="saveBtn" onClick={handleSubmit}>Save Event</button>
+          <button className="savesBtn" onClick={handleSubmit}>Save Event</button>
         </div>
 
       </div>
