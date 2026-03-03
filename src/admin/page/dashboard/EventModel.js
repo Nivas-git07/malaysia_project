@@ -5,11 +5,11 @@ import { postevent } from "../../api/event_api";
 export default function EventModal({ close, data }) {
 
   const [form, setForm] = useState({
-    title: "",
+    event_name: "",
     description: "",
     location: "",
-    startDate: "",
-    endDate: "",
+    date: "",
+    time: "",
     image: null,
     visibility: "PUBLIC",
     status: "DRAFT"
@@ -33,19 +33,16 @@ export default function EventModal({ close, data }) {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("event_name", form.title);
+    formData.append("event_name", form.event_name);
     formData.append("description", form.description);
     formData.append("venue", form.location);
-    formData.append("time", form.startDate);
+    formData.append("time", form.time);
     formData.append("visibility", form.visibility);
     formData.append("status", form.status);
     formData.append("date", form.date);
-    
-
     if (form.image) {
       formData.append("image", form.image);
     }
-
     postevent(formData)
       .then(() => {
         alert("Event saved successfully!");
