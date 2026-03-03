@@ -3,7 +3,7 @@ import '../../style/dashboard/sidebar.css'
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 import { RiGroupFill } from "react-icons/ri";
-
+import { FaUserCircle } from "react-icons/fa";
 import {
   Home,
   User,
@@ -75,8 +75,8 @@ export default function Sidebar() {
           </NavLink>
 
           <NavLink to="/admin/settings" className="menuItem" onClick={closeSidebar}>
-            <Settings size={20}/>
-            <span>Settings</span>
+            <FaUserCircle size={20}/>
+            <span>Profile</span>
           </NavLink>
 
         </nav>

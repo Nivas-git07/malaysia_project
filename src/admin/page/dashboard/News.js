@@ -4,22 +4,22 @@ import "../../style/dashboard/News.css";
 import NewsModal from "./NewsModal";
 import { getnews } from "../../api/news_api";
 import { useQuery } from "@tanstack/react-query";
-const newsData = [
-  {
-    id: 1,
-    title: "National Event Highlights",
-    date: "2025-08-01",
-    status: "Published",
-    visibility: "All Users",
-  },
-  {
-    id: 2,
-    title: "State Meet Schedule",
-    date: "2025-08-01",
-    status: "Draft",
-    visibility: "Admins Only",
-  }
-];
+// const newsData = [
+//   {
+//     id: 1,
+//     title: "National Event Highlights",
+//     date: "2025-08-01",
+//     status: "Published",
+//     visibility: "All Users",
+//   },
+//   {
+//     id: 2,
+//     title: "State Meet Schedule",
+//     date: "2025-08-01",
+//     status: "Draft",
+//     visibility: "Admins Only",
+//   }
+// ];
 
 export default function News() {
   const { data, isLoading, error } = useQuery({
@@ -29,6 +29,8 @@ export default function News() {
     retry: false,
   });
   console.log(data, isLoading, error);
+  console.log(data?.data.all_news);
+  const newsData = data?.data.all_news || [];
 
   const [open, setOpen] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -71,7 +73,7 @@ export default function News() {
         {newsData.map((item) => (
           <div className="newsRow" key={item.id}>
             <div>{item.title}</div>
-            <div>{item.date}</div>
+            <div>{item.created_at}</div>
             <div>{item.status}</div>
             <div>{item.visibility}</div>
             <div
@@ -85,7 +87,7 @@ export default function News() {
 
       </div>
 
-      {/* MODAL */}
+      
       {open && (
         <NewsModal
           close={() => setOpen(false)}
