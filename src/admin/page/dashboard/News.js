@@ -4,6 +4,7 @@ import "../../style/dashboard/News.css";
 import NewsModal from "./NewsModal";
 import { getnews } from "../../api/news_api";
 import { useQuery } from "@tanstack/react-query";
+import DateOnly from "../../hook/time/time";
 // const newsData = [
 //   {
 //     id: 1,
@@ -73,7 +74,7 @@ export default function News() {
         {newsData.map((item) => (
           <div className="newsRow" key={item.id}>
             <div>{item.title}</div>
-            <div>{item.created_at}</div>
+            <div><DateOnly value={item.created_at} /></div>
             <div>{item.status}</div>
             <div>{item.visibility}</div>
             <div

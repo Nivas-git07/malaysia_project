@@ -33,13 +33,14 @@ export default function EventModal({ close, data }) {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("title", form.title);
+    formData.append("event_name", form.title);
     formData.append("description", form.description);
-    formData.append("location", form.location);
-    formData.append("startDate", form.startDate);
-    formData.append("endDate", form.endDate);
+    formData.append("venue", form.location);
+    formData.append("time", form.startDate);
     formData.append("visibility", form.visibility);
     formData.append("status", form.status);
+    formData.append("date", form.date);
+    
 
     if (form.image) {
       formData.append("image", form.image);
