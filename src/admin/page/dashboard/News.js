@@ -2,44 +2,55 @@ import React, { useState } from "react";
 import Navbar from "../navbar/nav";
 import "../../style/dashboard/News.css";
 import NewsModal from "./NewsModal";
+import { getnews } from "../../api/news_api";
+import { useQuery } from "@tanstack/react-query";
+import DateOnly from "../../hook/time/time";
+// const newsData = [
+//   {
+//     id: 1,
+//     title: "National Event Highlights",
+//     date: "2025-08-01",
+//     status: "Published",
+//     visibility: "All Users",
+//   },
+//   {
+//     id: 2,
+//     title: "State Meet Schedule",
+//     date: "2025-08-01",
+//     status: "Draft",
+//     visibility: "Admins Only",
+//   }
+// ];
 
-const newsData = [
-  {
-    id:1,
-    title:"National Event Highlights",
-    date:"2025-08-01",
-    status:"Published",
-    visibility:"All Users",
-  },
-  {
-    id:2,
-    title:"State Meet Schedule",
-    date:"2025-08-01",
-    status:"Draft",
-    visibility:"Admins Only",
-  }
-];
+export default function News() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["news"],
+    queryFn: getnews,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+  console.log(data, isLoading, error);
+  console.log(data?.data.all_news);
+  const newsData = data?.data.all_news || [];
 
-export default function News(){
-
-  const [open,setOpen] = useState(false);
-  const [editData,setEditData] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [editData, setEditData] = useState(null);
 
   /* ADD NEW */
-  const handleAdd = ()=>{
+  const handleAdd = () => {
     setEditData(null);
     setOpen(true);
   };
 
   /* EDIT */
-  const handleEdit = (item)=>{
+  const handleEdit = (item) => {
     setEditData(item);
     setOpen(true);
   };
 
-  return(
+  return (
     <>
-      <Navbar/>
+      <Navbar />
 
       <div className="newsTitle">NEWS</div>
 
@@ -60,15 +71,15 @@ export default function News(){
           <div>Action</div>
         </div>
 
-        {newsData.map((item)=>(
+        {newsData.map((item) => (
           <div className="newsRow" key={item.id}>
             <div>{item.title}</div>
-            <div>{item.date}</div>
+            <div><DateOnly value={item.created_at} /></div>
             <div>{item.status}</div>
             <div>{item.visibility}</div>
             <div
               className="editBtn"
-              onClick={()=>handleEdit(item)}
+              onClick={() => handleEdit(item)}
             >
               ✎ Edit
             </div>
@@ -77,10 +88,10 @@ export default function News(){
 
       </div>
 
-      {/* MODAL */}
+      
       {open && (
         <NewsModal
-          close={()=>setOpen(false)}
+          close={() => setOpen(false)}
           data={editData}
         />
       )}

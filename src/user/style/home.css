@@ -254,7 +254,7 @@
 }
 
 /* CARD */
-.eventCard{
+.eventCards{
   position:relative;
   border-radius:37px;
   overflow:hidden;
@@ -344,7 +344,7 @@
     gap:24px;
   }
 
-  .eventCard{
+  .eventCards{
     height:400px; 
   }
 
@@ -356,7 +356,7 @@
     gap:20px;
   }
 
-  .eventCard{
+  .eventCards{
     height:380px;
   }
 
@@ -704,7 +704,7 @@
 }
 
 /* CARD */
-.newsCard{
+.homenewsCard{
   position:relative;
   border-radius:20px;
   overflow:hidden;

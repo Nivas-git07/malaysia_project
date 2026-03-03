@@ -8,7 +8,9 @@ import Tickets from "../page/dashboard/Tickets";
 import Report from "../page/dashboard/Report";
 import News from "../page/dashboard/News";
 import Settings from "../page/dashboard/Settings";
+import Manageuser from "../page/dashboard/Manageuser";
 
+import AdminNotificationPage from "../page/dashboard/notification";
 
 
 export default function AdminRoute() {
@@ -16,7 +18,7 @@ export default function AdminRoute() {
     <Routes>
 
       {/* LOGIN PAGE (NO SIDEBAR) */}
-      <Route path="/admin" element={<AdminLogin />} />
+      <Route path="/login" element={<AdminLogin />} />
 
       {/* ===== DASHBOARD ROUTES WITH SIDEBAR ===== */}
 
@@ -26,6 +28,14 @@ export default function AdminRoute() {
         element={
           <AdminLayout>
             <Home />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/notification"
+        element={
+          <AdminLayout>
+            <AdminNotificationPage />
           </AdminLayout>
         }
       />
@@ -71,6 +81,15 @@ export default function AdminRoute() {
         element={
           <AdminLayout>
             <News />
+          </AdminLayout>
+        }
+      />
+      
+      <Route
+        path="/user"
+        element={
+          <AdminLayout>
+            <Manageuser />
           </AdminLayout>
         }
       />

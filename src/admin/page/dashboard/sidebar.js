@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import '../../style/dashboard/sidebar.css'
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
+import { RiGroupFill } from "react-icons/ri";
+import { FaUserCircle } from "react-icons/fa";
 import {
   Home,
   User,
@@ -37,44 +39,49 @@ export default function Sidebar() {
 
         <nav className="sidebarMenu">
 
-          <NavLink to="/home" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/home" className="menuItem" onClick={closeSidebar}>
             <Home size={20}/>
             <span>Home</span>
           </NavLink>
 
-          <NavLink to="/athlete" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/athlete" className="menuItem" onClick={closeSidebar}>
             <User size={20}/>
             <span>Athlete</span>
           </NavLink>
 
-          <NavLink to="/calendar" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/calendar" className="menuItem" onClick={closeSidebar}>
             <Calendar size={20}/>
-            <span>Calendar</span>
+            <span>Events</span>
           </NavLink>
 
-          <NavLink to="/tickets" className="menuItem" onClick={closeSidebar}>
+           <NavLink to="/admin/user" className="menuItem" onClick={closeSidebar}>
+            <RiGroupFill size={20}/>
+            <span>Users</span>
+          </NavLink>
+
+          <NavLink to="/admin/tickets" className="menuItem" onClick={closeSidebar}>
             <Ticket size={20}/>
             <span>Tickets</span>
           </NavLink>
 
-          <NavLink to="/report" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/report" className="menuItem" onClick={closeSidebar}>
             <BarChart2 size={20}/>
             <span>Report</span>
           </NavLink>
 
-          <NavLink to="/news" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/news" className="menuItem" onClick={closeSidebar}>
             <Newspaper size={20}/>
             <span>News</span>
           </NavLink>
 
-          <NavLink to="/settings" className="menuItem" onClick={closeSidebar}>
-            <Settings size={20}/>
-            <span>Settings</span>
+          <NavLink to="/admin/settings" className="menuItem" onClick={closeSidebar}>
+            <FaUserCircle size={20}/>
+            <span>Profile</span>
           </NavLink>
 
         </nav>
 
-        <NavLink to="/admin" className="logoutBar" onClick={closeSidebar}>
+        <NavLink to="/" className="logoutBar" onClick={closeSidebar}>
           <LogOut size={18}/>
           <span>Logout</span>
         </NavLink>

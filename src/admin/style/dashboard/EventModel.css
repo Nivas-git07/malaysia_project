@@ -11,7 +11,7 @@
 }
 
 /* ===== MODAL BOX ===== */
-.newsModal{
+.eventModal{
   width:720px;
   max-width:100%;
   background:#fff;
@@ -22,7 +22,7 @@
   border-radius:4px;
 }
 
-/* ===== RED CORNER + TITLE ===== */
+/* ===== HEADER ===== */
 .modalHeader{
   position:relative;
   margin-bottom:25px;
@@ -46,11 +46,11 @@
   background:#c10000;
 }
 
-/* CLOSE BUTTON (INSIDE MODAL) */
+/* CLOSE BUTTON (FIXED INSIDE MODAL) */
 .modalHeader span{
   position:absolute;
   right:0;
-  top:6px;
+  top:6px;   /* 👈 was 0, now slightly lower */
   background:#c10000;
   color:#fff;
   width:32px;
@@ -63,8 +63,8 @@
   border-radius:2px;
 }
 
-/* ===== FORM SPACING ===== */
-.newsModal label{
+/* ===== FORM ===== */
+.eventModal label{
   display:block;
   font-size:13px;
   color:#333;
@@ -72,10 +72,9 @@
   margin-top:18px;
 }
 
-/* INPUT STYLE */
-.newsModal input,
-.newsModal textarea,
-.newsModal select{
+.eventModal input,
+.eventModal textarea,
+.eventModal select{
   width:100%;
   padding:11px 12px;
   background:#f2f2f2;
@@ -85,13 +84,12 @@
   border-radius:2px;
 }
 
-.newsModal textarea{
+.eventModal textarea{
   min-height:90px;
   resize:none;
 }
 
-/* FILE AREA */
-.newsModal input[type="file"]{
+.eventModal input[type="file"]{
   background:transparent;
   border:none;
   padding:0;
@@ -122,41 +120,17 @@
   cursor:pointer;
 }
 
-
-/* ===== MOBILE ===== */
-/* Hide sidenav when modal is open (mobile only) */
-@media (max-width:768px){
-  body.modal-open .sideNav{
-    display:none !important;
-  }
-}
-
-/* Prevent background scroll */
-body.modal-open{
-  overflow:hidden;
-}
 /* ===== MOBILE ===== */
 @media (max-width:768px){
 
-  .modalOverlay{
-    padding:15px;   /* give breathing space */
-  }
-
-  .newsModal{
+  .eventModal{
     width:100%;
     padding:25px;
     max-height:95vh;
-    overflow-y:auto;
-  }
-
-  .modalHeader span{
-    right:0;
-    top:8px;
   }
 
   .modalActions{
     flex-direction:column;
-    gap:12px;
   }
 
   .cancelBtn,
