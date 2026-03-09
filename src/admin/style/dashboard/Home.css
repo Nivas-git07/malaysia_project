@@ -161,7 +161,8 @@
 .membersCell span{
   background:#c10000;
   color:#fff;
-  padding:3px 6px;
+  /* font-weight: 12px; */
+  padding:3px 2px;
   border-radius:50%;
   font-size:12px;
 }
