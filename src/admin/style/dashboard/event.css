@@ -1,11 +1,9 @@
 /* ===== TITLE BAR ===== */
 .EventReport{
-  position:absolute;
-  top:137px;
-  left:353px;
-  right:40px;
-  height:50px;
-  padding:10px 14px;
+
+ padding:14px 20px;
+margin-bottom:25px;
+letter-spacing:1px;
   background:#ED1D240D;
   color:#c10000;
   font-weight:600;
