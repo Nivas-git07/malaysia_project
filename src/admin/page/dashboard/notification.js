@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import "../../style/dashboard/notification.css";
 import Navbar from "../navbar/nav";
+import { getNotifications } from "../api/notification_api";
+import { useQuery } from "@tanstack/react-query";
+
 export default function AdminNotificationPage() {
     const [activeFilter, setActiveFilter] = useState("ALL");
 
-    const adminNotifications = [
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["notifications"],
+        queryFn: getNotifications,
+    });
+    const notificationsData = data?.data || [];
+    console.log("Notifications Data:", notificationsData);
+
+    const adminNotifications = data?.data || [
         {
             id: 1,
             title: "New Event Registration",
@@ -33,8 +43,8 @@ export default function AdminNotificationPage() {
 
     const filteredNotifications =
         activeFilter === "ALL"
-            ? adminNotifications
-            : adminNotifications.filter((item) => item.type === activeFilter);
+            ? notificationsData
+            : notificationsData.filter((item) => item.type === activeFilter);
 
     return (
         <>
@@ -47,7 +57,7 @@ export default function AdminNotificationPage() {
                         <h2 className="admin-notification-title">Notifications</h2>
 
                         <div className="admin-notification-filters">
-                            {["ALL", "INFO", "SUCCESS", "WARNING"].map((filter) => (
+                            {["ALL", "MEMBERSHIP", "REGISTRATION", "REPORT","TICKET"].map((filter) => (
                                 <button
                                     key={filter}
                                     className={`admin-notification-filter-btn ${
@@ -73,7 +83,7 @@ export default function AdminNotificationPage() {
                                 <div className="admin-notification-body">
                                     <div className="admin-notification-top">
                                         <h4 className="admin-notification-card-title">
-                                            {item.title}
+                                            Notification
                                         </h4>
                                         <span className="admin-notification-time">
                                             {item.time}
@@ -85,7 +95,7 @@ export default function AdminNotificationPage() {
                                     </p>
                                 </div>
 
-                                {item.unread && (
+                                {item.is_read && (
                                     <div className="admin-notification-unread-dot"></div>
                                 )}
                             </div>
