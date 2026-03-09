@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../navbar/nav";
 import "../../style/dashboard/ManageUser.css";
 import ManageUserModal from "./ManageUserModal";
-
+import MembershipSection from "../../components/membershipcard";
 const usersData = [
   {
     id: 1,
@@ -38,6 +38,8 @@ function ManageUser() {
   return (
     <>
       <Navbar />
+      <MembershipSection />
+      <div className="mu-membership-wrapper">
 
       <div className="EventReport">MANAGE USERS</div>
 
@@ -84,6 +86,7 @@ function ManageUser() {
           data={editData}
         />
       )}
+      </div>
     </>
   );
 }

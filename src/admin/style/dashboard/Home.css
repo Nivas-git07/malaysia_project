@@ -150,22 +150,43 @@
   height:35px;
   border-radius:50%;
 }
+.membersCell{
+display:flex;
+align-items:center;
+}
+
+/* MEMBER IMAGES */
 
 .membersCell img{
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  margin-right:-8px;
+width:28px;
+height:28px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid #fff;
+margin-right:-8px;
 }
+
+/* +3 BADGE */
 
 .membersCell span{
-  background:#c10000;
-  color:#fff;
-  padding:3px 6px;
-  border-radius:50%;
-  font-size:12px;
-}
+width:28px;
+height:28px;
 
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:#c10000;
+color:#fff;
+
+border-radius:50%;
+font-size:12px;
+font-weight:600;
+margin-top: 2px;
+
+border:2px solid #fff;
+margin-left:2px;
+}
 .website{
   color:#c10000;
   text-decoration:underline;

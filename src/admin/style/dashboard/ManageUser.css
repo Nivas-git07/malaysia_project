@@ -17,9 +17,8 @@
 
 /* ===== MAIN CARD ===== */
 .mu-card{
-  margin-left:353px;
-  margin-right:40px;
-  margin-top:90px;
+ 
+  margin-top:40px;
   margin-bottom: 40px;
   background:white;
     padding:25px;
@@ -111,4 +110,220 @@
     white-space:nowrap;
     font-size:13px;
   }
+}
+
+/* WRAPPER */
+
+.mu-membership-wrapper{
+margin-left:353px;
+margin-right:40px;
+margin-top:40px;
+font-family:'DM Sans', sans-serif;
+}
+
+/* HEADER */
+
+.mu-membership-title{
+background:#f5dede;
+color:#c10000;
+font-weight:700;
+padding:14px 20px;
+margin-bottom:25px;
+letter-spacing:1px;
+}
+
+/* ROW */
+
+.mu-membership-row{
+display:flex;
+gap:25px;
+flex-wrap:wrap;
+}
+
+/* LEFT CARD */
+
+.mu-athlete-card{
+flex:1;
+min-width:360px;
+background:white;
+border:1px solid #eee;
+border-radius:6px;
+position:relative;
+overflow:hidden;
+}
+
+/* RED + BLACK STRIP */
+
+.mu-athlete-banner{
+position:absolute;
+left:0;
+top:0;
+height:100%;
+width:100px;
+
+background:linear-gradient(
+to right,
+#c10000 0px,
+#c10000 75px,
+#000000 75px,
+#000000 90px
+);
+}
+
+/* CONTENT */
+
+.mu-athlete-content{
+display:flex;
+align-items:center;
+gap:20px;
+padding:30px 25px 30px 160px;
+}
+
+/* AVATAR */
+
+.mu-athlete-avatar{
+position:absolute;
+left:45px;   /* move into red banner */
+top:50%;
+transform:translateY(-50%);
+width:95px;
+height:95px;
+border-radius:50%;
+border:3px solid #c10000;
+background:white;
+object-fit:cover;
+z-index:5;
+}
+
+/* INFO */
+
+.mu-athlete-name{
+background:#c10000;
+color:white;
+font-weight:700;
+margin-top: 25px;
+font-size:18px;
+padding:6px 14px;
+display:inline-block;
+margin-bottom:8px;
+}
+
+/* MEDALS */
+
+.mu-athlete-medals{
+display:flex;
+align-items:center;
+gap:6px;
+margin-top: 20px;
+font-weight:600;
+font-size: 20px;
+color:#c10000;
+}
+
+.mu-icon-red{
+color:#c10000;
+}
+
+/* SPORT */
+
+.mu-athlete-sport{
+color:#777;
+font-size:14px;
+margin-top: 10px;
+}
+
+/* SWIM ICON */
+
+.mu-swim-icon{
+margin-left:auto;
+font-size:38px;
+margin-top: 50px;
+color:#bbb;
+}
+
+/* RIGHT CARD */
+
+.mu-membership-card{
+flex:1;
+min-width:360px;
+background:white;
+border:1px solid #eee;
+border-radius:6px;
+padding:25px;
+}
+
+/* HEADER */
+
+.mu-membership-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.mu-membership-heading{
+display:flex;
+align-items:center;
+gap:6px;
+font-size:18px;
+font-weight:600;
+}
+
+.mu-help-icon{
+color:#777;
+font-size:18px;
+}
+
+/* RENEW BUTTON */
+
+.mu-renew-btn{
+background:#e0e0e0;
+border:none;
+padding:8px 18px;
+font-weight:600;
+cursor:pointer;
+}
+
+/* PLAN */
+
+.mu-plan-section label{
+font-size:13px;
+color:#777;
+}
+
+.mu-plan-section p{
+margin:4px 0 14px;
+font-weight:600;
+}
+
+/* DATES */
+
+.mu-date-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.mu-date-row label{
+font-size:13px;
+color:#777;
+}
+
+.mu-date-row p{
+font-weight:600;
+}
+
+.mu-divider{
+width:1px;
+height:30px;
+background:#ddd;
+}
+
+/* MEMBERSHIP CODE */
+
+.mu-membership-code{
+text-align:center;
+font-size:22px;
+font-weight:700;
+margin-top:10px;
 }

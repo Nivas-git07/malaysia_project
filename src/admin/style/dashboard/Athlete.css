@@ -5,7 +5,7 @@
   font-family:'DM Sans',sans-serif;
 }
 
-/* ================= TITLE BAR ================= */
+
 
 .AthleteTitle{
   margin-left:353px;
@@ -26,7 +26,6 @@
   align-items:center;
 }
 
-/* ================= MAIN CARD ================= */
 
 .athleteCard{
   margin-left:353px;
@@ -37,7 +36,6 @@
   padding:25px;
 }
 
-/* ================= FILTER BAR ================= */
 
 .athleteFilters{
   width:100%;

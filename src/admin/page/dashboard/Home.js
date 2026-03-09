@@ -18,10 +18,10 @@ export default function Home() {
     <>
       <Navbar />
 
-      {/* DATA OVERVIEW TITLE */}
+     
       <div className="dataTitle">DATA OVERVIEW</div>
 
-      {/* CARDS */}
+      
       <div className="overviewCards">
         <div className="overviewCard">
           <p>Total States</p>
@@ -54,28 +54,28 @@ export default function Home() {
         {/* TABLE */}
         <div className="stateTable">
           <div className="stateHead">
-            <div>Club Name</div>
+            <div>State Name</div>
             <div>Members</div>
-            <div>State</div>
+            <div>Club Count</div>
             <div>Website</div>
           </div>
 
-          {["MLFA", "PFSA", "MFSA", "PFSA"].map((club, i) => (
+          {data?.data.states_list?.map((club, i) => (
             <div className="stateRow" key={i}>
               <div className="clubCell">
                 <img src={logo} alt="logo" />
 
-                {club}
+                {data?.data.states_list[i].state_name}
               </div>
 
               <div className="membersCell">
                 <img src="https://i.pravatar.cc/40" />
                 <img src="https://i.pravatar.cc/41" />
                 <img src="https://i.pravatar.cc/42" />
-                <span>+5</span>
+                <span> + {data?.data.states_list[i].members_count} </span>
               </div>
 
-              <div>George Town</div>
+              <div>{data?.data.states_list[i].clubs_count}</div>
 
               <a
                 href="https://www.georgetown.com"
