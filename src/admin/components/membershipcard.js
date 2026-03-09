@@ -2,6 +2,7 @@ import React from "react";
 import { FaTrophy } from "react-icons/fa";
 import { FaSwimmer } from "react-icons/fa";
 import { HiOutlineQuestionMarkCircle } from "react-icons/hi";
+import swimmer from "../assets/swimmer.png";
 
 const MembershipSection = () => {
   return (
@@ -22,7 +23,7 @@ const MembershipSection = () => {
           <div className="mu-athlete-content">
 
             <img
-              src="/avatar.jpg"
+              src={swimmer}
               alt="athlete"
               className="mu-athlete-avatar"
             />
