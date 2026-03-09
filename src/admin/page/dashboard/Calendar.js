@@ -57,10 +57,11 @@ function Calender() {
     <>
       <Navbar />
 
-      {/* TITLE BAR */}
+      <div className="mu-membership-wrapper">
+      
       <div className="EventReport">EVENTS</div>
 
-      {/* MAIN CARD */}
+
       <div className="eventCard">
 
         <div className="eventTop">
@@ -70,7 +71,7 @@ function Calender() {
           </button>
         </div>
 
-        {/* TABLE HEADER */}
+       
         <div className="eventHead">
           <div>Event Title</div>
           <div>Event Date</div>
@@ -79,7 +80,7 @@ function Calender() {
           <div>Action</div>
         </div>
 
-        {/* TABLE ROWS */}
+      
         {eventData.map((item) => (
           <div className="eventRow" key={item.id}>
             <div>{item.event_name}</div>
@@ -104,6 +105,7 @@ function Calender() {
           data={editData}
         />
       )}
+      </div>
     </>
   );
 }

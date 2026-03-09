@@ -15,10 +15,10 @@ letter-spacing:1px;
 
 /* ===== MAIN CARD ===== */
 .eventCard{
-  position:absolute;
+  /* position:absolute;
   top:210px;
   left:353px;
-  right:40px;
+  right:40px; */
   background:#fff;
   padding:25px;
 }
