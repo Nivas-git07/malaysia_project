@@ -104,7 +104,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/home/club"
+        path="/home/state/:id"
         element={
           <AdminLayout>
             <StateList />

@@ -4,6 +4,8 @@ import "../../style/dashboard/Home.css";
 import logo from "../../assets/logo.jpg";
 import { homeData } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import StateList from "./clublist";
 export default function Home() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["homeData"],
@@ -12,6 +14,7 @@ export default function Home() {
     retry: false,
   });
   console.log(data, isLoading, error);
+  const navigate = useNavigate();
   console.log(data?.data.stats);
   return (
     
@@ -61,7 +64,7 @@ export default function Home() {
           </div>
 
           {data?.data.states_list?.map((club, i) => (
-            <div className="stateRow" key={i}>
+            <div className="stateRow" key={i} onClick={() => navigate(`/admin/home/state/${club.id}`)}>
               <div className="clubCell">
                 <img src={logo} alt="logo" />
 

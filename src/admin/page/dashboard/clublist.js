@@ -4,7 +4,10 @@ import "../../style/dashboard/Home.css";
 import logo from "../../assets/logo.jpg";
 import { homeData } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 export default function StateList() {
+  const { id } = useParams();
+  console.log("State ID:", id); // Log the state ID from the URL
   const { data, isLoading, error } = useQuery({
     queryKey: ["homeData"],
     queryFn: homeData,
