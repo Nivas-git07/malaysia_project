@@ -2,20 +2,20 @@ import React from "react";
 import Navbar from "../navbar/nav";
 import "../../style/dashboard/Home.css";
 import logo from "../../assets/logo.jpg";
-import { homeData } from "../../api/home_api";
+import { statedata } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 export default function StateList() {
   const { id } = useParams();
-  console.log("State ID:", id); // Log the state ID from the URL
+  console.log("State ID:", id); 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["homeData"],
-    queryFn: homeData,
+    queryKey: ["statedata"] ,
+    queryFn: () => statedata(id),
     refetchOnWindowFocus: false,
     retry: false,
   });
   console.log(data, isLoading, error);
-  console.log(data?.data.stats);
+  console.log(data?.data);
   return (
     
     <>
@@ -28,17 +28,17 @@ export default function StateList() {
       <div className="overviewCards">
         <div className="overviewCard">
           <p>Total Clubs</p>
-          <h2>{data?.data.stats.total_states || 0}</h2>
+          <h2>{data?.data.clubs_count || 0}</h2>
         </div>
 
         <div className="overviewCard">
           <p>Total Clubs</p>
-          <h2>{data?.data.stats.total_clubs || 0}</h2>
+          <h2>{data?.data.total_clubs ||  0}</h2>
         </div>
 
         <div className="overviewCard">
           <p>Total Members</p>
-          <h2>{data?.data.stats.total_athletes || 0} +</h2>
+          <h2>{data?.data.total_athletes || 0} +</h2>
         </div>
       </div>
 
@@ -63,22 +63,22 @@ export default function StateList() {
             <div>Website</div>
           </div>
 
-          {data?.data.states_list?.map((club, i) => (
-            <div className="stateRow" key={i}>
+          {data?.data.clubs_list?.map((club, i) => (
+            <div className="stateRow" key={club.id}>
               <div className="clubCell">
                 <img src={logo} alt="logo" />
 
-                {data?.data.states_list[i].state_name}
+                {club.club_name}
               </div>
 
               <div className="membersCell">
                 <img src="https://i.pravatar.cc/40" />
                 <img src="https://i.pravatar.cc/41" />
                 <img src="https://i.pravatar.cc/42" />
-                <span> + {data?.data.states_list[i].members_count} </span>
+                <span> + {club.members_count} </span>
               </div>
 
-              <div>{data?.data.states_list[i].clubs_count}</div>
+              <div>{club.clubs_count}</div>
 
               <a
                 href="https://www.georgetown.com"
