@@ -9,7 +9,7 @@ import Report from "../page/dashboard/Report";
 import News from "../page/dashboard/News";
 import Settings from "../page/dashboard/Settings";
 import Manageuser from "../page/dashboard/Manageuser";
-
+import StateList from "../page/dashboard/clublist";
 import AdminNotificationPage from "../page/dashboard/notification";
 
 
@@ -84,7 +84,7 @@ export default function AdminRoute() {
           </AdminLayout>
         }
       />
-      
+
       <Route
         path="/user"
         element={
@@ -99,6 +99,15 @@ export default function AdminRoute() {
         element={
           <AdminLayout>
             <Settings />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="/home/club"
+        element={
+          <AdminLayout>
+            <StateList />
           </AdminLayout>
         }
       />

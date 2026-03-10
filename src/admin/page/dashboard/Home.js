@@ -39,19 +39,19 @@ export default function Home() {
         </div>
       </div>
 
-      {/* STATE LIST TITLE */}
+      
       <div className="stateTitle">STATE LIST</div>
 
-      {/* STATE CARD */}
+     
       <div className="stateCard">
-        {/* FILTER BAR */}
+        
         <div className="stateFilters">
           <input placeholder="e.g., Selangor Finswimming Club" />
           <input placeholder="--Select State--" />
           <button className="findBtn">Find Club</button>
         </div>
 
-        {/* TABLE */}
+     
         <div className="stateTable">
           <div className="stateHead">
             <div>State Name</div>
