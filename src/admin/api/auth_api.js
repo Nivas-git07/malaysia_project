@@ -4,3 +4,7 @@ export const adminLogin = (email_id, password) => {
     console.log(email_id, password)
     return API.post("/auth/login/", { email_id, password })
 }
+
+export const logout = () => {
+    return API.post("/auth/logout/")
+}
