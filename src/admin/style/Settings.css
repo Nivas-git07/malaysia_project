@@ -1,6 +1,8 @@
 /* ===== FONT (EXACT DASHBOARD STYLE) ===== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
+
+
 body {
   margin: 0;
   background: #f5f1f3;
@@ -22,18 +24,8 @@ body {
 
 /* ===== SEARCH BAR (LIKE IMAGE) ===== */
 
-.navSearchWrapper {
-  position: absolute;
-  width: 418.46px;
-  height: 57.47px;
-  top: 39.58px;
-  left: 352.72px;
-  background: #ECEAEC;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  padding: 0 18px;
-}
+
+
 .profileContainer{
   position: relative;   /* IMPORTANT */
 }
@@ -96,7 +88,7 @@ body {
   from{opacity:0; transform:translateY(-4px);}
   to{opacity:0.95; transform:translateY(0);}
 }
-/* BUTTON EFFECTS */
+
 .discardBtn,
 .saveBtn{
   transition:all 0.2s ease;
@@ -136,73 +128,118 @@ body {
   cursor:not-allowed;
   border:1px solid #e0e0e0;
 }
-
-.navSearchInput {
-  flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 15px;
-  font-family: 'Inter', sans-serif;
+/* NAVBAR CONTAINER */
+.navbar{
+  height:90px;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 30px;
+  background:#f3f3f3;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
 }
 
-/* ⭐ REAL SEARCH ICON (thin magnifier) */
-.searchIcon {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  position: relative;
+/* SEARCH AREA */
+.navSearchWrapper{
+  position:relative;
+  width:420px;
+  max-width:45%;
+  margin-left:40px;
 }
 
-.searchIcon::after {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 2px;
-  bottom: -3px;
-  right: -5px;
-  transform: rotate(45deg);
+.navSearchInput{
+  width:100%;
+  height:40px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  padding:0 40px 0 15px;
+  background:#f7f7f7;
+  font-size:14px;
 }
 
-/* ===== BELL BUTTON (SOFT CIRCLE) ===== */
-
-/* ===== BELL ICON ===== */
-.bell {
-  position: absolute;
-  cursor: pointer;
-  width: 46px;      /* ⭐ reduced from 54px */
-  height: 46px;
-  top: 39px;
-  right: 110px;
-  background: #ECEAEC;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.searchIcon{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#888;
 }
 
-/* red notification dot */
-.bellDot {
-  width: 7px;       /* ⭐ slightly smaller */
-  height: 7px;
-  background: #c10000;
-  border-radius: 50%;
-  position: absolute;
-  top: 12px;        /* adjusted for new size */
-  right: 12px;
-    cursor: pointer;
+/* RIGHT SIDE */
+.navRight{
+  display:flex;
+  align-items:center;
+  gap:45px;
 }
 
-/* ===== AVATAR ===== */
-.navAvatar {
-  position: absolute;
-  width: 46px;      /* ⭐ reduced from 54px */
-  height: 46px;
-  top: 39px;
-  right: 40px;
-  border-radius: 50%;
+/* BELL */
+.bell{
+  position:relative;
+  cursor:pointer;
 }
 
+.bellDot{
+  position:absolute;
+  top:-3px;
+  right:-3px;
+  width:8px;
+  height:8px;
+  background:red;
+  border-radius:50%;
+}
+
+/* AVATAR */
+.navAvatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  object-fit:cover;
+}
+/* MOBILE DEVICES */
+@media (max-width:768px){
+
+  .navbar{
+    padding:10px 12px;
+  }
+
+  .navSearchWrapper{
+    width:60%;
+  }
+
+  .navSearchInput{
+    padding:8px 34px 8px 10px;
+    font-size:13px;
+  }
+
+  .navRight{
+    gap:12px;
+  }
+
+  .navAvatar{
+    width:30px;
+    height:30px;
+  }
+
+}
+
+/* VERY SMALL PHONES */
+@media (max-width:480px){
+
+  .navSearchWrapper{
+    width:55%;
+  }
+
+  .navSearchInput{
+    font-size:12px;
+  }
+
+  .navAvatar{
+    width:28px;
+    height:28px;
+  }
+
+}
 /* ================= TITLE ================= */
 
 .personalTitle {
