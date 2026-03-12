@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 import { RiGroupFill } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
+import { logout } from "../../api/auth_api";
 import {
   Home,
   User,
@@ -17,6 +18,8 @@ import {
 } from "lucide-react";
 
 export default function Sidebar() {
+
+  
 
   const [open, setOpen] = useState(false);
 
@@ -81,7 +84,10 @@ export default function Sidebar() {
 
         </nav>
 
-        <NavLink to="/" className="logoutBar" onClick={closeSidebar}>
+        <NavLink to="/" className="logoutBar" onClick={() => {
+          closeSidebar();
+          logout();
+        }}>
           <LogOut size={18}/>
           <span>Logout</span>
         </NavLink>
