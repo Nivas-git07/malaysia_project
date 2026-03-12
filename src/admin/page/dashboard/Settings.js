@@ -12,6 +12,7 @@ function Settings() {
   return (
     <>
       <Navbar />
+      <div className="mu-membership-wrapper">
       <div className="personalTitle">PERSONAL INFORMATION</div>
 
       <div className="profileContainer">
@@ -97,6 +98,7 @@ function Settings() {
           </div>
         )}
       </div>
+       </div>
     </>
   );
 }

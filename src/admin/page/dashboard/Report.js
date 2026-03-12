@@ -6,6 +6,7 @@ function Report() {
   return (
     <>
       <Navbar />
+      <div className="mu-membership-wrapper">
        <div className="AthleteReport">REPORT</div>
        <div className="nationalWrapper">
 
@@ -109,6 +110,8 @@ function Report() {
       </div>
 
     </div>
+    </div>
+
     </>
   )
 }

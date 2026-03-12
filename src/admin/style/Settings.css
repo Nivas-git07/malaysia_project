@@ -30,21 +30,7 @@ body {
   position: relative;   /* IMPORTANT */
 }
 
-/* RIGHT EDIT ICON */
-/* .profileEditIcon{
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 28px;
-  height: 28px;
-  background: #ED1D24;
-  color: #fff;
-  border-radius: 50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-} */
+
 .profileEditIcon{
   position:absolute;
   top:16px;
@@ -240,14 +226,9 @@ body {
   }
 
 }
-/* ================= TITLE ================= */
 
 .personalTitle {
-  position: absolute;
-  top: 137px;
-  left: 353px;
-  right: 40px;   /* 👈 leaves space on right side */
-
+ 
   height: 50px;
   padding: 10px 14px;
 
@@ -265,10 +246,7 @@ body {
 /* ================= CARD ================= */
 
 .profileContainer {
-  position: absolute;
-  width: 1119px;
-  top: 230px;   /* slightly reduced to stop scroll */
-  left: 355px;
+ margin-top: 30px;
   background: white;
   padding: 35px 40px;
   border-radius: 6px;
