@@ -6,8 +6,8 @@ function Tickets() {
   return (
     <>
       <Navbar />
-
-      {/* ===== HEADER ===== */}
+      <div className="mu-membership-wrapper">
+        
    
         <div className="ticketHeader">
           <div className="AthleteTicket">TICKET SUPPORT</div>
@@ -79,7 +79,7 @@ function Tickets() {
             </div>
           </div>
         </div>
- 
+    </div>
     </>
   );
 }
