@@ -5,6 +5,7 @@ import EventModal from "./EventModel";
 import { getEvents } from "../../api/event_api";
 import { useQuery } from "@tanstack/react-query";
 import DateOnly from "../../hook/time/time";
+import { fetct_one_event } from "../../api/event_api";
 const eventData = [
   {
     id: 1,
@@ -48,9 +49,11 @@ function Calender() {
     setOpen(true);
   };
 
-  const handleEdit = (item) => {
-    setEditData(item);
-    setOpen(true);
+  const handleEdit = (id) => {
+    fetct_one_event(id).then((response) => {
+      setEditData(response.data);
+      setOpen(true);
+    });
   };
 
   return (
@@ -89,7 +92,7 @@ function Calender() {
             <div>{item.visibility}</div>
             <div
               className="editBtn"
-              onClick={() => handleEdit(item)}
+              onClick={() => handleEdit(item.id)}
             >
               ✎ Edit
             </div>

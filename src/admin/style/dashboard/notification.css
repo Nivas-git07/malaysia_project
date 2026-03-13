@@ -8,9 +8,10 @@
 
 /* Main Wrapper */
 .admin-notification-wrapper {
-  padding: 30px;
+  padding: 50px;
   background-color: var(--white);
   min-height: 100vh;
+  margin-top: 10px;
 }
 
 /* Header */
