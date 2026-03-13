@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../../style/dashboard/NewsModal.css";
 import { postnews } from "../../api/news_api";
+import { editnews } from "../../api/news_api";
 
-export default function NewsModal({ close, data }) {
-
+export default function NewsModal({ close, data, newsid }) {
+  console.log("NewsModal received data:", data);
+  console.log(data?.title, data?.description, data?.content, data?.visibility, data?.status);
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -12,8 +14,7 @@ export default function NewsModal({ close, data }) {
     visibility: "PUBLIC",
     status: "DRAFT"
   });
-
-  /* ================= FORM HANDLERS ================= */
+ console.log("Initial form state:", form);
 
   const handleChange = (e) => {
     setForm({
@@ -43,16 +44,27 @@ export default function NewsModal({ close, data }) {
       if (form.image) {
         formData.append("image", form.image);
       }
-
-      postnews(formData)
-        .then(() => {
-          alert("News posted successfully!");
-          close();
-        })
-        .catch((err) => {
-          console.error(err);
-          alert("Failed to post news. Please try again.");
-        });
+      if (data[0]?.id) {
+        editnews(data[0]?.id, formData)
+          .then(() => {
+            alert("News updated successfully!");
+            close();
+          })
+          .catch((err) => {
+            console.error(err);
+            alert("Failed to update news. Please try again.");
+          });
+      } else {
+        postnews(formData)
+          .then(() => {
+            alert("News posted successfully!");
+            close();
+          })
+          .catch((err) => {
+            console.error(err);
+            alert("Failed to post news. Please try again.");
+          });
+      }
 
     } catch (err) {
       console.error(err);
@@ -65,12 +77,12 @@ export default function NewsModal({ close, data }) {
   useEffect(() => {
     if (data) {
       setForm({
-        title: data.title || "",
-        description: data.description || "",
-        content: data.content || "",
+        title: data[0]?.title || "",
+        description: data[0]?.description || "",
+        content: data[0]?.content || "",
         image: null,
-        visibility: data.visibility || "PUBLIC",
-        status: data.status || "DRAFT"
+        visibility: data[0]?.visibility || "PUBLIC",
+        status: data[0]?.status || "DRAFT"
       });
     }
   }, [data]);
