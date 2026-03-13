@@ -11,3 +11,15 @@ export const postevent = (formData) => {
     }
   });
 }
+
+export const fetct_one_event = (id) => {
+  return API.get(`/super/fetch_one_event/?id=${id}`);
+}
+
+export const editevent = (id, formData) => {
+  return API.patch(`/super/edit_event/${id}`, formData, {
+    headers: {  
+      "Content-Type": "multipart/form-data"
+    }
+  });
+} 

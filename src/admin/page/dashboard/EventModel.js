@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "../../style/dashboard/EventModel.css";
 import { postevent } from "../../api/event_api";
-
+import { editevent } from "../../api/event_api";
 export default function EventModal({ close, data }) {
-
+  console.log("EventModal received data:", data);
   const [form, setForm] = useState({
     event_name: "",
     description: "",
     location: "",
     date: "",
     time: "",
+    organizer: "",
     image: null,
     visibility: "PUBLIC",
     status: "DRAFT"
@@ -36,34 +37,49 @@ export default function EventModal({ close, data }) {
     formData.append("event_name", form.event_name);
     formData.append("description", form.description);
     formData.append("venue", form.location);
+    formData.append("date", form.date);
     formData.append("time", form.time);
     formData.append("visibility", form.visibility);
+    formData.append("organized_by", form.organizer);
     formData.append("status", form.status);
     formData.append("date", form.date);
     if (form.image) {
       formData.append("image", form.image);
     }
-    postevent(formData)
-      .then(() => {
-        alert("Event saved successfully!");
-        close();
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("Failed to save event.");
-      });
-  };
+    if (data && data[0]?.id) {
+      editevent(data[0]?.id, formData)
+        .then(() => {
+          alert("Event updated successfully!");
+          close();
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Failed to update event. Please try again.");
+        });
+    }
+    else {
+      postevent(formData)
+        .then(() => {
+          alert("Event saved successfully!");
+          close();
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Failed to save event.");
+        });
+    };
+  }
 
   useEffect(() => {
     if (data) {
       setForm({
-        title: data.title || "",
-        description: data.description || "",
-        location: data.location || "",
-        startDate: data.startDate || "",
-        endDate: data.endDate || "",
-        visibility: data.visibility || "PUBLIC",
-        status: data.status || "DRAFT",
+        title: data[0]?.event_name || "",
+        description: data[0]?.description || "",
+        location: data[0]?.venue || "",
+        startDate: data[0]?.date || "",
+        endDate: data[0]?.date || "",
+        visibility: data[0]?.visibility || "PUBLIC",
+        status: data[0]?.status || "DRAFT",
         image: null
       });
     }
@@ -82,7 +98,7 @@ export default function EventModal({ close, data }) {
         <label>Event Title</label>
         <input
           name="title"
-          value={form.title}
+          value={form.event_name}
           placeholder="Enter event title"
           onChange={handleChange}
         />
@@ -103,19 +119,22 @@ export default function EventModal({ close, data }) {
           onChange={handleChange}
         />
 
-        <label>Start Date</label>
+        <label> Date</label>
         <input
           type="date"
           name="startDate"
-          value={form.startDate}
+          value={form.date}
           onChange={handleChange}
+
         />
 
-        <label>End Date</label>
+       
+
+        <label>Organizer</label>
         <input
-          type="date"
-          name="endDate"
-          value={form.endDate}
+          name="organizer"
+          value={form.organizer}
+          placeholder="Enter organizer name"
           onChange={handleChange}
         />
 
