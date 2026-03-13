@@ -39,6 +39,14 @@ export default function AdminRoute() {
           </AdminLayout>
         }
       />
+      <Route
+        path="/notification"
+        element={
+          <AdminLayout>
+            <AdminNotificationPage />
+          </AdminLayout>
+        }
+      />
 
       <Route
         path="/athlete"
