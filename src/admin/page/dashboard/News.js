@@ -51,6 +51,8 @@ export default function News() {
   return (
     <>
       <Navbar />
+      <div className="mu-membership-wrapper">
+
 
       <div className="newsTitle">NEWS</div>
 
@@ -95,6 +97,8 @@ export default function News() {
           data={editData}
         />
       )}
+      
+      </div>
     </>
   )
 }

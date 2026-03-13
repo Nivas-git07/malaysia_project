@@ -5,36 +5,41 @@ function Navbar()
 {
   const navigate = useNavigate();
   return (
-    <div className="pageWrapper">
+   
+      <div className="pageWrapper">
 
       {/* NAVBAR */}
       <div className="navbar">
 
-        {/* SEARCH BAR */}
-        <div className="navSearchWrapper">
-          <input type="text" className="navSearchInput" />
-          <FiSearch className="searchIcon" />
-        </div>
+  <div className="navSearchWrapper">
+    <input 
+      type="text"
+      placeholder="Search..."
+      className="navSearchInput"
+    />
+    <FiSearch className="searchIcon"/>
+  </div>
 
-        <div className="navRight">
-          <div className="bell" onClick={() => { navigate("/admin/notification") }}>
-            <FiBell size={20} color="#666"  />
-            <span className="bellDot"></span>
-          </div>
+  <div className="navRight">
+    <div className="bell" onClick={() => navigate("/admin/notification")}>
+      <FiBell size={20} color="#666"/>
+      <span className="bellDot"></span>
+    </div>
 
-          <img
-            className="navAvatar"
-            src="https://i.pravatar.cc/80"
-            alt="profile"
-          />
-        </div>
+    <img
+      className="navAvatar"
+      src="https://i.pravatar.cc/80"
+      alt="profile"
+    />
+  </div>
 
-      </div>
+</div>
 
       {/* PERSONAL INFORMATION TITLE */}
      
 
     </div>  
+   
   );
 }
 

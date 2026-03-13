@@ -57,8 +57,9 @@ function Athlete() {
   return (
     <>
       <Navbar />
+      <div className="mu-membership-wrapper">
 
-      <div className="AthleteTitle">ATHLETE</div>
+      <div className="EventReport">ATHLETE</div>
       <div className="athleteCard">
         {/* ===== FILTER BAR ===== */}
         <div className="athleteFilters">
@@ -123,6 +124,7 @@ function Athlete() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

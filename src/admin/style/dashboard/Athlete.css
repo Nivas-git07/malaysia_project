@@ -7,36 +7,6 @@
 
 
 
-.AthleteTitle{
-  margin-left:353px;
-  margin-right:40px;
-  margin-top:30px;
-
-  height:50px;
-  padding:10px 14px;
-
-  background:#ED1D240D;
-  color:#c10000;
-
-  font-weight:600;
-  font-size:14px;
-  letter-spacing:.5px;
-
-  display:flex;
-  align-items:center;
-}
-
-
-.athleteCard{
-  margin-left:353px;
-  margin-right:40px;
-  margin-top:60px;
-
-  background:#fff;
-  padding:25px;
-}
-
-
 .athleteFilters{
   width:100%;
   min-height:50px;
