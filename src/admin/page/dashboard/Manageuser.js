@@ -38,54 +38,95 @@ function ManageUser() {
   return (
     <>
       <Navbar />
-      <MembershipSection />
+
       <div className="mu-membership-wrapper">
 
-      <div className="EventReport">MANAGE USERS</div>
+        <div className="EventReport">MEMBERSHIP</div>
+        <div className="athleteProfileCard">
+          {/* <AthleteCard /> */}
 
-      <div className="mu-card">
+          <div className="athleteCard">
+       
 
-        <div className="mu-top">
-          <h2>User Management</h2>
-          <button
-            className="mu-add-btn"
-            onClick={handleAdd}
-          >
-            + Add User
-          </button>
-        </div>
+            <div className="athleteFilters">
 
-        <div className="mu-head">
-          <div>Name</div>
-          <div>Email</div>
-          <div>Role</div>
-          <div>Status</div>
-          <div>Action</div>
-        </div>
+              <select className="filterSelect">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
 
-        {usersData.map((item) => (
-          <div className="mu-row" key={item.id}>
-            <div>{item.name}</div>
-            <div>{item.email}</div>
-            <div>{item.role}</div>
-            <div>{item.status}</div>
-            <div
-              className="mu-edit-btn"
-              onClick={() => handleEdit(item)}
-            >
-              ✎ Edit
+              <select className="filterSelect" >
+                <option value="">Select Discipline</option>
+                <option value="freestyle">Freestyle</option>
+                <option value="butterfly">Butterfly</option>
+                <option value="backstroke">Backstroke</option>
+                <option value="breaststroke">Breaststroke</option>
+              </select>
+
+              <select className="filterSelect">
+                <option value="">Select State</option>
+                <option value="tamilnadu">Tamil Nadu</option>
+                <option value="kerala">Kerala</option>
+                <option value="karnataka">Karnataka</option>
+                <option value="andhra">Andhra Pradesh</option>
+              </select>
+
+              <button className="findBtn">Find Athlete</button>
+
+            </div>
+
+            {/* ===== TABLE ===== */}
+            <div className="athleteTable">
+              <div className="profileHead">
+                <div>Name</div>
+                <div>Membership Plan</div>
+                <div>status</div>
+                <div>Action</div>
+                <div>view more</div>
+              </div>
+
+              {/* {filteredData.map((item, i) => (
+                <div className="athleteprofileRow" key={i}>
+                  <div className="country">
+                    <div className="country">
+                      {item.state}
+                    </div>
+                  </div>
+
+                  <div className="athleteInfo">
+                    <img src="https://i.pravatar.cc/60" alt="" />
+                    <div>
+                      <span className="athleteName">{item.full_name}</span>
+                      <p>IND</p>
+                    </div>
+                  </div>
+
+                  <div>{item.gender}</div>
+                  <div>{item.date_of_birth}</div>
+                  <div>{item.discipline}</div>
+
+
+                </div>
+              ))} */}
+
+              {/* FOOTER */}
+              <div className="tableFooter">
+                <span>Showing 1 to 5 of 100 entries</span>
+                <div className="pagination">
+                  <button>{"<"}</button>
+                  <button className="active">1</button>
+                  <button>2</button>
+                  <button>3</button>
+                  <button>4</button>
+                  <button>25</button>
+                  <button>{">"}</button>
+                </div>
+              </div>
             </div>
           </div>
-        ))}
+        </div>
 
-      </div>
-
-      {open && (
-        <ManageUserModal
-          close={() => setOpen(false)}
-          data={editData}
-        />
-      )}
       </div>
     </>
   );

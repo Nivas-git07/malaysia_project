@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 import { RiGroupFill } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
+import { FaAddressCard } from "react-icons/fa";
 import { logout } from "../../api/auth_api";
 import {
   Home,
@@ -58,8 +59,8 @@ export default function Sidebar() {
           </NavLink>
 
            <NavLink to="/admin/user" className="menuItem" onClick={closeSidebar}>
-            <RiGroupFill size={20}/>
-            <span>Users</span>
+            <FaAddressCard size={20}/>
+            <span>membership</span>
           </NavLink>
 
           <NavLink to="/admin/tickets" className="menuItem" onClick={closeSidebar}>
