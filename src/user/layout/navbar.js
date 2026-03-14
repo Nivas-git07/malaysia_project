@@ -20,7 +20,7 @@ function Navbar() {
             });
     }, []);
     return (
-        <nav className="navbar container">
+        <nav className="navbars container">
             <div className="logo">
                 <img src={logo} alt="logo" />
             </div>
