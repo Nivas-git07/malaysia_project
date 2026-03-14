@@ -51,7 +51,7 @@ export default function AdminNotificationPage() {
         <>
             <Navbar />
             <div className="admin-notification-wrapper">
-                <div className="adminMainContent">
+              
 
 
                     <div className="admin-notification-header">
@@ -103,7 +103,7 @@ export default function AdminNotificationPage() {
                         ))}
                     </div>
                 </div>
-            </div>
+            
         </>
     );
 }
