@@ -325,3 +325,12 @@ font-size:22px;
 font-weight:700;
 margin-top:10px;
 }
+
+.acceptBtn{
+background:#c10000;
+color:#fff;
+border:none;
+padding:8px 14px;
+cursor:pointer; 
+border-radius: 12px;
+}

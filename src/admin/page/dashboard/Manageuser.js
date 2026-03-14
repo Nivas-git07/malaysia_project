@@ -3,6 +3,9 @@ import Navbar from "../navbar/nav";
 import "../../style/dashboard/ManageUser.css";
 import ManageUserModal from "./ManageUserModal";
 import MembershipSection from "../../components/membershipcard";
+import { getmebership } from "../../api/membership";
+import { useQuery } from "@tanstack/react-query";
+
 const usersData = [
   {
     id: 1,
@@ -22,114 +25,156 @@ const usersData = [
 
 function ManageUser() {
 
-  const [open, setOpen] = useState(false);
-  const [editData, setEditData] = useState(null);
+  const[Filter, setFilter] = useState({
+    plan: "",
+    role: "",
+    status: ""
+  });
 
-  const handleAdd = () => {
-    setEditData(null);
-    setOpen(true);
-  };
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["membership"],
+    queryFn: getmebership,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+  console.log(data, isLoading, error);
+  const membershipData = data?.data || [];
+  console.log(membershipData);
 
-  const handleEdit = (item) => {
-    setEditData(item);
-    setOpen(true);
-  };
+  const handleFilterChange = (e) => {
+    setFilter({
+      ...Filter,
+      [e.target.name]: e.target.value
+    });
+  }
+  const filteredData = membershipData.filter((item) => {
+    return (
+      (Filter.plan === "" ||
+        item.plan?.toLowerCase() === Filter.plan.toLowerCase()) &&
 
-  return (
-    <>
-      <Navbar />
+      (Filter.role === "" ||
+        item.role?.toLowerCase() === Filter.role.toLowerCase()) &&
 
-      <div className="mu-membership-wrapper">
+      (Filter.status === "" ||
+        item.status?.toLowerCase() === Filter.status.toLowerCase())
+    );
+  });
 
-        <div className="EventReport">MEMBERSHIP</div>
-        <div className="athleteProfileCard">
-          {/* <AthleteCard /> */}
 
-          <div className="athleteCard">
-       
 
-            <div className="athleteFilters">
+const [open, setOpen] = useState(false);
+const [editData, setEditData] = useState(null);
 
-              <select className="filterSelect">
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
+const handleAdd = () => {
+  setEditData(null);
+  setOpen(true);
+};
 
-              <select className="filterSelect" >
-                <option value="">Select Discipline</option>
-                <option value="freestyle">Freestyle</option>
-                <option value="butterfly">Butterfly</option>
-                <option value="backstroke">Backstroke</option>
-                <option value="breaststroke">Breaststroke</option>
-              </select>
+const handleEdit = (item) => {
+  setEditData(item);
+  setOpen(true);
+};
 
-              <select className="filterSelect">
-                <option value="">Select State</option>
-                <option value="tamilnadu">Tamil Nadu</option>
-                <option value="kerala">Kerala</option>
-                <option value="karnataka">Karnataka</option>
-                <option value="andhra">Andhra Pradesh</option>
-              </select>
+return (
+  <>
+    <Navbar />
 
+    <div className="mu-membership-wrapper">
+
+      <div className="EventReport">MEMBERSHIP</div>
+      <div className="athleteProfileCard">
+        {/* <AthleteCard /> */}
+
+        <div className="athleteCard">
+
+
+          <div className="athleteFilters">
+
+            <select className="filterSelect" name="plan" onChange={handleFilterChange}>
+              <option value="">Select plan</option>
+              <option value="CLUB_ATHLETE_MEMBERSHIP">Club athlete membership</option>
+              <option value="NATIONAL_ATHLETE_MEMBERSHIP">National athlete membership</option>
+              <option value="COACH_MEMBERSHIP'">Coach membership</option>
+              <option value="TECHNICAL_OFFICIAL_MEMBERSHIP">Technical official membership</option>
+             
+            </select>
+
+            <select className="filterSelect" name="role" onChange={handleFilterChange}>
+              <option value="">Select Role</option>
+              <option value="Admin">Admin</option>
+              <option value="Coach">Coach</option>
+            </select>
+
+            <select className="filterSelect" name="status" onChange={handleFilterChange}>
+              <option value="">Select Status</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
               <button className="findBtn">Find Athlete</button>
 
+          </div>
+
+
+
+          
+
+          </div>
+
+
+          <div className="athleteTable">
+            <div className="profileHead">
+              <div>Name</div>
+              <div>Membership Plan</div>
+              <div>status</div>
+              <div>Action</div>
+              <div>view more</div>
             </div>
 
-            {/* ===== TABLE ===== */}
-            <div className="athleteTable">
-              <div className="profileHead">
-                <div>Name</div>
-                <div>Membership Plan</div>
-                <div>status</div>
-                <div>Action</div>
-                <div>view more</div>
-              </div>
-
-              {/* {filteredData.map((item, i) => (
+            {filteredData.map((item, i) => (
                 <div className="athleteprofileRow" key={i}>
                   <div className="country">
                     <div className="country">
-                      {item.state}
+                      {item.user_name}
                     </div>
                   </div>
 
                   <div className="athleteInfo">
-                    <img src="https://i.pravatar.cc/60" alt="" />
+                    
                     <div>
-                      <span className="athleteName">{item.full_name}</span>
-                      <p>IND</p>
+                      <span className="athleteName">{item.membership_plan}</span>
+                      
                     </div>
                   </div>
 
-                  <div>{item.gender}</div>
-                  <div>{item.date_of_birth}</div>
-                  <div>{item.discipline}</div>
+                  <div>{item.status}</div>
+                  <div>
+                    <button className="acceptBtn" onClick={() => handleEdit(item)}>Accept</button>
+                  </div>
+                  <div>view </div>
 
 
                 </div>
-              ))} */}
+              ))}
 
-              {/* FOOTER */}
-              <div className="tableFooter">
-                <span>Showing 1 to 5 of 100 entries</span>
-                <div className="pagination">
-                  <button>{"<"}</button>
-                  <button className="active">1</button>
-                  <button>2</button>
-                  <button>3</button>
-                  <button>4</button>
-                  <button>25</button>
-                  <button>{">"}</button>
-                </div>
+            {/* FOOTER */}
+            <div className="tableFooter">
+              <span>Showing 1 to 5 of 100 entries</span>
+              <div className="pagination">
+                <button>{"<"}</button>
+                <button className="active">1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>25</button>
+                <button>{">"}</button>
               </div>
             </div>
           </div>
         </div>
-
       </div>
-    </>
-  );
+
+  </>
+);
 }
 
 export default ManageUser;
