@@ -5,24 +5,8 @@ import ManageUserModal from "./ManageUserModal";
 import MembershipSection from "../../components/membershipcard";
 import { getmebership } from "../../api/membership";
 import { useQuery } from "@tanstack/react-query";
-
-const usersData = [
-  {
-    id: 1,
-    name: "Arjun Kumar",
-    email: "arjun@gmail.com",
-    role: "Admin",
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Priya Sharma",
-    email: "priya@gmail.com",
-    role: "Coach",
-    status: "Inactive",
-  }
-];
-
+import { getmebershipdetails } from "../../api/membership";
+import MembershipPopup from "../../components/membershippopup";
 function ManageUser() {
 
   const[Filter, setFilter] = useState({
@@ -30,7 +14,7 @@ function ManageUser() {
     role: "",
     status: ""
   });
-
+ 
   const { data, isLoading, error } = useQuery({
     queryKey: ["membership"],
     queryFn: getmebership,
@@ -39,6 +23,8 @@ function ManageUser() {
   });
   console.log(data, isLoading, error);
   const membershipData = data?.data || [];
+
+
   console.log(membershipData);
 
   const handleFilterChange = (e) => {
@@ -64,6 +50,17 @@ function ManageUser() {
 
 const [open, setOpen] = useState(false);
 const [editData, setEditData] = useState(null);
+
+const handlesubmit = (id) => {
+  getmebershipdetails(id)
+    .then((res) => {
+      setEditData(res.data);
+      setOpen(true);
+    })
+    .catch((err) => {
+      console.error("Error fetching membership details:", err);
+    });
+};
 
 const handleAdd = () => {
   setEditData(null);
@@ -126,7 +123,7 @@ return (
               <div>Name</div>
               <div>Membership Plan</div>
               <div>status</div>
-              <div>Action</div>
+              <div>State / Club</div>
               <div>view more</div>
             </div>
 
@@ -148,9 +145,9 @@ return (
 
                   <div>{item.status}</div>
                   <div>
-                    <button className="acceptBtn" onClick={() => handleEdit(item)}>Accept</button>
+                    {item.state_name || item.club_name || "N/A"}
                   </div>
-                  <div>view </div>
+                  <div  onClick={() => handlesubmit(item.membership_id)}  className="view-btn">view </div>
 
 
                 </div>
@@ -172,6 +169,13 @@ return (
           </div>
         </div>
       </div>
+
+      {open && (
+        <MembershipPopup
+          data={editData}
+          onClose={() => setOpen(false)}
+        />
+      )}
 
   </>
 );

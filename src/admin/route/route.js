@@ -8,7 +8,7 @@ import Tickets from "../page/dashboard/Tickets";
 import Report from "../page/dashboard/Report";
 import News from "../page/dashboard/News";
 import Settings from "../page/dashboard/Settings";
-import Manageuser from "../page/dashboard/Manageuser";
+import Manageuser from "../page/dashboard/membership";
 import StateList from "../page/dashboard/clublist";
 import AdminNotificationPage from "../page/dashboard/notification";
 import AthleteProfile from "../page/dashboard/athleteprofile";
