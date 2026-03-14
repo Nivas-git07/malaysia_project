@@ -1,8 +1,25 @@
 import React from "react";
-
+import { useState } from "react";
+import { approvemembership } from "../api/membership";
 import { IoClose } from "react-icons/io5";
 
 export default function MembershipPopup({ data, onClose }) {
+    const [isApproving, setIsApproving] = useState(false);
+
+    const handleApprove = async () => {
+        setIsApproving(true);
+        try {
+            await approvemembership(data.membership_id,"ACTIVE");
+            onClose();
+            alert("Membership approved successfully!");
+        } catch (error) {
+            console.error("Error approving membership:", error);
+        } finally {
+            setIsApproving(false);
+        }
+    };
+
+
     return (
         <div className="membership-popup-overlay">
 
@@ -62,8 +79,8 @@ export default function MembershipPopup({ data, onClose }) {
 
                 {/* Footer */}
                 <div className="membership-popup-footer">
-                    <button className="membership-action-btn">
-                        Approve
+                    <button className="membership-action-btn" onClick={()=>{handleApprove()}} >
+                        Approved
                     </button>
                 </div>
 

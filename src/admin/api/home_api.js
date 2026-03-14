@@ -6,3 +6,4 @@ export const homeData = () => {
 export const statedata = (id) => {
   return API.get(`/super/get_club_list/?id=${id}`);
 }
+
