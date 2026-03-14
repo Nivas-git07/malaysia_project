@@ -5,6 +5,7 @@ import logo from "../../assets/logo.jpg";
 import { homeData } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import StateList from "./clublist";
 export default function Home() {
   const { data, isLoading, error } = useQuery({
@@ -15,7 +16,28 @@ export default function Home() {
   });
   console.log(data, isLoading, error);
   const navigate = useNavigate();
+  const data1 = data?.data.states_list || [];
+  const [filters, setFilters] = useState({
+    state: ""
+  });
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value
+    }));
+  };
+
+  const filteredData = data1.filter((item) => {
+    const itemState = item.state_name?.toLowerCase().replace(/\s/g, "");
+    const selectedState = filters.state?.toLowerCase().replace(/\s/g, "");
+
+    return filters.state === "" || itemState === selectedState;
+  });
   console.log(data?.data.stats);
+
+
+
   return (
 
     <>
@@ -50,9 +72,29 @@ export default function Home() {
         <div className="stateCard">
 
           <div className="stateFilters">
-            <input placeholder="e.g., Selangor Finswimming Club" />
-            <input placeholder="--Select State--" />
+
+            <input
+              type="text"
+              placeholder="e.g., Selangor Finswimming Club"
+              className="filterInput"
+            />
+
+            <select
+              className="filterSelect"
+              name="state"
+              value={filters.state}
+              onChange={handleFilterChange}
+            >
+              <option value="">Select State</option>
+              <option value="Tamilnadu">Tamil Nadu</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Andra pradesh">Andra Pradesh</option>
+              <option value="Telangana">Telangana</option>
+            </select>
+
             <button className="findBtn">Find Club</button>
+
           </div>
 
 
@@ -64,7 +106,7 @@ export default function Home() {
               <div>Website</div>
             </div>
 
-            {data?.data.states_list?.map((club, i) => (
+            {filteredData.map((club, i) => (
               <div className="stateRow" key={i} onClick={() => navigate(`/admin/home/state/${club.user}`)}>
                 <div className="clubCell">
                   <img src={logo} alt="logo" />
