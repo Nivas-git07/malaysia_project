@@ -6,8 +6,19 @@ import { homeData } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import StateList from "./clublist";
+import StateList from "./state";
+import { checksession } from "../../api/home_api";
 export default function Home() {
+
+  const { data: sessionData, isLoading: sessionLoading, error: sessionError } = useQuery({
+    queryKey: ["checkSession"],
+    queryFn: checksession,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+  console.log("Session Data:", sessionData?.data, sessionLoading, sessionError);
+  const role = sessionData?.data.role || "Unknown";
+  console.log("User Role:", role);
   const { data, isLoading, error } = useQuery({
     queryKey: ["homeData"],
     queryFn: homeData,

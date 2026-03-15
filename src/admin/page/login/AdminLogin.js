@@ -6,6 +6,7 @@ import { FaRegEye } from "react-icons/fa";
 import { adminLogin } from "../../api/auth_api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Authenticate from "../authenticate/authenticate";
 export default function AdminLogin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");

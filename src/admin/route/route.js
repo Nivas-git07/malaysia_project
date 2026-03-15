@@ -9,24 +9,25 @@ import Report from "../page/dashboard/Report";
 import News from "../page/dashboard/News";
 import Settings from "../page/dashboard/Settings";
 import Manageuser from "../page/dashboard/membership";
-import StateList from "../page/dashboard/clublist";
+import StateList from "../page/dashboard/state";
 import AdminNotificationPage from "../page/dashboard/notification";
 import AthleteProfile from "../page/dashboard/athleteprofile";
-
+import Authenticate from "../page/authenticate/authenticate";
+import ClubList from "../page/dashboard/club";
 export default function AdminRoute() {
   return (
     <Routes>
 
       <Route path="/login" element={<AdminLogin />} />
 
-      <Route
+      {/* <Route
         path="/home"
         element={
           <AdminLayout>
             <Home />
           </AdminLayout>
         }
-      />
+      /> */}
       <Route
         path="/notification"
         element={
@@ -117,10 +118,27 @@ export default function AdminRoute() {
       />
 
       <Route
+        path="/home/club/:id"
+        element={
+          <AdminLayout>
+            <ClubList />
+          </AdminLayout>
+        }
+      />
+
+      <Route
         path="/athlete/:id"
         element={
           <AdminLayout>
             <AthleteProfile />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/home"
+        element={
+          <AdminLayout>
+            <Authenticate />
           </AdminLayout>
         }
       />
