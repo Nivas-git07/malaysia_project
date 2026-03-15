@@ -7,3 +7,6 @@ export const statedata = (id) => {
   return API.get(`/super/get_club_list/?id=${id}`);
 }
 
+export const checksession = () => {
+  return API.get("/auth/check_session/");
+}
