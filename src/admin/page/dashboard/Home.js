@@ -6,7 +6,7 @@ import { homeData } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import StateList from "./clublist";
+import StateList from "./state";
 import { checksession } from "../../api/home_api";
 export default function Home() {
 

@@ -1,6 +1,6 @@
 import { checksession } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
-import StateList from "../dashboard/clublist";
+import StateList from "../dashboard/state";
 import { useNavigate } from "react-router-dom";
 import Home from "../dashboard/Home";
 export default function Authenticate() {
@@ -15,11 +15,11 @@ export default function Authenticate() {
     console.log("User Role:", role);
     if (role === "SUPERADMIN") {
         return <Home />
-    } else if (role === "CLUB") {
+    } else if (role === "STATE") {
         return <StateList />
     } else {
         return <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-            <h2>Unauthorized Access</h2>
+            <h2></h2>
         </div>
     }
 }

@@ -5,71 +5,67 @@ import logo from "../../assets/logo.jpg";
 import { statedata } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { getClubList } from "../../api/home_api";
 export default function StateList() {
   const { id } = useParams();
   console.log("State ID:", id);
+
   const { data, isLoading, error } = useQuery({
-    queryKey: ["statedata"],
-    queryFn: () => statedata(id),
+    queryKey: ["clubList", id],
+    queryFn: () => (id ? statedata(id) : getClubList()),
     refetchOnWindowFocus: false,
     retry: false,
   });
-  console.log(data, isLoading, error);
-  console.log(data?.data);
-  return (
 
+  const clubs_stats = data?.data || [];
+
+  console.log(data, isLoading, error);
+
+  return (
     <>
       <Navbar />
 
-
       <div className="mu-membership-wrapper">
-
         <div className="dataTitle">DATA OVERVIEW</div>
-
 
         <div className="overviewCards">
           <div className="overviewCard">
             <p>Total Clubs</p>
-            <h2>{data?.data.clubs_count || 0}</h2>
+            <h2>{clubs_stats.clubs_count || 0}</h2>
           </div>
 
           <div className="overviewCard">
             <p>Total Clubs</p>
-            <h2>{data?.data.total_clubs || 0}</h2>
+            <h2>{clubs_stats.total_clubs || 0}</h2>
           </div>
 
           <div className="overviewCard">
             <p>Total Members</p>
-            <h2>{data?.data.total_athletes || 0} +</h2>
+            <h2>{clubs_stats.total_athletes || 0} +</h2>
           </div>
         </div>
 
-
         <div className="stateTitle">CLUB LIST</div>
 
-
         <div className="stateCard">
-
           <div className="stateFilters">
             <input placeholder="e.g., Selangor Finswimming Club" />
             <input placeholder="--Select State--" />
             <button className="findBtn">Find Club</button>
           </div>
 
-
           <div className="stateTable">
             <div className="stateHead">
-              <div>State Name</div>
+              <div>Club Name</div>
               <div>Members</div>
               <div>Club Count</div>
               <div>Website</div>
             </div>
 
-            {data?.data.clubs_list?.map((club, i) => (
+            {clubs_stats.clubs_list?.map((club) => (
               <div className="stateRow" key={club.id}>
                 <div className="clubCell">
                   <img src={logo} alt="logo" />
-
                   {club.club_name}
                 </div>
 
@@ -94,7 +90,6 @@ export default function StateList() {
             ))}
           </div>
         </div>
-
       </div>
     </>
   );
