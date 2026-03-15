@@ -427,6 +427,7 @@ border-radius: 12px;
 
 .membership-popup-footer{
   display:flex;
+  gap: 20px;
   justify-content:flex-end;
   margin-top:25px;
 }
@@ -434,6 +435,16 @@ border-radius: 12px;
 .membership-action-btn{
   background:#C10000;
   color:#fff;
+  border:none;
+  padding:10px 18px;
+  border-radius:6px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.membership-reject-btn{
+  background:#e0e0e0;
+  color:#111;
   border:none;
   padding:10px 18px;
   border-radius:6px;

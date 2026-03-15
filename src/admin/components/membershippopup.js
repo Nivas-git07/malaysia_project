@@ -2,14 +2,30 @@ import React from "react";
 import { useState } from "react";
 import { approvemembership } from "../api/membership";
 import { IoClose } from "react-icons/io5";
+import { rejectmembership } from "../api/membership";
 
 export default function MembershipPopup({ data, onClose }) {
     const [isApproving, setIsApproving] = useState(false);
-
+    const [isRejecting, setIsRejecting] = useState(false);
+    const handlereject = async () => {
+        try {
+            const rejection_note = prompt("Please enter a rejection note:");
+            if (rejection_note) {
+                setIsRejecting(true);
+                await rejectmembership(data.membership_id, "REJECTED", rejection_note);
+                onClose();
+                alert("Membership rejected successfully!");
+            } else {
+                alert("Rejection note is required to reject the membership.");
+            }
+        } catch (error) {
+            console.error("Error rejecting membership:", error);
+        }
+    }
     const handleApprove = async () => {
         setIsApproving(true);
         try {
-            await approvemembership(data.membership_id,"ACTIVE");
+            await approvemembership(data.membership_id, "ACTIVE");
             onClose();
             alert("Membership approved successfully!");
         } catch (error) {
@@ -79,7 +95,10 @@ export default function MembershipPopup({ data, onClose }) {
 
                 {/* Footer */}
                 <div className="membership-popup-footer">
-                    <button className="membership-action-btn" onClick={()=>{handleApprove()}} >
+                    <button className="membership-reject-btn" onClick={() => { handlereject() }} >
+                        Reject
+                    </button>
+                    <button className="membership-action-btn" onClick={() => { handleApprove() }} >
                         Approved
                     </button>
                 </div>
