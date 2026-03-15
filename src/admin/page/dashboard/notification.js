@@ -7,7 +7,7 @@ import Timeage from "../../hook/time/timeage";
 
 export default function AdminNotificationPage() {
     const [activeFilter, setActiveFilter] = useState("ALL");
-
+  
     const { data, isLoading, error } = useQuery({
         queryKey: ["notifications"],
         queryFn: getNotifications,
