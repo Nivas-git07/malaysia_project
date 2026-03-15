@@ -11,6 +11,11 @@ export const getClubList = () => {
 export const getathleteList = () => {
   return API.get("/super/get_athlete_list/");
 }
+
+export const athletedata = (id) => {
+  return API.get(`/super/get_athlete_list/?id=${id}`);
+}
+
 export const statedata = (id) => {
   return API.get(`/super/get_club_list/?id=${id}`);
 }

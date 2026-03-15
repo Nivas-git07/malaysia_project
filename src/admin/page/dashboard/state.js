@@ -6,8 +6,10 @@ import { statedata } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getClubList } from "../../api/home_api";
+import { useNavigate } from "react-router-dom";
 export default function StateList() {
   const { id } = useParams();
+  const navigate = useNavigate();
   console.log("State ID:", id);
 
   const { data, isLoading, error } = useQuery({
@@ -63,7 +65,7 @@ export default function StateList() {
             </div>
 
             {clubs_stats.clubs_list?.map((club) => (
-              <div className="stateRow" key={club.id}>
+              <div className="stateRow" key={club.user} onClick={()=>{navigate(`/admin/home/club/${club.user}`)}}>
                 <div className="clubCell">
                   <img src={logo} alt="logo" />
                   {club.club_name}

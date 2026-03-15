@@ -13,6 +13,7 @@ import StateList from "../page/dashboard/state";
 import AdminNotificationPage from "../page/dashboard/notification";
 import AthleteProfile from "../page/dashboard/athleteprofile";
 import Authenticate from "../page/authenticate/authenticate";
+import ClubList from "../page/dashboard/club";
 export default function AdminRoute() {
   return (
     <Routes>
@@ -112,6 +113,15 @@ export default function AdminRoute() {
         element={
           <AdminLayout>
             <StateList />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="/home/club/:id"
+        element={
+          <AdminLayout>
+            <ClubList />
           </AdminLayout>
         }
       />
