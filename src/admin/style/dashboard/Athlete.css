@@ -106,6 +106,15 @@
   padding:14px 18px;
   font-size:14px;
 }
+.profileHead{
+  background:#c10000;
+  color:white;
+
+  display:grid;
+grid-template-columns: repeat(5, 1fr);
+  padding:14px 18px;
+  font-size:14px;
+}
 
 /* MOVE ONLY ATHLETE HEADER */
 .athleteHead div:nth-child(2){
@@ -129,6 +138,15 @@
   border-bottom:1px solid #eee;
 }
 
+.athleteprofileRow{
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+   
+
+  align-items:center;
+  padding:18px;
+  border-bottom:1px solid #eee;
+}
 /* ================= COUNTRY ================= */
 
 .country{
@@ -329,5 +347,181 @@
   display:flex;
   flex-wrap:wrap;
 }
+
+}
+
+/* MAIN CARD */
+
+.athlete-card{
+  display:flex;
+  background:#f6f6f6;
+  border-radius:14px;
+  overflow:hidden;
+  padding: 20px;
+  width: 100%;
+  margin:auto;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* IMAGE */
+
+.athlete-card-image{
+  width:35%;
+  margin-top: 15px;
+
+}
+
+.athlete-card-image img{
+  width:90%;
+  height:90%;
+  object-fit:cover;
+  border-radius: 12px;
+}
+
+/* CONTENT */
+
+.athlete-card-content{
+  flex:1;
+  padding:30px;
+}
+
+/* NAME */
+
+.athlete-card-name{
+  display:inline-block;
+  background:#c60000;
+  color:#fff;
+  padding:8px 18px;
+  font-size:20px;
+  letter-spacing:1px;
+  margin-bottom:20px;
+}
+
+/* INFO ROW */
+
+.athlete-card-info{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:20px 180px;
+  margin-bottom:20px;
+}
+
+.athlete-card-info-item{
+  display:flex;
+  flex-direction:column;
+}
+
+.athleteCard{
+  margin-top: 30px;
+}
+/* LABEL */
+
+.athlete-card-label{
+  font-size:11px;
+  color:#8a8a8a;
+  letter-spacing:1px;
+}
+
+/* VALUE */
+
+.athlete-card-value{
+  font-weight:600;
+  margin-top:4px;
+}
+
+
+/* MEDAL GRID */
+
+.athlete-card-medals{
+  margin-top: 60px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+.athlete-card-medal{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px;
+  border-radius:10px;
+  border:1px solid;
+}
+
+.athlete-card-medal h3{
+  margin:0;
+  font-size:18px;
+  font-weight:700;
+}
+
+.athlete-card-medal p{
+  margin:0;
+  font-size:12px;
+  font-weight:600;
+  color: #475569;
+  font-weight: 700;
+   font-family: 'Lexend', sans-serif !important;
+  letter-spacing:0.5px;
+}
+
+.athlete-medal-total{
+  background:rgba(225,29,72,0.10);
+  border-color:rgba(225,29,72,0.20);
+}
+
+.athlete-medal-total h3,
+.athlete-medal-total .athlete-medal-icon{
+  color:#E11D48;
+}
+
+.athlete-medal-gold{
+  background:rgba(212,160,23,0.10);
+  border-color:rgba(212,160,23,0.20);
+}
+
+.athlete-medal-gold h3,
+.athlete-medal-gold .athlete-medal-icon{
+  color:#D4A017;
+}
+
+.athlete-medal-silver{
+  background:rgba(107,114,128,0.10);
+  border-color:rgba(107,114,128,0.20);
+}
+
+.athlete-medal-silver h3,
+.athlete-medal-silver .athlete-medal-icon{
+  color:#6B7280;
+}
+
+.athlete-medal-bronze{
+  background:rgba(205,127,50,0.10);
+  border-color:rgba(205,127,50,0.20);
+}
+
+.athlete-medal-bronze h3,
+.athlete-medal-bronze .athlete-medal-icon{
+  color:#CD7F32;
+}
+/* MOBILE RESPONSIVE */
+
+@media(max-width:768px){
+
+  .athlete-card{
+    flex-direction:column;
+  }
+
+  .athlete-card-image{
+    width:100%;
+    height:250px;
+  }
+
+  .athlete-card-medals{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .athlete-card-info{
+    flex-direction:column;
+    gap:15px;
+  }
 
 }

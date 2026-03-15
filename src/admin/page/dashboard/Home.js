@@ -107,7 +107,7 @@ export default function Home() {
             </div>
 
             {filteredData.map((club, i) => (
-              <div className="stateRow" key={i} onClick={() => navigate(`/admin/home/state/${club.id}`)}>
+              <div className="stateRow" key={i} onClick={() => navigate(`/admin/home/state/${club.user}`)}>
                 <div className="clubCell">
                   <img src={logo} alt="logo" />
 

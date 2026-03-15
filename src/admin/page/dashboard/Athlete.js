@@ -5,6 +5,7 @@ import { getAthletes } from "../../api/athlete_api";
 import { useQuery } from "@tanstack/react-query";
 import useQueryClient from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 // const data = [
 //   {
 //     country: "UAE",
@@ -46,6 +47,7 @@ import { useState } from "react";
 
 
 function Athlete() {
+  const navigate = useNavigate();
   const [filters, setFilters] = useState({
   gender: "",
   discipline: "",
@@ -148,7 +150,9 @@ const filteredData = data.filter((item) => {
                 <div>{item.date_of_birth}</div>
                 <div>{item.discipline}</div>
 
-                <div className="viewProfile">View Profile</div>
+                <div className="viewProfile" onClick={() => navigate(`/admin/athlete/${item.id}`)}>
+                  View Profile
+                </div>
               </div>
             ))}
 

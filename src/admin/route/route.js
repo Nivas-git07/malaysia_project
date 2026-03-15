@@ -8,20 +8,16 @@ import Tickets from "../page/dashboard/Tickets";
 import Report from "../page/dashboard/Report";
 import News from "../page/dashboard/News";
 import Settings from "../page/dashboard/Settings";
-import Manageuser from "../page/dashboard/Manageuser";
+import Manageuser from "../page/dashboard/membership";
 import StateList from "../page/dashboard/clublist";
 import AdminNotificationPage from "../page/dashboard/notification";
-
+import AthleteProfile from "../page/dashboard/athleteprofile";
 
 export default function AdminRoute() {
   return (
     <Routes>
 
-      {/* LOGIN PAGE (NO SIDEBAR) */}
       <Route path="/login" element={<AdminLogin />} />
-
-      {/* ===== DASHBOARD ROUTES WITH SIDEBAR ===== */}
-
 
       <Route
         path="/home"
@@ -120,7 +116,14 @@ export default function AdminRoute() {
         }
       />
 
-      {/* DEFAULT ROUTE */}
+      <Route
+        path="/athlete/:id"
+        element={
+          <AdminLayout>
+            <AthleteProfile />
+          </AdminLayout>
+        }
+      />
       <Route path="*" element={<Navigate to="/home" />} />
 
     </Routes>
