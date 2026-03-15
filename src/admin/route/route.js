@@ -12,7 +12,7 @@ import Manageuser from "../page/dashboard/membership";
 import StateList from "../page/dashboard/clublist";
 import AdminNotificationPage from "../page/dashboard/notification";
 import AthleteProfile from "../page/dashboard/athleteprofile";
-
+import Authenticate from "../page/authenticate/authenticate";
 export default function AdminRoute() {
   return (
     <Routes>
@@ -121,6 +121,14 @@ export default function AdminRoute() {
         element={
           <AdminLayout>
             <AthleteProfile />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/authenticate"
+        element={
+          <AdminLayout>
+            <Authenticate />
           </AdminLayout>
         }
       />
