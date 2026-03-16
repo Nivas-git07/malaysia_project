@@ -39,7 +39,9 @@ export default function Sidebar() {
       <aside className={`sidebar ${open ? "show" : ""}`}>
 
         <div className="sidebarTop">
-          <img src={logo} alt="logo" />
+          <div className="sidebarBanner">
+            <img src={logo} alt="logo" className="sidebarLogo" />
+          </div>
         </div>
 
         <nav className="sidebarMenu">
