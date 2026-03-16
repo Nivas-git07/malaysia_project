@@ -20,11 +20,11 @@ function Tickets() {
       <Navbar />
       <div className="mu-membership-wrapper">
 
-
+  <div className="ticketStatusHeader">TICKET SUPPORT</div>
         <div className="ticketHeader">
-          <div className="AthleteTicket">TICKET SUPPORT</div>
-
-          <button className="newTicketBtn">+ New Ticket</button>
+        
+{/* 
+          <button className="newTicketBtn">+ New Ticket</button> */}
         </div>
 
         {/* ===== MAIN CONTENT ===== */}

@@ -20,23 +20,59 @@
 
 /* ================= LOGO ================= */
 
-.sidebarTop {
-  height: 140px;
-  background: #c10000;
+.sidebarTop{
+  width: 100%;
+  height: 150px;
+  position: relative;
+}
 
+.sidebarBanner{
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  flex-shrink: 0;   /* ⭐ prevents shrinking */
+  background: linear-gradient(135deg,#7a0000,#b30000);
+  position: relative;
+  overflow: hidden;
 }
 
-.sidebarTop img {
+/* geometric shapes */
+.sidebarBanner::before{
+  content:"";
+  position:absolute;
+  width:200%;
+  height:200%;
+  background: linear-gradient(
+    45deg,
+    rgba(0,0,0,0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(0,0,0,0.2) 50%,
+    rgba(0,0,0,0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size:120px 120px;
+  opacity:0.5;
+}
+
+/* logo */
+.sidebarLogo{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  border:5px solid black;
+  background:white;
+  z-index:2;
+}
+
+/* .sidebarTop img {
   width: 80px;
   border-radius: 50%;
-}
+} */
 
-/* ================= MENU ================= */
 
 .sidebarMenu {
   margin-top: 15px;
