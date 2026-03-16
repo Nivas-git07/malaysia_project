@@ -86,7 +86,7 @@ export default function Sidebar() {
             <span>News</span>
           </NavLink>
 
-          <NavLink to="/admin/settings" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/settings" className="menuItem" onClick={closeSidebar} > 
             <FaUserCircle size={20} />
             <span>Profile</span>
           </NavLink>
