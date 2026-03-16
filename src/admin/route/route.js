@@ -14,6 +14,7 @@ import AdminNotificationPage from "../page/dashboard/notification";
 import AthleteProfile from "../page/dashboard/athleteprofile";
 import Authenticate from "../page/authenticate/authenticate";
 import ClubList from "../page/dashboard/club";
+import Record from "../page/dashboard/record";
 export default function AdminRoute() {
   return (
     <Routes>
@@ -54,6 +55,8 @@ export default function AdminRoute() {
         }
       />
 
+
+
       <Route
         path="/calendar"
         element={
@@ -63,6 +66,7 @@ export default function AdminRoute() {
         }
       />
 
+
       <Route
         path="/tickets"
         element={
@@ -71,7 +75,14 @@ export default function AdminRoute() {
           </AdminLayout>
         }
       />
-
+      <Route
+        path="/record"
+        element={
+          <AdminLayout>
+            <Record />
+          </AdminLayout>
+        }
+      />
       <Route
         path="/report"
         element={
