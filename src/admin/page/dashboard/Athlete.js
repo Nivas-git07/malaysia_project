@@ -122,17 +122,17 @@ const filteredData = data.filter((item) => {
 
           {/* ===== TABLE ===== */}
           <div className="athleteTable">
-            <div className="athleteHead">
+            <div className="athleteHeads">
               <div>Country</div>
               <div>Athelete</div>
               <div>Gender</div>
               <div>DOB</div>
               <div>Discipline</div>
-              <div></div>
+              <div>view more</div>
             </div>
 
             {filteredData.map((item, i) => (
-              <div className="athleteRow" key={i}>
+              <div className="athleteRows" key={i}>
                 <div className="country">
                   <div className="country">
                     {item.state}
