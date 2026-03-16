@@ -525,3 +525,64 @@ grid-template-columns: repeat(5, 1fr);
   }
 
 }
+
+.recordFilters{
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.filterGroup{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.filterLabel{
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.addRowBtn{
+  height: 40px;
+}
+
+.recordRow{
+  align-items: center;
+}
+
+.tableSelect{
+  width: 120px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.tableInput{
+  width: 120px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.recordFooter{
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+.saveRecordBtn{
+  background: #d40000;
+  color: white;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.saveRecordBtn:hover{
+  background: #a80000;
+}
