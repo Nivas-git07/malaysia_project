@@ -3,7 +3,6 @@ import Navbar from "../navbar/nav";
 import "../../style/dashboard/Athlete.css";
 import { getAthletes } from "../../api/athlete_api";
 import { useQuery } from "@tanstack/react-query";
-import useQueryClient from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // const data = [

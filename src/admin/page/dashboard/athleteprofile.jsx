@@ -2,7 +2,7 @@ import Navbar from "../navbar/nav";
 import AthleteCard from "../../components/athletecard";
 import { getAthletes } from "../../api/athlete_api";
 import { useQuery } from "@tanstack/react-query";
-import useQueryClient from "@tanstack/react-query";
+// import useQueryClient from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 function AthleteProfile() {
