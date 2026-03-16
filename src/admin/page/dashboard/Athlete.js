@@ -61,6 +61,7 @@ function Athlete() {
   });
   console.log(athleteData, isLoading, error);
   const data = athleteData?.data?.athletes_list || [];
+  console.log("athlete list ",data);
 
   const handleFilterChange = (e) => {
   setFilters({
@@ -121,17 +122,17 @@ const filteredData = data.filter((item) => {
 
           {/* ===== TABLE ===== */}
           <div className="athleteTable">
-            <div className="athleteHead">
+            <div className="athleteHeads">
               <div>Country</div>
               <div>Athelete</div>
               <div>Gender</div>
               <div>DOB</div>
               <div>Discipline</div>
-              <div></div>
+              <div>view more</div>
             </div>
 
             {filteredData.map((item, i) => (
-              <div className="athleteRow" key={i}>
+              <div className="athleteRows" key={i}>
                 <div className="country">
                   <div className="country">
                     {item.state}

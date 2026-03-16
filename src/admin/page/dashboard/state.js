@@ -43,7 +43,7 @@ export default function StateList() {
 
           <div className="overviewCard">
             <p>Total Members</p>
-            <h2>{clubs_stats.total_athletes || 0} +</h2>
+            <h2>{clubs_stats.athletes_count || 0} +</h2>
           </div>
         </div>
 

@@ -106,12 +106,22 @@
   padding:14px 18px;
   font-size:14px;
 }
+.athleteHeads{
+  background:#c10000;
+  color:white;
+
+  display:grid;
+  grid-template-columns:repeat(6, 1fr);
+
+  padding:14px 18px;
+  font-size:14px;
+}
 .profileHead{
   background:#c10000;
   color:white;
 
   display:grid;
-grid-template-columns: repeat(5, 1fr);
+grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
   padding:14px 18px;
   font-size:14px;
 }
@@ -138,9 +148,18 @@ grid-template-columns: repeat(5, 1fr);
   border-bottom:1px solid #eee;
 }
 
+.athleteRows{
+  display:grid;
+  grid-template-columns:repeat(6, 1fr);
+
+  align-items:center;
+  padding:18px;
+  border-bottom:1px solid #eee;
+}
+
 .athleteprofileRow{
   display:grid;
-  grid-template-columns:repeat(5, 1fr);
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
    
 
   align-items:center;
@@ -207,7 +226,7 @@ grid-template-columns: repeat(5, 1fr);
 .viewProfile{
   color:#c10000;
   font-size:13px;
-  text-align:right;
+  cursor: pointer;
 }
 
 /* ================= FOOTER ================= */
@@ -235,14 +254,8 @@ grid-template-columns: repeat(5, 1fr);
 
 /* ================= LARGE LAPTOP ================= */
 
-@media(max-width:1200px){
 
-.AthleteTitle,
-.athleteCard{
-  margin-left:260px;   /* smaller sidebar */
-}
 
-}
 
 /* ================= TABLET ================= */
 
