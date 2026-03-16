@@ -61,6 +61,7 @@ function Athlete() {
   });
   console.log(athleteData, isLoading, error);
   const data = athleteData?.data?.athletes_list || [];
+  console.log("athlete list ",data);
 
   const handleFilterChange = (e) => {
   setFilters({

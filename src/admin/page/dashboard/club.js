@@ -18,7 +18,8 @@ export default function ClubList() {
         retry: false,
     });
 
-    const clubs_stats = data?.data || [];
+    const clubs_stats = data?.data.athletes_list || [];
+    console.log("Club List Data:", clubs_stats, isLoading, error);
 
     console.log(data, isLoading, error);
 
@@ -32,7 +33,7 @@ export default function ClubList() {
                 <div className="overviewCards">
                     <div className="overviewCard">
                         <p>Total Athletes</p>
-                        <h2>{clubs_stats.athletes_count || 0}</h2>
+                        <h2>{data?.data.athletes_count || 0}</h2>
                     </div>
 
                     <div className="overviewCard">
@@ -59,25 +60,26 @@ export default function ClubList() {
                         <div className="stateHead">
                             <div>Athlete Name</div>
                             <div>Gender</div>
+                            
                             <div>DOB</div>
                             <div>Website</div>
                         </div>
 
-                        {clubs_stats.clubs_list?.map((club) => (
+                        {clubs_stats.map((club) => (
                             <div className="stateRow" key={club.id}>
                                 <div className="clubCell">
                                     <img src={logo} alt="logo" />
-                                    {club.club_name}
+                                    {club.full_name}
                                 </div>
 
-                                <div className="membersCell">
-                                    <img src="https://i.pravatar.cc/40" />
+                                <div >
+                                    {/* <img src="https://i.pravatar.cc/40" />
                                     <img src="https://i.pravatar.cc/41" />
-                                    <img src="https://i.pravatar.cc/42" />
-                                    <span> + {club.members_count} </span>
+                                    <img src="https://i.pravatar.cc/42" /> */}
+                                    <span>  {club.gender} </span>
                                 </div>
 
-                                <div>{club.clubs_count}</div>
+                                <div>{club.date_of_birth}</div>
 
                                 <a
                                     href="https://www.georgetown.com"
