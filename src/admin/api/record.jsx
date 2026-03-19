@@ -7,3 +7,8 @@ export const geteventRecords = () => {
 export const get_athlete_records = () => {
   return API.get("/super/get_athlete_list/?page=athlete_record");
 };
+
+export const post_record = (payload) => {
+  console.log("API paload",payload)
+  return API.post("/super/create_record/", { payload });
+};

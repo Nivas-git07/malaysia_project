@@ -1,38 +1,92 @@
+import React, { useState } from "react";
 import Navbar from "../navbar/nav";
 import { get_event_records } from "../../api/event_api";
-import { useQuery } from "@tanstack/react-query";
 import { get_athlete_records } from "../../api/record";
+import { useQuery } from "@tanstack/react-query";
+import { FiTrash2 } from "react-icons/fi";
+import { post_record } from "../../api/record";
 export default function Record() {
+  const [selectedEvent, setSelectedEvent] = useState("");
+  const [selectedEventId, setSelectedEventId] = useState("");
+  const [discipline, setdiscipline] = useState("");
+  const [date, setdate] = useState("");
   const { data: athleteRecords } = useQuery({
     queryKey: ["athleteRecords"],
     queryFn: get_athlete_records,
   });
-  console.log("Athlete Records:", athleteRecords?.data) || [];
-  const athleteList = athleteRecords?.data.athletes_list || [];
+
+  const athleteList = athleteRecords?.data?.athletes_list || [];
+
   const { data: eventRecords } = useQuery({
     queryKey: ["eventRecords"],
     queryFn: get_event_records,
   });
+
   const records = eventRecords?.data || [];
-  console.log("Event Records:", records);
-  const filteredData = [
-    {
-      full_name: "John Doe",
-      state: "California",
-    },
-    {
-      full_name: "Jane Smith",
-      state: "New York",
-    },
-    {
-      full_name: "Michael Johnson",
-      state: "Texas",
-    },
-  ];
+  console.log(records);
+  const handleSave = () => {
+    const payload = rows.map((row) => ({
+      athlete: athleteList.find((a) => a.full_name === row.full_name)?.id,
+      event: selectedEventId,
+      discipline: discipline,
+      distance: row.distance,
+      best_time: row.time,
+      medal: row.medal?.toUpperCase(),
+      rank:
+        row.rank === "1"
+          ? "First"
+          : row.rank === "2"
+            ? "Second"
+            : row.rank === "3"
+              ? "Third"
+              : row.rank,
+      date: date,
+    }));
+    try {
+      post_record(payload);
+    } catch (err) {
+      console.log("ERROR RESPONSE:", err.response.data);
+    }
+    console.log("FINAL PAYLOAD:", payload);
+  };
+
+  const [rows, setRows] = useState([
+    { distance: "", full_name: "", state: "", medal: "", rank: "", time: "" },
+    { distance: "", full_name: "", state: "", medal: "", rank: "", time: "" },
+    { distance: "", full_name: "", state: "", medal: "", rank: "", time: "" },
+  ]);
+
+  const handleAddRow = () => {
+    setRows((prev) => [
+      ...prev,
+      { full_name: "", state: "", medal: "", rank: "", time: "" },
+    ]);
+  };
+
+  const handleDeleteRow = (index) => {
+    if (index < 3) return;
+    setRows((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleAthleteChange = (value, index) => {
+    const selected = athleteList.find((a) => a.full_name === value);
+
+    const updated = [...rows];
+    updated[index].full_name = value;
+    updated[index].state = selected?.state_name || "";
+    setRows(updated);
+  };
+
+  const handleChange = (value, index, field) => {
+    const updated = [...rows];
+    updated[index][field] = value;
+    setRows(updated);
+  };
 
   return (
     <div>
       <Navbar />
+
       <div className="mu-membership-wrapper">
         <div className="newsTitle">Record Entry</div>
 
@@ -42,8 +96,17 @@ export default function Record() {
               <label className="filterLabel">Event Name</label>
               <select
                 className="filterSelect"
-                name="event_name"
-                // onChange={handleFilterChange}
+                value={selectedEvent}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSelectedEvent(value);
+
+                  const selected = records.find(
+                    (event) => event.event_name === value,
+                  );
+
+                  setSelectedEventId(selected?.id || "");
+                }}
               >
                 <option value="">Select Event</option>
                 {records.map((event) => (
@@ -58,57 +121,85 @@ export default function Record() {
               <label className="filterLabel">Discipline</label>
               <select
                 className="filterSelect"
-                name="discipline"
-                // onChange={handleFilterChange}
+                value={discipline}
+                onChange={(e) => {
+                  setdiscipline(e.target.value);
+                }}
               >
                 <option value="">Select Discipline</option>
                 <option value="freestyle">Freestyle</option>
                 <option value="butterfly">Butterfly</option>
                 <option value="backstroke">Backstroke</option>
+                <option value="SURFACE">surface</option>
                 <option value="breaststroke">Breaststroke</option>
               </select>
             </div>
 
             <div className="filterGroup">
               <label className="filterLabel">Date</label>
-              <input type="date" className="filterSelect" name="date" />
+              <input
+                type="date"
+                className="filterSelect"
+                value={date}
+                onChange={(e) => {
+                  setdate(e.target.value);
+                }}
+              />
             </div>
 
-            <button className="findBtn addRowBtn">Add Row</button>
+            <button className="findBtn addRowBtn" onClick={handleAddRow}>
+              Add Row
+            </button>
           </div>
+
           <div className="athleteTable">
             <div className="athleteHead">
               <div>S.No</div>
               <div>Athlete Name</div>
-              <div>State</div>
+              <div>Distance</div>
               <div>Medal</div>
               <div>Rank</div>
               <div>Record / Time</div>
+              <div>Action</div>
             </div>
 
-            {filteredData.map((item, i) => (
+            {rows.map((item, i) => (
               <div className="athleteRow recordRow" key={i}>
-                <div className="sno">{i + 1}</div>
+                <div>{i + 1}</div>
 
-                <div className="athleteInfo">
-                  {/* <img src="https://i.pravatar.cc/60" alt="" /> */}
-                  <div>
-                    <select className="tableSelect">
-                      <option value="">Select Athlete</option>
-                      {athleteList.map((athlete) => (
-                        <option key={athlete.id} value={athlete.full_name}>
-                          {athlete.full_name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                <div>
+                  <select
+                    className="tableSelect"
+                    value={item.full_name}
+                    onChange={(e) => handleAthleteChange(e.target.value, i)}
+                  >
+                    <option value="">Select Athlete</option>
+                    {athleteList.map((athlete) => (
+                      <option key={athlete.id} value={athlete.full_name}>
+                        {athlete.full_name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-
-                <div>{item.state}</div>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Distance"
+                    className="tableInput"
+                    value={item.distance}
+                    onChange={(e) =>
+                      handleChange(e.target.value, i, "distance")
+                    }
+                  />
+                </div>
 
                 {/* Medal */}
                 <div>
-                  <select className="tableSelect">
+                  <select
+                    className="tableSelect"
+                    value={item.medal}
+                    onChange={(e) => handleChange(e.target.value, i, "medal")}
+                  >
                     <option value="">Select</option>
                     <option value="gold">🥇 Gold</option>
                     <option value="silver">🥈 Silver</option>
@@ -118,30 +209,54 @@ export default function Record() {
 
                 {/* Rank */}
                 <div>
-                  <select className="tableSelect">
+                  <select
+                    className="tableSelect"
+                    value={item.rank}
+                    onChange={(e) => handleChange(e.target.value, i, "rank")}
+                  >
                     <option value="">Rank</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {[1, 2, 3, 4, 5].map((r) => (
+                      <option key={r}>{r}</option>
+                    ))}
                   </select>
                 </div>
 
-                {/* Record / Time */}
+                {/* Time */}
                 <div>
                   <input
-                    type="text"
+                    type="time"
+                    step="1"
+                    
                     placeholder="00:00:00"
                     className="tableInput"
+                    value={item.time}
+                    onChange={(e) => handleChange(e.target.value, i, "time")}
                   />
+                </div>
+
+                {/* Delete */}
+                <div>
+                  {i >= 3 && (
+                    <button
+                      className="deleteBtn"
+                      onClick={() => handleDeleteRow(i)}
+                    >
+                      <FiTrash2 />
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
-
-            {/* SAVE BUTTON AREA */}
+            {/* FOOTER */}
             <div className="tableFooter recordFooter">
-              <button className="saveRecordBtn">Save Record</button>
+              <button
+                className="saveRecordBtn"
+                onClick={() => {
+                  handleSave();
+                }}
+              >
+                Save Record
+              </button>
             </div>
           </div>
         </div>

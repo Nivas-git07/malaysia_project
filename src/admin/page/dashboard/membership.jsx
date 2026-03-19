@@ -80,7 +80,7 @@ return (
 
       <div className="EventReport">MEMBERSHIP</div>
       <div className="athleteProfileCard">
-        {/* <AthleteCard /> */}
+       
 
         <div className="athleteCard">
 
@@ -119,7 +119,7 @@ return (
 
 
           <div className="athleteTable">
-            <div className="profileHead">
+            <div className="profileHeads">
               <div>Name</div>
               <div>Membership Plan</div>
               <div>status</div>
@@ -128,7 +128,7 @@ return (
             </div>
 
             {filteredData.map((item, i) => (
-                <div className="athleteprofileRow" key={i}>
+                <div className="athleteprofileRows" key={i}>
                   <div className="country">
                     <div className="country">
                       {item.user_name}
