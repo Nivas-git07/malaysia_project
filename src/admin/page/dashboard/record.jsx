@@ -1,6 +1,13 @@
 import Navbar from "../navbar/nav";
-
+import { get_event_records } from "../../api/event_api";
+import { useQuery } from "@tanstack/react-query";
 export default function Record() {
+    const { data: eventRecords } = useQuery({
+        queryKey: ["eventRecords"],
+        queryFn: get_event_records,
+    });
+    const records = eventRecords?.data || [];
+    console.log("Event Records:", records);
     const filteredData = [
         {
             full_name: "John Doe",
