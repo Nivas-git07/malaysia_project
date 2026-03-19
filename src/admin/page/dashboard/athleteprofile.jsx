@@ -5,9 +5,14 @@ import { useQuery } from "@tanstack/react-query";
 // import useQueryClient from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { get_athlete_particular_list } from "../../api/athlete_api";
+import { useParams } from "react-router-dom";
 
 function AthleteProfile() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  console.log("the athlete is is", id);
+
   const [filters, setFilters] = useState({
     gender: "",
     discipline: "",
@@ -19,12 +24,14 @@ function AthleteProfile() {
     error,
   } = useQuery({
     queryKey: ["athletes"],
-    queryFn: getAthletes,
+    queryFn: () => get_athlete_particular_list(id),
     refetchOnWindowFocus: false,
     retry: false,
   });
   console.log(athleteData, isLoading, error);
-  const data = athleteData?.data?.athletes_list || [];
+  const data = athleteData?.data || [];
+  const records = athleteData?.data.total_records || [];
+  console.log(data);
 
   const handleFilterChange = (e) => {
     setFilters({
@@ -33,17 +40,6 @@ function AthleteProfile() {
     });
   };
 
-  const filteredData = data.filter((item) => {
-    return (
-      (filters.gender === "" ||
-        item.gender?.toLowerCase() === filters.gender.toLowerCase()) &&
-      (filters.discipline === "" ||
-        item.discipline?.toLowerCase() === filters.discipline.toLowerCase()) &&
-      (filters.state === "" ||
-        item.state?.toLowerCase() === filters.state.toLowerCase())
-    );
-  });
-
   return (
     <>
       <div>
@@ -51,48 +47,10 @@ function AthleteProfile() {
         <div className="mu-membership-wrapper">
           <div className="EventReport">Profile </div>
           <div className="athleteProfileCard">
-            <AthleteCard />
+            <AthleteCard data={data} records={records} />
 
             <div className="athleteCard">
               <div className="EventReport">Performance </div>
-
-              <div className="athleteFilters">
-                <select
-                  className="filterSelect"
-                  name="gender"
-                  onChange={handleFilterChange}
-                >
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-
-                <select
-                  className="filterSelect"
-                  name="discipline"
-                  onChange={handleFilterChange}
-                >
-                  <option value="">Select Discipline</option>
-                  <option value="freestyle">Freestyle</option>
-                  <option value="butterfly">Butterfly</option>
-                  <option value="backstroke">Backstroke</option>
-                  <option value="breaststroke">Breaststroke</option>
-                </select>
-
-                <select
-                  className="filterSelect"
-                  name="state"
-                  onChange={handleFilterChange}
-                >
-                  <option value="">Select State</option>
-                  <option value="tamilnadu">Tamil Nadu</option>
-                  <option value="kerala">Kerala</option>
-                  <option value="karnataka">Karnataka</option>
-                  <option value="andhra">Andhra Pradesh</option>
-                </select>
-
-                <button className="findBtn">Find Athlete</button>
-              </div>
 
               {/* ===== TABLE ===== */}
               <div className="athleteTable">
@@ -104,7 +62,7 @@ function AthleteProfile() {
                   <div>Date</div>
                 </div>
 
-                {filteredData.map((item, i) => (
+                {/* {filteredData.map((item, i) => (
                   <div className="athleteprofileRow" key={i}>
                     <div className="country">
                       <div className="country">{item.state}</div>
@@ -122,10 +80,10 @@ function AthleteProfile() {
                     <div>{item.date_of_birth}</div>
                     <div>{item.discipline}</div>
                   </div>
-                ))}
+                ))} */}
 
                 {/* FOOTER */}
-                <div className="tableFooter">
+                {/* <div className="tableFooter">
                   <span>Showing 1 to 5 of 100 entries</span>
                   <div className="pagination">
                     <button>{"<"}</button>
@@ -136,7 +94,7 @@ function AthleteProfile() {
                     <button>25</button>
                     <button>{">"}</button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
