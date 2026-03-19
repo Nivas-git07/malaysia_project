@@ -23,3 +23,7 @@ export const editevent = (id, formData) => {
     }
   });
 } 
+
+export const get_event_records = () => {
+  return API.get("/super/get_events/");
+}
