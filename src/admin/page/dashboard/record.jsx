@@ -14,15 +14,20 @@ export default function Record() {
     queryKey: ["athleteRecords"],
     queryFn: get_athlete_records,
   });
+  const athleteList = Array.isArray(athleteRecords?.data?.athletes_list)
+  ? athleteRecords.data.athletes_list
+  : [];
 
-  const athleteList = athleteRecords?.data?.athletes_list || [];
+  // const athleteList = athleteRecords?.data?.athletes_list || [];
 
   const { data: eventRecords } = useQuery({
     queryKey: ["eventRecords"],
     queryFn: get_event_records,
   });
 
-  const records = eventRecords?.data || [];
+  const records = Array.isArray(eventRecords?.data)
+    ? eventRecords.data
+    : eventRecords?.data?.events || [];
   console.log(records);
   const handleSave = () => {
     const payload = rows.map((row) => ({
@@ -226,7 +231,6 @@ export default function Record() {
                   <input
                     type="time"
                     step="1"
-                    
                     placeholder="00:00:00"
                     className="tableInput"
                     value={item.time}
