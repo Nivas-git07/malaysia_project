@@ -115,8 +115,8 @@
 
 /* OVERALL AREA SIZE */
 .chartArea{
-  width:1010px;
-  height:216px;
+  /* width:1010px;
+  height:216px; */
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -197,9 +197,9 @@
 
 /* ===== LEGEND SPACE ALLOCATION ===== */
 .legendBlock{
-  width:472.421875px;
-  height:193.16015625px;
-
+  /* width:472.421875px;
+  height:193.16015625px; */
+  margin-right: 50px;
   display:flex;
   flex-direction:column;
   justify-content:center;
