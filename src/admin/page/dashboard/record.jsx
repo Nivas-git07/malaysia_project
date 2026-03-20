@@ -14,7 +14,7 @@ export default function Record() {
     queryKey: ["athleteRecords"],
     queryFn: get_athlete_records,
   });
-  console.log("event",eventRecords?.data)
+  
   const athleteList = Array.isArray(athleteRecords?.data?.athletes_list)
   ? athleteRecords.data.athletes_list
   : [];
@@ -25,7 +25,7 @@ export default function Record() {
     queryKey: ["eventRecords"],
     queryFn: get_event_records,
   });
-
+console.log("event",eventRecords?.data)
   const records = Array.isArray(eventRecords?.data)
     ? eventRecords.data
     : eventRecords?.data?.events || [];
