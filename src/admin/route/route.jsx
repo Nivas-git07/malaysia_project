@@ -19,7 +19,7 @@ export default function AdminRoute() {
   return (
     <Routes>
 
-      <Route path="/login" element={<AdminLogin />} />
+      <Route path="/" element={<AdminLogin />} />
 
       {/* <Route
         path="/home"
@@ -151,7 +151,7 @@ export default function AdminRoute() {
           </AdminLayout>
         }
       />
-      <Route path="*" element={<Navigate to="/home" />} />
+      <Route path="*" element={<Navigate to="/login" />} />
 
     </Routes>
   );
