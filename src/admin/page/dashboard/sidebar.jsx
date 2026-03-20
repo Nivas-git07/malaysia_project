@@ -46,47 +46,47 @@ export default function Sidebar() {
 
         <nav className="sidebarMenu">
 
-          <NavLink to="/admin/home" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/home" className="menuItem" onClick={closeSidebar}>
             <Home size={20} />
             <span>Home</span>
           </NavLink>
 
-          <NavLink to="/admin/athlete" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/athlete" className="menuItem" onClick={closeSidebar}>
             <User size={20} />
             <span>Athlete</span>
           </NavLink>
 
-          <NavLink to="/admin/calendar" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/calendar" className="menuItem" onClick={closeSidebar}>
             <Calendar size={20} />
             <span>Events</span>
           </NavLink>
 
-          <NavLink to="/admin/user" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/user" className="menuItem" onClick={closeSidebar}>
             <FaAddressCard size={20} />
             <span>membership</span>
           </NavLink>
 
-          <NavLink to="/admin/tickets" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/tickets" className="menuItem" onClick={closeSidebar}>
             <Ticket size={20} />
             <span>Tickets</span>
           </NavLink>
 
-          <NavLink to="/admin/record" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/record" className="menuItem" onClick={closeSidebar}>
             <PiNotePencilBold size={20} />
             <span>Record Entry</span>
           </NavLink>
 
-          <NavLink to="/admin/report" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/report" className="menuItem" onClick={closeSidebar}>
             <BarChart2 size={20} />
             <span>Report</span>
           </NavLink>
 
-          <NavLink to="/admin/news" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/news" className="menuItem" onClick={closeSidebar}>
             <Newspaper size={20} />
             <span>News</span>
           </NavLink>
 
-          <NavLink to="/admin/settings" className="menuItem" onClick={closeSidebar} > 
+          <NavLink to="/settings" className="menuItem" onClick={closeSidebar} > 
             <FaUserCircle size={20} />
             <span>Profile</span>
           </NavLink>
