@@ -39,7 +39,7 @@ function Calender() {
   });
   console.log(data, isLoading, error);
   console.log(data?.data.all_events);
-  const eventData = data?.data.all_news || [];
+  const eventData = data?.data.all_events || [];
 
   const [open, setOpen] = useState(false);
   const [editData, setEditData] = useState(null);
