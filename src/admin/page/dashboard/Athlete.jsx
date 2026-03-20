@@ -150,7 +150,7 @@ const filteredData = data.filter((item) => {
                 <div>{item.date_of_birth}</div>
                 <div>{item.discipline}</div>
 
-                <div className="viewProfile" onClick={() => navigate(`/admin/athlete/${item.id}`)}>
+                <div className="viewProfile" onClick={() => navigate(`/athlete/${item.id}`)}>
                   View Profile
                 </div>
               </div>

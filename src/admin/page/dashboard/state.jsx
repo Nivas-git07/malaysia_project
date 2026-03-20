@@ -65,7 +65,7 @@ export default function StateList() {
             </div>
 
             {clubs_stats.clubs_list?.map((club) => (
-              <div className="stateRow" key={club.user} onClick={()=>{navigate(`/admin/home/club/${club.user}`)}}>
+              <div className="stateRow" key={club.user} onClick={()=>{navigate(`/home/club/${club.user}`)}}>
                 <div className="clubCell">
                   <img src={logo} alt="logo" />
                   {club.club_name}
