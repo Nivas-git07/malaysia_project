@@ -351,6 +351,8 @@ border-radius: 12px;
 .membership-popup-card{
   width:600px;
   max-width:95%;
+   max-height: 80vh;   /* important */
+  overflow-y: auto;
   background:#fff;
   border-radius:12px;
   padding:28px;
@@ -463,3 +465,26 @@ border-radius: 12px;
     grid-template-columns:1fr;
   }
 }
+.full-width {
+  grid-column: span 2;
+}
+.receipt-container {
+  width: 100%;
+  margin-top: 8px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+
+.receipt-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.receipt-image:hover {
+  transform: scale(1.02);
+} 

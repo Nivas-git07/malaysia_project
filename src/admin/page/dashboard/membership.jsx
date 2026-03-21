@@ -143,7 +143,7 @@ return (
                     </div>
                   </div>
 
-                  <div>{item.status}</div>
+                  <div className={`statuss ${item.status.toLowerCase()}`}>{item.status}</div>
                   <div>
                     {item.state_name || item.club_name || "N/A"}
                   </div>
