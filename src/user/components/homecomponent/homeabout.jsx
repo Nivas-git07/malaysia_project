@@ -2,62 +2,63 @@ import { useEffect, useRef, useState } from "react";
 import aboutImg from "../../assets/image1.jpg";
 
 export default function HomeAbout({ name }) {
-
   const sectionRef = useRef(null);
-  const [show,setShow] = useState(false);
+  const [show, setShow] = useState(false);
 
-  useEffect(()=>{
-
+  useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry])=>{
-        if(entry.isIntersecting){
+      ([entry]) => {
+        if (entry.isIntersecting) {
           setShow(true);
           observer.disconnect();
         }
       },
-      { threshold:0.3 }
+      { threshold: 0.3 },
     );
 
-    if(sectionRef.current){
+    if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
+  }, []);
 
-  },[]);
+  return (
+    <section className="mfsaAboutX-section">
+      <div className="mfsaAboutX-container">
+        {/* LEFT IMAGE */}
+        <div className="mfsaAboutX-imageWrap">
+          <img src={aboutImg} alt="about swimmer" />
+        </div>
 
-  return(
+        {/* RIGHT CONTENT */}
+        <div className="mfsaAboutX-content">
+          <h4 className="mfsaAboutX-subtitle">WHO WE ARE</h4>
 
-    <section
-      ref={sectionRef}
-      className={`homeAboutSection ${show ? "show" : ""}`}
-    >
-
-      <div className="homeAboutContainer">
-
-      
-        <div className="homeAboutLeft">
-
-          <h3 className="homeAboutHeading">
-            ABOUT {name} FINSWIMMING Association
-          </h3>
-
-          <h2 className="homeAboutTitle">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <h2 className="mfsaAboutX-title">
+            The Governing Body of Finswimming in Malaysia
           </h2>
 
-          <p className="homeAboutPara">
-            orem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula, lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo turpis vitae eros. Curabitur nec nisi in ipsum dignissim lacinia. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <p className="mfsaAboutX-text">
+            Established to foster excellence in the sport, the Malaysia
+            Finswimming Association (MFA) is dedicated to discovering and
+            nurturing world-class talent. We provide a platform for athletes to
+            compete at national and international levels while promoting the
+            sport as a healthy lifestyle.
           </p>
 
-        </div>
+          {/* BOXES */}
+          <div className="mfsaAboutX-cards">
+            <div className="mfsaAboutX-card">
+              <h5>Our Mission</h5>
+              <p>Building a vibrant community of elite finswimmers.</p>
+            </div>
 
-    
-        <div className="homeAboutRight">
-          <img src={aboutImg} alt="about swimmer"/>
+            <div className="mfsaAboutX-card">
+              <h5>Our Vision</h5>
+              <p>Leading the sport to Olympic recognition in Asia.</p>
+            </div>
+          </div>
         </div>
-
       </div>
-
     </section>
-
-  )
+  );
 }
