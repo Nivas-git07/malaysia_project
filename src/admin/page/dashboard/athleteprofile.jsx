@@ -31,6 +31,9 @@ function AthleteProfile() {
   console.log(athleteData, isLoading, error);
   const data = athleteData?.data || [];
   const records = athleteData?.data.total_records || [];
+  console.log(data)
+  const record_history = athleteData?.data?.total_records?.records_history || [];
+  console.log(record_history);
   console.log(data);
 
   const handleFilterChange = (e) => {
@@ -52,35 +55,33 @@ function AthleteProfile() {
             <div className="athleteCard">
               <div className="EventReport">Performance </div>
 
-              {/* ===== TABLE ===== */}
+             
               <div className="athleteTable">
                 <div className="profileHead">
                   <div>Event</div>
+                  <div>Discipline</div>
+                  <div>Distance</div>
+                  <div>Medal</div>
                   <div>Best Time</div>
-                  <div>Rank</div>
-                  <div>Competition</div>
-                  <div>Date</div>
                 </div>
 
-                {/* {filteredData.map((item, i) => (
+                {record_history.map((item, i) => (
                   <div className="athleteprofileRow" key={i}>
                     <div className="country">
-                      <div className="country">{item.state}</div>
+                      <div className="country">{item.event_name}</div>
                     </div>
 
                     <div className="athleteInfo">
-                      <img src="https://i.pravatar.cc/60" alt="" />
                       <div>
-                        <span className="athleteName">{item.full_name}</span>
-                        <p>IND</p>
+                        <span className="athleteName">{item.discipline}</span>
                       </div>
                     </div>
 
-                    <div>{item.gender}</div>
-                    <div>{item.date_of_birth}</div>
-                    <div>{item.discipline}</div>
+                    <div>{item.distance}</div>
+                    <div>{item.medal}</div>
+                    <div>{item.best_time}</div>
                   </div>
-                ))} */}
+                ))}
 
                 {/* FOOTER */}
                 {/* <div className="tableFooter">
