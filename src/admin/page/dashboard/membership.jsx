@@ -8,14 +8,13 @@ import { useQuery } from "@tanstack/react-query";
 import { getmebershipdetails } from "../../api/membership";
 import MembershipPopup from "../../components/membershippopup";
 function ManageUser() {
-
-  const[Filter, setFilter] = useState({
+  const [Filter, setFilter] = useState({
     plan: "",
     role: "",
-    status: ""
+    status: "",
   });
- 
-  const { data, isLoading, error } = useQuery({
+
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["membership"],
     queryFn: getmebership,
     refetchOnWindowFocus: false,
@@ -24,99 +23,99 @@ function ManageUser() {
   console.log(data, isLoading, error);
   const membershipData = data?.data || [];
 
-
   console.log(membershipData);
 
   const handleFilterChange = (e) => {
     setFilter({
       ...Filter,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
-  }
+  };
   const filteredData = membershipData.filter((item) => {
     return (
       (Filter.plan === "" ||
-        item.plan?.toLowerCase() === Filter.plan.toLowerCase()) &&
-
+        item.membership_plan?.toLowerCase() === Filter.plan.toLowerCase()) &&
       (Filter.role === "" ||
         item.role?.toLowerCase() === Filter.role.toLowerCase()) &&
-
       (Filter.status === "" ||
         item.status?.toLowerCase() === Filter.status.toLowerCase())
     );
   });
 
+  const [open, setOpen] = useState(false);
+  const [editData, setEditData] = useState(null);
 
+  const handlesubmit = (id) => {
+    getmebershipdetails(id)
+      .then((res) => {
+        setEditData(res.data);
+        setOpen(true);
+      })
+      .catch((err) => {
+        console.error("Error fetching membership details:", err);
+      });
+  };
 
-const [open, setOpen] = useState(false);
-const [editData, setEditData] = useState(null);
+  const handleAdd = () => {
+    setEditData(null);
+    setOpen(true);
+  };
 
-const handlesubmit = (id) => {
-  getmebershipdetails(id)
-    .then((res) => {
-      setEditData(res.data);
-      setOpen(true);
-    })
-    .catch((err) => {
-      console.error("Error fetching membership details:", err);
-    });
-};
+  const handleEdit = (item) => {
+    setEditData(item);
+    setOpen(true);
+  };
 
-const handleAdd = () => {
-  setEditData(null);
-  setOpen(true);
-};
+  return (
+    <>
+      <Navbar />
 
-const handleEdit = (item) => {
-  setEditData(item);
-  setOpen(true);
-};
+      <div className="mu-membership-wrapper">
+        <div className="EventReport">MEMBERSHIP</div>
+        <div className="athleteProfileCard">
+          <div className="athleteCard">
+            <div className="athleteFilters">
+              <select
+                className="filterSelect"
+                name="plan"
+                onChange={handleFilterChange}
+             >
+                <option value="">Select plan</option>
+                <option value="CLUB_ATHLETE_MEMBERSHIP">
+                  Club athlete membership
+                </option>
+                <option value="NATIONAL_ATHLETE_MEMBERSHIP">
+                  National athlete membership
+                </option>
+                <option value="COACH_MEMBERSHIP'">Coach membership</option>
+                <option value="TECHNICAL_OFFICIAL_MEMBERSHIP">
+                  Technical official membership
+                </option>
+              </select>
 
-return (
-  <>
-    <Navbar />
+              <select
+                className="filterSelect"
+                name="role"
+                onChange={handleFilterChange}
+              >
+                <option value="">Select Role</option>
+                <option value="Admin">Admin</option>
+                <option value="Coach">Coach</option>
+              </select>
 
-    <div className="mu-membership-wrapper">
-
-      <div className="EventReport">MEMBERSHIP</div>
-      <div className="athleteProfileCard">
-       
-
-        <div className="athleteCard">
-
-
-          <div className="athleteFilters">
-
-            <select className="filterSelect" name="plan" onChange={handleFilterChange}>
-              <option value="">Select plan</option>
-              <option value="CLUB_ATHLETE_MEMBERSHIP">Club athlete membership</option>
-              <option value="NATIONAL_ATHLETE_MEMBERSHIP">National athlete membership</option>
-              <option value="COACH_MEMBERSHIP'">Coach membership</option>
-              <option value="TECHNICAL_OFFICIAL_MEMBERSHIP">Technical official membership</option>
-             
-            </select>
-
-            <select className="filterSelect" name="role" onChange={handleFilterChange}>
-              <option value="">Select Role</option>
-              <option value="Admin">Admin</option>
-              <option value="Coach">Coach</option>
-            </select>
-
-            <select className="filterSelect" name="status" onChange={handleFilterChange}>
-              <option value="">Select Status</option>
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
-            </select>
+              <select
+                className="filterSelect"
+                name="status"
+                onChange={handleFilterChange}
+              >
+                <option value="">Select Status</option>
+                <option value="Active">Active</option>
+                <option value="REJECTED">Rejected</option>
+                <option value="PENDING">pending</option>
+              </select>
               <button className="findBtn">Find Athlete</button>
-
+            </div>
           </div>
-
-
-
-          
-
-          </div>
-
 
           <div className="athleteTable">
             <div className="profileHeads">
@@ -128,30 +127,29 @@ return (
             </div>
 
             {filteredData.map((item, i) => (
-                <div className="athleteprofileRows" key={i}>
-                  <div className="country">
-                    <div className="country">
-                      {item.user_name}
-                    </div>
-                  </div>
-
-                  <div className="athleteInfo">
-                    
-                    <div>
-                      <span className="athleteName">{item.membership_plan}</span>
-                      
-                    </div>
-                  </div>
-
-                  <div className={`statuss ${item.status.toLowerCase()}`}>{item.status}</div>
-                  <div>
-                    {item.state_name || item.club_name || "N/A"}
-                  </div>
-                  <div  onClick={() => handlesubmit(item.membership_id)}  className="view-btn">view </div>
-
-
+              <div className="athleteprofileRows" key={i}>
+                <div className="country">
+                  <div className="country">{item.user_name}</div>
                 </div>
-              ))}
+
+                <div className="athleteInfo">
+                  <div>
+                    <span className="athleteName">{item.membership_plan}</span>
+                  </div>
+                </div>
+
+                <div className={`statuss ${item.status.toLowerCase()}`}>
+                  {item.status}
+                </div>
+                <div>{item.state_name || item.club_name || "N/A"}</div>
+                <div
+                  onClick={() => handlesubmit(item.membership_id)}
+                  className="view-btn"
+                >
+                  view
+                </div>
+              </div>
+            ))}
 
             {/* FOOTER */}
             <div className="tableFooter">
@@ -174,11 +172,11 @@ return (
         <MembershipPopup
           data={editData}
           onClose={() => setOpen(false)}
+          refetch={refetch}
         />
       )}
-
-  </>
-);
+    </>
+  );
 }
 
 export default ManageUser;

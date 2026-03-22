@@ -4,7 +4,7 @@ import { approvemembership } from "../api/membership";
 import { IoClose } from "react-icons/io5";
 import { rejectmembership } from "../api/membership";
 
-export default function MembershipPopup({ data, onClose }) {
+export default function MembershipPopup({ data, onClose, refetch }) {
   const [isApproving, setIsApproving] = useState(false);
   const [isRejecting, setIsRejecting] = useState(false);
   console.log(data);
@@ -29,6 +29,7 @@ export default function MembershipPopup({ data, onClose }) {
       await approvemembership(data.membership_id, "ACTIVE");
       onClose();
       alert("Membership approved successfully!");
+      await refetch();
     } catch (error) {
       console.error("Error approving membership:", error);
     } finally {
