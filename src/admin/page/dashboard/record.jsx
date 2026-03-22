@@ -54,10 +54,10 @@ export default function Record() {
     }));
 
     try {
-      const finalPayload = payload.length === 1 ? payload[0] : payload;
+      post_record(payload);
 
-      post_record(finalPayload);
-      alert("the record entry is successfully ");
+      alert("Record saved successfully");
+
       setRows([
         {
           distance: "",
@@ -84,14 +84,14 @@ export default function Record() {
           time: "",
         },
       ]);
-      setSelected("");
+
+      setSelectedEvent("");
+      setSelectedEventId("");
       setdiscipline("");
       setdate("");
     } catch (err) {
       console.log("ERROR RESPONSE:", err.response?.data);
     }
-
-    console.log("FINAL PAYLOAD:", payload);
   };
 
   const [rows, setRows] = useState([
