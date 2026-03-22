@@ -101,10 +101,11 @@ const filteredData = data.filter((item) => {
 
             <select className="filterSelect" name="discipline" onChange={handleFilterChange}>
               <option value="">Select Discipline</option>
-              <option value="freestyle">Freestyle</option>
-              <option value="butterfly">Butterfly</option>
-              <option value="backstroke">Backstroke</option>
-              <option value="breaststroke">Breaststroke</option>
+              
+              <option value="SURFACE">surface</option>
+              <option value="BI-FINS">Bi-fins</option>
+              <option value="APNEA">Apnea</option>
+              <option value="IMMERSION">Immersion</option>
             </select>
 
             <select className="filterSelect" name="state" onChange={handleFilterChange}>
