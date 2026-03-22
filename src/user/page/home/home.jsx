@@ -40,8 +40,9 @@ export default function Home() {
         </div>
       </Swimmer>
       <HomeAbout name="Malaysia" />
-      <UpcomingEvents />
       <HomeRecords />
+      <UpcomingEvents />
+      
       <BestRecords />
       <Homeassoc />
       <HomeGallery />
