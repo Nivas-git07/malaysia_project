@@ -20,6 +20,7 @@ body{
   overflow:hidden;
   isolation:isolate;
   color:white;
+  border-bottom: 8px solid #c10000;
 }
 .heroVideo{
   position:absolute;
@@ -61,6 +62,7 @@ body{
 .mfsaPro-navbar {
   width: 100%;
   height: 75px;
+  border-bottom: 5px solid #c10000;
   background: white;
   display: flex;
   align-items: center;

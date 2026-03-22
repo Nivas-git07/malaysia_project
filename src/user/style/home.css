@@ -25,70 +25,125 @@
   font-weight: 600;
   color: #ffffff;
 }
-
-.homeHeroContent{
-  max-width:1000px;
-  margin:auto;
-  text-align:center;
-  padding-top:120px;
-  color:#ffffff;
+/* HERO CONTAINER */
+.homeHeroContent {
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+  padding: 120px 20px 80px;
+  color: #ffffff;
+  position: relative;
+  z-index: 2;
 }
 
-.homeHeroTitle{
+/* TITLE */
+.homeHeroTitle {
   font-family: "Oswald", sans-serif;
-  font-weight:800;
-  letter-spacing:1px;
-  font-size:52px;
-  line-height:1;
-  text-transform:uppercase;
-  text-align:center;
-  letter-spacing:0;
-  
+  font-weight: 800;
+  font-size: 52px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 
-.animateTitle .word{
-  display:inline-block;
-  opacity:0;
-  letter-spacing:1px;
-  font-weight:800;
-  transform:translateY(40px);
-  margin-right:18px;
+/* WORD ANIMATION */
+.animateTitle .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px);
+  margin-right: 14px;
   animation: wordReveal 0.6s ease forwards;
 }
 
+/* ANIMATION DELAYS */
+.animateTitle .word:nth-child(1) { animation-delay: 0.2s; }
+.animateTitle .word:nth-child(2) { animation-delay: 0.4s; }
+.animateTitle .word:nth-child(3) { animation-delay: 0.6s; }
+.animateTitle .word:nth-child(4) { animation-delay: 0.8s; }
+.animateTitle .word:nth-child(5) { animation-delay: 1s; }
+.animateTitle .word:nth-child(6) { animation-delay: 1.2s; }
 
-.animateTitle .word:nth-child(1){ animation-delay:0.2s; }
-.animateTitle .word:nth-child(2){ animation-delay:0.4s; }
-.animateTitle .word:nth-child(3){ animation-delay:0.6s; }
-.animateTitle .word:nth-child(5){ animation-delay:0.8s; }
-.animateTitle .word:nth-child(6){ animation-delay:1s; }
-
-@keyframes wordReveal{
-  to{
-    opacity:1;
-    transform:translateY(0);
+/* KEYFRAME */
+@keyframes wordReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-
-.homeHeroBig{
-  font-weight:600;
-   color:#cc0001;
+/* BIG WORD (FINSWIMMING) */
+.homeHeroBig {
+  font-weight: 800;
+  color: #cc0001;
+  display: block;
 }
 
-.next_title{
-    margin-top: 10px;
-}
-.red{
-  color:#cc0001;
-
+/* SECOND LINE */
+.next_title {
+  margin-top: 10px;
 }
 
-.homeHeroSub{
-  margin-top:20px;
-  font-size:18px;
-  color:#ddd;
-  line-height:1.6;
+/* RED TEXT */
+.red {
+  color: #cc0001;
+}
+
+/* SUB TEXT */
+.homeHeroSub {
+  margin-top: 25px;
+  font-size: 18px;
+  color: #ddd;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* TEXT SHADOW (🔥 IMPORTANT FOR IMAGE BG) */
+.homeHeroTitle,
+.homeHeroSub {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+
+@media (max-width: 992px) {
+  .homeHeroTitle {
+    font-size: 40px;
+  }
+
+  .homeHeroSub {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .homeHeroContent {
+    padding: 100px 15px 60px;
+  }
+
+  .homeHeroTitle {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  .homeHeroSub {
+    font-size: 15px;
+  }
+
+  .animateTitle .word {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .homeHeroTitle {
+    font-size: 26px;
+  }
+
+  .homeHeroSub {
+    font-size: 14px;
+  }
 }
 @media(max-width:768px){
   .homeHeroTitle{
