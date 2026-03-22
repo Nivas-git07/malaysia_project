@@ -119,7 +119,7 @@
   height:216px; */
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:space-around;
   margin-top:18px;
 }
 
@@ -139,7 +139,7 @@
 
   position:relative;
 
-  margin-left:110px;
+  margin-left:40px;
   margin-right:40px;
   margin-top:50px;
 }
@@ -312,38 +312,38 @@
 
 /* ===== CHART AREA RESPONSIVE ===== */
 
-.chartArea{
+/* .chartArea{
   width:100%;
   height:auto;
   flex-direction:column;
   align-items:center;
   gap:30px;
-}
+} */
 
 /* DONUT CENTER */
-.donut{
+/* .donut{
   margin:0;
   width:180px;
   height:180px;
-}
+} */
 
 /* INNER HOLE SCALE */
-.donut::after{
+/* .donut::after{
   width:105px;
   height:105px;
 }
 
 /* LEGEND FULL WIDTH */
-.legendBlock{
+/* .legendBlock{
   width:100%;
   height:auto;
-}
+}  */
 
 /* SELECT ALIGN */
-.selectType{
+/* .selectType{
   justify-content:space-between;
   width:100%;
-}
+} */
 
 .selectType select{
   width:100%;

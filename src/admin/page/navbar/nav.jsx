@@ -32,7 +32,7 @@ function Navbar()
   </div>
 
   <div className="navRight">
-    <div className="bell" onClick={() => navigate("/admin/notification")}>
+    <div className="bell" onClick={() => navigate("/notification")}>
       <FiBell size={20} color="#666"/>
       <span className="bellDot">{countData?.data.count || 0} </span>
     </div>
