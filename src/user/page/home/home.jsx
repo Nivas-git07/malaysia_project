@@ -9,45 +9,44 @@ import Swimmer from "../../layout/swimmer";
 import Homeassoc from "../../components/homecomponent/assosiationstate";
 
 export default function Home() {
+  return (
+    <div className="home-page">
+      <Swimmer>
+        <div className="homeHeroContent">
+          <h1 className="homeHeroTitle animateTitle">
+            <span className="word">WELCOME</span>
+            <span className="word">TO</span>
 
-    return (
-        <div className="home-page">
-            <Swimmer>
-                <div className="homeHeroContent">
+            <span className="word red">MALAYSIA</span>
 
-                    <h1 className="homeHeroTitle animateTitle">
+            <br />
 
-                        <span className="word">WELCOME</span>
-                        <span className="word">TO</span>
+            <div className="next_title">
+              <span className="word homeHeroBig">FINSWIMMING</span>
+              <span className="word">ASSOCIATION</span>
+            </div>
+          </h1>
 
-                        <span className="word red">MALAYSIA</span>
+          <p className="homeHeroSub">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            <br />
+            Vivamus vehicula, lorem a porttitor porttitor, velit erat
+          </p>
 
-                        <br />
-
-                        <div className="next_title">
-                            <span className="word homeHeroBig">FINSWIMMING</span>
-                            <span className="word">ASSOCIATION</span>
-                        </div>
-
-                    </h1>
-
-
-                    <p className="homeHeroSub">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        <br />
-                        Vivamus vehicula, lorem a porttitor porttitor, velit erat
-                    </p>
-
-                </div>
-            </Swimmer>
-            <HomeAbout name="Malaysia" />
-            <UpcomingEvents />
-            <HomeRecords />
-            <BestRecords />
-            <Homeassoc />
-            <HomeGallery />
-            <HomeNews />
-            <Footer />
+          <div className="heroBtnGroupX">
+            <button className="heroBtnX primaryBtnX">Learn More</button>
+            <button className="heroBtnX outlineBtnX">Join Membership</button>
+          </div>
         </div>
-    )
+      </Swimmer>
+      <HomeAbout name="Malaysia" />
+      <UpcomingEvents />
+      <HomeRecords />
+      <BestRecords />
+      <Homeassoc />
+      <HomeGallery />
+      <HomeNews />
+      <Footer />
+    </div>
+  );
 }

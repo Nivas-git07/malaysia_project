@@ -36,7 +36,7 @@
 
 .homeHeroTitle{
   font-family: "Oswald", sans-serif;
-  font-weight:600;
+  font-weight:800;
   letter-spacing:1px;
   font-size:52px;
   line-height:1;
@@ -50,6 +50,7 @@
   display:inline-block;
   opacity:0;
   letter-spacing:1px;
+  font-weight:800;
   transform:translateY(40px);
   margin-right:18px;
   animation: wordReveal 0.6s ease forwards;
@@ -102,6 +103,61 @@
     padding-top:80px;
   }
 }
+
+/* BUTTON GROUP */
+.heroBtnGroupX {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* 🔥 responsive wrap */
+}
+
+/* BASE BUTTON */
+.heroBtnX {
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 160px;
+}
+
+/* PRIMARY BUTTON (Learn More) */
+.primaryBtnX {
+  background: #ffffff;
+  color: #1a2a44;
+  border: none;
+}
+
+.primaryBtnX:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+/* OUTLINE BUTTON (Join Membership) */
+.outlineBtnX {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.outlineBtnX:hover {
+  background: #ffffff;
+  color: #1a2a44;
+  transform: translateY(-2px);
+}
+@media (max-width: 768px) {
+  .heroBtnX {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .heroBtnGroupX {
+    gap: 15px;
+  }
+} 
 
 .homeAboutSection{
   background:#ffffff;
