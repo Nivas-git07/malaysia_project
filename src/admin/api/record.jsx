@@ -10,5 +10,5 @@ export const get_athlete_records = () => {
 
 export const post_record = (payload) => {
   console.log("API paload",payload)
-  return API.post("/super/create_record/", { payload });
+  return API.post("/super/create_record/",  payload );
 };

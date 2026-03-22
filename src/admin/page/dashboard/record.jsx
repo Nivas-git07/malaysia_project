@@ -14,10 +14,10 @@ export default function Record() {
     queryKey: ["athleteRecords"],
     queryFn: get_athlete_records,
   });
-  
+
   const athleteList = Array.isArray(athleteRecords?.data?.athletes_list)
-  ? athleteRecords.data.athletes_list
-  : [];
+    ? athleteRecords.data.athletes_list
+    : [];
 
   // const athleteList = athleteRecords?.data?.athletes_list || [];
 
@@ -25,13 +25,17 @@ export default function Record() {
     queryKey: ["eventRecords"],
     queryFn: get_event_records,
   });
-console.log("event",eventRecords?.data)
+  console.log("event", eventRecords?.data);
   const records = Array.isArray(eventRecords?.data)
     ? eventRecords.data
     : eventRecords?.data?.events || [];
   console.log(records);
   const handleSave = () => {
-    const payload = rows.map((row) => ({
+    const filteredRows = rows.filter(
+      (row) => row.full_name && row.distance && row.time,
+    );
+
+    const payload = filteredRows.map((row) => ({
       athlete: athleteList.find((a) => a.full_name === row.full_name)?.id,
       event: selectedEventId,
       discipline: discipline,
@@ -48,11 +52,45 @@ console.log("event",eventRecords?.data)
               : row.rank,
       date: date,
     }));
+
     try {
-      post_record(payload);
+      const finalPayload = payload.length === 1 ? payload[0] : payload;
+
+      post_record(finalPayload);
+      alert("the record entry is successfully ");
+      setRows([
+        {
+          distance: "",
+          full_name: "",
+          state: "",
+          medal: "",
+          rank: "",
+          time: "",
+        },
+        {
+          distance: "",
+          full_name: "",
+          state: "",
+          medal: "",
+          rank: "",
+          time: "",
+        },
+        {
+          distance: "",
+          full_name: "",
+          state: "",
+          medal: "",
+          rank: "",
+          time: "",
+        },
+      ]);
+      setSelected("");
+      setdiscipline("");
+      setdate("");
     } catch (err) {
-      console.log("ERROR RESPONSE:", err.response.data);
+      console.log("ERROR RESPONSE:", err.response?.data);
     }
+
     console.log("FINAL PAYLOAD:", payload);
   };
 
