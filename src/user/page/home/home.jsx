@@ -1,7 +1,7 @@
 import HomeAbout from "../../components/homecomponent/homeabout";
 import UpcomingEvents from "../../components/homecomponent/upcomingevent";
 import HomeRecords from "../../components/homecomponent/homerecord";
-import BestRecords from "../../components/homecomponent/bestrecord";
+import BestRecordsX from "../../components/homecomponent/bestrecord";
 import Footer from "../../layout/footer";
 import HomeGallery from "../../components/homecomponent/homegallery";
 import HomeNews from "../../components/homecomponent/homenews";
@@ -43,8 +43,8 @@ export default function Home() {
       <HomeRecords />
       <UpcomingEvents />
       
-      <BestRecords />
-      <Homeassoc />
+      <BestRecordsX />
+      {/* <Homeassoc /> */}
       <HomeGallery />
       <HomeNews />
       <Footer />

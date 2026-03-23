@@ -419,10 +419,10 @@
 /* GRID */
 .mfsaEventX-grid {
   display: grid;
-  margin-top: 40px;
+  margin-top: 60px;
   grid-template-columns: repeat(3, 1fr);
   gap: 35px;
-  align-items: stretch; /* 🔥 important */
+  align-items: stretch; 
 }
 /* CARD */
 /* ===== CARD ===== */
@@ -541,7 +541,7 @@
 
 .homeRecordsSection{
   width:100%;
-  margin-top: 40px;
+  margin-top: 60px;
   background:#FFF6FD;
   padding:60px 0px;
 }
@@ -626,149 +626,128 @@
     font-size: 13px;
   }
 }
-.bestRecordsSection{
-  padding:80px 20px;
-  background:#ffffff;
+/* ===== SECTION ===== */
+.mfsaRecordX-section {
+  background: white;
+  padding: 60px 20px;
 }
 
-.bestRecordsContainer{
-  max-width:1300px;
-  margin:auto;
+/* CONTAINER */
+.mfsaRecordX-container {
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
 }
 
-.bestRecordsTitle{
-  color:#c10000;
-  font-family:'Montserrat';
-  margin-bottom:30px;
+/* TITLE */
+.mfsaRecordX-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: black;
+  margin-bottom: 30px;
 }
 
-
-.bestRecordsLayout{
-  display:grid;
-  grid-template-columns:220px 1fr;
-  gap:40px;
+/* TABS */
+.mfsaRecordX-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
 }
 
-
-.bestRecordsMenu{
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
-
-.bestMenuItem{
-  background:none;
-  border:none;
-  font-weight:600;
-  text-align:left;
-  cursor:pointer;
-}
-
-.bestMenuItem.active{
-  background:#c10000;
-  color:#fff;
-  padding:12px 20px;
-  border-radius:30px;
-}
-
-
-.bestRecordsGrid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:40px;
-}
-
-
-.recordCard{
-  background:#F9F0F7;
-  border-radius:20px;
-  padding:40px 20px 20px;
-  text-align:center;
-  position:relative;
-  height: 300px;
-}
-
-.recordImgWrap{
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  background:#eee;
-  margin:auto;
-  overflow:hidden;
-    margin-top: 10px;
-}
-
-.recordImgWrap img{
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-}
-
-.recordName{
-  margin-top:20px;
-  font-size:12px;
+.mfsaRecordX-tab {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  background: #eaeaea;
+  font-size: 13px;
   font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.recordTime{
-  font-size:28px;
-  margin:8px 0;
+/* ACTIVE TAB */
+.mfsaRecordX-tab.active {
+  background: #c8102e;
+  color: #fff;
 }
 
-.recordChamp{
-  font-size:12px;
-  color:#555;
+/* ===== GRID ===== */
+.mfsaRecordX-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 35px;
 }
 
-.recordBottom{
-  margin-top:30px;
-  display:flex;
-  justify-content:space-between;
-  font-size:11px;
+/* ===== CARD ===== */
+.mfsaRecordX-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 45px 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
 }
 
-.bestRecordsRight{
-  display:flex;
-  flex-direction:column;
+.mfsaRecordX-card:hover {
+  transform: translateY(-6px);
 }
 
-.bestRecordsActiveTitle{
-  color:#c10000;
-  font-weight:700;
-  margin-bottom:20px;
-  margin-left:10px; 
+/* IMAGE */
+.mfsaRecordX-imgWrap {
+  width: 90px;
+  height: 90px;
+  
+  margin: auto;
+  margin-bottom: 10px;
 }
 
-@media(max-width:1024px){
+.mfsaRecordX-imgWrap img {
+ border-radius: 50%;
 
-  .bestRecordsLayout{
-    grid-template-columns:1fr;
-  }
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-  .bestRecordsMenu{
-    flex-direction:row;
-    flex-wrap:wrap;
-    gap:12px;
-  }
+/* NAME */
+.mfsaRecordX-name {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
 
-  .bestRecordsGrid{
-    grid-template-columns:repeat(2,1fr);
+/* DISCIPLINE */
+.mfsaRecordX-discipline {
+  font-size: 14px;
+  color: #00008b;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* TIME */
+.mfsaRecordX-time {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+/* TABLET */
+@media (max-width: 1024px) {
+  .mfsaRecordX-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* MOBILE */
-@media(max-width:600px){
-
-  .bestRecordsGrid{
-    grid-template-columns:1fr;
+@media (max-width: 600px) {
+  .mfsaRecordX-grid {
+    grid-template-columns: 1fr;
   }
 
-  .recordBottom{
-    font-size:10px;
+  .mfsaRecordX-title {
+    font-size: 24px;
   }
 }
-
 
 .homeGallerySection{
   padding:20px 20px;
@@ -786,7 +765,7 @@
 }
 
 .homeGalleryTitle{
-  color:#c10000;
+  color:black;
   font-family:'Montserrat';
   margin-bottom: 10px;
 }
@@ -868,7 +847,7 @@
 }
 
 .homeNewsTitle{
-  color:#d00000;
+  color:black;
   font-family:'Montserrat';
 }
 
