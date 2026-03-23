@@ -1196,150 +1196,139 @@
 
 }
 
-
-.mfsaAssocBlock{
-  padding:20px 20px;
-  background:#fff;
-  margin-bottom: 20px;
+/* ===== SECTION ===== */
+.mfsaStateX-section {
+  background: white;
+  padding: 80px 20px;
 }
 
-.mfsaAssocWrap{
-  max-width:1350px;
-  margin:auto;
+/* ===== CONTAINER ===== */
+.mfsaStateX-container {
+  max-width: 1350px;
+  margin: auto;
+  padding: 0 40px;
+
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+
+  align-items: center; /* 🔥 equal vertical alignment */
 }
 
-.mfsaAssocMainTitle{
-  font-size:28px;
-  font-weight:700;
-  color:#c10000;
-  margin-bottom:55px;
-  letter-spacing:1px;
+/* ===== LEFT ===== */
+.mfsaStateX-left {
+  max-width: 500px;
 }
 
-/* GRID */
-
-/* CARD */
-.mfsaAssocItem{
-  background:#f9fafc;
-  border-radius:18px;
-  padding:40px 28px;    
-  text-align:center;
-  border:1px solid #eee;
-  transition:.35s ease;
-  min-height:350px;    
-  display:flex;
-  flex-direction:column;
-  justify-content:center; 
+/* SUB */
+.mfsaStateX-sub {
+  color: #c10000;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
 }
 
-.mfsaAssocItem:hover{
-  transform:translateY(-8px);
-  box-shadow:0 12px 30px rgba(0,0,0,0.08);
+/* TITLE */
+.mfsaStateX-title {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 10px 0 15px;
 }
 
-/* TOP TEXT */
-.mfsaAssocTopText{
-  font-size:13px;
-  font-weight:600;
-  color:#282590;
-  margin-bottom:15px;
+/* TEXT */
+.mfsaStateX-text {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 25px;
 }
 
-/* LOGO CIRCLE */
-.mfsaAssocCircle{
-  width:120px;
-  height:120px;
-  margin:auto;
-  border-radius:50%;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+/* ===== LIST ===== */
+.mfsaStateX-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.mfsaAssocCircle img{
-  width:80px;
+/* ITEM */
+.mfsaStateX-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #555;
+  transition: 0.3s;
 }
 
-/* STATE NAME */
-.mfsaAssocName{
-  font-size:24px;
-  font-weight:700;
-  margin-top:16px;
-  color:#222;
+/* RADIO */
+.mfsaStateX-radio {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #bbb;
+  position: relative;
 }
 
-/* BUTTON */
-.mfsaAssocViewBtn{
-  margin-top:22px;
-  padding:12px 26px;
-  border-radius:30px;
-  border:1px solid #282590;
-  background:transparent;
-  color:#282590;
-  font-weight:600;
-  cursor:pointer;
-  transition:.3s;
+/* ACTIVE */
+.mfsaStateX-item.active {
+  color: #c8102e;
+  font-weight: 600;
 }
 
-.mfsaAssocViewBtn:hover{
-  background:#282590;
-  color:#fff;
+.mfsaStateX-item.active .mfsaStateX-radio {
+  border-color: #c8102e;
 }
 
-@media(max-width:1024px){
-  .mfsaAssocCards{
-    grid-template-columns:repeat(2,1fr);
+.mfsaStateX-item.active .mfsaStateX-radio::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #c8102e;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+}
+
+/* ===== RIGHT ===== */
+.mfsaStateX-right img {
+  width: 100%;
+  max-width: 600px;
+  display: block;
+  margin: auto;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .mfsaStateX-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    text-align: center;
+  }
+
+  .mfsaStateX-left {
+    margin: auto;
+  }
+
+  .mfsaStateX-list {
+    align-items: center;
   }
 }
 
-@media(max-width:600px){
-  .mfsaAssocCards{
-    grid-template-columns:1fr;
+/* MOBILE */
+@media (max-width: 600px) {
+  .mfsaStateX-title {
+    font-size: 28px;
   }
 
-  .mfsaAssocMainTitle{
-    font-size:24px;
-  }
-}
-
-
-.mfsaAssocSlider{
-  overflow:hidden;
-  width:100%;
-}
-
-.mfsaAssocTrack{
-  display:flex;
-  gap:50px;
-  width:max-content;
-
-  animation: mfsaSlideMove 20s linear infinite;
-}
-
-/* CARD SIZE */
-.mfsaAssocItem{
-  min-width:380px;
-}
-
-/* SLIDE ANIMATION */
-@keyframes mfsaSlideMove{
-
-  0%{
-    transform:translateX(0);
+  .mfsaStateX-text {
+    font-size: 14px;
   }
 
-  100%{
-    transform:translateX(-50%);
+  .mfsaStateX-item {
+    justify-content: center;
   }
-
 }
-
-.mfsaAssocSlider:hover .mfsaAssocTrack{
-  animation-play-state: paused;
-}
-
 /* ============================= */
 /* MFSA CLUB SECTION */
 /* ============================= */

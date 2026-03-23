@@ -6,7 +6,7 @@ import Footer from "../../layout/footer";
 import HomeGallery from "../../components/homecomponent/homegallery";
 import HomeNews from "../../components/homecomponent/homenews";
 import Swimmer from "../../layout/swimmer";
-import Homeassoc from "../../components/homecomponent/assosiationstate";
+import  StateNetworkX from "../../components/homecomponent/assosiationstate";
 
 export default function Home() {
   return (
@@ -44,7 +44,7 @@ export default function Home() {
       <UpcomingEvents />
       
       <BestRecordsX />
-      {/* <Homeassoc /> */}
+      <StateNetworkX />
       <HomeGallery />
       <HomeNews />
       <Footer />
