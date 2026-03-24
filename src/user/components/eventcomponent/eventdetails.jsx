@@ -1,68 +1,106 @@
-export default function EventDetails() {
+export default function EventDetailX() {
   return (
-    <section className="eventDescSection">
+    <section className="mfsaEventDetailX-section">
+      <div className="mfsaEventDetailX-container">
+        {/* ===== TOP BANNER ===== */}
+        <div className="mfsaEventDetailX-banner">
+          <span className="badge">FEATURED EVENT</span>
 
-      <div className="eventDescContainer">
+          <h1>TYR SUMMER CHAMPIONSHIPS</h1>
 
-        {/* ===== Banner ===== */}
-        <div className="eventBanner">
-
-          <span className="bannerBar leftBar"></span>
-          <span className="bannerBar rightBar"></span>
-
-          <p className="eventDate">AUGUST 5 - 8, 2025</p>
-
-          <h1 className="eventTitle">
-            TRY SUMMER CHAMPIONSHIPS
-          </h1>
-
+          <div className="mfsaEventDetailX-meta">
+            <span>📅 August 5 - 8, 2025</span>
+            <span>📍 Johor Aquatic Centre</span>
+          </div>
         </div>
 
-       
-        <h3 className="eventSubTitle">DETAILS</h3>
+        {/* ===== MAIN CONTENT ===== */}
+        <div className="mfsaEventDetailX-main">
+          {/* LEFT */}
+          <div className="mfsaEventDetailX-left">
+            <h3>Event Details</h3>
 
-        <div className="eventDetailsGrid">
+            <div className="detailItem">
+              <span>Organized by</span>
+              <p>Johor Finswimming Association</p>
+            </div>
 
-          <div className="detailRow">
-            <span>Organized By</span>
-            <p>Malaysia Finswimming Association</p>
+            <div className="detailItem">
+              <span>Date Range</span>
+              <p>Aug 5 – Aug 8, 2025</p>
+            </div>
+
+            <div className="detailItem">
+              <span>Venue</span>
+              <p>Johor Aquatic Centre</p>
+            </div>
+
+            <div className="detailItem">
+              <span>Operating Hours</span>
+              <p>08:00 AM – 06:00 PM</p>
+            </div>
+
+            <button className="registerBtn">Register Now →</button>
           </div>
 
-          <div className="detailRow">
-            <span>Date</span>
-            <p>August 5 – 8, 2025</p>
-          </div>
+          {/* RIGHT */}
+          <div className="mfsaEventDetailX-right">
+            <h2>About the Championships</h2>
 
-          <div className="detailRow">
-            <span>Venue</span>
-            <p>Malaysia , Kuala Lumpur</p>
-          </div>
+            <p>
+              The TYR Summer Championships represent the pinnacle of regional
+              finswimming competition. Hosted by the Johor Finswimming
+              Association, this four-day event brings together elite athletes.
+            </p>
 
-          <div className="detailRow">
-            <span>Time</span>
-            <p>09:00 AM</p>
-          </div>
+            <p>
+              This year's competition features state-of-the-art timing systems
+              and world-class officiating, ensuring a fair and exciting
+              experience.
+            </p>
 
+            <p>
+              The TYR Summer Championships represent the pinnacle of regional
+              finswimming competition. Hosted by the Johor Finswimming
+              Association, this four-day event brings together elite athletes.
+            </p>
+
+            <p>
+              This year's competition features state-of-the-art timing systems
+              and world-class officiating, ensuring a fair and exciting
+              experience.
+            </p>
+            <p>
+              This year's competition features state-of-the-art timing systems
+              and world-class officiating, ensuring a fair and exhilarating
+              experience for all participants. Whether you are a seasoned
+              competitor looking to break records or a newcomer to the sport,
+              the Summer Championships offer a platform to showcase your speed
+              and technique.
+            </p>
+            {/* QUOTE */}
+            <div className="mfsaEventDetailX-quote">
+              "Join us for an unforgettable celebration of aquatic speed and
+              endurance."
+            </div>
+
+            {/* HIGHLIGHTS */}
+            <h4>Event Highlights</h4>
+
+            <div className="mfsaEventDetailX-highlights">
+              <div>✔ National qualifying times recognition</div>
+              <div>✔ Master’s category events</div>
+              <div>✔ Junior development programs</div>
+              <div>✔ Closing awards ceremony</div>
+            </div>
+          </div>
         </div>
 
-      
-        <h3 className="eventSubTitle">DESCRIPTION</h3>
-
-        <p className="eventDescription">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula,
-          lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo
-          turpis vitae eros. Curabitur nec nisi in ipsum dignissim lacinia.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula,
-          lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo
-          turpis vitae eros. Curabitur nec nisi in ipsum dignissim lacinia.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula,
-          lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo
-          turpis vitae eros. Curabitur nec nisi in ipsum dignissim lacinia.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula,
-          lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo
-          turpis vitae eros. Curabitur nec nisi in ipsum dignissim lacinia.
-
-        </p>
-
+        {/* ===== MAP ===== */}
+        <div className="mfsaEventDetailX-map">
+          <p>📍 Johor Aquatic Centre</p>
+        </div>
       </div>
-
     </section>
-  )
+  );
 }
