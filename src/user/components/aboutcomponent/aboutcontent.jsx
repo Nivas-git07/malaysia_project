@@ -1,70 +1,95 @@
-export default function AboutPage() {
+import { FaFlag, FaEye } from "react-icons/fa";
 
+export default function AboutPageX() {
   return (
+    <section className="mfsaAboutPageX-section">
+      <div className="mfsaAboutPageX-container">
+        {/* ===== TOP CARD ===== */}
+        <div className="mfsaAboutPageX-topCard">
+          {/* LEFT TEXT */}
+          <div className="mfsaAboutPageX-left">
+            <span className="mfsaAboutPageX-sub">INTRODUCTION</span>
 
-    <section className="aboutPage">
+            <h2 className="mfsaAboutPageX-title">
+              About Johor Finswimming Association
+            </h2>
 
-      <div className="aboutContainer">
+            <p>
+              The Johor Finswimming Association (JFA) is the premier governing
+              body dedicated to the advancement and regulation of finswimming in
+              the state of Johor. Established with a commitment to sporting
+              excellence, we provide a structured platform for athletes to
+              thrive.
+            </p>
 
-        
-        <h2 className="aboutTitle">ABOUT</h2>
+            <p>
+              Our association is focused on fostering a culture of discipline,
+              health, and high performance, ensuring Johor remains a powerhouse
+              in Malaysian aquatic sports.
+            </p>
+            <p>
+              Through strategic programs, certified coaching systems, and
+              competitive exposure, the association aims to nurture talent and
+              elevate performance standards. JFA collaborates with national and
+              international bodies to ensure that athletes receive opportunities
+              to compete at the highest levels.
+            </p>
+          </div>
 
-        <p className="aboutPara">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula,
-          lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo
-          turpis vitae eros. Curabitur nec nisi in ipsum dignissim lacinia.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula,
-          lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo
-          turpis vitae eros. Curabitur nec nisi in ipsum dignissim lacinia.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula,
-          lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo
-          turpis vitae eros. Curabitur nec nisi in ipsum dignissim lacinia.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
+          {/* RIGHT VISUAL */}
+          <div className="mfsaAboutPageX-right">
+            <div className="mfsaAboutPageX-circle">
+              <div className="mfsaAboutPageX-innerCircle">
+                {/* simple decorative icon */}
+                <span className="mfsaAboutPageX-line"></span>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        {/* ===== BOTTOM CARDS ===== */}
+        <div className="mfsaAboutPageX-bottom">
+          {/* MISSION */}
+          <div className="mfsaAboutPageX-card">
+            <div className="mfsaAboutPageX-icon">
+              <FaFlag />
+            </div>
 
-        
-        <h2 className="aboutTitle">OUR MISSION</h2>
+            <h3>OUR MISSION</h3>
 
-        <p className="aboutPara">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula,
-          lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo
-          turpis vitae eros.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula,
-          lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo
-          turpis vitae eros. Curabitur nec nisi in ipsum dignissim lacinia.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
+            <p>
+              To cultivate a world-class finswimming ecosystem in Johor by
+              identifying raw talent, providing professional coaching, and
+              organizing competitive events.
+            </p>
+            <p>
+              To cultivate a world-class finswimming ecosystem in Johor by
+              identifying raw talent, providing professional coaching, and
+              organizing competitive events.
+            </p>
+          </div>
 
-        <ul className="aboutList">
-          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-          <li>Vivamus vehicula lorem a porttitor porttitor.</li>
-          <li>Curabitur nec nisi in ipsum dignissim lacinia.</li>
-          <li>Velit erat tincidunt lorem, in pulvinar justo.</li>
-          <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-        </ul>
+          {/* VISION */}
+          <div className="mfsaAboutPageX-card">
+            <div className="mfsaAboutPageX-icon red">
+              <FaEye />
+            </div>
 
+            <h3>OUR VISION</h3>
 
-     
-        <h2 className="aboutTitle">OUR VISION</h2>
-
-        <p className="aboutPara">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula,
-          lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo
-          turpis vitae eros. Curabitur nec nisi in ipsum dignissim lacinia.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula,
-          lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo
-          turpis vitae eros. Curabitur nec nisi in ipsum dignissim lacinia.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula,
-          lorem a porttitor porttitor, velit erat tincidunt lorem, in pulvinar justo
-          turpis vitae eros. Curabitur nec nisi in ipsum dignissim lacinia.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
-
+            <p>
+              To be the leading finswimming association in Southeast Asia,
+              recognized for producing elite athletes and championing the sport
+              globally.
+            </p>
+            <p>
+              To be the leading finswimming association in Southeast Asia,
+              recognized for producing elite athletes and championing the sport
+              globally.
+            </p>
+          </div>
+        </div>
       </div>
-
     </section>
-  )
+  );
 }
