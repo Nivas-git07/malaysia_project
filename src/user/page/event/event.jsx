@@ -5,12 +5,9 @@ export default function Event() {
     return (
         <div>
             <Swimmer>
-                <div className="homeHeroContent">
-                    <h1 className="homeHeroTitle">
-                        ALL EVENTS
-                    </h1>
-                </div>
+                
             </Swimmer>
+            
             <EventsPage />
             <Footer />
 

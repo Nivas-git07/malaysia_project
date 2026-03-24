@@ -1,87 +1,76 @@
 import { useState } from "react";
-import EventCard from "../homecomponent/eventcard";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import img1 from "../../assets/image2.jpg"
-import logo from "../../assets/logo.jpg"
+import img1 from "../../assets/image2.jpg";
+
 export default function EventsPage() {
+  const [currentPage, setCurrentPage] = useState(1);
 
-    /* 🔥 Dummy Data (100 items example) */
-    const events = Array.from({ length: 100 }, (_, i) => ({
-        id: i,
-        bg: img1,
-        title: "Finswimming Association",
-        date: "09.10.2025",
-        country: "Malaysia"
-    }));
+  const events = [
+    { id: 1, title: "Championship", image: img1 },
+    { id: 2, title: "Trials", image: img1 },
+    { id: 3, title: "Open Water", image: img1 },
+    { id: 4, title: "Community", image: img1 },
+    { id: 5, title: "Workshop", image: img1 },
+    { id: 6, title: "Qualifiers", image: img1 },
+  ];
 
-    const itemsPerPage = 6;
-    const [currentPage, setCurrentPage] = useState(1);
+  return (
+    <section className="eventsSection">
+      <div className="eventsInner">
 
-    const totalPages = Math.ceil(events.length / itemsPerPage);
+        {/* HEADER */}
+        <div className="eventsHeader">
+          <div className="left">
+            <h2 className="up">UPCOMING EVENTS</h2>
+            <p>Discover the latest competitions and community gatherings.</p>
+          </div>
 
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentEvents = events.slice(startIndex, startIndex + itemsPerPage);
+          <div className="right">
+            <span className="filterText">Filter by:</span>
+            <button className="filterBtn">Category</button>
+            <button className="calendarBtn">View Calendar</button>
+          </div>
+        </div>
 
-    /* 🔥 Pagination handlers */
-    const nextPage = () => currentPage < totalPages && setCurrentPage(p => p + 1);
-    const prevPage = () => currentPage > 1 && setCurrentPage(p => p - 1);
+        {/* GRID */}
+        <div className="eventsGrid">
+          {events.map((event) => (
+            <div className="eventCard" key={event.id}>
+              
+              <div className="cardImage">
+                <img src={event.image} alt={event.title} />
+               
+              </div>
 
-    return (
-
-        <section className="eventsPageSection">
-
-            <h2 className="eventsPageHeading">UPCOMING EVENTS</h2>
-
-            <div className="eventsGrid" style={{
-                rowGap: "40px",
-                columnGap: "50px"
-            }}>
-
-                {currentEvents.map(event => (
-                    <EventCard
-                        key={event.id}
-                        bg={event.bg}
-                        logo={logo}
-                        title={event.title}
-                        date={event.date}
-                        country={event.country}
-                    />
-                ))}
-
-            </div>
-
-
-            <div className="eventsPaginationBar">
-
-                <p className="eventsInfo">
-                    Showing {startIndex + 1} to {Math.min(startIndex + itemsPerPage, events.length)} of {events.length} entries
-                </p>
-
-                <div className="eventsPagination">
-
-                    <button onClick={prevPage}>
-                        <FiChevronLeft />
-                    </button>
-
-                    {[1, 2, 3, 4, 25].map(num => (
-                        <button
-                            key={num}
-                            className={currentPage === num ? "active" : ""}
-                            onClick={() => setCurrentPage(num)}
-                        >
-                            {num}
-                        </button>
-                    ))}
-
-                    <button onClick={nextPage}>
-                        <FiChevronRight />
-                    </button>
-
-                </div>
+            
+              <div className="cardBody">
+                <span className="tagBody">
+                  {event.title.toUpperCase()}
+                </span>
+              </div>
 
             </div>
+          ))}
+        </div>
 
-        </section>
+        {/* PAGINATION */}
+        <div className="pagination">
+          <button>
+            <FiChevronLeft />
+          </button>
 
-    )
+          <span className="active">1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>...</span>
+          <span>12</span>
+
+          <button>
+            <FiChevronRight />
+          </button>
+        </div>
+
+      </div>
+    </section>
+  );
 }
