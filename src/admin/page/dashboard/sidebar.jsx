@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../../style/dashboard/sidebar.css'
+import "../../style/dashboard/sidebar.css";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 import { RiGroupFill } from "react-icons/ri";
@@ -7,6 +7,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaAddressCard } from "react-icons/fa";
 import { logout } from "../../api/auth_api";
 import { PiNotePencilBold } from "react-icons/pi";
+import { GrGallery } from "react-icons/gr";
 import {
   Home,
   User,
@@ -16,13 +17,10 @@ import {
   Newspaper,
   Settings,
   LogOut,
-  Menu
+  Menu,
 } from "lucide-react";
 
 export default function Sidebar() {
-
-
-
   const [open, setOpen] = useState(false);
 
   const closeSidebar = () => {
@@ -37,7 +35,6 @@ export default function Sidebar() {
       </div>
 
       <aside className={`sidebar ${open ? "show" : ""}`}>
-
         <div className="sidebarTop">
           <div className="sidebarBanner">
             <img src={logo} alt="logo" className="sidebarLogo" />
@@ -45,7 +42,6 @@ export default function Sidebar() {
         </div>
 
         <nav className="sidebarMenu">
-
           <NavLink to="/home" className="menuItem" onClick={closeSidebar}>
             <Home size={20} />
             <span>Home</span>
@@ -86,21 +82,28 @@ export default function Sidebar() {
             <span>News</span>
           </NavLink>
 
-          <NavLink to="/settings" className="menuItem" onClick={closeSidebar} > 
+          <NavLink to="/gallery" className="menuItem" onClick={closeSidebar}>
+            <GrGallery size={20} />
+            <span>Gallery</span>
+          </NavLink>
+
+          <NavLink to="/settings" className="menuItem" onClick={closeSidebar}>
             <FaUserCircle size={20} />
             <span>Profile</span>
           </NavLink>
-
         </nav>
 
-        <NavLink to="/" className="logoutBar" onClick={() => {
-          closeSidebar();
-          logout();
-        }}>
+        <NavLink
+          to="/"
+          className="logoutBar"
+          onClick={() => {
+            closeSidebar();
+            logout();
+          }}
+        >
           <LogOut size={18} />
           <span>Logout</span>
         </NavLink>
-
       </aside>
     </>
   );
