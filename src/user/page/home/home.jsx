@@ -1,12 +1,12 @@
 import HomeAbout from "../../components/homecomponent/homeabout";
 import UpcomingEvents from "../../components/homecomponent/upcomingevent";
 import HomeRecords from "../../components/homecomponent/homerecord";
-import BestRecords from "../../components/homecomponent/bestrecord";
+import BestRecordsX from "../../components/homecomponent/bestrecord";
 import Footer from "../../layout/footer";
 import HomeGallery from "../../components/homecomponent/homegallery";
 import HomeNews from "../../components/homecomponent/homenews";
 import Swimmer from "../../layout/swimmer";
-import Homeassoc from "../../components/homecomponent/assosiationstate";
+import  StateNetworkX from "../../components/homecomponent/assosiationstate";
 
 export default function Home() {
   return (
@@ -43,8 +43,8 @@ export default function Home() {
       <HomeRecords />
       <UpcomingEvents />
       
-      <BestRecords />
-      <Homeassoc />
+      <BestRecordsX />
+      <StateNetworkX />
       <HomeGallery />
       <HomeNews />
       <Footer />

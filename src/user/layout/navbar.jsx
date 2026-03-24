@@ -2,6 +2,7 @@ import logo from "../assets/logo.jpg";
 import { useNavigate } from "react-router-dom";
 import { get_home_data } from "../api/home_api";
 import { useEffect, useState } from "react";
+
 function Navbar() {
   const navigate = useNavigate();
 
