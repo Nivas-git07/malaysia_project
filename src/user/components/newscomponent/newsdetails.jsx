@@ -111,42 +111,61 @@ export default function NewsDetailX() {
           </div>
 
           {/* RIGHT SIDEBAR */}
-          <div className="mfsaNewsDetailX-sidebar">
-            {/* RELATED */}
-            <div className="mfsaNewsCardX">
-              <h4>Related News</h4>
+          <div className="mfsaNewsSidebarX">
+            {/* ===== RELATED NEWS ===== */}
+            <div className="mfsaSidebarBlockX">
+              <h5 className="mfsaSidebarTitleX">Related News</h5>
 
-              <div className="sideItem">
+              <div className="mfsaSidebarItemX">
                 <img src={img} alt="" />
-                <p>National Championships Announced</p>
+                <span className="tag">Competition</span>
+                <p>National Championships: Venue and Dates Announced</p>
               </div>
 
-              <div className="sideItem">
+              <div className="mfsaSidebarItemX">
                 <img src={img} alt="" />
-                <p>Olympic Swimmers Push Training Limits</p>
+                <span className="tag">Nutrition</span>
+                <p>Optimizing Recovery for High-Intensity Fin Drills</p>
               </div>
             </div>
 
-            {/* MOST READ */}
-            <div className="mfsaNewsCardX">
-              <h4>Most Read</h4>
+            {/* ===== MOST READ ===== */}
+            <div className="mfsaSidebarMostX">
+              <h5>Most Read</h5>
 
-              <div className="mostItem">
+              <div className="mfsaMostItemX">
                 <span>01</span>
-                <p>Understanding the Dynamics of Monofins</p>
+                <div>
+                  <p>Understanding the Dolphin Kick Mechanics</p>
+                  <small>45k Views</small>
+                </div>
               </div>
 
-              <div className="mostItem">
+              <div className="mfsaMostItemX">
                 <span>02</span>
-                <p>Olympic Success Stories</p>
+                <div>
+                  <p>Olympic Recognition Status: 2024 Update</p>
+                  <small>30k Views</small>
+                </div>
+              </div>
+
+              <div className="mfsaMostItemX">
+                <span>03</span>
+                <div>
+                  <p>Top 5 Finswimming Academies in Southeast Asia</p>
+                  <small>28k Views</small>
+                </div>
               </div>
             </div>
 
-            {/* SUBSCRIBE */}
-            <div className="mfsaSubscribeX">
+            {/* ===== SUBSCRIBE ===== */}
+            <div className="mfsaSidebarSubscribeX">
               <h4>Stay Elite.</h4>
-              <p>Get updates on competitions and news.</p>
-              <button>Subscribe</button>
+              <p>Get the latest technical analysis and competition updates.</p>
+
+              <input placeholder="Your email address" />
+
+              <button>SUBSCRIBE</button>
             </div>
           </div>
         </div>
