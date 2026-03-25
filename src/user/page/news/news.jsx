@@ -7,7 +7,7 @@ export default function News() {
     <>
       <Swimmer>
         <div className="homeHeroContent">
-          <h1 className="homeHeroTitle">Contact US</h1>
+          <h1 className="homeHeroTitle">News</h1>
           <p className="homeHeroSub">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             <br />

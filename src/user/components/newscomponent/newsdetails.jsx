@@ -108,6 +108,9 @@ export default function NewsDetailX() {
               <img src={img} />
               <img src={img} />
             </div>
+            <div className="mfsaLoadMoreWrapX">
+              <button className="mfsaLoadMoreBtnX">Load More News →</button>
+            </div>
           </div>
 
           {/* RIGHT SIDEBAR */}
