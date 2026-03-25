@@ -53,7 +53,9 @@ function Navbar() {
 
         <ul className="mfsaPro-menu mfsaPro-left">
           <li>EVENTS</li>
-          <li>NEWS</li>
+          <li onClick={() =>{
+            navigate("/news")
+          }}>NEWS</li>
           <li
             onClick={() => {
               navigate("/contact");

@@ -12,6 +12,7 @@ import ScrollToTop from "../hooks/scrolltotop";
 import StatePage from "../page/state/state";
 import ClubPage from "../page/club/club";
 import Contact from "../page/contact/contact";
+import News from "../page/news/news";
 function Page() {
   return (
     <>
@@ -29,6 +30,7 @@ function Page() {
         <Route path="/association" element={<Association />} />
         <Route path="/athelete" element={<Athelete />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/news" element={<News />} />
       </Routes>
     </>
   );

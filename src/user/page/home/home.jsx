@@ -28,9 +28,9 @@ export default function Home() {
           </h1>
 
           <p className="homeHeroSub">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia veritatis necessitatibus earum 
             <br />
-            Vivamus vehicula, lorem a porttitor porttitor, velit erat
+            V ivamus vehicula, lorem a porttitor porttitor, velit erat .amet consectetur adipisicing elit lorem
           </p>
 
           <div className="heroBtnGroupX">
