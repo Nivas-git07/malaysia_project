@@ -6,18 +6,59 @@ export default function EventsPage() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const events = [
-    { id: 1, title: "Championship", image: img1 },
-    { id: 2, title: "Trials", image: img1 },
-    { id: 3, title: "Open Water", image: img1 },
-    { id: 4, title: "Community", image: img1 },
-    { id: 5, title: "Workshop", image: img1 },
-    { id: 6, title: "Qualifiers", image: img1 },
+    {
+      id: 1,
+      category: "Championship",
+      title: "Finswimming State Cup",
+      date: "09.10.2025",
+      location: "Johor Bahru",
+      image: img1,
+    },
+    {
+      id: 2,
+      category: "Trials",
+      title: "Junior National Selection",
+      date: "15.11.2025",
+      location: "Kuala Lumpur",
+      image: img1,
+    },
+    {
+      id: 3,
+      category: "Open Water",
+      title: "Desaru Ocean Sprint",
+      date: "03.12.2025",
+      location: "Desaru Coast",
+      image: img1,
+    },
+    {
+      id: 4,
+      category: "Community",
+      title: "Annual Member Dinner",
+      date: "20.12.2025",
+      location: "JB Convention Center",
+      image: img1,
+    },
+    {
+      id: 5,
+      category: "Workshop",
+      title: "Finswimming Coaching Clinic",
+      date: "10.01.2026",
+      location: "Larkin Aquatic Centre",
+      image: img1,
+    },
+    {
+      id: 6,
+      category: "Qualifiers",
+      title: "SEA Games 2026 Qualifiers",
+      date: "22.02.2026",
+      location: "Johor State Stadium",
+      image: img1,
+    },
   ];
 
   return (
     <section className="eventsSection">
       <div className="eventsInner">
-
         {/* HEADER */}
         <div className="eventsHeader">
           <div className="left">
@@ -35,20 +76,29 @@ export default function EventsPage() {
         {/* GRID */}
         <div className="eventsGrid">
           {events.map((event) => (
-            <div className="eventCard" key={event.id}>
-              
-              <div className="cardImage">
+            <div className="mfsaEventCardX" key={event.id}>
+              {/* IMAGE */}
+              <div className="mfsaEventImgX">
                 <img src={event.image} alt={event.title} />
-               
               </div>
 
-            
-              <div className="cardBody">
-                <span className="tagBody">
-                  {event.title.toUpperCase()}
-                </span>
-              </div>
+              {/* OVERLAY CONTENT */}
+              <div className="mfsaEventOverlayX">
+                {/* TAG */}
+                <span className="mfsaEventTagX">{event.category}</span>
 
+                {/* TITLE */}
+                <h3 className="mfsaEventTitleX">{event.title}</h3>
+
+                {/* META */}
+                <div className="mfsaEventMetaX">
+                  <span>📅 {event.date}</span>
+                  <span>📍 {event.location}</span>
+                </div>
+
+                {/* BUTTON */}
+                <button className="mfsaEventBtnX">Read More →</button>
+              </div>
             </div>
           ))}
         </div>
@@ -69,7 +119,6 @@ export default function EventsPage() {
             <FiChevronRight />
           </button>
         </div>
-
       </div>
     </section>
   );
