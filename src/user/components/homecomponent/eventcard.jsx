@@ -1,42 +1,39 @@
-import { FiArrowRight } from "react-icons/fi";
+import { FiMapPin } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-export default function EventCard({ bg, logo, title, date, country }) {
+
+export default function EventCardX({ bg, title, date, location }) {
   const navigate = useNavigate();
+
   return (
+    <div className="mfsaEventX-card">
 
-    <div className="eventCards">
+      {/* IMAGE */}
+      <div className="mfsaEventX-imgWrap">
+        <img src={bg} alt="event" />
 
-      <img src={bg} alt="event" className="eventBg" />
-
-      <div className="eventOverlay" />
-
-      <div className="eventContent">
-
-        <div className="eventLogoWrap">
-          <img src={logo} alt="logo" />
-        </div>
-
-        <h3 className="eventcardTitle">
-          {title}
-        </h3>
-
+        {/* DATE BADGE */}
+        <div className="mfsaEventX-date">{date}</div>
       </div>
 
-      <div className="eventBottom">
+      {/* CONTENT */}
+      <div className="mfsaEventX-body">
 
-        <div className="eventMeta">
-          <span>{date}</span>
-          <span className="divider">|</span>
-          <span>{country}</span>
+        <h3 className="mfsaEventX-title">{title}</h3>
+
+        <div className="mfsaEventX-location">
+          <FiMapPin />
+          <span>{location}</span>
         </div>
 
-        <div className="eventRead" onClick={() => { navigate("/eventview") }}>
-          Read More <FiArrowRight />
-        </div>
+        <button
+          className="mfsaEventX-btn"
+          onClick={() => navigate("/eventview")}
+        >
+          Register Now
+        </button>
 
       </div>
 
     </div>
-
-  )
+  );
 }

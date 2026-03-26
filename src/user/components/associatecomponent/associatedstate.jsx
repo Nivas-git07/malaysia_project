@@ -1,56 +1,61 @@
-import logo from "../../assets/logo.jpg"
+import logo from "../../assets/logo.jpg";
 
-export default function AssociatedStates() {
+export default function StateAssociationX() {
 
-    const states = [
-        { id: 1, name: "George Town", clubs: 10, athletes: 120 },
-        { id: 2, name: "Kuala Lumpur", clubs: 10, athletes: 120 },
-        { id: 3, name: "Petaling", clubs: 10, athletes: 120 },
-        { id: 4, name: "Terengganu", clubs: 10, athletes: 120 },
-        { id: 5, name: "George Town", clubs: 10, athletes: 120 },
-        { id: 6, name: "Kuala Lumpur", clubs: 10, athletes: 120 },
-    ];
+  const states = [
+    { name: "Johor Bahru", clubs: 10, athletes: 120 },
+    { name: "Kuala Lumpur", clubs: 8, athletes: 95 },
+    { name: "Penang", clubs: 6, athletes: 70 },
+    { name: "Selangor", clubs: 12, athletes: 150 },
+    { name: "Melaka", clubs: 4, athletes: 45 },
+    { name: "Perak", clubs: 5, athletes: 60 },
+    { name: "Kedah", clubs: 3, athletes: 35 },
+    { name: "Pahang", clubs: 4, athletes: 50 },
+  ];
 
-    return (
-        <section className="assocStateSection">
-            <div className="assocStateContainer">
+  return (
+    <section className="mfsaStateCardX-section">
 
+      <div className="mfsaStateCardX-container">
 
-                <div className="assocStateHeader">
-                    <h2 className="assocStateTitle">ASSOCIATED STATES</h2>
+        {/* HEADER */}
+        <div className="mfsaStateCardX-header">
+          <h2>Regional Partners</h2>
+          <p>Browse our verified state associations and their local clubs.</p>
+        </div>
+
+        {/* GRID */}
+        <div className="mfsaStateCardX-grid">
+
+          {states.map((item, i) => (
+            <div className="mfsaStateCardX-card" key={i}>
+
+              {/* LOGO */}
+              <div className="mfsaStateCardX-logoOuter">
+                <div className="mfsaStateCardX-logoInner">
+                  <img src={logo} alt="state" />
                 </div>
+              </div>
 
+              {/* TEXT */}
+              <h3 className="mfsaStateCardX-name">{item.name}</h3>
 
-                <div className="assocStateGrid">
-                    {states.map(item => (
-                        <div className="assocCard">
+              <p className="mfsaStateCardX-meta">
+                {item.clubs} clubs • {item.athletes} Athletes
+              </p>
 
-                            <div className="assocTopBar" />
-
-                            <div className="assocLogoWrap">
-                                <img src={logo} alt="state" />
-                            </div>
-
-                            <h3 className="assocName">Kuala Lumpur</h3>
-
-                            <p className="assocMeta">
-                                10 clubs · 120 Atheletes
-                            </p>
-
-                            <button className="assocBtn">View All</button>
-
-                        </div>
-
-
-                    ))}
-                </div>
-
-
-                <div className="assocStateFooter">
-                    <span>View All →</span>
-                </div>
+              {/* BUTTON */}
+              <button className="mfsaStateCardX-btn">
+                VIEW ALL
+              </button>
 
             </div>
-        </section>
-    );
+          ))}
+
+        </div>
+
+      </div>
+
+    </section>
+  );
 }

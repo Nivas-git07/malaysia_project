@@ -20,6 +20,7 @@ body{
   overflow:hidden;
   isolation:isolate;
   color:white;
+  border-bottom: 8px solid #c10000;
 }
 .heroVideo{
   position:absolute;
@@ -57,55 +58,96 @@ body{
 .contact span{
   margin-left:20px;
 }
-
-.navbars{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:20px 0;
-  background:transparent;
+/* NAVBAR */
+.mfsaPro-navbar {
+  width: 100%;
+  height: 85px;
+  border-bottom: 5px solid #c10000;
+  background: white;
+  display: flex;
+  align-items: center;
+  color: black;
 }
 
-.logo img{
-  width:70px;
+/* CONTAINER */
+.mfsaPro-container {
+  width: 100%;
+  padding: 0 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.mfsaPro-left,
+.mfsaPro-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+    
+}
+
+.mfsaPro-left {
+  justify-content: space-evenly; /* spread items */
+  padding-right: 80px; /* space near logo */
+  
+}
+
+/* 🔥 RIGHT MENU */
+.mfsaPro-right {
+  justify-content: space-evenly; /* spread items */
+  padding-left: 80px; /* space near logo */
+}
+
+/* MENU ITEMS */
+.mfsaPro-menu {
+  width: 100%; 
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+  color: black;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mfsaPro-menu li {
+  cursor: pointer;
+}
+
+/* 🔥 CENTER LOGO */
+.mfsaPro-logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mfsaPro-logo img {
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
 }
 
-.menu{
-  list-style:none;
-  display:flex;
-  gap:30px;
-  font-weight:700;
-  font-size:14px;
-}
-
-.menu li{
-  cursor:pointer;
-}
-
-.navBtns{
-  display:flex;
-  gap:10px;
-}
-
-.btnOutline{
-  border:1.5px solid white;
-  background:transparent;
-  color:white;
-   font-weight: 600;
-  padding:8px 16px;
-  border-radius:20px;
-  cursor: pointer;
-}
-
-.btnFill{
-  background:white;
-  color:#cc0001;
+/* USER */
+.mfsaPro-user {
+  position: absolute;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-weight: 600;
-  border:none;
-  padding:8px 16px;
-  cursor: pointer;
-  border-radius:20px;
+  color: black;
+}
+
+.mfsaPro-user img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .mfsaPro-menu {
+    display: none;
+  }
 }
 .contact{
   display:flex;
@@ -133,7 +175,7 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-top:80px;
+  margin-top:130px;
 }
 
 .left h1{

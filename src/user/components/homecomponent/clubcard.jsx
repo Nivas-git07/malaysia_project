@@ -1,72 +1,57 @@
 import logo from "../../assets/logo.jpg";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-export default function HomeClub() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const clubs = [
-        { name: "Club Name", athletes: 120 },
-        { name: "Elite Club", athletes: 95 },
-        { name: "National Club", athletes: 140 },
-        { name: "Pro Swim Club", athletes: 110 },
-        { name: "Fins Academy", athletes: 80 },
-        { name: "Speed Club", athletes: 150 },
-    ];
 
-    return (
-        <section className="mfsaClubBlock">
+export default function HomeClubX() {
 
-            <div className="mfsaClubWrap">
+  const clubs = [
+    { name: "Johor Bahru", clubs: 10, athletes: 120 },
+    { name: "Kuala Lumpur", clubs: 8, athletes: 95 },
+    { name: "Selangor", clubs: 12, athletes: 150 },
+    { name: "Penang", clubs: 6, athletes: 70 }
+  ];
 
-                {/* TITLE */}
-                <h2 className="mfsaClubTitle">ASSOCIATED CLUBS</h2>
+  return (
+    <section className="mfsaClubX-section">
 
-                {/* SLIDER */}
-                <div className="mfsaClubSlider">
-                    <div className="mfsaClubTrack">
-                        {/* <div className="assocCard">
+      <div className="mfsaClubX-container">
 
-                            <div className="assocTopBar" />
+        {/* HEADER */}
+        <div className="mfsaClubX-header">
+          <h2 className="mfsaClubX-title">Associate Club</h2>
 
-                            <div className="assocLogoWrap">
-                                <img src={logo} alt="state" />
-                            </div>
+          <div className="mfsaClubX-actions">
+            <button className="mfsaClubX-navBtn">←</button>
+            <button className="mfsaClubX-navBtn">→</button>
+            <span className="mfsaClubX-viewAll">View All →</span>
+          </div>
+        </div>
 
-                            <h3 className="assocName">Kuala Lumpur</h3>
+        {/* GRID */}
+        <div className="mfsaClubX-grid">
+          {clubs.map((item, i) => (
+            <div className="mfsaClubX-card" key={i}>
 
-                            <p className="assocMeta">
-                                10 clubs · 120 Atheletes
-                            </p>
-
-                            <button className="assocBtn">View All</button>
-
-                        </div> */}
-                        {[...clubs, ...clubs].map((item, i) => (
-                            <div className="mfsaClubItem" key={i}>
-
-                                <div className="assocTopBars" />
-
-                                <div className="assocLogoWraps">
-                                    <img src={logo} alt="logo" />
-                                </div>
-
-                                <h3 className="assocName">{item.name}</h3>
-                                <p className="assocMeta">
-                                    {item.athletes} Athletes
-                                </p>
-
-                                <button className="assocBtn" onClick={() => navigate(`/${location.pathname.split("/")[1]}/${item.name}`)}>
-                                    View Club
-                                </button>
-
-                            </div>
-                        ))}
-
-                    </div>
+              {/* LOGO */}
+              <div className="mfsaClubX-logoOuter">
+                <div className="mfsaClubX-logoInner">
+                  <img src={logo} alt="club" />
                 </div>
+              </div>
+
+              {/* CONTENT */}
+              <h3 className="mfsaClubX-name">{item.name}</h3>
+
+              <p className="mfsaClubX-meta">
+                {item.clubs} clubs • {item.athletes} Athletes
+              </p>
+
+              <button className="mfsaClubX-btn">VIEW ALL</button>
 
             </div>
+          ))}
+        </div>
 
-        </section>
-    );
+      </div>
+
+    </section>
+  );
 }

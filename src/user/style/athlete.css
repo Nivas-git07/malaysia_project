@@ -408,171 +408,131 @@
 
 
 /* associatedstate */
-
-
-.assocStateSection {
-  padding: 100px 24px;
-  background: #F7F7FB; 
+/* SECTION */
+.mfsaStateCardX-section {
+  background: #f5f6f8;
+  padding: 80px 20px;
 }
 
-
-.assocStateContainer {
-  max-width: 1300px;
-  margin: 0 auto;
+/* CONTAINER */
+.mfsaStateCardX-container {
+  max-width: 1350px;
+  margin: auto;
+  padding: 0 40px;
 }
 
-
-.assocStateHeader {
-  margin-bottom: 50px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+/* HEADER */
+.mfsaStateCardX-header {
+  margin-bottom: 40px;
 }
 
-.assocStateTitle {
-  font-size: 32px;
-  font-weight: 700;
-  color: #c10000;
-  letter-spacing:1px;
+.mfsaStateCardX-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 5px;
 }
 
+.mfsaStateCardX-header p {
+  font-size: 14px;
+  color: #666;
+}
 
-.assocStateGrid {
+/* GRID */
+.mfsaStateCardX-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 40px;
-  align-items: stretch;   
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
 }
 
 /* CARD */
-.assocCard {
-  background:#ECEAF1;
-  border-radius: 12px;
-  height:380px;
-  position:relative;
-  text-align:center;
-  padding-top:95px;  
-  transition:all .25s ease;
+.mfsaStateCardX-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 35px 20px;
+  text-align: center;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: 0.3s;
 }
 
-
-.assocCard:hover{
-  transform:translateY(-6px);
-  box-shadow:0 18px 40px rgba(0,0,0,0.08);
+.mfsaStateCardX-card:hover {
+  transform: translateY(-6px);
 }
 
-.assocTopBar{
-  position:absolute;
-  top:95px;
-  left:0;
-  width:100%;
-  height:12px;
-  background:#D7D5E4;
-}
-
-.assocLogoWrap{
-  position:absolute;
-  top:40px;
-  left:50%;
-  transform:translateX(-50%);
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  background:#E7CFCF;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-
-.assocTopBars{
-  position:absolute;
-  top:195px;
-  left:0;
-  width:100%;
-  height:12px;
-  background:#D7D5E4;
-}
-
-
-
-.assocLogoWraps{
-  position:absolute;
-  top:140px;
-  left:50%;
-  transform:translateX(-50%);
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  background:#E7CFCF;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.assocLogoWrap img{
-  width:70px;
-  height:70px;
-  object-fit:contain;
+/* LOGO OUTER */
+.mfsaStateCardX-logoOuter {
+  width: 110px;
+  height: 110px;
+  margin: auto;
   border-radius: 50%;
+  background: #eef1f5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 20px;
 }
-.assocLogoWraps img{
-  width:70px;
-  height:70px;
-  object-fit:contain;
+
+/* LOGO INNER */
+.mfsaStateCardX-logoInner {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  background: #0f6c74;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mfsaStateCardX-logoInner img {
+  width: 60%;
   border-radius: 50%;
 }
 
-.assocName{
-  margin-top:80px;
-  font-size:24px;
-  font-weight:700;
-  color:#2D2E8B;
+/* TEXT */
+.mfsaStateCardX-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
-.assocMeta{
-  margin-top:6px;
-  font-size:15px;
-  color:#666;
+.mfsaStateCardX-meta {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 20px;
 }
 
-
-.assocBtn{
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:58px;
-  background:#2D2E8B;
-  color:#fff;
-  border:none;
-  font-weight:600;
-  cursor:pointer;
-    border-bottom-right-radius: 12px;
-     border-bottom-left-radius: 12px;
-}
-
-
-.assocStateFooter {
-  margin-top: 34px;
-  text-align: right;
-  font-weight: 500;
+/* BUTTON */
+.mfsaStateCardX-btn {
+  background: #c10000;
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 700;
   cursor: pointer;
 }
 
-@media(max-width:1024px){
-  .assocStateGrid{
-    grid-template-columns:repeat(2,1fr);
+/* TABLET */
+@media (max-width: 1024px) {
+  .mfsaStateCardX-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media(max-width:600px){
-  .assocStateGrid{
-    grid-template-columns:1fr;
+/* MOBILE */
+@media (max-width: 600px) {
+  .mfsaStateCardX-grid {
+    grid-template-columns: 1fr;
   }
 
-  .assocStateTitle{
-    font-size:26px;
+  .mfsaStateCardX-header {
+    text-align: center;
   }
 
+  .mfsaStateCardX-name {
+    font-size: 16px;
+  }
 }

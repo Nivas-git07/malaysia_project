@@ -1,0 +1,719 @@
+/* --- HERO MAIN CONTAINER --- */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 500px; /* Adjust this height to match your photo preference */
+  overflow: hidden;
+  display: flex;
+  align-items: center; /* Vertically centers the text */
+  justify-content: center; /* Horizontally centers the text */
+}
+
+/* --- THE IMAGE (STRETCHED TO FILL) --- */
+.heroImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* --- THE BLUE GRADIENT OVERLAY (MATCHES PHOTO) --- */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 82, 212, 0.4) 0%, 
+    rgba(16, 22, 34, 0.9) 100%
+  );
+  z-index: 2;
+}
+
+/* --- NAVBAR WRAPPER (Sits at the top) --- */
+.heroNavbarWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10; /* Highest layer so links work */
+}
+
+/* --- CONTENT CENTERING --- */
+.heroContent {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  /* Removed any margin-right that was causing off-centering */
+}
+
+.heroFlex {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Ensures everything in the column is centered */
+}
+
+/* --- THE SHIELD BADGE (MATCHES PHOTO) --- */
+.heroIconBadge {
+  width: 55px;
+  height: 55px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto; /* Centers the badge horizontally */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+/* --- THE SHIELD ICON (CSS TRICK FOR OUTLINE) --- */
+.shieldIcon {
+  font-size: 28px; /* Size of the icon */
+  color: transparent; /* Hide the default emoji colors */
+  
+  /* This creates the red outline effect on the symbol */
+  -webkit-text-stroke: 2px #e11d2e; 
+  
+  /* Ensures the shield is perfectly centered in the white circle */
+  display: block;
+  line-height: 1;
+  text-align: center;
+}
+
+/* --- TYPOGRAPHY (MATCHES PHOTO) --- */
+.heroTitle {
+  font-size: 58px;
+  font-weight: 900; /* stronger than 800 */
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.heroSubtitle {
+  font-size: 15px;
+  margin-top: 12px;
+  font-weight: 400;
+  opacity: 0.85;
+  letter-spacing: 0.5px;
+}
+
+/* --- CONTAINER --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+
+/* all details */
+/* FULL WIDTH SECTION */
+.eventsSection {
+  width: 100%;
+  background: #f5f6f8;
+  padding: 60px 0;
+}
+
+/* INNER PADDING (NO MAX WIDTH) */
+.eventsInner {
+  padding: 0 60px; /* THIS controls left-right spacing */
+}
+
+/* HEADER */
+.eventsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+/* TITLE */
+.eventsHeader h2 {
+  font-size: 26px;
+  font-weight: 800;
+  padding-left: 14px;
+  position: relative;
+}
+
+.eventsHeader h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 4px;
+  height: 22px;
+  background: #c1121f;
+}
+
+.eventsHeader p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* RIGHT SIDE */
+.eventsHeader .right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* RIGHT CONTAINER */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  flex-wrap: nowrap;      /* 👈 IMPORTANT */
+  white-space: nowrap;    /* 👈 prevents breaking */
+}
+.filterBtn,
+.calendarBtn {
+  flex-shrink: 0; /* 👈 prevents squeezing/wrapping */
+}
+
+/* FILTER TEXT */
+.filterText {
+  font-size: 15px;
+  color: #6b7280; /* soft gray */
+  font-weight: 500;
+}
+
+/* CATEGORY BUTTON (light pill) */
+.filterBtn {
+  background: #fcfcfc;
+  color:#0F172A;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+
+
+  font-weight: 600; /* 👈 BOLD */
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filterBtn:hover {
+  background: #e5e7eb;
+}
+
+/* VIEW CALENDAR BUTTON (red pill) */
+.calendarBtn {
+  background:  #C10000;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.calendarBtn:hover {
+  background: #a50f1a;
+}
+
+/* GRID (IMPORTANT FIX) */
+.eventsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px; /* more spacing like design */
+}
+
+/* CARD */
+.eventCard {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 15px 35px;
+
+  height: 400px; /* 👈 increase vertical size */
+  display: flex;
+  flex-direction: column;
+}
+
+.eventCard:hover {
+  transform: translateY(-6px);
+}
+
+.cardImage {
+  position: relative;
+  height: 180px; /* slightly smaller height */
+  overflow: hidden;
+}
+
+.cardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* back to cover (correct here) */
+  display: block;
+}
+
+/* TAG */
+/* .tag {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: #C10000;
+  color: white;
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 20px;
+} */
+
+/* BODY */
+.cardBody {
+  padding: 18px;
+  margin-right: 20px;
+}
+.up{
+    color: #0F172A;
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+  font-weight: 600; 
+}
+
+.tagBody {
+  display: inline-block;
+  background: #C10000;
+  color: white;
+  font-size: 11px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  margin-right: 40px;
+}
+.infoRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.date,
+.location {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.icon {
+  font-size: 14px;
+  color: #9ca3af;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  gap: 10px;
+}
+
+.pagination span,
+.pagination button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.pagination .active {
+  background: #c1121f;
+  color: white;
+}
+
+/* news css */
+
+.mfsaNewsDetailX-section {
+  background: #f5f6f8;
+  padding: 60px 20px;
+}
+
+.mfsaNewsDetailX-container {
+  max-width: 1350px;
+  margin: auto;
+}
+
+/* HEADER */
+.mfsaNewsDetailX-header {
+  margin-bottom: 20px;
+}
+
+.mfsaNewsDetailX-title {
+  font-size: 40px;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+/* AUTHOR */
+.mfsaNewsDetailX-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mfsaNewsDetailX-author img {
+  width: 45px;
+  height: 45px;
+  
+  border-radius: 50%;
+  
+}
+
+.mfsaNewsDetailX-author span {
+  font-size: 13px;
+  color: #777;
+}
+
+/* HERO */
+.mfsaNewsDetailX-hero img {
+  width: 100%;
+  border-radius: 20px;
+  margin: 30px 0;
+      height: 500px;
+}
+
+/* GRID */
+.mfsaNewsDetailX-main {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 40px;
+}
+/* CONTENT WRAPPER */
+.mfsaNewsDetailX-content {
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+/* INTRO */
+.mfsaNewsDetailX-intro {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.mfsaNewsDetailX-subIntro {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+/* HEADINGS */
+.mfsaNewsDetailX-heading {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 20px 0 10px;
+}
+
+.mfsaNewsDetailX-subHeading {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 25px;
+}
+
+/* TEXT */
+.mfsaNewsDetailX-text {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.8;
+}
+
+/* 🔥 FEATURE BLOCK (IMPORTANT FIX) */
+.mfsaNewsDetailX-feature {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 20px;
+
+  background: #f3f4f6;
+  padding: 20px;
+  border-radius: 16px;
+  margin: 25px 0;
+}
+
+/* LEFT TEXT */
+.featureLeft h4 {
+  color: #c10000;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.featureLeft ul {
+  padding-left: 18px;
+}
+
+.featureLeft li {
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+/* RIGHT IMAGE */
+.featureRight img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+/* GALLERY */
+.mfsaNewsDetailX-gallery {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.mfsaNewsDetailX-gallery img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* 🔥 ALIGN FIX */
+.mfsaNewsDetailX-main {
+  display: grid;
+  grid-template-columns: 2.0fr 1fr;
+  /* gap: 40px; */
+  align-items: start; /* IMPORTANT */
+}
+/* SIDEBAR */
+/* SIDEBAR */
+.mfsaNewsSidebarX {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* BLOCK TITLE */
+.mfsaSidebarTitleX {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+/* RELATED BLOCK */
+.mfsaSidebarBlockX {
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+/* ITEM */
+.mfsaSidebarItemX {
+  margin-bottom: 20px;
+}
+
+.mfsaSidebarItemX img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 8px;
+}
+
+/* TAG */
+.tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: #c10000;
+  text-transform: uppercase;
+}
+
+/* TITLE */
+.mfsaSidebarItemX p {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* ===== MOST READ ===== */
+.mfsaSidebarMostX {
+  background: #f3f4f6;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.mfsaSidebarMostX h5 {
+  margin-bottom: 10px;
+}
+
+/* MOST ITEM */
+.mfsaMostItemX {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.mfsaMostItemX span {
+  font-size: 18px;
+  font-weight: 800;
+  color: #999;
+}
+
+.mfsaMostItemX p {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mfsaMostItemX small {
+  font-size: 11px;
+  color: #777;
+}
+
+/* ===== SUBSCRIBE ===== */
+.mfsaSidebarSubscribeX {
+  background: #c10000;
+  color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.mfsaSidebarSubscribeX h4 {
+  margin-bottom: 5px;
+}
+
+.mfsaSidebarSubscribeX p {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.mfsaSidebarSubscribeX input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.mfsaSidebarSubscribeX button {
+  width: 100%;
+  padding: 10px;
+  background: #fff;
+  color: #c10000;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+}
+
+/* WRAPPER */
+.mfsaLoadMoreWrapX {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+/* BUTTON */
+.mfsaLoadMoreBtnX {
+  padding: 14px 28px;
+  background: #c10000;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.mfsaLoadMoreBtnX:hover {
+  background: #a00000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(193, 0, 0, 0.3);
+}
+
+/* ACTIVE */
+.mfsaLoadMoreBtnX:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 1024px) {
+  .mfsaNewsDetailX-main {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .mfsaNewsDetailX-title {
+    font-size: 26px;
+  }
+
+  .mfsaNewsDetailX-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .mfsaNewsDetailX-gallery {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 1024px) {
+  .mfsaNewsDetailX-main {
+    grid-template-columns: 1fr;
+  }
+
+  .mfsaNewsDetailX-content {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .mfsaNewsDetailX-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .mfsaNewsDetailX-gallery {
+    flex-wrap: wrap;
+  }
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .mfsaNewsSidebarX {
+    margin-top: 30px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+  .mfsaSidebarItemX img {
+    height: 180px;
+  }
+
+  .mfsaSidebarSubscribeX {
+    text-align: center;
+  }
+
+  .mfsaSidebarSubscribeX input {
+    font-size: 14px;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .mfsaLoadMoreBtnX {
+    width: 100%;
+    max-width: 250px;
+  }
+}

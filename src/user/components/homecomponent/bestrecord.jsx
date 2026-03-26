@@ -1,83 +1,45 @@
 import { useState } from "react";
-import RecordCard from "./recordcard";
+import RecordCardX from "./recordcard";
 
-export default function BestRecords() {
+export default function BestRecordsX() {
+  const [active, setActive] = useState("Surface");
 
-    const [active, setActive] = useState("Surface");
+  const categories = ["Surface", "Bi-fins", "Apnea", "Immersion"];
 
-    const records = [
-        {
-            name: "Cesar CIELO FILHO",
-            time: "20.91",
-            championship: "Brazilian National Championships (50m)",
-            state: "Kuala Lumpur",
-            date: "18 Dec 2009"
-        },
-        {
-            name: "Cesar CIELO FILHO",
-            time: "20.91",
-            championship: "Brazilian National Championships (50m)",
-            state: "Kuala Lumpur",
-            date: "18 Dec 2009"
-        },
-        {
-            name: "Cesar CIELO FILHO",
-            time: "20.91",
-            championship: "Brazilian National Championships (50m)",
-            state: "Kuala Lumpur",
-            date: "18 Dec 2009"
-        }
-    ];
+  const records = [
+    { name: "Adam Wong", discipline: "50m Surface", time: "15.42s" },
+    { name: "Sarah Lim", discipline: "120m Surface", time: "16.42s" },
+    { name: "Irfan Hakim", discipline: "50m Surface", time: "19.42s" },
+    { name: "Mei Ling", discipline: "300m Surface", time: "35.42s" },
+  ];
 
-    const categories = ["Surface", "Bi-fins", "Apnea", "Immersion"];
+  return (
+    <>
+      <section className="mfsaRecordX-section">
+        <div className="mfsaRecordX-container">
+          <h2 className="mfsaRecordX-title">Best Records</h2>
 
-    return (
+          {/* CATEGORY BUTTONS */}
+          <div className="mfsaRecordX-tabs">
+            {categories.map((item) => (
+              <button
+                key={item}
+                onClick={() => setActive(item)}
+                className={`mfsaRecordX-tab ${active === item ? "active" : ""}`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
 
-        <section className="bestRecordsSection">
-
-            <div className="bestRecordsContainer">
-
-                <h2 className="bestRecordsTitle">BEST RECORDS</h2>
-
-                <div className="bestRecordsLayout">
-
-                    {/* LEFT MENU */}
-                    <div className="bestRecordsMenu">
-
-
-
-                        {categories.map((item) => (
-                            <button
-                                key={item}
-                                onClick={() => setActive(item)}
-                                className={`bestMenuItem ${active === item ? "active" : ""}`}
-                            >
-                                {item}
-                            </button>
-                        ))}
-
-                    </div>
-
-                  
-                    <div className="bestRecordsRight">
-
-                      
-                        <h3 className="bestRecordsActiveTitle">
-                            {active}
-                        </h3>
-
-                        <div className="bestRecordsGrid">
-                            {records.map((rec, index) => (
-                                <RecordCard key={index} {...rec} />
-                            ))}
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-    )
+          {/* CARDS */}
+          <div className="mfsaRecordX-grid">
+            {records.map((rec, i) => (
+              <RecordCardX key={i} {...rec} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }
