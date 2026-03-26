@@ -14,6 +14,7 @@ import AdminNotificationPage from "../page/dashboard/notification";
 import AthleteProfile from "../page/dashboard/athleteprofile";
 import Authenticate from "../page/authenticate/authenticate";
 import ClubList from "../page/dashboard/club";
+import Gallery from "../page/dashboard/gallery";
 import Record from "../page/dashboard/record";
 export default function AdminRoute() {
   return (
@@ -86,6 +87,15 @@ export default function AdminRoute() {
         element={
           <AdminLayout>
             <Report />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="/gallery"
+        element={
+          <AdminLayout>
+            <Gallery />
           </AdminLayout>
         }
       />
