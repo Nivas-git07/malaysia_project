@@ -30,7 +30,7 @@ function Page() {
         <Route path="/association" element={<Association />} />
         <Route path="/athelete" element={<Athelete />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/user/news" element={<News />} />
+        <Route path="/news" element={<News />} />
       </Routes>
     </>
   );
