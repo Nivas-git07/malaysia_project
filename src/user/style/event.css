@@ -221,6 +221,113 @@
   background: #a50f1a;
 }
 
+/* ============================= */
+/* TABLET (≤ 1024px) */
+/* ============================= */
+@media (max-width: 1024px) {
+  .eventsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .eventsHeader h2 {
+    font-size: 24px;
+  }
+
+  .eventsHeader p {
+    font-size: 13px;
+  }
+
+  .eventsHeader .right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+/* ============================= */
+/* MOBILE (≤ 768px) */
+/* ============================= */
+@media (max-width: 768px) {
+  .eventsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  /* TITLE */
+  .eventsHeader h2 {
+    font-size: 22px;
+    padding-left: 12px;
+  }
+
+  .eventsHeader h2::before {
+    height: 18px;
+    top: 4px;
+  }
+
+  .eventsHeader p {
+    font-size: 12px;
+  }
+
+  /* RIGHT SECTION STACK */
+  .eventsHeader .right {
+    width: 100%;
+    flex-wrap: wrap; /* 👈 allow wrapping */
+    gap: 10px;
+  }
+
+  .right {
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+
+  /* BUTTONS FULL WIDTH */
+  .filterBtn,
+  .calendarBtn {
+    flex: 1;
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .filterText {
+    width: 100%;
+    font-size: 13px;
+  }
+}
+/* ============================= */
+/* SMALL MOBILE (≤ 480px) */
+/* ============================= */
+@media (max-width: 480px) {
+  .eventsHeader {
+    gap: 12px;
+  }
+
+  .eventsHeader h2 {
+    font-size: 20px;
+  }
+
+  .eventsHeader p {
+    font-size: 11px;
+  }
+
+  /* Stack buttons vertically */
+  .eventsHeader .right {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterBtn,
+  .calendarBtn {
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .filterText {
+    font-size: 12px;
+  }
+}
 /* GRID (IMPORTANT FIX) */
 .eventsGrid {
   display: grid;
@@ -318,6 +425,18 @@
   gap: 15px;
   opacity: 0.9;
   margin-bottom: 15px;
+  color: white; /* 👈 makes text + icons white */
+}
+
+.mfsaEventMetaX span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mfsaEventMetaX .icon {
+  color: white; /* 👈 icon color */
+  font-size: 14px;
 }
 
 /* BUTTON */

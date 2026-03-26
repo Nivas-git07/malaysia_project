@@ -132,9 +132,42 @@ body{
   right: 60px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-weight: 600;
   color: black;
+}
+
+.btnOutline {
+  background: #f3f4f6; /* light gray */
+  color: #111827; /* dark text */
+  border: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnOutline:hover {
+  background: #e5e7eb;
+}
+
+/* LOGIN (primary red button) */
+.btnFill {
+  background: #c10000;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnFill:hover {
+  background: #a00000;
 }
 
 .mfsaPro-user img {

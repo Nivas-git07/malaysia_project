@@ -7,6 +7,7 @@ import img4 from "../../assets/event4.png";
 import img5 from "../../assets/event5.png";
 import img6 from "../../assets/event6.png";
 import { useNavigate } from "react-router-dom";
+import { FiCalendar, FiMapPin } from "react-icons/fi";
 export default function EventsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
@@ -88,21 +89,28 @@ export default function EventsPage() {
                 <img src={event.image} alt={event.title} />
               </div>
 
-              
               <div className="mfsaEventOverlayX">
-              
                 <span className="mfsaEventTagX">{event.category}</span>
 
-              
                 <h3 className="mfsaEventTitleX">{event.title}</h3>
 
-                
                 <div className="mfsaEventMetaX">
-                  <span>📅 {event.date}</span>
-                  <span>📍 {event.location}</span>
+                  <span>
+                    <FiCalendar className="icon" /> {event.date}
+                  </span>
+                  <span>
+                    <FiMapPin className="icon" /> {event.location}
+                  </span>
                 </div>
 
-                <button className="mfsaEventBtnX" onClick={() => {navigate("/user/eventview")}}>Read More →</button>
+                <button
+                  className="mfsaEventBtnX"
+                  onClick={() => {
+                    navigate("/user/eventview");
+                  }}
+                >
+                  Read More →
+                </button>
               </div>
             </div>
           ))}
