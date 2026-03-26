@@ -57,7 +57,7 @@ export default function Sidebar() {
             <span>Events</span>
           </NavLink>
 
-          <NavLink to="/user" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/membership" className="menuItem" onClick={closeSidebar}>
             <FaAddressCard size={20} />
             <span>membership</span>
           </NavLink>
