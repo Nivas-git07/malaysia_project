@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import img1 from "../../assets/image2.jpg";
-
+import img1 from "../../assets/event1.png";
+import img2 from "../../assets/event2.png";
+import img3 from "../../assets/event3.png";
+import img4 from "../../assets/event4.png";
+import img5 from "../../assets/event5.png";
+import img6 from "../../assets/event6.png";
+import { useNavigate } from "react-router-dom";
 export default function EventsPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
 
   const events = [
     {
@@ -20,7 +26,7 @@ export default function EventsPage() {
       title: "Junior National Selection",
       date: "15.11.2025",
       location: "Kuala Lumpur",
-      image: img1,
+      image: img2,
     },
     {
       id: 3,
@@ -28,7 +34,7 @@ export default function EventsPage() {
       title: "Desaru Ocean Sprint",
       date: "03.12.2025",
       location: "Desaru Coast",
-      image: img1,
+      image: img3,
     },
     {
       id: 4,
@@ -36,7 +42,7 @@ export default function EventsPage() {
       title: "Annual Member Dinner",
       date: "20.12.2025",
       location: "JB Convention Center",
-      image: img1,
+      image: img4,
     },
     {
       id: 5,
@@ -44,7 +50,7 @@ export default function EventsPage() {
       title: "Finswimming Coaching Clinic",
       date: "10.01.2026",
       location: "Larkin Aquatic Centre",
-      image: img1,
+      image: img5,
     },
     {
       id: 6,
@@ -52,7 +58,7 @@ export default function EventsPage() {
       title: "SEA Games 2026 Qualifiers",
       date: "22.02.2026",
       location: "Johor State Stadium",
-      image: img1,
+      image: img6,
     },
   ];
 
@@ -82,22 +88,21 @@ export default function EventsPage() {
                 <img src={event.image} alt={event.title} />
               </div>
 
-              {/* OVERLAY CONTENT */}
+              
               <div className="mfsaEventOverlayX">
-                {/* TAG */}
+              
                 <span className="mfsaEventTagX">{event.category}</span>
 
-                {/* TITLE */}
+              
                 <h3 className="mfsaEventTitleX">{event.title}</h3>
 
-                {/* META */}
+                
                 <div className="mfsaEventMetaX">
                   <span>📅 {event.date}</span>
                   <span>📍 {event.location}</span>
                 </div>
 
-                {/* BUTTON */}
-                <button className="mfsaEventBtnX">Read More →</button>
+                <button className="mfsaEventBtnX" onClick={() => {navigate("/user/eventview")}}>Read More →</button>
               </div>
             </div>
           ))}

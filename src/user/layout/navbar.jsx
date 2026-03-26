@@ -25,14 +25,14 @@ function Navbar() {
         <ul className="mfsaPro-menu mfsaPro-left">
           <li
             onClick={() => {
-              navigate("/");
+              navigate("/user");
             }}
           >
             HOME
           </li>
           <li
             onClick={() => {
-              navigate("/about");
+              navigate("/user/about");
             }}
           >
             ABOUT US
@@ -40,7 +40,7 @@ function Navbar() {
           <li>MEMBERSHIP</li>
           <li
             onClick={() => {
-              navigate("/association");
+              navigate("/user/association");
             }}
           >
             ASSOCIATIONS
@@ -54,18 +54,18 @@ function Navbar() {
         <ul className="mfsaPro-menu mfsaPro-left">
           <li
           onClick={()=>{
-            navigate("/event")
+            navigate("/user/event")
           }}>EVENTS</li>
           <li
             onClick={() => {
-              navigate("/news");
+              navigate("/user/news");
             }}
           >
             NEWS
           </li>
           <li
             onClick={() => {
-              navigate("/contact");
+              navigate("/user/contact");
             }}
           >
             CONTACT
