@@ -87,7 +87,7 @@ function Navbar() {
           <button
             className="btnFill"
             onClick={() => {
-              navigate("/user/login");
+              navigate("/");
             }}
           >
             LOG IN

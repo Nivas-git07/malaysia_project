@@ -16,7 +16,7 @@ export default function AdminLogin() {
     try {
       const response = await adminLogin(email, password);
       console.log("Login successful:", response.data);
-      navigate("/home");
+      navigate("/user");
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -27,7 +27,7 @@ export default function AdminLogin() {
 
       {/* Top Left Navigation Link */}
       <div className="backNav">
-        <a href="/">← Back to main site</a>
+        <a href="/user">← Back to main site</a>
       </div>
 
       <div className="adminCenter">
