@@ -110,7 +110,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/user"
+        path="/membership"
         element={
           <AdminLayout>
             <Manageuser />
