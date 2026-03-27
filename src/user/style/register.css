@@ -628,3 +628,161 @@ body{
     padding:0 10px;
   }
 }
+
+/* SECTION */
+.mfsaClubFormX-section {
+  min-height: 100vh;
+  background: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px 20px;
+}
+
+/* WRAPPER */
+.mfsaClubFormX-wrapper {
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+}
+
+/* HEADER */
+.mfsaClubFormX-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0b3d91;
+}
+
+.mfsaClubFormX-header p {
+  color: #777;
+  margin-top: 8px;
+  position: relative;
+}
+
+.mfsaClubFormX-header p::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #ffc400;
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+/* CARD */
+.mfsaClubFormX-card {
+  background: #fff;
+  margin-top: 30px;
+  padding: 30px;
+  border-radius: 20px;
+
+ box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* FORM GROUP */
+.mfsaFormGroupX {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.mfsaFormGroupX label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #777;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* TEXTAREA */
+.mfsaFormGroupX textarea {
+  width: 100%;
+  height: 110px;
+
+  border: none;
+  border-left: 3px solid #ffc400;
+  background: #f7f7f7;
+
+  padding: 12px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  resize: none;
+
+  outline: none;
+}
+
+/* BUTTON WRAP */
+.mfsaFormBtnWrapX {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* BUTTON */
+.mfsaFormBtnX {
+  background: #c10000;
+  color: #fff;
+
+  padding: 12px 30px;
+  border-radius: 30px;
+  border: none;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+/* HOVER */
+.mfsaFormBtnX:hover {
+  background: #a00000;
+  box-shadow: 0 10px 20px rgba(193,0,0,0.3);
+}
+
+/* SKIP */
+.mfsaSkipX {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #777;
+  cursor: pointer;
+}
+
+/* FOOTER */
+.mfsaFormFooterX {
+  margin-top: 20px;
+  font-size: 11px;
+  color: #aaa;
+}
+
+/* TABLET */
+@media (max-width: 768px) {
+
+  .mfsaClubFormX-header h1 {
+    font-size: 26px;
+  }
+
+  .mfsaClubFormX-card {
+    padding: 20px;
+  }
+
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+
+  .mfsaClubFormX-header h1 {
+    font-size: 22px;
+  }
+
+  .mfsaFormGroupX textarea {
+    height: 90px;
+  }
+
+  .mfsaFormBtnX {
+    width: 100%;
+  }
+
+}
