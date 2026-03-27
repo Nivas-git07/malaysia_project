@@ -13,24 +13,28 @@ import StatePage from "../page/state/state";
 import ClubPage from "../page/club/club";
 import Contact from "../page/contact/contact";
 import News from "../page/news/news";
+import RegistrationAboutForm from "../page/register/resisterabout";
+import Registermembership from "../page/register/registermembership";
 function Page() {
   return (
     <>
       <ScrollToTop />
       <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/:location" element={<StatePage />} />
-        <Route path="/:location/:club" element={<ClubPage />} />
-        <Route path="/event" element={<Event />} />
-        <Route path="/eventview" element={<Eventview />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/allathelete" element={<AllAthelete />} />
-        <Route path="/association" element={<Association />} />
-        <Route path="/athelete" element={<Athelete />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/news" element={<News />} />
+        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
+        <Route path="" element={<Home />} />
+        <Route path=":location" element={<StatePage />} />
+        <Route path=":location/:club" element={<ClubPage />} />
+        <Route path="event" element={<Event />} />
+        <Route path="eventview" element={<Eventview />} />
+        <Route path="about" element={<About />} />
+        <Route path="allathelete" element={<AllAthelete />} />
+        <Route path="association" element={<Association />} />
+        <Route path="athelete" element={<Athelete />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="news" element={<News />} />
+        <Route path="registerabout" element={<RegistrationAboutForm />} />
+        <Route path="registermembership" element={<Registermembership />} />
       </Routes>
     </>
   );

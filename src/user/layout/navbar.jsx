@@ -69,8 +69,24 @@ function Navbar() {
         </ul>
 
         <div className="mfsaPro-user">
-          <img src="https://static.vecteezy.com/system/resources/previews/009/734/564/non_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg" />
-          <span>Nivas</span>
+          <button
+            className="btnOutline"
+            onClick={() => {
+              navigate("/user/register");
+            }}
+          >
+            MEMBER
+          </button>
+          <button
+            className="btnFill"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            LOG IN
+          </button>
+          {/* <img src="https://static.vecteezy.com/system/resources/previews/009/734/564/non_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg" />
+          <span>Nivas</span> */}
         </div>
       </div>
     </nav>

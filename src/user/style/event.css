@@ -106,9 +106,9 @@
 
 /* --- CONTAINER --- */
 .container {
-  max-width: 1200px;
+  max-width: 1350px;
   margin: 0 auto;
-  padding: 0 20px;
+  /* padding: 0 20px; */
 }
 
 
@@ -221,6 +221,113 @@
   background: #a50f1a;
 }
 
+/* ============================= */
+/* TABLET (≤ 1024px) */
+/* ============================= */
+@media (max-width: 1024px) {
+  .eventsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .eventsHeader h2 {
+    font-size: 24px;
+  }
+
+  .eventsHeader p {
+    font-size: 13px;
+  }
+
+  .eventsHeader .right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+/* ============================= */
+/* MOBILE (≤ 768px) */
+/* ============================= */
+@media (max-width: 768px) {
+  .eventsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  /* TITLE */
+  .eventsHeader h2 {
+    font-size: 22px;
+    padding-left: 12px;
+  }
+
+  .eventsHeader h2::before {
+    height: 18px;
+    top: 4px;
+  }
+
+  .eventsHeader p {
+    font-size: 12px;
+  }
+
+  /* RIGHT SECTION STACK */
+  .eventsHeader .right {
+    width: 100%;
+    flex-wrap: wrap; /* 👈 allow wrapping */
+    gap: 10px;
+  }
+
+  .right {
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+
+  /* BUTTONS FULL WIDTH */
+  .filterBtn,
+  .calendarBtn {
+    flex: 1;
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .filterText {
+    width: 100%;
+    font-size: 13px;
+  }
+}
+/* ============================= */
+/* SMALL MOBILE (≤ 480px) */
+/* ============================= */
+@media (max-width: 480px) {
+  .eventsHeader {
+    gap: 12px;
+  }
+
+  .eventsHeader h2 {
+    font-size: 20px;
+  }
+
+  .eventsHeader p {
+    font-size: 11px;
+  }
+
+  /* Stack buttons vertically */
+  .eventsHeader .right {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterBtn,
+  .calendarBtn {
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .filterText {
+    font-size: 12px;
+  }
+}
 /* GRID (IMPORTANT FIX) */
 .eventsGrid {
   display: grid;
@@ -228,86 +335,154 @@
   gap: 40px; /* more spacing like design */
 }
 
+/* Medium laptops / tablets landscape */
+@media (max-width: 1024px) {
+  .eventsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+/* Tablets / large mobiles */
+@media (max-width: 768px) {
+  .eventsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 480px) {
+  .eventsGrid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 15px;
+  }
+}
+
 /* CARD */
-.eventCard {
-  background: white;
+/* CARD */
+.mfsaEventCardX {
+  position: relative;
   border-radius: 20px;
   overflow: hidden;
-  transition: 0.3s;
-  box-shadow: rgba(0, 0, 0, 0.08) 0px 15px 35px;
+  height: 350px;
+  cursor: pointer;
 
-  height: 400px; /* 👈 increase vertical size */
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: 0.3s ease;
 }
 
-.eventCard:hover {
-  transform: translateY(-6px);
-}
-
-.cardImage {
-  position: relative;
-  height: 180px; /* slightly smaller height */
-  overflow: hidden;
-}
-
-.cardImage img {
+/* IMAGE */
+.mfsaEventImgX img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* back to cover (correct here) */
+  object-fit: cover;
   display: block;
 }
 
-/* TAG */
-/* .tag {
+/* OVERLAY */
+.mfsaEventOverlayX {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
-  background: #C10000;
-  color: white;
-  font-size: 11px;
-  padding: 5px 12px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  padding: 20px;
+
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.65),
+    rgba(0,0,0,0.2),
+    transparent
+  );
+
+  backdrop-filter: blur(6px);
+  color: #fff;
+}
+
+/* TAG */
+.mfsaEventTagX {
+  background: #c10000;
+  padding: 6px 12px;
   border-radius: 20px;
-} */
-
-/* BODY */
-.cardBody {
-  padding: 18px;
-  margin-right: 20px;
-}
-.up{
-    color: #0F172A;
-    font-size: 18px;
-    font-family: "Inter", sans-serif;
-  font-weight: 600; 
-}
-
-.tagBody {
-  display: inline-block;
-  background: #C10000;
-  color: white;
   font-size: 11px;
-  padding: 5px 14px;
-  border-radius: 999px;
-  font-weight: 600;
-  margin-right: 40px;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 10px;
 }
-.infoRow {
+
+/* TITLE */
+.mfsaEventTitleX {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* META */
+.mfsaEventMetaX {
+  font-size: 13px;
+  display: flex;
+  gap: 15px;
+  opacity: 0.9;
+  margin-bottom: 15px;
+  color: white; /* 👈 makes text + icons white */
+}
+
+.mfsaEventMetaX span {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-top: 6px;
 }
 
-.date,
-.location {
-  font-size: 13px;
-  color: #9ca3af;
-}
-
-.icon {
+.mfsaEventMetaX .icon {
+  color: white; /* 👈 icon color */
   font-size: 14px;
-  color: #9ca3af;
+}
+
+/* BUTTON */
+.mfsaEventBtnX {
+  width: 100%;
+  padding: 12px;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,0.4);
+
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-weight: 600;
+
+  backdrop-filter: blur(10px);
+  transition: 0.3s ease;
+}
+
+/* HOVER */
+.mfsaEventCardX:hover {
+  transform: translateY(-5px);
+}
+
+.mfsaEventBtnX:hover {
+  background: rgba(255,255,255,0.25);
+}
+/* TABLET */
+@media (max-width: 1024px) {
+  .mfsaEventCardX {
+    height: 300px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .mfsaEventCardX {
+    height: 280px;
+  }
+
+  .mfsaEventTitleX {
+    font-size: 16px;
+  }
+
+  .mfsaEventMetaX {
+    flex-direction: column;
+    gap: 5px;
+  }
 }
 .pagination {
   display: flex;
