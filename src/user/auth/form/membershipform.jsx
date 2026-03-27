@@ -1,5 +1,7 @@
 import { useState } from "react";
-import img from "../../assets/event3.png"
+import img from "../../assets/event3.png";
+import { FaCheckCircle } from "react-icons/fa";
+import { BiWorld } from "react-icons/bi";
 export default function MembershipX() {
   const [plan, setPlan] = useState("yearly");
 
@@ -133,9 +135,7 @@ export default function MembershipX() {
 
           {/* RIGHT CONTENT */}
           <div className="mfsaWhyX-right">
-            <h2>
-              Why Join the <br /> World Federation?
-            </h2>
+            <h2>Why Join the World Federation?</h2>
 
             <p className="desc">
               Membership in the International Finswimming Federation is more
@@ -158,8 +158,21 @@ export default function MembershipX() {
 
             {/* FEATURES */}
             <ul className="mfsaWhyX-list">
-              <li>✔ Access to Olympic-standard training facilities</li>
-              <li>✔ Automatic entry eligibility for championships</li>
+              <li>
+                <FaCheckCircle className="mfsaWhyX-icon" />
+                <span>
+                  Access to Olympic-standard training facilities and biological
+                  passports.
+                </span>
+              </li>
+
+              <li>
+                <BiWorld className="mfsaWhyX-icon" />
+                <span>
+                  Automatic entry eligibility for Continental and World
+                  Championships.
+                </span>
+              </li>
             </ul>
 
             {/* BUTTON */}
