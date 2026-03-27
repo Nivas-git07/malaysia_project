@@ -48,7 +48,34 @@ body{
   color:#333;
   font-size:14px;
 }
+.mfsaPro-menu li {
+  cursor: pointer;
+  transition: 0.3s;
+  color: #333333;
+}
 
+/* Hover */
+.mfsaPro-menu li:hover {
+  color: #C10000;
+}
+
+/* Active (Selected) */
+.mfsaPro-menu li.active {
+  color: #C10000;
+  font-weight: 600;
+  position: relative;
+}
+
+/* Optional underline effect */
+.mfsaPro-menu li.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: #C10000;
+}
 .topbarFlex{
   display:flex;
   justify-content:space-between;

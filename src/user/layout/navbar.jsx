@@ -2,9 +2,11 @@ import logo from "../assets/logo.jpg";
 import { useNavigate } from "react-router-dom";
 import { get_home_data } from "../api/home_api";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -24,24 +26,31 @@ function Navbar() {
       <div className="mfsaPro-container">
         <ul className="mfsaPro-menu mfsaPro-left">
           <li
-            onClick={() => {
-              navigate("/user");
-            }}
+            className={location.pathname === "/user" ? "active" : ""}
+            onClick={() => navigate("/user")}
           >
             HOME
           </li>
+
           <li
-            onClick={() => {
-              navigate("/user/about");
-            }}
+            className={location.pathname === "/user/event" ? "active" : ""}
+            onClick={() => navigate("/user/event")}
           >
-            ABOUT US
+            EVENTS
           </li>
-          <li>MEMBERSHIP</li>
+
           <li
-            onClick={() => {
-              navigate("/user/association");
-            }}
+            className={location.pathname === "/user/membership" ? "active" : ""}
+            onClick={() => navigate("/user/membership")}
+          >
+            MEMBERSHIP
+          </li>
+
+          <li
+            className={
+              location.pathname === "/user/association" ? "active" : ""
+            }
+            onClick={() => navigate("/user/association")}
           >
             ASSOCIATIONS
           </li>
@@ -53,23 +62,21 @@ function Navbar() {
 
         <ul className="mfsaPro-menu mfsaPro-left">
           <li
-            onClick={() => {
-              navigate("/user/event");
-            }}
-          >
-            EVENTS
-          </li>
-          <li
-            onClick={() => {
-              navigate("/user/news");
-            }}
+            className={location.pathname === "/user/news" ? "active" : ""}
+            onClick={() => navigate("/user/news")}
           >
             NEWS
           </li>
           <li
-            onClick={() => {
-              navigate("/user/contact");
-            }}
+            className={location.pathname === "/user/about" ? "active" : ""}
+            onClick={() => navigate("/user/about")}
+          >
+            ABOUT US
+          </li>
+
+          <li
+            className={location.pathname === "/user/contact" ? "active" : ""}
+            onClick={() => navigate("/user/contact")}
           >
             CONTACT
           </li>
