@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import img from "../../assets/event3.png"
 export default function MembershipX() {
   const [plan, setPlan] = useState("yearly");
 
@@ -50,64 +50,123 @@ export default function MembershipX() {
   ];
 
   return (
-    <section className="mfsaMembershipX-section">
-      <div className="mfsaMembershipX-container">
-        {/* HEADER */}
-        <div className="mfsaMembershipX-header">
-          <span className="tag">Membership Programs</span>
-          <h1>Choose Your Membership</h1>
-          <p>
-            Select the plan that fits your journey within the world of elite
-            finswimming.
+    <>
+      <section className="mfsaMembershipX-section">
+        <div className="mfsaMembershipX-container">
+          {/* HEADER */}
+          <div className="mfsaMembershipX-header">
+            <span className="tag">Membership Programs</span>
+            <h1>Choose Your Membership</h1>
+            <p>
+              Select the plan that fits your journey within the world of elite
+              finswimming.
+            </p>
+          </div>
+
+          {/* TOGGLE */}
+          <div className="mfsaToggleX">
+            <span className={plan === "monthly" ? "active" : ""}>Monthly</span>
+
+            <div
+              className={`toggleSwitch ${plan}`}
+              onClick={() => setPlan(plan === "monthly" ? "yearly" : "monthly")}
+            />
+
+            <span className={plan === "yearly" ? "active" : ""}>
+              Yearly <small>-15%</small>
+            </span>
+          </div>
+
+          {/* CARDS */}
+          <div className="mfsaMembershipGridX">
+            {plans.map((item, i) => (
+              <div
+                className={`mfsaMembershipCardX ${item.popular ? "popular" : ""}`}
+                key={i}
+              >
+                {item.popular && (
+                  <span className="popularTag">Most Popular</span>
+                )}
+
+                <h3>{item.title}</h3>
+
+                <div className="price">
+                  ${plan === "monthly" ? item.monthly : item.yearly}
+                  <span> / {plan === "monthly" ? "month" : "year"}</span>
+                </div>
+
+                <ul>
+                  {item.features.map((f, idx) => (
+                    <li key={idx}>⭐ {f}</li>
+                  ))}
+                </ul>
+
+                <button>Select Plan</button>
+              </div>
+            ))}
+          </div>
+
+          {/* FOOTER */}
+          <p className="helpText">
+            Need help choosing? <span>Contact your association</span>
           </p>
         </div>
+      </section>
 
-        {/* TOGGLE */}
-        <div className="mfsaToggleX">
-          <span className={plan === "monthly" ? "active" : ""}>Monthly</span>
+      <section className="mfsaWhyX-section">
+        <div className="mfsaWhyX-container">
+          {/* LEFT IMAGE */}
+          <div className="mfsaWhyX-left">
+            <img src={img} alt="swimmer" />
 
-          <div
-            className={`toggleSwitch ${plan}`}
-            onClick={() => setPlan(plan === "monthly" ? "yearly" : "monthly")}
-          />
+            {/* TESTIMONIAL */}
+            <div className="mfsaWhyX-quote">
+              <p>
+                “The federation has provided me with the global platform to
+                transition from a local swimmer to a world-ranked athlete.”
+              </p>
 
-          <span className={plan === "yearly" ? "active" : ""}>
-            Yearly <small>-15%</small>
-          </span>
-        </div>
+              <h5>MARCELLO VIANNI</h5>
+              <span>European Gold Medalist</span>
+            </div>
+          </div>
 
-        {/* CARDS */}
-        <div className="mfsaMembershipGridX">
-          {plans.map((item, i) => (
-            <div
-              className={`mfsaMembershipCardX ${item.popular ? "popular" : ""}`}
-              key={i}
-            >
-              {item.popular && <span className="popularTag">Most Popular</span>}
+          {/* RIGHT CONTENT */}
+          <div className="mfsaWhyX-right">
+            <h2>
+              Why Join the <br /> World Federation?
+            </h2>
 
-              <h3>{item.title}</h3>
+            <p className="desc">
+              Membership in the International Finswimming Federation is more
+              than a credential— it’s an entry into an elite ecosystem of
+              performance, science, and global competition.
+            </p>
 
-              <div className="price">
-                ${plan === "monthly" ? item.monthly : item.yearly}
-                <span> / {plan === "monthly" ? "month" : "year"}</span>
+            {/* STATS */}
+            <div className="mfsaWhyX-stats">
+              <div>
+                <h3>120+</h3>
+                <span>Sanctioned Meets</span>
               </div>
 
-              <ul>
-                {item.features.map((f, idx) => (
-                  <li key={idx}>⭐ {f}</li>
-                ))}
-              </ul>
-
-              <button>Select Plan</button>
+              <div>
+                <h3>15k</h3>
+                <span>Global Athletes</span>
+              </div>
             </div>
-          ))}
-        </div>
 
-        {/* FOOTER */}
-        <p className="helpText">
-          Need help choosing? <span>Contact your association</span>
-        </p>
-      </div>
-    </section>
+            {/* FEATURES */}
+            <ul className="mfsaWhyX-list">
+              <li>✔ Access to Olympic-standard training facilities</li>
+              <li>✔ Automatic entry eligibility for championships</li>
+            </ul>
+
+            {/* BUTTON */}
+            <button className="mfsaWhyX-btn">Explore Membership</button>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
