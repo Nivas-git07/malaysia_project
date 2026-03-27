@@ -52,20 +52,13 @@ function Navbar() {
         </div>
 
         <ul className="mfsaPro-menu mfsaPro-left">
-          <li
-            onClick={() => {
-              navigate("/user/event");
-            }}
-          >
-            EVENTS
-          </li>
-          <li
-            onClick={() => {
-              navigate("/user/news");
-            }}
-          >
-            NEWS
-          </li>
+          <li 
+            onClick={() =>{
+            navigate("/user/event")
+          }}>EVENTS</li>
+          <li onClick={() =>{
+            navigate("/user/news")
+          }}>NEWS</li>
           <li
             onClick={() => {
               navigate("/user/contact");
