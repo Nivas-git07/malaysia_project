@@ -2034,7 +2034,7 @@
 
 .mfsaStateX-section {
   padding: 80px 20px;
-  background: #f9fafb;
+  background: white;
 }
 
 .mfsaStateX-container {
@@ -2058,22 +2058,78 @@
   margin-bottom: 20px;
 }
 
+
+
+/* ===== LIST WRAPPER ===== */
 .mfsaStateX-list {
+  max-height: 260px;   /* 🔥 fixed height */
+  overflow-y: auto;    /* 🔥 scroll */
+  padding-right: 10px;
+
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 5px;
+    scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE/Edge */
+}
+.mfsaStateX-list::-webkit-scrollbar {
+  display: none;               /* Chrome/Safari */
 }
 
+/* SCROLLBAR (modern look) */
+.mfsaStateX-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mfsaStateX-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+.mfsaStateX-list {
+  position: relative;
+}
+
+.mfsaStateX-list::after {
+  content: "";
+  position: sticky;
+  bottom: 0;
+  height: 20px;
+  background: linear-gradient(to bottom, transparent, white);
+}
+
+/* ===== ITEM ===== */
 .mfsaStateX-item {
   display: flex;
+  align-items: center;
   gap: 10px;
   cursor: pointer;
-  align-items: center;
+  padding: 6px 0;
+  transition: 0.3s ease;
 }
 
-.mfsaStateX-item.active p {
-  color: #e11d48;
+/* HOVER */
+.mfsaStateX-item:hover {
+  color: #c8102e;
+  transform: translateX(5px);
+}
+
+.mfsaStateX-item.active {
+  color: #c8102e;
   font-weight: 600;
+}
+
+/* RADIO DOT */
+.mfsaStateX-radio {
+  width: 10px;
+  height: 10px;
+  border: 2px solid #bbb;
+  border-radius: 50%;
+  transition: 0.3s ease;
+}
+
+.mfsaStateX-item.active .mfsaStateX-radio {
+  background: #c8102e;
+  border-color: #c8102e;
 }
 .mfsaStateX-right {
   flex: 1;
