@@ -1502,11 +1502,15 @@
 }
 
 /* ===== RIGHT ===== */
+.mfsaStateX-right {
+  position: relative;
+  max-width: 600px;
+  margin: auto;
+}
+
 .mfsaStateX-right img {
   width: 100%;
-  max-width: 600px;
   display: block;
-  margin: auto;
 }
 
 /* TABLET */
@@ -1981,5 +1985,154 @@
 
   .mfsaFollowX-socialGrid {
     grid-template-columns: 1fr;
+  }
+}
+
+.mfsaStateX-section {
+  padding: 80px 20px;
+  background: #f9fafb;
+}
+
+.mfsaStateX-container {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+/* LEFT */
+.mfsaStateX-left {
+  flex: 1;
+}
+
+.mfsaStateX-title {
+  font-size: 36px;
+  margin: 10px 0;
+}
+
+.mfsaStateX-text {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.mfsaStateX-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mfsaStateX-item {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.mfsaStateX-item.active p {
+  color: #e11d48;
+  font-weight: 600;
+}
+.mfsaStateX-right {
+  flex: 1;
+}
+
+.map-container {
+  position: relative;
+  max-width: 650px;
+  margin: auto;
+}
+
+.map-container img {
+  width: 100%;
+  display: block;
+}
+
+/* 🔥 STATE HOVER AREA */
+.map-area {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  border-radius: 50%;
+
+  /* invisible but interactive */
+  background: transparent;
+}
+
+/* optional debug */
+/* .map-area { background: rgba(255,0,0,0.1); } */
+
+/* 🔥 POPUP */
+.map-popup {
+ position: absolute;
+  transform: translate(-50%, -120%);
+  width: 260px;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  z-index: 999;
+  animation: fadeIn 0.2s ease;
+}
+
+.map-popup img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.popup-content {
+  padding: 12px;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.popup-content p {
+  font-size: 14px;
+  color: #555;
+  margin: 6px 0;
+}
+
+.popup-content button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #0ea5e9;
+  color: white;
+  border-radius: 10px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+/* arrow */
+.map-popup::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+
+/* animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -80%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -100%);
+  }
+}
+
+/* 📱 responsive */
+@media (max-width: 768px) {
+  .map-popup {
+    width: 220px;
   }
 }

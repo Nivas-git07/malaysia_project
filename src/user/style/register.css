@@ -42,7 +42,10 @@ body{
   );
   z-index:0;
 } */
-
+.readmore{
+  color: #C10000;
+  cursor: pointer;
+}
 .topbar{
   background:#eee;
   color:#333;

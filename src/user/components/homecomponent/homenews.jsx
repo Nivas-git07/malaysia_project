@@ -1,10 +1,11 @@
 import NewsCard from "./newscard";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-
+import { useNavigate } from "react-router-dom";
 import n1 from "../../assets/news1.jpg";
 import n2 from "../../assets/news2.jpg";
 
 export default function HomeNews(){
+  const navigate = useNavigate();
 
   const newsData = [
     { img:n1, title:"Finswimming Malaysia Association Club" },
@@ -23,8 +24,10 @@ export default function HomeNews(){
         <h2 className="homeNewsTitle">NEWS</h2>
 
         <div className="homeNewsArrows">
-          <button><FiChevronLeft/></button>
-          <button><FiChevronRight/></button>
+          <span className="readmore" onClick={()=>{
+            navigate("/user/news")
+          }}>Read More</span>
+      
         </div>
 
       </div>
