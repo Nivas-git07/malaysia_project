@@ -1,7 +1,9 @@
 import React, { useState, useRef } from "react";
 import mapImg from "../../assets/malaysia-map.png";
+import { useNavigate } from "react-router-dom";
 
 export default function StateNetworkX() {
+  const navigate = useNavigate();
   const [active, setActive] = useState(null);
   const [popupPos, setPopupPos] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);

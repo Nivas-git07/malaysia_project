@@ -27,7 +27,7 @@ export default function StatePage() {
                             <span className="word">WELCOME</span>
                             <span className="word">TO</span>
 
-                            <span className="word red">{decodeURIComponent(location.pathname.split("/")[1])}</span>
+                            <span className="word red">{decodeURIComponent(location.pathname.split("/")[2])}</span>
 
                             <br />
 

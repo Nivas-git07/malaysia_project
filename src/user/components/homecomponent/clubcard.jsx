@@ -1,22 +1,18 @@
 import logo from "../../assets/logo.jpg";
 
 export default function HomeClubX() {
-
   const clubs = [
     { name: "Johor Bahru", clubs: 10, athletes: 120 },
     { name: "Kuala Lumpur", clubs: 8, athletes: 95 },
     { name: "Selangor", clubs: 12, athletes: 150 },
-    { name: "Penang", clubs: 6, athletes: 70 }
+    { name: "Penang", clubs: 6, athletes: 70 },
   ];
 
   return (
     <section className="mfsaClubX-section">
-
       <div className="mfsaClubX-container">
-
-        {/* HEADER */}
         <div className="mfsaClubX-header">
-          <h2 className="mfsaClubX-title">Associate Club</h2>
+          <h2 className="mfsaEventX-header">Associate Club</h2>
 
           <div className="mfsaClubX-actions">
             <button className="mfsaClubX-navBtn">←</button>
@@ -29,7 +25,6 @@ export default function HomeClubX() {
         <div className="mfsaClubX-grid">
           {clubs.map((item, i) => (
             <div className="mfsaClubX-card" key={i}>
-
               {/* LOGO */}
               <div className="mfsaClubX-logoOuter">
                 <div className="mfsaClubX-logoInner">
@@ -45,13 +40,10 @@ export default function HomeClubX() {
               </p>
 
               <button className="mfsaClubX-btn">VIEW ALL</button>
-
             </div>
           ))}
         </div>
-
       </div>
-
     </section>
   );
 }
