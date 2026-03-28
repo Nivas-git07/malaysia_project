@@ -300,6 +300,7 @@
 .mfsaAboutX-section {
   background: white;
   padding: 80px 0;
+   overflow: hidden;
 }
 
 
@@ -463,6 +464,49 @@
   .mfsaAboutX-subtitle {
     font-size: 11px;
   }
+}
+
+/* ===== INITIAL STATE ===== */
+.mfsaAboutX-section .fade-left,
+.mfsaAboutX-section .fade-right,
+.mfsaAboutX-section .fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+/* LEFT IMAGE */
+.mfsaAboutX-section .fade-left {
+  transform: translateX(-60px);
+}
+
+/* RIGHT CONTENT */
+.mfsaAboutX-section .fade-right {
+  transform: translateX(60px);
+}
+
+/* ===== ACTIVE (WHEN IN VIEW) ===== */
+.mfsaAboutX-section.show .fade-left,
+.mfsaAboutX-section.show .fade-right,
+.mfsaAboutX-section.show .fade-up {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* ===== STAGGER DELAYS ===== */
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+.delay-4 { transition-delay: 0.8s; }
+
+/* ===== CARD EXTRA SMOOTH ===== */
+.mfsaAboutX-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mfsaAboutX-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
 }
 /* SECTION */
 .mfsaEventX-section {

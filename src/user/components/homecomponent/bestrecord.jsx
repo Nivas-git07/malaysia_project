@@ -19,7 +19,7 @@ export default function BestRecordsX() {
         <div className="mfsaRecordX-container">
           <h2 className="mfsaRecordX-title">Best Records</h2>
 
-          {/* CATEGORY BUTTONS */}
+          
           <div className="mfsaRecordX-tabs">
             {categories.map((item) => (
               <button

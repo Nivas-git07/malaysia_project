@@ -14,7 +14,7 @@ export default function HomeClubX() {
 
       <div className="mfsaClubX-container">
 
-        {/* HEADER */}
+      
         <div className="mfsaClubX-header">
           <h2 className="mfsaClubX-title">Associate Club</h2>
 
