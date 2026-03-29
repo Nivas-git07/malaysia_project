@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 export function HowJoinMFSA() {
+    const navigate = useNavigate();
 
   const sectionRef = useRef(null);
   const [activeStep, setActiveStep] = useState(0);
@@ -91,8 +92,12 @@ export function HowJoinMFSA() {
           </h2>
 
           <div className="mfsaCtaButtons">
-            <button className="mfsaBtnPrimary">Register Now</button>
-            <button className="mfsaBtnOutline">Contact Support</button>
+            <button className="mfsaBtnPrimary" onClick={() => navigate("/user/register")}>
+              Register Now
+            </button>
+            <button className="mfsaBtnOutline" onClick={() => navigate("/user/contact")}>
+              Contact Support
+            </button>
           </div>
         </div>
       </section>

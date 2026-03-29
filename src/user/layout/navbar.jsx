@@ -40,7 +40,7 @@ function Navbar() {
           </li>
 
           <li
-            className={location.pathname === "/user/membership" ? "active" : ""}
+            className={location.pathname === "/user/membershipabout" ? "active" : ""}
             onClick={() => navigate("/user/membershipabout")}
           >
             MEMBERSHIP

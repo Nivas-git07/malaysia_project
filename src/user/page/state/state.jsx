@@ -68,7 +68,7 @@ export default function StatePage() {
         </Swimmer>
         <HomeAbout name={decodeURIComponent(location.pathname.split("/")[1])} />
         <UpcomingEvents />
-        <HomeRecords />
+        {/* <HomeRecords /> */}
         <BestRecords />
 
         <HomeClub />
