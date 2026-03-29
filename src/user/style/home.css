@@ -2236,3 +2236,266 @@
     width: 220px;
   }
 }
+
+
+/* membershippagecss */
+/* SECTION */
+.mfsaWhyJoin-section {
+  background: #f5f6f8;
+  padding: 80px 20px;
+}
+
+/* CONTAINER */
+.mfsaWhyJoin-container {
+  max-width: 1350px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* LEFT */
+.mfsaWhyJoin-left {
+  position: relative;
+}
+
+.mfsaWhyJoin-left img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* FLOAT BADGE */
+.mfsaWhyJoin-badge {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background: #fff;
+  padding: 14px 18px;
+  border-radius: 16px;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.mfsaWhyJoin-badge .icon {
+  color: #00008B;
+  font-size: 20px;
+}
+
+.mfsaWhyJoin-badge p {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.mfsaWhyJoin-badge span {
+  font-size: 12px;
+  color: #777;
+}
+
+/* RIGHT */
+.mfsaWhyJoin-right h2 {
+  font-size: 34px;
+  color: #00008B;
+  font-weight: 800;
+  margin-bottom: 30px;
+}
+
+/* LIST */
+.mfsaWhyJoin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.mfsaWhyJoin-list .item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+/* ICON BOX */
+.iconBox {
+  min-width: 40px;
+  height: 40px;
+
+  background: #fff3cd;
+  color: #FFCC00;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+/* TEXT */
+.mfsaWhyJoin-list h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #222;
+}
+
+.mfsaWhyJoin-list p {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.6;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .mfsaWhyJoin-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .mfsaWhyJoin-left img {
+    height: 350px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+  .mfsaWhyJoin-right h2 {
+    font-size: 24px;
+  }
+
+  .mfsaWhyJoin-badge {
+    position: static;
+    margin-top: 15px;
+  }
+
+  .mfsaWhyJoin-list .item {
+    gap: 10px;
+  }
+
+  .iconBox {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+}
+
+/* SECTION */
+.mfsaBenefits-section {
+  background: #f5f6f8;
+  padding: 40px 20px;
+}
+
+/* CONTAINER */
+.mfsaBenefits-container {
+  max-width: 1350px;
+  margin: auto;
+}
+
+/* HEADER */
+.mfsaBenefits-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.mfsaBenefits-header h2 {
+  font-size: 30px;
+  color: #00008B;
+  font-weight: 800;
+}
+
+.mfsaBenefits-header .underline {
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #FFCC00;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* GRID */
+.mfsaBenefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+/* CARD */
+.mfsaBenefits-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.mfsaBenefits-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+/* ICON */
+.iconBox {
+  width: 40px;
+  height: 40px;
+
+  background: #fff3cd;
+  color: #FFCC00;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  font-size: 18px;
+
+  margin-bottom: 15px;
+}
+
+/* TEXT */
+.mfsaBenefits-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #00008B;
+  margin-bottom: 8px;
+}
+
+.mfsaBenefits-card p {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.6;
+}
+/* TABLET */
+@media (max-width: 1024px) {
+  .mfsaBenefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+  .mfsaBenefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mfsaBenefits-header h2 {
+    font-size: 22px;
+  }
+
+  .mfsaBenefits-card {
+    text-align: center;
+  }
+
+  .iconBox {
+    margin: 0 auto 15px;
+  }
+
+}

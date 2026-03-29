@@ -17,6 +17,7 @@ export default function Home() {
     retry: false,
   });
   const homeData = data?.data || {};
+  const homeStats = homeData.stats || {};
   console.log(homeData);
   return (
     <div className="home-page">
@@ -52,7 +53,7 @@ export default function Home() {
       <HomeAbout name="Malaysia" />
 
       <UpcomingEvents />
-      <HomeRecords />
+      <HomeRecords stats={homeStats} />
 
       <BestRecordsX />
       <StateNetworkX />
