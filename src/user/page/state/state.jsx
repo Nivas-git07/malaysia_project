@@ -1,4 +1,3 @@
-
 import HomeAbout from "../../components/homecomponent/homeabout";
 import UpcomingEvents from "../../components/homecomponent/upcomingevent";
 import HomeRecords from "../../components/homecomponent/homerecord";
@@ -18,12 +17,10 @@ export default function StatePage() {
       <div className="home-page" key={location.pathname}>
         <Swimmer>
           <section className="hero">
-            {/* BACKGROUND */}
             <video autoPlay muted loop className="heroVideo">
               <source src="/your-video.mp4" type="video/mp4" />
             </video>
 
-            {/* CONTENT */}
             <div className="homeHeroContent">
               <h1 className="heroTitle animateTitle">
                 <span className="word">WELCOME</span>
@@ -48,7 +45,6 @@ export default function StatePage() {
               </p>
             </div>
 
-            
             <nav className="heroNav">
               <ul>
                 <li>

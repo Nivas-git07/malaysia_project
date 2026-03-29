@@ -63,6 +63,10 @@ export default function StateNetworkX() {
         <div className="mfsaStateX-left">
           <span className="mfsaStateX-sub">NETWORK</span>
           <h2 className="mfsaStateX-title">Our States</h2>
+           <p className="mfsaStateX-text">
+            We have registered clubs in all major states across Malaysia.
+            Find a center near you to start your finswimming journey.
+          </p>
           <div className="mfsaStateX-list">
             {states.map((item) => (
               <div

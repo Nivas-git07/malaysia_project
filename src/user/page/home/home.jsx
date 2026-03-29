@@ -7,7 +7,17 @@ import HomeGallery from "../../components/homecomponent/homegallery";
 import HomeNews from "../../components/homecomponent/homenews";
 import Swimmer from "../../layout/swimmer";
 import StateNetworkX from "../../components/homecomponent/assosiationstate";
+import { useQuery } from "@tanstack/react-query";
+import { get_home } from "../../api/home_api";
 export default function Home() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["homeData"],
+    queryFn: get_home,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+  const homeData = data?.data || {};
+  console.log(homeData);
   return (
     <div className="home-page">
       <Swimmer>
@@ -40,8 +50,9 @@ export default function Home() {
         </div>
       </Swimmer>
       <HomeAbout name="Malaysia" />
-      <HomeRecords />
+
       <UpcomingEvents />
+      <HomeRecords />
 
       <BestRecordsX />
       <StateNetworkX />
