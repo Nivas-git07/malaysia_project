@@ -3,7 +3,7 @@ import ClubForm from "./clubform";
 import ClubFormX from "./clubabout";
 import { club_register } from "../../api/auth";
 
-export default function ClubRegisterFlow() {
+export default function ClubRegisterFlow({ onStepChange }) {
   const [step, setStep] = useState(1);
 
   const [formData, setFormData] = useState({
@@ -24,6 +24,7 @@ export default function ClubRegisterFlow() {
   const handleStep1Submit = (data) => {
     setFormData((prev) => ({ ...prev, ...data }));
     setStep(2);
+    onStepChange("clubFlow");
   };
 
   // Final submit → API call

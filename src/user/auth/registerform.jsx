@@ -8,25 +8,32 @@ export default function RegistrationForm() {
   return (
     <section className="regSection">
       <div className="regContainer">
-        <h2 className="regTitle">REGISTRATION</h2>
+        {activeTab !== "clubFlow" && (
+          <>
+            <h2 className="regTitle">REGISTRATION</h2>
+            <div className="regTabs">
+              <button
+                className={`regTab ${activeTab === "state" ? "active" : ""}`}
+                onClick={() => setActiveTab("state")}
+              >
+                State / Club
+              </button>
 
-        <div className="regTabs">
-          <button
-            className={`regTab ${activeTab === "state" ? "active" : ""}`}
-            onClick={() => setActiveTab("state")}
-          >
-            State / Club
-          </button>
+              <button
+                className={`regTab ${activeTab === "individual" ? "active" : ""}`}
+                onClick={() => setActiveTab("individual")}
+              >
+                Individual Athlete
+              </button>
+            </div>
+          </>
+        )}
 
-          <button
-            className={`regTab ${activeTab === "individual" ? "active" : ""}`}
-            onClick={() => setActiveTab("individual")}
-          >
-            Individual Athlete
-          </button>
-        </div>
-
-        {activeTab === "state" ? <ClubRegisterFlow /> : <Atheleform />}
+        {activeTab === "state" || activeTab === "clubFlow" ? (
+          <ClubRegisterFlow onStepChange={setActiveTab} />
+        ) : (
+          <Atheleform />
+        )}
       </div>
     </section>
   );
