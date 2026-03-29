@@ -2507,84 +2507,136 @@
   padding: 0 20px;
 }
 
-/* Section */
+/* ================= SECTION ================= */
 .mfsaStepsSection {
-  padding: 80px 0;
+  padding: 100px 20px;
   background: #f9f9f9;
   text-align: center;
+  position: relative;
 }
 
-/* Title */
+/* ================= CONTAINER ================= */
+.mfsaContainer {
+  max-width: 1350px;
+  margin: auto;
+  position: relative;
+}
+
+/* ================= TITLE ================= */
 .mfsaStepsTitle {
-  font-size: 32px;
+  font-size: 34px;
   color: #00308F;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .mfsaStepsUnderline {
   width: 60px;
   height: 4px;
   background: #F1C232;
-  margin: 10px auto 40px;
+  margin: 12px auto 60px;
   border-radius: 2px;
 }
 
-/* Grid */
+/* ================= GRID ================= */
 .mfsaStepsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
+  position: relative;
+  z-index: 2;
 }
 
-/* Card */
+.mfsaStepsLine {
+  position: absolute;
+
+  top: 50%; /* center of circle */
+
+  /* ✅ START from CENTER of first item */
+  left: calc(12.5%);
+
+  /* ✅ END at CENTER of last item */
+  width: calc(75%);
+
+  height: 4px;
+  background: #e0e0e0;
+
+  border-radius: 10px;
+  z-index: 1;
+}
+.mfsaStepsLineFill {
+  height: 100%;
+  background: #C10000;
+  width: 0;
+  transition: width 0.6s ease;
+  border-radius: 10px;
+}
+
+/* ================= CARD ================= */
 .mfsaStepCard {
   padding: 10px;
-  text-align: center;
 }
 
-/* Circle */
+/* ================= CIRCLE ================= */
 .mfsaStepCircle {
-  width: 60px;
-  height: 60px;
-  border: 5px solid #F1C232;
+  width: 55px;
+  height: 55px;
+
+  border: 3px solid #FFCC00;
   border-radius: 50%;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 15px;
-  font-weight: 600;
+
+  margin: auto;
+
+  background: #fff;
+  font-weight: 700;
   color: #00308F;
-  font-size: 18px;
+
+  transition: all 0.3s ease;
 }
 
-/* Heading */
+/* ACTIVE STEP */
+.mfsaStepCircle.active {
+  background: #C10000;
+  color: #fff;
+  border-color: #C10000;
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(193, 0, 0, 0.3);
+}
+
+/* ================= TEXT ================= */
 .mfsaStepHeading {
   color: #00308F;
+  margin-top: 15px;
   font-size: 18px;
   margin-bottom: 10px;
+  font-weight: 600;
 }
 
-/* Text */
 .mfsaStepText {
   font-size: 14px;
-  color: #333333;
-  line-height: 1.5;
+  color: #555;
+  line-height: 1.6;
+  max-width: 250px;
+  margin: auto;
 }
 
-/* CTA Section */
+/* ================= CTA ================= */
 .mfsaCtaSection {
-  padding: 80px 0;
+  padding: 80px 20px;
   text-align: center;
   background: #ffffff;
 }
 
 .mfsaCtaTitle {
   font-size: 28px;
-  color: #333333;
+  color: #333;
   margin-bottom: 30px;
 }
 
-/* Buttons */
+/* ================= BUTTONS ================= */
 .mfsaCtaButtons {
   display: flex;
   justify-content: center;
@@ -2597,7 +2649,7 @@
   color: #fff;
   padding: 12px 28px;
   border: none;
-  border-radius: 8px;
+  border-radius: 30px;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -2612,7 +2664,7 @@
   color: #00308F;
   border: 2px solid #00308F;
   padding: 12px 28px;
-  border-radius: 8px;
+  border-radius: 30px;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -2622,16 +2674,27 @@
   color: #fff;
 }
 
-/* Responsive */
+/* ================= TABLET ================= */
 @media (max-width: 992px) {
+
   .mfsaStepsGrid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
   }
+
+  /* HIDE LINE (IMPORTANT) */
+  .mfsaStepsLine {
+    display: none;
+  }
+
 }
 
+/* ================= MOBILE ================= */
 @media (max-width: 600px) {
+
   .mfsaStepsGrid {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
 
   .mfsaStepsTitle {
@@ -2641,4 +2704,9 @@
   .mfsaCtaTitle {
     font-size: 22px;
   }
+
+  .mfsaStepText {
+    max-width: 100%;
+  }
+
 }
