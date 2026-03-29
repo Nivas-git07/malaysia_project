@@ -6,8 +6,7 @@ import Footer from "../../layout/footer";
 import HomeGallery from "../../components/homecomponent/homegallery";
 import HomeNews from "../../components/homecomponent/homenews";
 import Swimmer from "../../layout/swimmer";
-import  StateNetworkX from "../../components/homecomponent/assosiationstate";
-
+import StateNetworkX from "../../components/homecomponent/assosiationstate";
 export default function Home() {
   return (
     <div className="home-page">
@@ -28,9 +27,10 @@ export default function Home() {
           </h1>
 
           <p className="homeHeroSub">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia veritatis necessitatibus earum 
-            <br />
-            V ivamus vehicula, lorem a porttitor porttitor, velit erat .amet consectetur adipisicing elit lorem
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
+            veritatis necessitatibus earum
+            <br />V ivamus vehicula, lorem a porttitor porttitor, velit erat
+            .amet consectetur adipisicing elit lorem
           </p>
 
           <div className="heroBtnGroupX">
@@ -42,7 +42,7 @@ export default function Home() {
       <HomeAbout name="Malaysia" />
       <HomeRecords />
       <UpcomingEvents />
-      
+
       <BestRecordsX />
       <StateNetworkX />
       <HomeGallery />

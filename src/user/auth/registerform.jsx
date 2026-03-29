@@ -1,36 +1,33 @@
 import { useState } from "react";
 import Atheleform from "./form/atheleform";
 import ClubForm from "./form/clubform";
+import ClubRegisterFlow from "./form/clubregisterform";
 export default function RegistrationForm() {
+  const [activeTab, setActiveTab] = useState("individual");
 
-    const [activeTab, setActiveTab] = useState("individual");
+  return (
+    <section className="regSection">
+      <div className="regContainer">
+        <h2 className="regTitle">REGISTRATION</h2>
 
-    return (
-        <section className="regSection">
-            <div className="regContainer">
+        <div className="regTabs">
+          <button
+            className={`regTab ${activeTab === "state" ? "active" : ""}`}
+            onClick={() => setActiveTab("state")}
+          >
+            State / Club
+          </button>
 
-                <h2 className="regTitle">REGISTRATION</h2>
+          <button
+            className={`regTab ${activeTab === "individual" ? "active" : ""}`}
+            onClick={() => setActiveTab("individual")}
+          >
+            Individual Athlete
+          </button>
+        </div>
 
-              
-                <div className="regTabs">
-                    <button
-                        className={`regTab ${activeTab === "state" ? "active" : ""}`}
-                        onClick={() => setActiveTab("state")}
-                    >
-                        State / Club
-                    </button>
-
-                    <button
-                        className={`regTab ${activeTab === "individual" ? "active" : ""}`}
-                        onClick={() => setActiveTab("individual")}
-                    >
-                        Individual Athlete
-                    </button>
-                </div>
-
-               {activeTab==="state" ? <ClubForm/> : <Atheleform/>}
-
-            </div>
-        </section>
-    );
+        {activeTab === "state" ? <ClubRegisterFlow /> : <Atheleform />}
+      </div>
+    </section>
+  );
 }

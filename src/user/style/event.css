@@ -3,7 +3,7 @@
   position: relative;
   width: 100%;
   height: 500px; /* Adjust this height to match your photo preference */
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
   align-items: center; /* Vertically centers the text */
   justify-content: center; /* Horizontally centers the text */
