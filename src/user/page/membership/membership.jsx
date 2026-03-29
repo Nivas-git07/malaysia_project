@@ -2,6 +2,7 @@ import Swimmer from "../../layout/swimmer";
 import Footer from "../../layout/footer";
 import WhyJoinMFSA from "../../components/membershipcomponent/whyjoin";
 import MembershipBenefits from "../../components/membershipcomponent/membsershipbenefit";
+import { HowJoinMFSA } from "../../components/membershipcomponent/howjoin";
 export default function Membership() {
   return (
     <>
@@ -18,6 +19,7 @@ export default function Membership() {
 
       <WhyJoinMFSA />
       <MembershipBenefits />
+      <HowJoinMFSA />
       <Footer />
     </>
   );

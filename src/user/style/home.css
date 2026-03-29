@@ -2499,3 +2499,146 @@
   }
 
 }
+
+/* Container */
+.mfsaContainer {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Section */
+.mfsaStepsSection {
+  padding: 80px 0;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+/* Title */
+.mfsaStepsTitle {
+  font-size: 32px;
+  color: #00308F;
+  font-weight: 600;
+}
+
+.mfsaStepsUnderline {
+  width: 60px;
+  height: 4px;
+  background: #F1C232;
+  margin: 10px auto 40px;
+  border-radius: 2px;
+}
+
+/* Grid */
+.mfsaStepsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+/* Card */
+.mfsaStepCard {
+  padding: 10px;
+  text-align: center;
+}
+
+/* Circle */
+.mfsaStepCircle {
+  width: 60px;
+  height: 60px;
+  border: 5px solid #F1C232;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  font-weight: 600;
+  color: #00308F;
+  font-size: 18px;
+}
+
+/* Heading */
+.mfsaStepHeading {
+  color: #00308F;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Text */
+.mfsaStepText {
+  font-size: 14px;
+  color: #333333;
+  line-height: 1.5;
+}
+
+/* CTA Section */
+.mfsaCtaSection {
+  padding: 80px 0;
+  text-align: center;
+  background: #ffffff;
+}
+
+.mfsaCtaTitle {
+  font-size: 28px;
+  color: #333333;
+  margin-bottom: 30px;
+}
+
+/* Buttons */
+.mfsaCtaButtons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.mfsaBtnPrimary {
+  background: #C00000;
+  color: #fff;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.mfsaBtnPrimary:hover {
+  background: #a00000;
+  transform: translateY(-2px);
+}
+
+.mfsaBtnOutline {
+  background: transparent;
+  color: #00308F;
+  border: 2px solid #00308F;
+  padding: 12px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.mfsaBtnOutline:hover {
+  background: #00308F;
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .mfsaStepsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .mfsaStepsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .mfsaStepsTitle {
+    font-size: 24px;
+  }
+
+  .mfsaCtaTitle {
+    font-size: 22px;
+  }
+}
