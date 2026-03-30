@@ -1,6 +1,11 @@
 import logo from "../../assets/logo.jpg";
-
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 export default function HomeClubX() {
+  const navigate = useNavigate();
+  const { location } = useParams();
+  
+
   const clubs = [
     { name: "Johor Bahru", clubs: 10, athletes: 120 },
     { name: "Kuala Lumpur", clubs: 8, athletes: 95 },
@@ -39,7 +44,9 @@ export default function HomeClubX() {
                 {item.clubs} clubs • {item.athletes} Athletes
               </p>
 
-              <button className="mfsaClubX-btn">VIEW ALL</button>
+              <button className="mfsaClubX-btn" onClick={() => navigate(`/user/${location}/${item.name}`)}>
+                VIEW
+              </button>
             </div>
           ))}
         </div>
