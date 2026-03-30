@@ -1,11 +1,11 @@
 import swimmer from "../../assets/swimmer.png";
 
-export default function RecordCardX({ name, discipline, time }) {
+export default function RecordCardX({ name, discipline, time, img }) {
   return (
     <div className="mfsaRecordX-card">
 
       <div className="mfsaRecordX-imgWrap">
-        <img src={swimmer} alt="swimmer" />
+        <img src={img} alt={name} />
       </div>
 
       <p className="mfsaRecordX-name">{name}</p>
