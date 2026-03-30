@@ -516,7 +516,7 @@
 
 /* CONTAINER */
 .mfsaEventX-container {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: auto;
 }
 
@@ -674,7 +674,7 @@
 /* ===== SECTION CONTAINER ===== */
 .homeRecordsContainer {
   width: 100%;
-  max-width: 1350px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 40px; /* 🔥 side breathing space */
 
@@ -1061,7 +1061,7 @@
 
 .eventsPageSection{
   padding:60px 20px;
-  max-width: 1350px;
+  max-width: 1400px;
   align-items: center;
    margin:auto;
 }
@@ -1136,7 +1136,7 @@
 }
 
 .mfsaEventDetailX-container {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: auto;
 }
 
@@ -1283,7 +1283,7 @@
 
 /* CONTAINER */
 .mfsaAboutPageX-container {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: auto;
   padding: 0 40px;
 }
@@ -1449,7 +1449,7 @@
 
 /* ===== CONTAINER ===== */
 .mfsaStateX-container {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: auto;
   padding: 0 40px;
 
@@ -2610,7 +2610,7 @@ background-color: white !important;
 
 /* ================= CONTAINER ================= */
 .mfsaContainer {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: auto;
   position: relative;
 }
