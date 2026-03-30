@@ -1863,6 +1863,7 @@
   font-size: 14px;
   font-weight: 500;
   color: #1a2b49;
+  z-index: 999;
 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
