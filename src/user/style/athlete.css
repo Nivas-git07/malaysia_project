@@ -1,63 +1,76 @@
-/* ===== SECTION ===== */
-.featuredSection{
-  max-width:1350px;
-  margin:auto;
-  padding:80px 20px;
+/* SECTION */
+.featuredSection {
+  padding: 80px 0;
+  max-width: 1400px;
+  margin: auto; 
 }
 
-/* ===== HEADER ===== */
-.featuredTop{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:40px;
-  gap: 50px;
+/* TOP BAR */
+.featuredTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
-.featuredTitle{
-  font-family:"Oswald",sans-serif;
-  color:#c10000;
-  font-size:26px;
-  letter-spacing:1px;
+.featuredTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #00008B;
+  letter-spacing: 1px;
 }
 
-.featuredNav button{
-  background:transparent;
-  border:1px solid #999;
-  border-radius:50%;
-  width:38px;
-  height:38px;
-  margin-left:8px;
-  cursor:pointer;
+/* NAV BUTTONS */
+.featuredNav button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #f3f3f3;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-
-.featuredGrid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:45px;
+.featuredNav button:hover {
+  background: #C00000;
+  color: #fff;
 }
 
-
-.featureathleteCard{
-  position:relative;
-  border-radius:22px;
-  overflow:hidden;
-  height:420px;
-  cursor:pointer;
+/* GRID */
+.featuredGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
 }
 
-.athleteImg{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+/* CARD */
+.featureCard {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 420px;
+  cursor: pointer;
 }
 
+/* IMAGE */
+.featureCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.5s;
+}
 
-.athleteOverlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
+/* HOVER ZOOM */
+.featureCard:hover img {
+  transform: scale(1.05);
+}
+
+/* DARK GRADIENT OVERLAY */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
     to top,
     rgba(0,0,0,0.7),
     rgba(0,0,0,0.2),
@@ -65,185 +78,207 @@
   );
 }
 
+/* GLASS CONTENT */
+.contentBox {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
 
-.athleteContent{
-  position:absolute;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;   
-  align-items:center;
-  text-align:center;
-  padding-bottom:70px;        
-  color:#fff;
-  z-index:2;
+  padding: 18px;
+
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
-
-
-.athleteName{
-  font-size:18px;
-  margin-bottom:8px;
+/* TAG */
+.tag {
+  font-size: 11px;
+  color: #ff0000;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-
-.athleteRecord{
-  font-size:32px;
-  font-weight:700;
+/* NAME */
+.contentBox h3 {
+  color: #fff;
+  margin: 6px 0;
+  font-size: 20px;
 }
 
-
-@media(max-width:1024px){
-  .featuredGrid{
-    grid-template-columns:repeat(2,1fr);
-  }
+/* RECORD */
+.contentBox p {
+  color: #ddd;
+  font-size: 13px;
 }
-@media(max-width:600px){
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
   .featuredGrid {
-    grid-template-columns:1fr;
-  }
-
-  .athleteRecord{
-    font-size:24px;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-
-.findAthleteSection{
-  width:100%;
-  padding:30px 20px;
-}
-
-
-.findAthleteContainer{
-  max-width:1350px;
-  margin:auto;
-}
-
-
-.findAthleteTitle{
-  color:#c10000;
-  font-weight:700;
-  margin-bottom:20px;
-}
-
-
-.findAthleteRow{
-  display:grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap:25px;
-  align-items:end;
-}
-
-
-.findField{
-  display:flex;
-  flex-direction:column;
-  gap:25px;
-}
-
-.findField label{
-  font-size:16px;
-  color:#444;
-  margin-top: 25px;
-}
-
-
-.findInput{
-  height:48px;
-  padding:0 14px;
-  border:1px solid #ddd;
-  outline:none;
-  background:#f7f7f7;
-  border-radius:4px;
-  font-size:15px;
-}
-
-
-.customSelect{
-  position:relative;
-}
-
-
-.customSelect select{
-  appearance:none;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-
-  width:100%;
-  height:48px;
-  padding:0 45px 0 14px;
-
-  border:1px solid #ddd;
-  border-radius:6px;
-  background:#f6f6f6;
-  font-size:15px;
-  cursor:pointer;
-  transition:0.25s;
-}
-
-
-.customSelect select:focus{
-  border-color:#d00000;
-  background:#fff;
-  box-shadow:0 0 0 2px rgba(208,0,0,0.08);
-}
-
-
-.customSelect::after{
-  content:"▼";
-  position:absolute;
-  right:14px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:12px;
-  color:#d00000;
-  pointer-events:none;
-}
-
-.findButtonWrap{
-  display:flex;
-}
-
-.findBtn{
-  background:#c10000;
-  color:#fff;
-  border:none;
-  padding:0 28px;
-  height:48px;
-  border-radius:6px;
-  font-weight:600;
-  cursor:pointer;
-  white-space:nowrap;
-}
-
-.findBtn:hover{
-  background:#a80000;
-}
-
-@media(max-width:1024px){
-  .findAthleteRow{
-    grid-template-columns:1fr 1fr;
+/* Mobile */
+@media (max-width: 600px) {
+  .featuredGrid {
+    grid-template-columns: 1fr;
   }
 
-  .findButtonWrap{
+  .featureCard {
+    height: 300px;
+  }
+
+  .featuredTop {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+
+
+/* SECTION */
+.findAthleteSection {
+  padding: 40px 0;
+  max-width: 1400px;
+  margin: auto;
+}
+
+/* CONTAINER */
+.findAthleteContainer {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* MAIN BOX */
+.findBox {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr auto;
+  gap: 20px;
+
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 18px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  align-items: end;
+}
+
+/* FIELD */
+.findField {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.findField label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #777;
+  letter-spacing: 0.5px;
+}
+
+/* INPUT WRAP */
+.inputWrap {
+  display: flex;
+  align-items: center;
+
+  background: #fff;
+  border-radius: 999px;
+  padding: 10px 14px;
+
+  border: 1px solid #eee;
+}
+
+/* ICON */
+.inputIcon {
+  color: #999;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* INPUT / SELECT */
+.inputWrap input,
+.inputWrap select {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  background: transparent;
+}
+
+/* BUTTON */
+.findButtonWrap {
+  display: flex;
+  align-items: end;
+}
+
+.findBtns {
+  background: #C00000;
+  color: #fff;
+
+  border: none;
+  border-radius: 999px;
+
+  padding: 14px 28px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  box-shadow: 0 10px 25px rgba(192,0,0,0.25);
+  transition: 0.3s;
+}
+
+.findBtn:hover {
+  background: #a00000;
+  transform: translateY(-2px);
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .findBox {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .findButtonWrap {
     grid-column: span 2;
-    justify-content:flex-start;
+    justify-content: center;
+  }
+
+  .findBtn {
+    width: 100%;
+    justify-content: center;
   }
 }
 
-/* MOBILE */
-@media(max-width:600px){
-  .findAthleteRow{
-    grid-template-columns:1fr;
+/* Mobile */
+@media (max-width: 600px) {
+  .findBox {
+    grid-template-columns: 1fr;
+    padding: 20px;
   }
 
-  .findButtonWrap{
-    grid-column:auto;
+  .findButtonWrap {
+    grid-column: span 1;
   }
 
-  .findBtn{
-    width:100%;
+  .findBtn {
+    width: 100%;
   }
 }
 

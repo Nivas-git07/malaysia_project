@@ -29,13 +29,12 @@ export default function StateNetworkX() {
     const scaleX = img.clientWidth / 1536;
     const scaleY = img.clientHeight / 1024;
 
-    // 🟢 CIRCLE
+   
     if (state.circleCoords) {
       const [x, y] = state.circleCoords[0].split(",").map(Number);
       return { x: x * scaleX, y: y * scaleY };
     }
 
-    // 🟡 RECT
     if (state.rectCoords && state.rectCoords.length > 0) {
       const [x1, y1, x2, y2] = state.rectCoords[0].split(",").map(Number);
       return {
@@ -44,7 +43,7 @@ export default function StateNetworkX() {
       };
     }
 
-    // 🔵 POLYGON (IMPORTANT 🔥)
+   
     if (state.polyCoords) {
       const points = state.polyCoords[0].split(",").map(Number);
 

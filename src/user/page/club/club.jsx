@@ -11,6 +11,7 @@ import Swimmer from "../../layout/swimmer";
 import Homeassoc from "../../components/homecomponent/assosiationstate";
 import HomeClub from "../../components/homecomponent/clubcard";
 import { NavLink } from "react-router-dom";
+
 export default function ClubPage() {
   const location = useLocation();
 
@@ -47,7 +48,7 @@ export default function ClubPage() {
                 <NavLink to="/membership">MEMBERSHIP</NavLink>
               </li>
               <li>
-                <NavLink to="/associations">ASSOCIATIONS</NavLink>
+                <NavLink to="/user/allathelete">ATHELETES</NavLink>
               </li>
               <li>
                 <NavLink to="/events">EVENTS</NavLink>

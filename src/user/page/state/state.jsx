@@ -51,7 +51,7 @@ export default function StatePage() {
                   <NavLink to="/membership">MEMBERSHIP</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/associations">ASSOCIATIONS</NavLink>
+                  <NavLink to="/associations">CLUBS</NavLink>
                 </li>
                 <li>
                   <NavLink to="/events">EVENTS</NavLink>
