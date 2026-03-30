@@ -1155,7 +1155,7 @@
   margin: 10px 0;
 }
 
-.badge {
+.badges {
   background: rgba(255,255,255,0.2);
   padding: 5px 12px;
   border-radius: 20px;
@@ -2077,6 +2077,58 @@ background-color: white !important;
   font-weight: 600;
 }
 
+.mfsaFollowX-map {
+  width: 100%;
+}
+
+.mfsaFollowX-mapContainer {
+  position: relative;
+  height: 320px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* Fix Leaflet map inside container */
+.mfsaFollowX-mapContainer .leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+/* Location Card */
+.mfsaFollowX-locationCard {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background: white;
+  padding: 12px 16px;
+  border-radius: 14px;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.mfsaFollowX-locIcon {
+  background: #ffe5e5;
+  padding: 10px;
+  border-radius: 10px;
+  color: red;
+}
+
+.mfsaFollowX-locationCard h4 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.mfsaFollowX-locationCard p {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
 /* TABLET */
 @media (max-width: 1024px) {
   .mfsaFollowX-container {

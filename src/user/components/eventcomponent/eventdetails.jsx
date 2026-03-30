@@ -11,7 +11,7 @@ export default function EventDetailX() {
       <div className="mfsaEventDetailX-container">
         {/* ===== TOP BANNER ===== */}
         <div className="mfsaEventDetailX-banner">
-          <span className="badge">FEATURED EVENT</span>
+          <span className="badges">FEATURED EVENT</span>
 
           <h1>TYR SUMMER CHAMPIONSHIPS</h1>
 
@@ -109,7 +109,7 @@ export default function EventDetailX() {
             {/* Google Map */}
             <UserMap lat={eventLocation.lat} lng={eventLocation.lng} />
 
-            {/* Overlay Location Name */}
+         
             <div className="mfsaEventDetailX__map-overlay">
               📍 Johor Aquatic Centre
             </div>
