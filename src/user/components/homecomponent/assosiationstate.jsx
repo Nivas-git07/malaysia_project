@@ -215,6 +215,9 @@ export default function StateNetworkX() {
                   setActive(item);
                   setPopupPos(pos);
                 }}
+                onMouseLeave={()=>{
+                  setActive("")
+                }}
                 onClick={() => navigate(`/user/${item.name}`)}
               >
                 <span className="mfsaStateX-radio"></span>
