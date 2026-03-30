@@ -1,16 +1,20 @@
 import avatar from "../../assets/logo.jpg";
 import img from "../../assets/image2.jpg";
+import new1 from "../../assets/event1.png";
+import new2 from "../../assets/event2.png";
+import new3 from "../../assets/event4.png";
+import new4 from "../../assets/event3.png";
+import new5 from "../../assets/event5.png";
+import new6 from "../../assets/event6.png";
 
 export default function NewsDetailX() {
   return (
     <section className="mfsaNewsDetailX-section">
       <div className="mfsaNewsDetailX-container">
-        {/* ===== TITLE ===== */}
         <h1 className="mfsaNewsDetailX-title">
           The Evolution of Monofin Technology in Competitive Finswimming
         </h1>
 
-        {/* ===== AUTHOR ===== */}
         <div className="mfsaNewsDetailX-author">
           <img src={avatar} alt="author" />
           <div>
@@ -19,16 +23,12 @@ export default function NewsDetailX() {
           </div>
         </div>
 
-        {/* ===== HERO IMAGE ===== */}
         <div className="mfsaNewsDetailX-hero">
-          <img src={img} alt="news" />
+          <img src={new2} alt="news" />
         </div>
 
-        {/* ===== MAIN CONTENT ===== */}
         <div className="mfsaNewsDetailX-main">
-          {/* LEFT CONTENT */}
           <div className="mfsaNewsDetailX-content">
-            {/* INTRO */}
             <p className="mfsaNewsDetailX-intro">
               Finswimming is often described as the Formula 1 of the aquatic
               world. Much like high-performance racing, the difference between
@@ -44,7 +44,6 @@ export default function NewsDetailX() {
               are redefining what it means to move through water.
             </p>
 
-            {/* TITLE */}
             <h2 className="mfsaNewsDetailX-heading">
               Material Science: The Carbon Revolution
             </h2>
@@ -56,7 +55,6 @@ export default function NewsDetailX() {
               stiffness” across the blade.
             </p>
 
-            {/* 🔥 FEATURE BLOCK */}
             <div className="mfsaNewsDetailX-feature">
               <div className="featureLeft">
                 <h4>⚡ Key Technological Advancements</h4>
@@ -78,11 +76,10 @@ export default function NewsDetailX() {
               </div>
 
               <div className="featureRight">
-                <img src={img} alt="fin" />
+                <img src={new4} alt="fin" />
               </div>
             </div>
 
-            {/* NEXT SECTION */}
             <h2 className="mfsaNewsDetailX-heading">
               The Biomechanical Impact
             </h2>
@@ -100,39 +97,38 @@ export default function NewsDetailX() {
               itself.
             </p>
 
-            {/* MEDIA */}
             <h3 className="mfsaNewsDetailX-subHeading">Article Media</h3>
 
             <div className="mfsaNewsDetailX-gallery">
-              <img src={img} />
-              <img src={img} />
-              <img src={img} />
+              <img src={new1} />
+              <img src={new6} />
+              <img src={new3} />
             </div>
             <div className="mfsaLoadMoreWrapX">
               <button className="mfsaLoadMoreBtnX">Load More News →</button>
             </div>
           </div>
 
-          {/* RIGHT SIDEBAR */}
+       
           <div className="mfsaNewsSidebarX">
-            {/* ===== RELATED NEWS ===== */}
+           
             <div className="mfsaSidebarBlockX">
               <h5 className="mfsaSidebarTitleX">Related News</h5>
 
               <div className="mfsaSidebarItemX">
-                <img src={img} alt="" />
+                <img src={new5} alt="" />
                 <span className="tag">Competition</span>
                 <p>National Championships: Venue and Dates Announced</p>
               </div>
 
               <div className="mfsaSidebarItemX">
-                <img src={img} alt="" />
+                <img src={new2} alt="" />
                 <span className="tag">Nutrition</span>
                 <p>Optimizing Recovery for High-Intensity Fin Drills</p>
               </div>
             </div>
 
-            {/* ===== MOST READ ===== */}
+            
             <div className="mfsaSidebarMostX">
               <h5>Most Read</h5>
 

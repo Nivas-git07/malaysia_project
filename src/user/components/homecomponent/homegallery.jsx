@@ -5,10 +5,13 @@ import g4 from "../../assets/g4.jpg";
 import g5 from "../../assets/g5.jpg";
 import g6 from "../../assets/g6.jpg";
 import g7 from "../../assets/g7.jpg";
+import { useNavigate } from "react-router-dom";
 
 import { FiArrowRight } from "react-icons/fi";
 
 export default function HomeGallery(){
+  const navigate = useNavigate();
+
 
   return(
 
@@ -18,7 +21,7 @@ export default function HomeGallery(){
       <div className="homeGalleryHeader">
         <h2 className="homeGalleryTitle">GALLERY</h2>
 
-        <div className="homeGalleryView">
+        <div className="homeGalleryView" onClick={()=>navigate("/user/gallery")}>
           View All <FiArrowRight/>
         </div>
       </div>
