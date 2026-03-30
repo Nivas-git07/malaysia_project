@@ -27,7 +27,7 @@ export default function EventCardX({ bg, title, date, location }) {
 
         <button
           className="mfsaEventX-btn"
-          onClick={() => navigate("/eventview")}
+          onClick={() => navigate("/user/eventview")}
         >
           Register Now
         </button>

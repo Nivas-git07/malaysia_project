@@ -17,7 +17,7 @@ body{
 .hero{
   min-height:550px;
   position:relative;
-  overflow:hidden;
+  /* overflow: visible; */
   isolation:isolate;
   color:white;
   border-bottom: 8px solid #c10000;
@@ -42,7 +42,77 @@ body{
   );
   z-index:0;
 } */
+ /* ===== HERO CONTENT CENTER ===== */
+.homeHeroContent {
+  position: relative;
+  z-index: 2;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 550px;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* ===== NAVBAR ===== */
+.heroNav {
+  position: absolute;
+  bottom: -28px; /* overlap */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+}
+
+/* UL STYLE */
+.heroNav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #c10000;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* LI */
+.heroNav ul li {
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.heroNav ul li:last-child {
+  border-right: none;
+}
+
+/* LINK */
+.heroNav ul li a {
+  display: flex;              /* 🔥 important */
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 28px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+
+  background: transparent;
+}
+/* HOVER */
+.heroNav ul li a:hover {
+  background: #a00000;
+}
+
+/* ACTIVE LINK */
+.heroNav ul li a.active {
+  background: #8a0000;
+} 
+.readmore{
+  color: #C10000;
+  cursor: pointer;
+}
 .topbar{
   background:#eee;
   color:#333;

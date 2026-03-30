@@ -1,36 +1,40 @@
 import { useState } from "react";
 import Atheleform from "./form/atheleform";
 import ClubForm from "./form/clubform";
+import ClubRegisterFlow from "./form/clubregisterform";
 export default function RegistrationForm() {
+  const [activeTab, setActiveTab] = useState("individual");
 
-    const [activeTab, setActiveTab] = useState("individual");
+  return (
+    <section className="regSection">
+      <div className="regContainer">
+        {activeTab !== "clubFlow" && (
+          <>
+            <h2 className="regTitle">REGISTRATION</h2>
+            <div className="regTabs">
+              <button
+                className={`regTab ${activeTab === "state" ? "active" : ""}`}
+                onClick={() => setActiveTab("state")}
+              >
+                State / Club
+              </button>
 
-    return (
-        <section className="regSection">
-            <div className="regContainer">
-
-                <h2 className="regTitle">REGISTRATION</h2>
-
-              
-                <div className="regTabs">
-                    <button
-                        className={`regTab ${activeTab === "state" ? "active" : ""}`}
-                        onClick={() => setActiveTab("state")}
-                    >
-                        State / Club
-                    </button>
-
-                    <button
-                        className={`regTab ${activeTab === "individual" ? "active" : ""}`}
-                        onClick={() => setActiveTab("individual")}
-                    >
-                        Individual Athlete
-                    </button>
-                </div>
-
-               {activeTab==="state" ? <ClubForm/> : <Atheleform/>}
-
+              <button
+                className={`regTab ${activeTab === "individual" ? "active" : ""}`}
+                onClick={() => setActiveTab("individual")}
+              >
+                Individual Athlete
+              </button>
             </div>
-        </section>
-    );
+          </>
+        )}
+
+        {activeTab === "state" || activeTab === "clubFlow" ? (
+          <ClubRegisterFlow onStepChange={setActiveTab} />
+        ) : (
+          <Atheleform />
+        )}
+      </div>
+    </section>
+  );
 }

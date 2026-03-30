@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useState } from "react";
 import { athelete_register, club_register } from "../../api/auth";
-function ClubForm() {
+function ClubForm({ onNext }) {
   const [formData, setFormData] = useState({
     clubName: "",
     state: "",
@@ -9,46 +9,25 @@ function ClubForm() {
     email: "",
     phone: "",
     address: "",
-    password: ""
-  })
+    password: "",
+  });
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handlesumbit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await club_register(
-        formData.email,
-        formData.password,
-        formData.clubOwner,
-        Number(formData.phone),
-        formData.state,
-        formData.clubName,
-        formData.clubCode,
-        formData.address
-      );
-
-      console.log(response.data);
-      alert("Club Registration successfull ");
-      formData("")
-
-    } catch (e) {
-      console.log(e.response?.data);
-    }
+    onNext(formData);
   };
 
-
   return (
-
     <form className="regForm" onSubmit={handlesumbit}>
-
       <div className="regGridLabel">
         <p className="regRowLabel">Club Name</p>
         <p className="regRowLabel">State</p>
@@ -89,7 +68,6 @@ function ClubForm() {
         </select>
       </div>
 
-
       <div className="regGridLabel">
         <p className="regRowLabel">Club Code</p>
         <p className="regRowLabel">Club Owner</p>
@@ -112,7 +90,6 @@ function ClubForm() {
           placeholder="Full Name"
         />
       </div>
-
 
       <div className="regGridLabel">
         <p className="regRowLabel">Email</p>
@@ -156,11 +133,8 @@ function ClubForm() {
         placeholder="* * * * * * * * "
       />
 
-      <button className="regBtn">Register</button>
-
+      <button className="regBtn">Save and Continue</button>
     </form>
-
-
-  )
+  );
 }
-export default ClubForm
+export default ClubForm;
