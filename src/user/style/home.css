@@ -2183,82 +2183,97 @@
 /* .map-area { background: rgba(255,0,0,0.1); } */
 
 /* 🔥 POPUP */
-.map-popup {
- position: absolute;
-  transform: translate(-50%, -120%);
-  width: 260px;
+
+
+/* CARD */
+.popup-card {
+  width: 220px;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-  z-index: 999;
-  animation: fadeIn 0.2s ease;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  animation: popupFade 0.25s ease;
 }
 
-.map-popup img {
+/* IMAGE */
+.popup-img {
+  height: 100px;
+  overflow: hidden;
+}
+
+.popup-img img {
   width: 100%;
-  height: 140px;
+  height: 100%;
   object-fit: cover;
 }
 
+/* CONTENT */
 .popup-content {
   padding: 12px;
+  text-align: center;
 }
 
-.popup-header {
+/* TITLE */
+.popup-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+/* STATS */
+.popup-stats {
   display: flex;
   justify-content: space-between;
-  font-weight: 600;
+  margin-bottom: 10px;
 }
 
-.popup-content p {
+.statItem {
+  text-align: center;
+}
+
+.statItem span {
+  font-size: 11px;
+  color: #888;
+}
+
+.statItem strong {
+  display: block;
   font-size: 14px;
-  color: #555;
-  margin: 6px 0;
+  color: #000;
 }
 
-.popup-content button {
+/* BUTTON */
+.popup-btn {
   width: 100%;
-  padding: 10px;
+  padding: 6px;
   border: none;
-  background: #0ea5e9;
-  color: white;
-  border-radius: 10px;
-  margin-top: 8px;
+  border-radius: 8px;
+
+  background: #C00000;
+  color: #fff;
+  font-size: 12px;
+
   cursor: pointer;
+  transition: 0.3s;
 }
 
-/* arrow */
-.map-popup::after {
-  content: "";
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 8px;
-  border-style: solid;
-  border-color: #fff transparent transparent transparent;
+.popup-btn:hover {
+  background: #a00000;
 }
 
-/* animation */
-@keyframes fadeIn {
+/* ANIMATION */
+@keyframes popupFade {
   from {
     opacity: 0;
-    transform: translate(-50%, -80%);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, -100%);
+    transform: translateY(0);
   }
 }
-
-/* 📱 responsive */
-@media (max-width: 768px) {
-  .map-popup {
-    width: 220px;
-  }
-}
-
 
 /* membershippagecss */
 /* SECTION */

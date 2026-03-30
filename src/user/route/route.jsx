@@ -16,6 +16,7 @@ import News from "../page/news/news";
 import RegistrationAboutForm from "../page/register/resisterabout";
 import Registermembership from "../page/register/registermembership";
 import Membership from "../page/membership/membership";
+import Gallery from "../page/gallery/gallery";
 function Page() {
   return (
     <>
@@ -37,6 +38,7 @@ function Page() {
         <Route path="registerabout" element={<RegistrationAboutForm />} />
         <Route path="registermembership" element={<Registermembership />} />
         <Route path="membershipabout" element={<Membership />} />
+        <Route path="gallery" element={<Gallery />} />
       </Routes>
     </>
   );
