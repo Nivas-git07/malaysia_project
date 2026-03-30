@@ -1581,7 +1581,7 @@
 /* ============================= */
 /* MFSA CLUB SECTION */
 /* ============================= */
-/* ===== SECTION ===== */
+
 .mfsaClubX-section {
   background: #ffffff;
   padding: 80px 20px;
@@ -1589,7 +1589,7 @@
 
 /* CONTAINER */
 .mfsaClubX-container {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: auto;
   padding: 0 40px;
 }
@@ -1634,6 +1634,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
+background-color: white !important;
 }
 
 /* ===== CARD ===== */
@@ -1648,6 +1649,61 @@
 
 .mfsaClubX-card:hover {
   transform: translateY(-6px);
+}
+/* WRAPPER */
+.mfsaClubX-marquee {
+  overflow: hidden;
+  position: relative;
+}
+
+/* TRACK (MOVING PART) */
+.mfsaClubX-track {
+  display: flex;
+  animation: mfsaScroll 10s linear infinite;
+}
+
+/* PAUSE ON HOVER */
+.mfsaClubX-marquee:hover .mfsaClubX-track {
+  animation-play-state: paused;
+}
+
+/* SLIDE */
+.mfsaClubX-slide {
+  flex: 0 0 25%;   /* IMPORTANT FIX */
+  max-width: 25%;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* SMOOTH CONTINUOUS ANIMATION */
+@keyframes mfsaScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1024px) {
+  .mfsaClubX-slide {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+  }
+}
+
+@media (max-width: 768px) {
+  .mfsaClubX-slide {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .mfsaClubX-slide {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 
 /* ===== LOGO (OUTER + INNER) ===== */
@@ -1712,7 +1768,7 @@
 
 /* CONTAINER */
 .mfsaContactX-container {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: auto;
   padding: 0 40px;
 
@@ -1902,7 +1958,7 @@
 
 /* CONTAINER */
 .mfsaFollowX-container {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: auto;
   padding: 0 40px;
 
@@ -2284,7 +2340,7 @@
 
 /* CONTAINER */
 .mfsaWhyJoin-container {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: auto;
 
   display: grid;
@@ -2431,7 +2487,7 @@
 
 /* CONTAINER */
 .mfsaBenefits-container {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: auto;
 }
 
@@ -2539,7 +2595,7 @@
 
 /* Container */
 .mfsaContainer {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
 }

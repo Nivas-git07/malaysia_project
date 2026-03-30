@@ -1,6 +1,8 @@
 import logo from "../../assets/logo.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function StateAssociationX() {
+  const navigate = useNavigate();
 
   const states = [
     { name: "Johor Bahru", clubs: 10, athletes: 120 },
@@ -15,47 +17,39 @@ export default function StateAssociationX() {
 
   return (
     <section className="mfsaStateCardX-section">
-
       <div className="mfsaStateCardX-container">
-
-        {/* HEADER */}
         <div className="mfsaStateCardX-header">
           <h2>Regional Partners</h2>
           <p>Browse our verified state associations and their local clubs.</p>
         </div>
 
-        {/* GRID */}
         <div className="mfsaStateCardX-grid">
-
           {states.map((item, i) => (
             <div className="mfsaStateCardX-card" key={i}>
-
-              {/* LOGO */}
               <div className="mfsaStateCardX-logoOuter">
                 <div className="mfsaStateCardX-logoInner">
                   <img src={logo} alt="state" />
                 </div>
               </div>
 
-              {/* TEXT */}
               <h3 className="mfsaStateCardX-name">{item.name}</h3>
 
               <p className="mfsaStateCardX-meta">
                 {item.clubs} clubs • {item.athletes} Athletes
               </p>
 
-              {/* BUTTON */}
-              <button className="mfsaStateCardX-btn">
-                VIEW ALL
+              <button
+                className="mfsaStateCardX-btn"
+                onClick={() => {
+                  navigate(`/user/${item.name}`);
+                }}
+              >
+                VIEW State
               </button>
-
             </div>
           ))}
-
         </div>
-
       </div>
-
     </section>
   );
 }

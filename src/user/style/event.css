@@ -656,9 +656,11 @@
 .mfsaNewsDetailX-gallery img {
   width: 120px;
   height: 80px;
-  object-fit: cover;
+  object-fit: fill;
   border-radius: 10px;
 }
+
+
 
 /* 🔥 ALIGN FIX */
 .mfsaNewsDetailX-main {

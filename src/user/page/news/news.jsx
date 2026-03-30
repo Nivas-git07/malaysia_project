@@ -15,8 +15,7 @@ export default function News() {
           </p>
         </div>
       </Swimmer>
-      <NewsDetailX/>
-
+      <NewsDetailX />
 
       <Footer />
     </>
