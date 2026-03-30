@@ -10,7 +10,7 @@ body{
 }
 .container{
   width:90%;
-  max-width:1350px;
+  max-width:1400px;
   margin:auto;
 }
 
@@ -895,7 +895,7 @@ body{
 
 /* CONTAINER */
 .mfsaMembershipX-container {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: auto;
   text-align: center;
 }
@@ -1105,7 +1105,7 @@ body{
 
 /* CONTAINER */
 .mfsaWhyX-container {
-  max-width: 1350px;
+  max-width: 1400px;
   margin: auto;
 
   display: grid;
