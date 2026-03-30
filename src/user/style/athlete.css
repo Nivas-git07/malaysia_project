@@ -282,106 +282,216 @@
   }
 }
 
-.athListSection{
-  padding:60px 20px;
+/* SECTION */
+.athListSection {
+  padding: 60px 0;
 }
 
-.athListContainer{
-  max-width:1350px;
-  margin:auto;
+/* CONTAINER */
+.athListContainer {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 20px;
 }
 
-.athListGrid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:40px;
+/* TITLE */
+.athListTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.athListCard{
-  background:#ece6ea;
-  border-radius:28px;
-  padding:70px 20px 30px;
-  position:relative;
-  text-align:center;
-  overflow:hidden;
+.athListTitle span {
+  width: 4px;
+  height: 20px;
+  background: #C00000;
+  border-radius: 2px;
 }
 
-.athListTop{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:90px;
-  background:#2c2a86;
-  border-top-left-radius:28px;
-  border-top-right-radius:28px;
-  clip-path:polygon(0 0,100% 0,100% 60%,70% 60%,50% 100%,30% 60%,0 60%);
+/* GRID */
+.athListGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+/* CARD */
+.athListCard {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px 25px;
+  text-align: center;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transition: 0.3s;
 }
 
-.athListImgWrap{
-  position:absolute;
-  top:45px;
-  left:50%;
-  transform:translateX(-50%);
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  border:5px solid #2c2a86;
-  overflow:hidden;
-  background:#fff;
+.athListCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
-.athListImgWrap img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+/* AVATAR WRAP */
+.athListImgWrap {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 15px;
 }
 
-.athListName{
-  margin-top:120px;
-  font-size:18px;
-  font-weight:600;
+/* OUTER RING */
+.athListImgWrap::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: #f1f3f5;
 }
 
-.athListDivider{
-  width:80%;
-  height:1px;
-  background:#2c2a86;
-  margin:15px auto;
+/* IMAGE */
+.athListImgWrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
 }
 
-.athListInfo{
-  background:#2c2a86;
-  color:#fff;
-  border-radius:6px;
-  padding:14px;
-  display:flex;
-  justify-content:space-between;
-  margin-top:15px;
+/* BADGE */
+.athBadge {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+
+  width: 32px;
+  height: 32px;
+
+  background: #C00000;
+  color: #fff;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+  z-index: 3;
+
+  box-shadow: 0 5px 15px rgba(192,0,0,0.4);
 }
 
-.athListLabel{
-  font-size:12px;
-  opacity:.8;
+/* NAME */
+.athListName {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
 }
 
-.athListValue{
-  font-size:16px;
-  margin-top: 15px;
-  font-weight:600;
+/* CLUB */
+.athListClub {
+  font-size: 13px;
+  color: #6b7280;
+  letter-spacing: 1px;
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
-@media(max-width:1024px){
-  .athListGrid{
-    grid-template-columns:repeat(2,1fr);
+
+/* DIVIDER */
+.athListDivider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 15px 0;
+}
+
+/* INFO */
+.athListInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ROW */
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* LABEL */
+.infoRow span {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* VALUE */
+.infoRow strong {
+  font-size: 16px;
+  color: #111827;
+  font-weight: 600;
+}
+
+/* COUNTRY ICON */
+.infoRow .country {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+/* PAGINATION */
+.athPaginationWrap {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.athPaginationInfo {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+/* PAGINATION BUTTONS */
+.eventsPagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.eventsPagination button {
+  border: none;
+  background: #f3f3f3;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.eventsPagination button.active {
+  background: #C00000;
+  color: #fff;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .athListGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media(max-width:600px){
-  .athListGrid{
-    grid-template-columns:1fr;
+/* Mobile */
+@media (max-width: 600px) {
+  .athListGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .athListCard {
+    padding: 20px;
   }
 }
-
 .athPaginationWrap{
   margin-top:40px;
   display:flex;

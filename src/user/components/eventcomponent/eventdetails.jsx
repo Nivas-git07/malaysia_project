@@ -1,3 +1,10 @@
+import UserMap from "./usemap";
+
+const eventLocation = {
+  lat: 1.4927,
+  lng: 103.7414,
+};
+
 export default function EventDetailX() {
   return (
     <section className="mfsaEventDetailX-section">
@@ -97,8 +104,16 @@ export default function EventDetailX() {
         </div>
 
         {/* ===== MAP ===== */}
-        <div className="mfsaEventDetailX-map">
-          <p>📍 Johor Aquatic Centre</p>
+        <div className="mfsaEventDetailX__map">
+          <div className="mfsaEventDetailX__map-container">
+            {/* Google Map */}
+            <UserMap lat={eventLocation.lat} lng={eventLocation.lng} />
+
+            {/* Overlay Location Name */}
+            <div className="mfsaEventDetailX__map-overlay">
+              📍 Johor Aquatic Centre
+            </div>
+          </div>
         </div>
       </div>
     </section>
