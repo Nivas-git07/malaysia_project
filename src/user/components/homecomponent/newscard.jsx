@@ -1,6 +1,7 @@
 import { FiArrowRight } from "react-icons/fi";
-
+import { useNavigate } from "react-router-dom";
 export default function NewsCard({ img, title, category }) {
+  const navigate = useNavigate();
   return (
     <div className="homeNewsCard">
       {/* IMAGE */}
@@ -23,7 +24,12 @@ export default function NewsCard({ img, title, category }) {
         </p>
 
         {/* READ MORE */}
-        <button className="newsBtn">
+        <button
+          className="newsBtn"
+          onClick={() => {
+            navigate("/user/news");
+          }}
+        >
           Read Full Story <FiArrowRight />
         </button>
       </div>

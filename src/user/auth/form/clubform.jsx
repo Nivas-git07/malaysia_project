@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { athelete_register, club_register } from "../../api/auth";
+import { get_state } from "../../api/auth";
+import { useQuery } from "@tanstack/react-query";
 function ClubForm({ onNext }) {
   const [formData, setFormData] = useState({
     clubName: "",
@@ -11,6 +13,17 @@ function ClubForm({ onNext }) {
     address: "",
     password: "",
   });
+
+  const { data: stateData } = useQuery({
+    queryKey: ["states"],
+    queryFn: get_state,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
+  const states = stateData?.data || [];
+
+  console.log("States Data:", states);
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -49,22 +62,11 @@ function ClubForm({ onNext }) {
           onChange={handleChange}
         >
           <option value="">-- Select State --</option>
-          <option>Johor</option>
-          <option>Kedah</option>
-          <option>Kelantan</option>
-          <option>Malacca (Melaka)</option>
-          <option>Negeri Sembilan</option>
-          <option>Pahang</option>
-          <option>Penang (Pulau Pinang)</option>
-          <option>Perak</option>
-          <option>Perlis</option>
-          <option>Sabah</option>
-          <option>Sarawak</option>
-          <option>Selangor</option>
-          <option>Terengganu</option>
-          <option>Kuala Lumpur</option>
-          <option>Labuan</option>
-          <option>Putrajaya</option>
+          {states.map((state) => (
+            <option key={state.user} value={state.user} >
+              {state.state_name}
+            </option>
+          ))}
         </select>
       </div>
 

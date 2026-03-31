@@ -19,7 +19,7 @@ export default function HomeGallery() {
         <h2 className="homeGalleryTitle">GALLERY</h2>
 
         <div
-          className="homeGalleryView"
+          className="readmore "
           onClick={() => navigate("/user/gallery")}
         >
           View All <FiArrowRight />

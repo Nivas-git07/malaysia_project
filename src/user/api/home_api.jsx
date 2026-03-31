@@ -7,3 +7,4 @@ export const get_home_data = () => {
 export const get_home = () =>{
     return API.get("/user/get_home_page/")
 }
+
