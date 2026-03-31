@@ -1,36 +1,32 @@
 import { FiArrowRight } from "react-icons/fi";
 
-export default function NewsCard({ img, title }){
-
-  return(
-
-    <div className="homenewsCard">
-
-      <img src={img} className="newsImg" alt="news"/>
-
-      {/* OVERLAY */}
-      <div className="newsOverlay">
-
-        <div className="newsTop">
-          <div className="newsArrow"><FiArrowRight/></div>
-
-          <p className="newsMeta">
-            09.10.2025 <span>|</span> Malaysia
-          </p>
-        </div>
-
-        <h3 className="newsHeading">
-          {title}
-        </h3>
-
-        <p className="newsDesc">
-          Lorem ipsum in velit amet tempor 3–16,
-          lorem ipsum in velit amet tempor.
-        </p>
-
+export default function NewsCard({ img, title, category }) {
+  return (
+    <div className="homeNewsCard">
+      {/* IMAGE */}
+      <div className="newsImgWrap">
+        <img src={img} alt="news" />
       </div>
 
-    </div>
+      {/* CONTENT */}
+      <div className="newsContent">
+        {/* CATEGORY */}
+        <span className="newsCategory">{category}</span>
 
-  )
+        {/* TITLE */}
+        <h3 className="newsTitles">{title}</h3>
+
+        {/* DESCRIPTION */}
+        <p className="newsDesc">
+          Calling all young swimmers! Join our developmental program and start
+          your path to excellence.
+        </p>
+
+        {/* READ MORE */}
+        <button className="newsBtn">
+          Read Full Story <FiArrowRight />
+        </button>
+      </div>
+    </div>
+  );
 }

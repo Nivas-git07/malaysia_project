@@ -8,11 +8,22 @@ export default function HomeNews(){
   const navigate = useNavigate();
 
   const newsData = [
-    { img:n1, title:"Finswimming Malaysia Association Club" },
-    { img:n2, title:"Finswimming Malaysia Association Club" },
-    { img:n1, title:"Finswimming Malaysia Association Club" },
-    { img:n2, title:"Finswimming Malaysia Association Club" },
-  ];
+  { 
+    img: n1, 
+    title: "National Finswimming Championship 2025 Announced",
+    category: "Competition"
+  },
+  { 
+    img: n2, 
+    title: "Youth Training Camp Begins in Kuala Lumpur",
+    category: "Training"
+  },
+  { 
+    img: n1, 
+    title: "Malaysia Team Selected for International Meet",
+    category: "Announcement"
+  },
+];
 
   return(
 
