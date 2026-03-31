@@ -14,7 +14,7 @@ export default function HomeGallery() {
 
   return (
     <section className="homeGallerySection">
-      {/* HEADER */}
+  
       <div className="homeGalleryHeader">
         <h2 className="homeGalleryTitle">GALLERY</h2>
 
@@ -26,7 +26,6 @@ export default function HomeGallery() {
         </div>
       </div>
 
-      {/* COLLAGE GRID */}
       <div className="homeGalleryGrid">
         <img src={g1} className="galleryItem g1" />
         <img src={g2} className="galleryItem g2" />

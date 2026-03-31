@@ -1261,3 +1261,409 @@ body{
   }
 
 }
+
+/* SECTION */
+.mfsaCompleteSection {
+  padding: 60px 0;
+  background: #f9fafb;
+}
+
+/* CONTAINER */
+.mfsaContainer {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* TITLE */
+.mfsaTitle {
+  font-size: 36px;
+  font-weight: 700;
+  color: #00308F;
+}
+
+.mfsaSub {
+  margin-top: 10px;
+  color: #777;
+}
+
+/* STEPS */
+.mfsaSteps {
+  display: flex;
+  align-items: center;
+  margin: 30px 0;
+  gap: 15px;
+}
+
+/* STEP */
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #999;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ACTIVE STEP */
+.step.active {
+  color: #8a6d00;
+}
+
+.step.active svg {
+  color: #b58900;
+  font-size: 18px;
+}
+
+/* STEP LINE */
+.stepLine {
+  width: 60px;
+  height: 2px;
+  background: #ddd;
+}
+
+/* STEP CIRCLE */
+.circle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #00308F;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+/* PLAN CARD */
+.mfsaPlanCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #fff;
+  padding: 25px;
+  border-radius: 20px;
+
+  border-left: 5px solid #c4a000;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* LEFT */
+.planLeft h3 {
+  font-size: 22px;
+  margin: 5px 0;
+}
+
+.planTag {
+  font-size: 12px;
+  color: #c4a000;
+  font-weight: 700;
+}
+
+/* FEATURES */
+.planFeatures {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* PRICE */
+.planPrice {
+  font-size: 28px;
+  font-weight: 700;
+  color: #C00000;
+}
+
+.planPrice span {
+  font-size: 14px;
+  color: #777;
+  margin-left: 5px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .mfsaPlanCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .planPrice {
+    align-self: flex-end;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .mfsaTitle {
+    font-size: 26px;
+  }
+
+  .mfsaSteps {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stepLine {
+    display: none;
+  }
+
+  .planFeatures {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+/* SECTION */
+.mfsaPaymentSection {
+  padding: 40px 0;
+  background: #f5f6f8;
+}
+
+.mfsaContainer {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* GRID */
+.mfsaPaymentGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+/* FORM CARD */
+.mfsaFormCard {
+  background: #fff;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* FORM */
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  font-size: 13px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: #f2f3f5;
+  font-size: 14px;
+}
+
+/* UPLOAD BOX */
+.uploadBox {
+  border: 2px dashed #f1b6b6;
+  padding: 40px;
+  text-align: center;
+  border-radius: 16px;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.uploadBox:hover {
+  background: #fafafa;
+}
+
+.uploadBox svg {
+  font-size: 30px;
+  color: #888;
+}
+
+.uploadBox p {
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.uploadBox span {
+  font-size: 12px;
+  color: #888;
+}
+
+/* BUTTONS */
+.formActions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btnPrimary {
+  background: #C00000;
+  color: #fff;
+  border: none;
+  padding: 14px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.btnOutline {
+  background: transparent;
+  border: 2px solid #00308F;
+  color: #00308F;
+  padding: 14px 25px;
+  border-radius: 30px;
+}
+
+.btnOutline:hover{
+  background-color: #00008B;
+  color: #ffffff;
+}
+/* SIDE */
+.mfsaSide {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* PAYMENT CARD */
+.paymentCard {
+  background: linear-gradient(135deg, #00308F, #3f5fc0);
+  color: #fff;
+  padding: 25px;
+  border-radius: 20px;
+}
+
+.paymentCard h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.paymentInfo p {
+  margin: 10px 0;
+}
+
+.paymentInfo span {
+  display: block;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.paymentSteps {
+  margin-top: 15px;
+  padding-left: 18px;
+}
+
+.paymentSteps li {
+  margin-bottom: 2px;
+  line-height: 1.6;
+}
+.supportCardX {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  padding: 22px 25px;
+
+  background: #f9f5f4; /* soft light background */
+  border: 1px solid #f0d6d2;
+  border-radius: 20px;
+
+  box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+}
+
+/* ICON CIRCLE */
+.supportIcon {
+  width: 55px;
+  height: 55px;
+
+  border-radius: 50%;
+  background: #f2dfdb;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+.supportIcon svg {
+  color: #c00000;
+  font-size: 20px;
+}
+
+/* TEXT */
+.supportText h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 5px;
+}
+
+.supportText p {
+  font-size: 14px;
+  color: #6b5b57;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .supportCardX {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .supportIcon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .supportText h4 {
+    font-size: 16px;
+  }
+
+  .supportText p {
+    font-size: 13px;
+  }
+}
+/* QUOTE */
+.quoteCard {
+  background: url("https://images.unsplash.com/photo-1529333166437-7750a6dd5a70") center/cover;
+  height: 150px;
+  border-radius: 20px;
+  display: flex;
+  align-items: flex-end;
+  padding: 15px;
+  color: #fff;
+  font-style: italic;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* TABLET */
+@media (max-width: 992px) {
+  .mfsaPaymentGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .formActions {
+    flex-direction: column;
+  }
+
+  .btnPrimary,
+  .btnOutline {
+    width: 100%;
+  }
+}

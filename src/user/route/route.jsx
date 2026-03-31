@@ -17,6 +17,7 @@ import RegistrationAboutForm from "../page/register/resisterabout";
 import Registermembership from "../page/register/registermembership";
 import Membership from "../page/membership/membership";
 import Gallery from "../page/gallery/gallery";
+import Registermembershipsubmission from "../page/register/registermemsubmission";
 function Page() {
   return (
     <>
@@ -39,6 +40,7 @@ function Page() {
         <Route path="registermembership" element={<Registermembership />} />
         <Route path="membershipabout" element={<Membership />} />
         <Route path="gallery" element={<Gallery />} />
+        <Route path="membershipsubmission" element={<Registermembershipsubmission />} />
       </Routes>
     </>
   );
