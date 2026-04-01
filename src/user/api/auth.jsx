@@ -45,6 +45,9 @@ export const club_register = (
   club_name,
   club_code,
   club_address,
+  about,
+  vision,
+  mission,
 ) => {
   console.log(
     email_id,
@@ -55,6 +58,9 @@ export const club_register = (
     club_name,
     club_code,
     club_address,
+    about,
+    vision,
+    mission,
   );
 
   return API.post("/auth/club_register/", {
@@ -68,7 +74,7 @@ export const club_register = (
     club_address,
     about,
     vision,
-    mission
+    mission,
   });
 };
 

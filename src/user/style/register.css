@@ -234,7 +234,7 @@ body{
   color: black;
 }
 
-.btnOutline {
+.btnOutsline {
   background: #f3f4f6; /* light gray */
   color: #111827; /* dark text */
   border: none;
@@ -246,7 +246,7 @@ body{
   transition: all 0.2s ease;
 }
 
-.btnOutline:hover {
+.btnOutsline:hover {
   background: #e5e7eb;
 }
 

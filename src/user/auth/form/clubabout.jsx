@@ -16,9 +16,9 @@ export default function ClubFormX({ onSubmit }) {
   };
 
   const handleSubmit = (e) => {
-  e.preventDefault();
-  onSubmit(extraData);
-};
+    e.preventDefault();
+    onSubmit(extraData);
+  };
   return (
     <section className="mfsaClubFormX-section">
       <div className="mfsaClubFormX-wrapper">
@@ -30,17 +30,29 @@ export default function ClubFormX({ onSubmit }) {
         <div className="mfsaClubFormX-card">
           <div className="mfsaFormGroupX">
             <label>ABOUT YOUR CLUB</label>
-            <textarea placeholder="Describe your club, history, and activities..." onChange={handleChange} name="about"/>
+            <textarea
+              placeholder="Describe your club, history, and activities..."
+              onChange={handleChange}
+              name="about"
+            />
           </div>
 
           <div className="mfsaFormGroupX">
             <label>VISION</label>
-            <textarea placeholder="What is your club’s long-term vision?" onChange={handleChange} name="vision"/>
+            <textarea
+              placeholder="What is your club’s long-term vision?"
+              onChange={handleChange}
+              name="vision"
+            />
           </div>
 
           <div className="mfsaFormGroupX">
             <label>MISSION</label>
-            <textarea placeholder="What are your goals and mission?" onChange={handleChange} name="mission"/>
+            <textarea
+              placeholder="What are your goals and mission?"
+              onChange={handleChange}
+              name="mission"
+            />
           </div>
 
           <div className="mfsaFormBtnWrapX">

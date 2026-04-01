@@ -84,7 +84,7 @@ function Navbar() {
 
         <div className="mfsaPro-user">
           <button
-            className="btnOutline"
+            className="btnOutsline"
             onClick={() => {
               navigate("/user/register");
             }}

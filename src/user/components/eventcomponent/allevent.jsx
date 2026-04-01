@@ -75,7 +75,7 @@ export default function EventsPage() {
 
           <div className="right">
             <span className="filterText">Filter by:</span>
-            <button className="filterBtn">Category</button>
+            <button className="filterBtns">Category</button>
             <button className="calendarBtn">View Calendar</button>
           </div>
         </div>

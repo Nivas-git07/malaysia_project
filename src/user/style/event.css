@@ -185,7 +185,7 @@
 }
 
 /* CATEGORY BUTTON (light pill) */
-.filterBtn {
+.filterBtns {
   background: #fcfcfc;
   color:#0F172A;
   border: none;
@@ -200,7 +200,7 @@
   transition: 0.2s;
 }
 
-.filterBtn:hover {
+.filterBtns:hover {
   background: #e5e7eb;
 }
 
