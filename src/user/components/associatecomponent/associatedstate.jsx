@@ -1,19 +1,28 @@
 import logo from "../../assets/logo.jpg";
 import { useNavigate } from "react-router-dom";
-
+import { get_state } from "../../api/auth";
+import { useQuery } from "@tanstack/react-query";
 export default function StateAssociationX() {
   const navigate = useNavigate();
+  const { data: stateData } = useQuery({
+    queryKey: ["states"],
+    queryFn: get_state,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
 
-  const states = [
-    { name: "Johor Bahru", clubs: 10, athletes: 120 },
-    { name: "Kuala Lumpur", clubs: 8, athletes: 95 },
-    { name: "Penang", clubs: 6, athletes: 70 },
-    { name: "Selangor", clubs: 12, athletes: 150 },
-    { name: "Melaka", clubs: 4, athletes: 45 },
-    { name: "Perak", clubs: 5, athletes: 60 },
-    { name: "Kedah", clubs: 3, athletes: 35 },
-    { name: "Pahang", clubs: 4, athletes: 50 },
-  ];
+  const states = stateData?.data || [];
+
+  // const states = [
+  //   { name: "Johor Bahru", clubs: 10, athletes: 120 },
+  //   { name: "Kuala Lumpur", clubs: 8, athletes: 95 },
+  //   { name: "Penang", clubs: 6, athletes: 70 },
+  //   { name: "Selangor", clubs: 12, athletes: 150 },
+  //   { name: "Melaka", clubs: 4, athletes: 45 },
+  //   { name: "Perak", clubs: 5, athletes: 60 },
+  //   { name: "Kedah", clubs: 3, athletes: 35 },
+  //   { name: "Pahang", clubs: 4, athletes: 50 },
+  // ];
 
   return (
     <section className="mfsaStateCardX-section">
@@ -32,10 +41,10 @@ export default function StateAssociationX() {
                 </div>
               </div>
 
-              <h3 className="mfsaStateCardX-name">{item.name}</h3>
+              <h3 className="mfsaStateCardX-name">{item.state_name}</h3>
 
               <p className="mfsaStateCardX-meta">
-                {item.clubs} clubs • {item.athletes} Athletes
+                {item.clubs_count} clubs • {item.athletes_count} Athletes
               </p>
 
               <button
