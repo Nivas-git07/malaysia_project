@@ -59,7 +59,7 @@ export default function MembershipX({ onSubmit }) {
     <>
       <section className="mfsaMembershipX-section">
         <div className="mfsaMembershipX-container">
-          {/* HEADER */}
+      
           <div className="mfsaMembershipX-header">
             <span className="tag">Membership Programs</span>
             <h1>Choose Your Membership</h1>
@@ -111,6 +111,8 @@ export default function MembershipX({ onSubmit }) {
                     onSubmit(item, plan);
                   }}
                   className={selected === item.Membership_id ? "activeBtn" : ""}
+                  style={{ cursor: "pointer" }}
+
                 >
                   {selected === item.Membership_id ? "Selected" : "Select Plan"}
                 </button>

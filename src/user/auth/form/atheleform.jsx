@@ -46,6 +46,7 @@ function Atheleform() {
   };
 
   return (
+    
     <form className="regForm" onSubmit={handleclick}>
       <div className="regGridLabel">
         <p className="regRowLabel">Athlete</p>

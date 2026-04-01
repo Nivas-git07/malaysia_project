@@ -40,6 +40,7 @@ function ClubForm({ onNext }) {
   };
 
   return (
+    
     <form className="regForm" onSubmit={handlesumbit}>
       <div className="regGridLabel">
         <p className="regRowLabel">Club Name</p>

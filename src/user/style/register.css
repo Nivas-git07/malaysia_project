@@ -889,15 +889,15 @@ body{
 
 /* SECTION */
 .mfsaMembershipX-section {
-  background: #f6f7fb;
-  padding: 80px 20px;
+  background: #f6f7fb !important;
+  padding: 80px 20px !important;
 }
 
 /* CONTAINER */
 .mfsaMembershipX-container {
-  max-width: 1400px;
-  margin: auto;
-  text-align: center;
+  max-width: 1400px !important;
+  margin: auto !important;
+  text-align: center !important;
 }
 
 /* HEADER */
@@ -1262,17 +1262,22 @@ body{
 
 }
 
+.fullWidthContainer {
+  max-width: 1400px;;
+  margin: auto !important;
+  padding: 0 20px !important;
+}
 /* SECTION */
 .mfsaCompleteSection {
-  padding: 60px 0;
-  background: #f9fafb;
+  padding: 60px 0 !important;
+  background: #f9fafb !important;
 }
 
 /* CONTAINER */
 .mfsaContainer {
-  max-width: 1400px;
-  margin: auto;
-  padding: 0 20px;
+  max-width: 1400px !important;
+  margin: auto !important;
+  padding: 0 20px !important;
 }
 
 /* TITLE */
@@ -1427,8 +1432,8 @@ body{
 }
 
 .mfsaContainer {
-  max-width: 1400px;
-  margin: auto;
+  max-width: 1400px !important;
+  margin: auto !important;
   padding: 0 20px;
 }
 

@@ -5,7 +5,8 @@ import { club_register } from "../../api/auth";
 import MembershipX from "./membershipform";
 import Registermembershipsubmission from "../../page/register/registermemsubmission";
 import MembershipPayment from "./membershippayment";
-export default function ClubRegisterFlow({ onStepChange }) {
+export default function ClubRegisterFlow({ onStepChange , step, setStep}) {
+  console.log("Current Step:", step);
   const [formData, setFormData] = useState({
     club: {
       name: "",
@@ -28,7 +29,7 @@ export default function ClubRegisterFlow({ onStepChange }) {
     },
   });
 
-  const [step, setStep] = useState(1);
+  
 
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
