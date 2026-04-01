@@ -9,8 +9,23 @@ import Swimmer from "../../layout/swimmer";
 import Homeassoc from "../../components/homecomponent/assosiationstate";
 import HomeClub from "../../components/homecomponent/clubcard";
 import { NavLink, useLocation } from "react-router-dom";
+import { get_state_page } from "../../api/state";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 export default function StatePage() {
   const location = useLocation();
+  const { stateName, stateId } = useParams();
+
+  const { data: stateData } = useQuery({
+    queryKey: ["statePage", stateId],
+    queryFn: () => get_state_page(stateId),
+  });
+  const stateInfo = stateData?.data || {};
+  const state_stats = stateInfo.stats || {};
+
+  const statecontent = stateInfo.content || {};
+
+  console.log("State Page Data:", stateData);
 
   return (
     <>
@@ -27,7 +42,7 @@ export default function StatePage() {
                 <span className="word">TO</span>
 
                 <span className="word red">
-                  {decodeURIComponent(location.pathname.split("/")[2])}
+                  {statecontent.state_name || "STATE NAME"}
                 </span>
 
                 <br />
@@ -51,7 +66,7 @@ export default function StatePage() {
                   <NavLink to="/membership">MEMBERSHIP</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/associations">CLUBS</NavLink>
+                  <NavLink to={`/user/association/${stateId}`}>CLUBS</NavLink>
                 </li>
                 <li>
                   <NavLink to="/events">EVENTS</NavLink>
@@ -68,7 +83,7 @@ export default function StatePage() {
         </Swimmer>
         <HomeAbout name={decodeURIComponent(location.pathname.split("/")[1])} />
         <UpcomingEvents />
-        {/* <HomeRecords /> */}
+        <HomeRecords stats={state_stats} />
         <BestRecords />
 
         <HomeClub />

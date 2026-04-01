@@ -180,7 +180,7 @@ export default function StateNetworkX() {
                 onMouseLeave={() => {
                   setActive("");
                 }}
-                onClick={() => navigate(`/user/${item.name}`)}
+                onClick={() => navigate(`/user/${active.name}/${item.id}`)}
               >
                 <span className="mfsaStateX-radio"></span>
                 <p>{item.name}</p>
@@ -294,7 +294,7 @@ export default function StateNetworkX() {
                     <button
                       className="popup-btn"
                       onClick={() => {
-                        navigate(`/user/${active.name}`);
+                        navigate(`/user/${active.name}/${active.id}`);
                       }}
                     >
                       View Details →
