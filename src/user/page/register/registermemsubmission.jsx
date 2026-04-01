@@ -1,13 +1,14 @@
-import Header from "../../auth/top";
-import MembershipStep from "../../auth/form/membershipsubmission";
+// import Header from "../../auth/top"; 
 import Footer from "../../layout/footer";
 import MembershipPayment from "../../auth/form/membershippayment";
+
 export default function Registermembershipsubmission() {
   return (
     <div>
       <Header />
-      <MembershipStep />
-        <MembershipPayment />
+
+      <MembershipPayment  />
+
       <Footer />
     </div>
   );

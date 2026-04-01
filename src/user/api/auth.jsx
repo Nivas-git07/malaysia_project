@@ -82,6 +82,15 @@ export const get_state = () => {
   return API.get("/user/get_all_states/");
 };
 
+export const membrship_purchase = (formdata) => {
+  console.log("Membership Data:", formdata);
+  return API.post("/auth/purchase_membership/", formdata, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
 export const login_user = (gov_id, email_id, password) => {
   console.log(gov_id, email_id, password);
   return API.post("/auth/login/", { gov_id, email_id, password });

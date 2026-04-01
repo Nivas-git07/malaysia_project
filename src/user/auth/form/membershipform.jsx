@@ -2,11 +2,12 @@ import { useState } from "react";
 import img from "../../assets/event3.png";
 import { FaCheckCircle } from "react-icons/fa";
 import { BiWorld } from "react-icons/bi";
-export default function MembershipX() {
+export default function MembershipX({ onSubmit }) {
   const [plan, setPlan] = useState("yearly");
-
+  const [selected, setSelected] = useState(null);
   const plans = [
     {
+      Membership_id: 101,
       title: "Athlete Basic",
       monthly: 5,
       yearly: 49,
@@ -17,6 +18,7 @@ export default function MembershipX() {
       ],
     },
     {
+      Membership_id: 102,
       title: "Athlete Elite",
       monthly: 12,
       yearly: 129,
@@ -29,6 +31,7 @@ export default function MembershipX() {
       ],
     },
     {
+      Membership_id: 103,
       title: "Coach / Official",
       monthly: 8,
       yearly: 89,
@@ -39,6 +42,7 @@ export default function MembershipX() {
       ],
     },
     {
+      Membership_id: 104,
       title: "Affiliated Club",
       monthly: 40,
       yearly: 450,
@@ -65,7 +69,6 @@ export default function MembershipX() {
             </p>
           </div>
 
-          {/* TOGGLE */}
           <div className="mfsaToggleX">
             <span className={plan === "monthly" ? "active" : ""}>Monthly</span>
 
@@ -79,12 +82,11 @@ export default function MembershipX() {
             </span>
           </div>
 
-          {/* CARDS */}
           <div className="mfsaMembershipGridX">
             {plans.map((item, i) => (
               <div
                 className={`mfsaMembershipCardX ${item.popular ? "popular" : ""}`}
-                key={i}
+                key={item.Membership_id}
               >
                 {item.popular && (
                   <span className="popularTag">Most Popular</span>
@@ -103,12 +105,19 @@ export default function MembershipX() {
                   ))}
                 </ul>
 
-                <button>Select Plan</button>
+                <button
+                  onClick={() => {
+                    setSelected(item.Membership_id);
+                    onSubmit(item, plan);
+                  }}
+                  className={selected === item.Membership_id ? "activeBtn" : ""}
+                >
+                  {selected === item.Membership_id ? "Selected" : "Select Plan"}
+                </button>
               </div>
             ))}
           </div>
 
-          {/* FOOTER */}
           <p className="helpText">
             Need help choosing? <span>Contact your association</span>
           </p>
@@ -117,11 +126,9 @@ export default function MembershipX() {
 
       <section className="mfsaWhyX-section">
         <div className="mfsaWhyX-container">
-          {/* LEFT IMAGE */}
           <div className="mfsaWhyX-left">
             <img src={img} alt="swimmer" />
 
-            {/* TESTIMONIAL */}
             <div className="mfsaWhyX-quote">
               <p>
                 “The federation has provided me with the global platform to
@@ -133,7 +140,6 @@ export default function MembershipX() {
             </div>
           </div>
 
-          {/* RIGHT CONTENT */}
           <div className="mfsaWhyX-right">
             <h2>Why Join the World Federation?</h2>
 
@@ -143,7 +149,6 @@ export default function MembershipX() {
               performance, science, and global competition.
             </p>
 
-            {/* STATS */}
             <div className="mfsaWhyX-stats">
               <div>
                 <h3>120+</h3>
@@ -156,7 +161,6 @@ export default function MembershipX() {
               </div>
             </div>
 
-            {/* FEATURES */}
             <ul className="mfsaWhyX-list">
               <li>
                 <FaCheckCircle className="mfsaWhyX-icon" />
@@ -175,7 +179,6 @@ export default function MembershipX() {
               </li>
             </ul>
 
-            {/* BUTTON */}
             <button className="mfsaWhyX-btn">Explore Membership</button>
           </div>
         </div>

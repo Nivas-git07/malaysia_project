@@ -25,7 +25,7 @@ const handlesubmit = async (e) => {
   console.log("STEP 1"); // should print
 
   try {
-    console.log("STEP 2"); // should print
+    console.log("STEP 2"); 
 
     const response = await login_user(
       formdata.govt_id,
@@ -33,7 +33,7 @@ const handlesubmit = async (e) => {
       formdata.password
     );
 
-    console.log("STEP 3"); // ⭐ DOES THIS PRINT?
+    console.log("STEP 3"); 
     console.log(response);
 
     alert("login successfully");

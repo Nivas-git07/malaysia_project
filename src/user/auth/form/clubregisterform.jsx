@@ -2,61 +2,124 @@ import { useState } from "react";
 import ClubForm from "./clubform";
 import ClubFormX from "./clubabout";
 import { club_register } from "../../api/auth";
-
+import MembershipX from "./membershipform";
+import Registermembershipsubmission from "../../page/register/registermemsubmission";
+import MembershipPayment from "./membershippayment";
 export default function ClubRegisterFlow({ onStepChange }) {
-  const [step, setStep] = useState(1);
-
   const [formData, setFormData] = useState({
-    clubName: "",
-    state: "",
-    clubCode: "",
-    clubOwner: "",
-    email: "",
-    phone: "",
-    address: "",
-    password: "",
-    about: "",
-    vision: "",
-    mission: "",
+    club: {
+      name: "",
+      state: "",
+      code: "",
+      owner: "",
+      email: "",
+      phone: "",
+      address: "",
+      password: "",
+    },
+    about: {
+      about: "",
+      vision: "",
+      mission: "",
+    },
+    membership: {
+      plan: null,
+      amount: 0,
+    },
   });
 
-  // Step 1 submit → go to step 2
+  const [step, setStep] = useState(1);
+
+  const nextStep = () => setStep((prev) => prev + 1);
+  const prevStep = () => setStep((prev) => prev - 1);
+
   const handleStep1Submit = (data) => {
-    setFormData((prev) => ({ ...prev, ...data }));
-    setStep(2);
+    setFormData((prev) => ({
+      ...prev,
+      club: {
+        name: data.clubName,
+        state: data.state,
+        code: data.clubCode,
+        owner: data.clubOwner,
+        email: data.email,
+        phone: data.phone,
+        address: data.address,
+        password: data.password,
+      },
+    }));
+
+    nextStep();
     onStepChange("clubFlow");
   };
 
-  // Final submit → API call
   const handleFinalSubmit = async (data) => {
-    const finalData = { ...formData, ...data };
+    const updatedData = {
+      ...formData,
+      about: {
+        about: data.about,
+        vision: data.vision,
+        mission: data.mission,
+      },
+    };
+
+    setFormData(updatedData);
 
     try {
       const response = await club_register(
-        finalData.email,
-        finalData.password,
-        finalData.clubOwner,
-        Number(finalData.phone),
-        finalData.state,
-        finalData.clubName,
-        finalData.clubCode,
-        finalData.address,
-        finalData.about,
-        finalData.vision,
-        finalData.mission
+        updatedData.club.email,
+        updatedData.club.password,
+        updatedData.club.owner,
+        updatedData.club.phone,
+        updatedData.club.state,
+        updatedData.club.name,
+        updatedData.club.code,
+        updatedData.club.address,
+        updatedData.about.about,
+        updatedData.about.vision,
+        updatedData.about.mission,
       );
 
       console.log(response.data);
-      alert("Club Registration successful 🎉");
+
+      if (response.status === 200 || response.status === 201) {
+        alert("Club Registration successful 🎉");
+        nextStep();
+      }
     } catch (e) {
       console.log(e.response?.data);
+      alert("Registration failed ❌");
     }
+  };
+
+  const handleStep3Submit = (planData, type) => {
+    const amount = type === "monthly" ? planData.monthly : planData.yearly;
+
+    setFormData((prev) => ({
+      ...prev,
+      membership: {
+        plan: planData,
+        planType: type, // ✅ store type
+        amount: amount, // ✅ store correct price
+      },
+    }));
+
+    nextStep();
   };
 
   return (
     <>
       {step === 1 && <ClubForm onNext={handleStep1Submit} />}
+
       {step === 2 && <ClubFormX onSubmit={handleFinalSubmit} />}
+
+      {step === 3 && <MembershipX onSubmit={handleStep3Submit} />}
+
+      {step === 4 && (
+        <MembershipPayment
+          plan={formData.membership.plan}
+          amount={formData.membership.amount}
+        />
+      )}
     </>
   );
 }
