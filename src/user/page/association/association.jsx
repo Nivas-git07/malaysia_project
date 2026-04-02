@@ -11,7 +11,6 @@ export default function Association() {
   const location = useLocation();
   const { stateName, stateId } = useParams();
 
-
   const { data: stateData } = useQuery({
     queryKey: ["states"],
     queryFn: get_state,
@@ -42,7 +41,6 @@ export default function Association() {
         </div>
       </Swimmer>
 
-      
       {!stateId ? (
         <StateAssociationX data={states} type="state" />
       ) : (

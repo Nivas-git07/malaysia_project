@@ -26,16 +26,18 @@ function Page() {
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="" element={<Home />} />
-        <Route path=":stateName/:stateId" element={<StatePage />} />
-        <Route path=":stateName/:club" element={<ClubPage />} />
+        <Route path="state/:stateId" element={<StatePage />} />
+        <Route path="state/:stateId/club/:clubId" element={<ClubPage />} />
         <Route path="event" element={<Event />} />
         <Route path="eventview" element={<Eventview />} />
         <Route path="about" element={<About />} />
+        <Route path="state/:stateId/club/:clubId/about" element={<About />} />
         <Route path="allathelete" element={<AllAthelete />} />
         <Route path="association" element={<Association />} />
-        <Route path="association/:stateId" element={<Association />} />
+        <Route path="state/:stateId/association/:stateId" element={<Association />} />
         <Route path="athelete" element={<Athelete />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="state/:stateId/club/:clubId/contact" element={<Contact />} />
         <Route path="news" element={<News />} />
         <Route path="registerabout" element={<RegistrationAboutForm />} />
         <Route path="registermembership" element={<Registermembership />} />

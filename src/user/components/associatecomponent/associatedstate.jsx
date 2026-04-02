@@ -2,6 +2,7 @@ import logo from "../../assets/logo.jpg";
 import { useNavigate } from "react-router-dom";
 import { get_state } from "../../api/auth";
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 export default function StateAssociationX({ data, type }) {
   // const navigate = useNavigate();
   // const { data: stateData } = useQuery({
@@ -23,7 +24,9 @@ export default function StateAssociationX({ data, type }) {
   //   { name: "Kedah", clubs: 3, athletes: 35 },
   //   { name: "Pahang", clubs: 4, athletes: 50 },
   // ];
- console.log("State Data:", data,type);
+  console.log("State Data:", data, type);
+  const { stateName, stateId } = useParams();
+  const navigate = useNavigate();
   return (
     <section className="mfsaStateCardX-section">
       <div className="mfsaStateCardX-container">
@@ -47,14 +50,25 @@ export default function StateAssociationX({ data, type }) {
                 {item.clubs_count} clubs • {item.athletes_count} Athletes
               </p>
 
-              <button
-                className="mfsaStateCardX-btn"
-                onClick={() => {
-                  navigate(`/user/${item.name}`);
-                }}
-              >
-                VIEW {type === "state" ? "CLUBS" : "DETAILS"} →
-              </button>
+              {type === "state" ? (
+                <button
+                  className="mfsaStateCardX-btn"
+                  onClick={() => {
+                    navigate(`/user/state/${item.user}`);
+                  }}
+                >
+                  VIEW State →
+                </button>
+              ) : (
+                <button
+                  className="mfsaStateCardX-btn"
+                  onClick={() => {
+                    navigate(`/user/state/${stateId}/club/${item.user}`);
+                  }}
+                >
+                  VIEW Club →
+                </button>
+              )}
             </div>
           ))}
         </div>

@@ -1,95 +1,92 @@
 import { FaFlag, FaEye } from "react-icons/fa";
-
+import { getclubabout } from "../../api/club";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 export default function AboutPageX() {
+  const { clubId } = useParams();
+
+  const { data: aboutData } = useQuery({
+    queryKey: ["clubAbout", clubId],
+    queryFn: () => getclubabout(clubId),
+    enabled: !!clubId,
+  });
+  
+  const aboutInfo = aboutData?.data || null;
+  console.log("Club About Data:", aboutInfo);
+
   return (
-    <section className="mfsaAboutPageX-section">
-      <div className="mfsaAboutPageX-container">
-        {/* ===== TOP CARD ===== */}
-        <div className="mfsaAboutPageX-topCard">
-          {/* LEFT TEXT */}
-          <div className="mfsaAboutPageX-left">
-            <span className="mfsaAboutPageX-sub">INTRODUCTION</span>
+  <section className="mfsaAboutPageX-section">
+  <div className="mfsaAboutPageX-container">
 
-            <h2 className="mfsaAboutPageX-title">
-              About Johor Finswimming Association
-            </h2>
+    {/* ===== TOP CARD ===== */}
+    <div className="mfsaAboutPageX-topCard">
 
-            <p>
-              The Johor Finswimming Association (JFA) is the premier governing
-              body dedicated to the advancement and regulation of finswimming in
-              the state of Johor. Established with a commitment to sporting
-              excellence, we provide a structured platform for athletes to
-              thrive.
-            </p>
+      <div className="mfsaAboutPageX-left">
+        <span className="mfsaAboutPageX-sub">INTRODUCTION</span>
 
-            <p>
-              Our association is focused on fostering a culture of discipline,
-              health, and high performance, ensuring Johor remains a powerhouse
-              in Malaysian aquatic sports.
-            </p>
-            <p>
-              Through strategic programs, certified coaching systems, and
-              competitive exposure, the association aims to nurture talent and
-              elevate performance standards. JFA collaborates with national and
-              international bodies to ensure that athletes receive opportunities
-              to compete at the highest levels.
-            </p>
-          </div>
+        <h2 className="mfsaAboutPageX-title">
+          {aboutInfo?.club_name
+            ? `About ${aboutInfo.club_name}`
+            : "About Malaysia Finswimming Association"}
+        </h2>
 
-          {/* RIGHT VISUAL */}
-          <div className="mfsaAboutPageX-right">
-            <div className="mfsaAboutPageX-circle">
-              <div className="mfsaAboutPageX-innerCircle">
-                {/* simple decorative icon */}
-                <span className="mfsaAboutPageX-line"></span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <p>
+          {aboutInfo?.about ||
+            "This association is dedicated to the advancement of finswimming and the development of athletes through structured programs and competitions. <> Through strategic programs, certified coaching systems, and competitive exposure, the association aims to nurture talent and elevate performance standards. JFA collaborates with national and international bodies to ensure that athletes receive opportunities to compete at the highest levels."}
+        </p>
 
-        {/* ===== BOTTOM CARDS ===== */}
-        <div className="mfsaAboutPageX-bottom">
-          {/* MISSION */}
-          <div className="mfsaAboutPageX-card">
-            <div className="mfsaAboutPageX-icon">
-              <FaFlag />
-            </div>
+        <p>
+          {aboutInfo?.description ||
+            "We focus on discipline, performance, and athlete growth, ensuring a strong foundation for competitive success."}
+        </p>
 
-            <h3>OUR MISSION</h3>
+      </div>
 
-            <p>
-              To cultivate a world-class finswimming ecosystem in Johor by
-              identifying raw talent, providing professional coaching, and
-              organizing competitive events.
-            </p>
-            <p>
-              To cultivate a world-class finswimming ecosystem in Johor by
-              identifying raw talent, providing professional coaching, and
-              organizing competitive events.
-            </p>
-          </div>
-
-          {/* VISION */}
-          <div className="mfsaAboutPageX-card">
-            <div className="mfsaAboutPageX-icon red">
-              <FaEye />
-            </div>
-
-            <h3>OUR VISION</h3>
-
-            <p>
-              To be the leading finswimming association in Southeast Asia,
-              recognized for producing elite athletes and championing the sport
-              globally.
-            </p>
-            <p>
-              To be the leading finswimming association in Southeast Asia,
-              recognized for producing elite athletes and championing the sport
-              globally.
-            </p>
+      {/* RIGHT */}
+      <div className="mfsaAboutPageX-right">
+        <div className="mfsaAboutPageX-circle">
+          <div className="mfsaAboutPageX-innerCircle">
+            <span className="mfsaAboutPageX-line"></span>
           </div>
         </div>
       </div>
-    </section>
+
+    </div>
+
+  
+    <div className="mfsaAboutPageX-bottom">
+
+      {/* MISSION */}
+      <div className="mfsaAboutPageX-card">
+        <div className="mfsaAboutPageX-icon">
+          <FaFlag />
+        </div>
+
+        <h3>OUR MISSION</h3>
+
+        <p>
+          {aboutInfo?.mission ||
+            "To cultivate a world-class finswimming ecosystem in Johor by identifying raw talent, providing professional coaching, and organizing competitive events."}
+        </p>
+      </div>
+
+      {/* VISION */}
+      <div className="mfsaAboutPageX-card">
+        <div className="mfsaAboutPageX-icon red">
+          <FaEye />
+        </div>
+
+        <h3>OUR VISION</h3>
+
+        <p>
+          {aboutInfo?.vision ||
+            "To be the leading finswimming association in Southeast Asia, recognized for producing elite athletes and championing the sport globally."}
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
   );
 }

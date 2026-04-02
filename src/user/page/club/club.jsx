@@ -11,9 +11,22 @@ import Swimmer from "../../layout/swimmer";
 import Homeassoc from "../../components/homecomponent/assosiationstate";
 import HomeClub from "../../components/homecomponent/clubcard";
 import { NavLink } from "react-router-dom";
-
+import { getclubpage } from "../../api/club";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 export default function ClubPage() {
   const location = useLocation();
+  const { stateName, stateId, clubName, clubId } = useParams();
+
+  const { data: clubData } = useQuery({
+    queryKey: ["clubPage", clubId],
+    queryFn: () => getclubpage(clubId),
+  });
+
+  const clubInfo = clubData?.data || {};
+  console.log("Club Page Data:", clubInfo);
+  const club_stats = clubInfo.stats || {};
+  const clubcontent = clubInfo.content || {};
 
   return (
     <>
@@ -25,7 +38,7 @@ export default function ClubPage() {
               <span className="word">TO</span>
 
               <span className="word red">
-                {decodeURIComponent(location.pathname.split("/")[3])}
+                {clubcontent.club_name || "CLUB NAME"}
               </span>
 
               <br />
@@ -57,14 +70,15 @@ export default function ClubPage() {
                 <NavLink to="/news">NEWS</NavLink>
               </li>
               <li>
-                <NavLink to="/contact">CONTACT</NavLink>
+                <NavLink to={`/user/state/${stateId}/club/${clubId}/about`}>About</NavLink>
               </li>
+              
             </ul>
           </nav>
         </Swimmer>
         <HomeAbout name={decodeURIComponent(location.pathname.split("/")[3])} />
         <UpcomingEvents />
-        {/* <HomeRecords /> */}
+        <HomeRecords stats={club_stats} />
         <BestRecords />
 
         {/* <HomeClub /> */}
