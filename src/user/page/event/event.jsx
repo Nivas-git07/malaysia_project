@@ -39,7 +39,9 @@ export default function Event() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/events">EVENTS</NavLink>
+                <NavLink to={stateId ? `${basePath}/event` : "/event"}>
+                  EVENTS
+                </NavLink>
               </li>
               <li>
                 <NavLink to="/news">NEWS</NavLink>

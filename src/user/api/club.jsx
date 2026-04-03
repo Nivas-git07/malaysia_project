@@ -16,3 +16,4 @@ export const getclubabout = async ({ clubId, stateId }) => {
 
   throw new Error("No ID provided");
 };
+

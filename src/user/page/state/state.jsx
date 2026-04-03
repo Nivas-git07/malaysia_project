@@ -71,15 +71,13 @@ export default function StatePage() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/events">EVENTS</NavLink>
+                  <NavLink to={`/user/state/${stateId}/event`}>EVENTS</NavLink>
                 </li>
                 <li>
                   <NavLink to="/news">NEWS</NavLink>
                 </li>
                 <li>
-                  <NavLink to={`/user/state/${stateId}/about`}>
-                    About
-                  </NavLink>
+                  <NavLink to={`/user/state/${stateId}/about`}>About</NavLink>
                 </li>
               </ul>
             </nav>

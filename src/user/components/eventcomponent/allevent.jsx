@@ -10,14 +10,21 @@ import { useNavigate } from "react-router-dom";
 import { FiCalendar, FiMapPin } from "react-icons/fi";
 import { getallevents } from "../../api/event";
 import { useQuery } from "@tanstack/react-query";
-
+import { useParams } from "react-router-dom";
+import { getevents } from "../../api/event";
 export default function EventsPage() {
-  const { data: eventData } = useQuery({
-    queryKey: ["events"],
-    queryFn: getallevents,
+  const { stateId, clubId } = useParams();
+
+  const params = clubId ? { clubId } : stateId ? { stateId } : null;
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["events", params],
+    queryFn: () => (params ? getevents(params) : getallevents()),
   });
 
-  const events = [];
+  const events = data?.data || [];
+
+  // const events = eventData?.data || [];
   console.log("Events Data:", events);
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
