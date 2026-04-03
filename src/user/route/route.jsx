@@ -32,11 +32,13 @@ function Page() {
         <Route path="eventview" element={<Eventview />} />
         <Route path="about" element={<About />} />
         <Route path="state/:stateId/club/:clubId/about" element={<About />} />
+        <Route path="state/:stateId/about" element={<About />} />
         <Route path="allathelete" element={<AllAthelete />} />
         <Route path="association" element={<Association />} />
-        <Route path="state/:stateId/association/:stateId" element={<Association />} />
+        <Route path="state/:stateId/association" element={<Association />} />
         <Route path="athelete" element={<Athelete />} />
         <Route path="contact" element={<Contact />} />
+
         <Route path="state/:stateId/club/:clubId/contact" element={<Contact />} />
         <Route path="news" element={<News />} />
         <Route path="registerabout" element={<RegistrationAboutForm />} />

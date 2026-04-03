@@ -11,6 +11,7 @@ import new3 from "../../assets/new3.png";
 import { useRef } from "react";
 // import new1 from "../../assets/news1.png";
 import { postgallery } from "../../api/news_api";
+import Preview from "../../hook/preview/preview";
 
 export default function Gallery() {
   const [image, setimage] = useState(null);
@@ -22,10 +23,10 @@ export default function Gallery() {
 
   const handleChange = (e) => {
     const file = e.target.files[0];
-    if(file){
-        setimage(file);
-        postgallery(file);
-        alert("succesfully post gallery")
+    if (file) {
+      setimage(file);
+      postgallery(file);
+      alert("succesfully post gallery");
     }
     console.log(file);
   };
@@ -41,7 +42,7 @@ export default function Gallery() {
       <div className="mu-membership-wrapper">
         <div className="dataTitle">Gallery</div>
         <div className="mfsaAdminGalleryX">
-          {/* ===== UPLOAD ===== */}
+       
           <input
             type="file"
             ref={fileRef}
@@ -66,10 +67,11 @@ export default function Gallery() {
               </div>
             </div>
 
-            <button className="mfsaUploadBtnX" onClick={handleClick}>Upload Image</button>
+            <button className="mfsaUploadBtnX" onClick={handleClick}>
+              Upload Image
+            </button>
           </div>
 
-          {/* ===== RECENT HEADER ===== */}
           <div className="mfsaRecentHeaderX">
             <h3>Recent Uploads</h3>
 
@@ -94,12 +96,12 @@ export default function Gallery() {
             ))}
           </div>
 
-          {/* ===== LOAD MORE ===== */}
           <div className="mfsaLoadMoreWrapX">
             <button className="mfsaLoadMoreBtnX">Load More Assets →</button>
           </div>
         </div>
       </div>
+      <Preview />
     </>
   );
 }

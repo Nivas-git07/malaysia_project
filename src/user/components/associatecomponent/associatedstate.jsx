@@ -27,6 +27,7 @@ export default function StateAssociationX({ data, type }) {
   console.log("State Data:", data, type);
   const { stateName, stateId } = useParams();
   const navigate = useNavigate();
+
   return (
     <section className="mfsaStateCardX-section">
       <div className="mfsaStateCardX-container">
@@ -36,41 +37,50 @@ export default function StateAssociationX({ data, type }) {
         </div>
 
         <div className="mfsaStateCardX-grid">
-          {data.map((item, i) => (
-            <div className="mfsaStateCardX-card" key={i}>
-              <div className="mfsaStateCardX-logoOuter">
-                <div className="mfsaStateCardX-logoInner">
-                  <img src={logo} alt="state" />
+          {data.map((item, i) => {
+            const assocdata = {
+              name: item.state_name || item.club_name || "Unknown",
+              clubs: item.clubs_count || 0,
+              athletes: item.athletes_count || 0,
+              user: item.user 
+            };
+
+            return (
+              <div className="mfsaStateCardX-card" key={item.user || i}>
+                <div className="mfsaStateCardX-logoOuter">
+                  <div className="mfsaStateCardX-logoInner">
+                    <img src={logo} alt="state" />
+                  </div>
                 </div>
+
+                <h3 className="mfsaStateCardX-name">{assocdata.name}</h3>
+
+                <p className="mfsaStateCardX-meta">
+                  {assocdata.clubs} clubs • {assocdata.athletes} Athletes
+                </p>
+
+                {type === "state" ? (
+                  <button
+                    className="mfsaStateCardX-btn"
+                    onClick={() => {
+                      navigate(`/user/state/${assocdata.user}`);
+                    }}
+                  >
+                    VIEW State →
+                  </button>
+                ) : (
+                  <button
+                    className="mfsaStateCardX-btn"
+                    onClick={() => {
+                      navigate(`/user/state/${stateId}/club/${assocdata.user}`);
+                    }}
+                  >
+                    VIEW Club →
+                  </button>
+                )}
               </div>
-
-              <h3 className="mfsaStateCardX-name">{item.state_name}</h3>
-
-              <p className="mfsaStateCardX-meta">
-                {item.clubs_count} clubs • {item.athletes_count} Athletes
-              </p>
-
-              {type === "state" ? (
-                <button
-                  className="mfsaStateCardX-btn"
-                  onClick={() => {
-                    navigate(`/user/state/${item.user}`);
-                  }}
-                >
-                  VIEW State →
-                </button>
-              ) : (
-                <button
-                  className="mfsaStateCardX-btn"
-                  onClick={() => {
-                    navigate(`/user/state/${stateId}/club/${item.user}`);
-                  }}
-                >
-                  VIEW Club →
-                </button>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

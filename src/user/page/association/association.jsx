@@ -7,9 +7,17 @@ import { getclublist } from "../../api/state";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 export default function Association() {
   const location = useLocation();
-  const { stateName, stateId } = useParams();
+  // const { stateName, stateId } = useParams();
+  const { stateId, clubId } = useParams();
+
+  const basePath = stateId
+    ? clubId
+      ? `/state/${stateId}/club/${clubId}`
+      : `/state/${stateId}`
+    : "";
 
   const { data: stateData } = useQuery({
     queryKey: ["states"],
@@ -39,6 +47,33 @@ export default function Association() {
             Browse verified associations and explore finswimming networks.
           </p>
         </div>
+        {basePath && (
+          <nav className="heroNav">
+            <ul>
+              <li>
+                <NavLink to="/membership">MEMBERSHIP</NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={stateId ? `${basePath}/association` : "/association"}
+                >
+                  CLUBS
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/events">EVENTS</NavLink>
+              </li>
+              <li>
+                <NavLink to="/news">NEWS</NavLink>
+              </li>
+              <li>
+                <NavLink to={stateId ? `${basePath}/about` : "/about"}>
+                  ABOUT
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+        )}
       </Swimmer>
 
       {!stateId ? (
