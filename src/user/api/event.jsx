@@ -12,3 +12,7 @@ export const getevents = ({ stateId, clubId }) => {
     return API.get(`/user/get_state_events/?state_id=${stateId}`);
   }
 };
+
+export const geteventdetails = (eventId) => {
+  return API.get(`/user/get_single_data/?event_id=${eventId}`);
+};

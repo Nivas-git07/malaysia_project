@@ -2891,3 +2891,18 @@ background-color: white !important;
   }
 
 }
+
+.mfsaEmptyBoxs {
+  border: 1px dashed #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background: #fafafa;
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+}
+.mfsaEmptyState {
+  text-align: center;
+  padding: 60px;
+  color: #777;
+}

@@ -117,7 +117,7 @@ export default function EventsPage() {
             events.map((event) => (
               <div className="mfsaEventCardX" key={event.id}>
                 <div className="mfsaEventImgX">
-                  <img src={event.image} alt={event.event_name} />
+                  <img src={event.image} alt={event.event_name} loading="lazy"/>
                 </div>
 
                 <div className="mfsaEventOverlayX">
@@ -136,7 +136,7 @@ export default function EventsPage() {
 
                   <button
                     className="mfsaEventBtnX"
-                    onClick={() => navigate("/eventview")}
+                    onClick={() => navigate(`/user/eventview/${event.id}`)}
                   >
                     Read More →
                   </button>

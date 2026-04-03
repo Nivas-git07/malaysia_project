@@ -31,7 +31,7 @@ function Page() {
         <Route path="event" element={<Event />} />
         <Route path="state/:stateId/club/:clubId/event" element={<Event />} />
         <Route path="state/:stateId/event" element={<Event />} />
-        <Route path="eventview" element={<Eventview />} />
+        <Route path="eventview/:eventId" element={<Eventview />} />
         <Route path="about" element={<About />} />
         <Route path="state/:stateId/club/:clubId/about" element={<About />} />
         <Route path="state/:stateId/about" element={<About />} />

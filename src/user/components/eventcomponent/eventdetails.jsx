@@ -4,8 +4,32 @@ const eventLocation = {
   lat: 1.4927,
   lng: 103.7414,
 };
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { geteventdetails } from "../../api/event";
 
 export default function EventDetailX() {
+  const { eventId } = useParams();
+
+  const {
+    data: eventData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["eventDetails", eventId],
+    queryFn: () => geteventdetails(eventId),
+    enabled: !!eventId,
+  });
+
+  const event = eventData?.data || {};
+  console.log("Event Detail Data:", event);
+  if (!event) {
+    return (
+      <div className="mfsaEmptyState">
+        <h3>No Event Found</h3>
+      </div>
+    );
+  }
   return (
     <section className="mfsaEventDetailX-section">
       <div className="mfsaEventDetailX-container">
@@ -21,7 +45,6 @@ export default function EventDetailX() {
           </div>
         </div>
 
-        {/* ===== MAIN CONTENT ===== */}
         <div className="mfsaEventDetailX-main">
           {/* LEFT */}
           <div className="mfsaEventDetailX-left">
@@ -29,22 +52,22 @@ export default function EventDetailX() {
 
             <div className="detailItem">
               <span>Organized by</span>
-              <p>Johor Finswimming Association</p>
+              <p>{event.organized_by || "-"}</p>
             </div>
 
             <div className="detailItem">
-              <span>Date Range</span>
-              <p>Aug 5 – Aug 8, 2025</p>
+              <span>Date</span>
+              <p>{event.date || "-"}</p>
             </div>
 
             <div className="detailItem">
               <span>Venue</span>
-              <p>Johor Aquatic Centre</p>
+              <p>{event.venue || "-"}</p>
             </div>
 
             <div className="detailItem">
-              <span>Operating Hours</span>
-              <p>08:00 AM – 06:00 PM</p>
+              <span>Time</span>
+              <p>{event.time || "-"}</p>
             </div>
 
             <button className="registerBtn">Register Now →</button>
@@ -52,53 +75,29 @@ export default function EventDetailX() {
 
           {/* RIGHT */}
           <div className="mfsaEventDetailX-right">
-            <h2>About the Championships</h2>
+            <h2>{event.event_name}</h2>
 
-            <p>
-              The TYR Summer Championships represent the pinnacle of regional
-              finswimming competition. Hosted by the Johor Finswimming
-              Association, this four-day event brings together elite athletes.
-            </p>
+            {event.description ? (
+              event.description
+                .split("\n\n")
+                .map((para, i) => <p key={i}>{para}</p>)
+            ) : (
+              <div className="mfsaEmptyBox">
+                <p>No description available.</p>
+              </div>
+            )}
 
-            <p>
-              This year's competition features state-of-the-art timing systems
-              and world-class officiating, ensuring a fair and exciting
-              experience.
-            </p>
-
-            <p>
-              The TYR Summer Championships represent the pinnacle of regional
-              finswimming competition. Hosted by the Johor Finswimming
-              Association, this four-day event brings together elite athletes.
-            </p>
-
-            <p>
-              This year's competition features state-of-the-art timing systems
-              and world-class officiating, ensuring a fair and exciting
-              experience.
-            </p>
-            <p>
-              This year's competition features state-of-the-art timing systems
-              and world-class officiating, ensuring a fair and exhilarating
-              experience for all participants. Whether you are a seasoned
-              competitor looking to break records or a newcomer to the sport,
-              the Summer Championships offer a platform to showcase your speed
-              and technique.
-            </p>
-            {/* QUOTE */}
             <div className="mfsaEventDetailX-quote">
-              "Join us for an unforgettable celebration of aquatic speed and
-              endurance."
+              "Join us for an unforgettable experience."
             </div>
 
-            {/* HIGHLIGHTS */}
             <h4>Event Highlights</h4>
 
             <div className="mfsaEventDetailX-highlights">
-              <div>✔ National qualifying times recognition</div>
-              <div>✔ Master’s category events</div>
-              <div>✔ Junior development programs</div>
-              <div>✔ Closing awards ceremony</div>
+              <div>✔ Professional timing systems</div>
+              <div>✔ Certified officials</div>
+              <div>✔ National ranking points</div>
+              <div>✔ Awards ceremony</div>
             </div>
           </div>
         </div>
@@ -109,7 +108,6 @@ export default function EventDetailX() {
             {/* Google Map */}
             <UserMap lat={eventLocation.lat} lng={eventLocation.lng} />
 
-         
             <div className="mfsaEventDetailX__map-overlay">
               📍 Johor Aquatic Centre
             </div>
