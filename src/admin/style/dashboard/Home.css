@@ -405,7 +405,13 @@ margin-left:2px;
     width: 100%;
   }
 }
-
+.mfsaAboutAdminX-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  outline: none;
+}
 /* SECTION */
 .mfsaPreviewX-section {
   max-width: 1350px;
