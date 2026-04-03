@@ -8,60 +8,70 @@ import img5 from "../../assets/event5.png";
 import img6 from "../../assets/event6.png";
 import { useNavigate } from "react-router-dom";
 import { FiCalendar, FiMapPin } from "react-icons/fi";
+import { getallevents } from "../../api/event";
+import { useQuery } from "@tanstack/react-query";
+
 export default function EventsPage() {
+  const { data: eventData } = useQuery({
+    queryKey: ["events"],
+    queryFn: getallevents,
+  });
+
+  const events = [];
+  console.log("Events Data:", events);
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
 
-  const events = [
-    {
-      id: 1,
-      category: "Championship",
-      title: "Finswimming State Cup",
-      date: "09.10.2025",
-      location: "Johor Bahru",
-      image: img1,
-    },
-    {
-      id: 2,
-      category: "Trials",
-      title: "Junior National Selection",
-      date: "15.11.2025",
-      location: "Kuala Lumpur",
-      image: img2,
-    },
-    {
-      id: 3,
-      category: "Open Water",
-      title: "Desaru Ocean Sprint",
-      date: "03.12.2025",
-      location: "Desaru Coast",
-      image: img3,
-    },
-    {
-      id: 4,
-      category: "Community",
-      title: "Annual Member Dinner",
-      date: "20.12.2025",
-      location: "JB Convention Center",
-      image: img4,
-    },
-    {
-      id: 5,
-      category: "Workshop",
-      title: "Finswimming Coaching Clinic",
-      date: "10.01.2026",
-      location: "Larkin Aquatic Centre",
-      image: img5,
-    },
-    {
-      id: 6,
-      category: "Qualifiers",
-      title: "SEA Games 2026 Qualifiers",
-      date: "22.02.2026",
-      location: "Johor State Stadium",
-      image: img6,
-    },
-  ];
+  // const events = [
+  //   {
+  //     id: 1,
+  //     category: "Championship",
+  //     title: "Finswimming State Cup",
+  //     date: "09.10.2025",
+  //     location: "Johor Bahru",
+  //     image: img1,
+  //   },
+  //   {
+  //     id: 2,
+  //     category: "Trials",
+  //     title: "Junior National Selection",
+  //     date: "15.11.2025",
+  //     location: "Kuala Lumpur",
+  //     image: img2,
+  //   },
+  //   {
+  //     id: 3,
+  //     category: "Open Water",
+  //     title: "Desaru Ocean Sprint",
+  //     date: "03.12.2025",
+  //     location: "Desaru Coast",
+  //     image: img3,
+  //   },
+  //   {
+  //     id: 4,
+  //     category: "Community",
+  //     title: "Annual Member Dinner",
+  //     date: "20.12.2025",
+  //     location: "JB Convention Center",
+  //     image: img4,
+  //   },
+  //   {
+  //     id: 5,
+  //     category: "Workshop",
+  //     title: "Finswimming Coaching Clinic",
+  //     date: "10.01.2026",
+  //     location: "Larkin Aquatic Centre",
+  //     image: img5,
+  //   },
+  //   {
+  //     id: 6,
+  //     category: "Qualifiers",
+  //     title: "SEA Games 2026 Qualifiers",
+  //     date: "22.02.2026",
+  //     location: "Johor State Stadium",
+  //     image: img6,
+  //   },
+  // ];
 
   return (
     <section className="eventsSection">
@@ -80,58 +90,72 @@ export default function EventsPage() {
           </div>
         </div>
 
-        {/* GRID */}
         <div className="eventsGrid">
-          {events.map((event) => (
-            <div className="mfsaEventCardX" key={event.id}>
-              {/* IMAGE */}
-              <div className="mfsaEventImgX">
-                <img src={event.image} alt={event.title} />
-              </div>
+          {events.length === 0 ? (
+            <div className="mfsaEmptyState">
+              <div className="mfsaEmptyIcon">📅</div>
 
-              <div className="mfsaEventOverlayX">
-                <span className="mfsaEventTagX">{event.category}</span>
+              <h3>No Events Available</h3>
 
-                <h3 className="mfsaEventTitleX">{event.title}</h3>
+              <p>
+                There are currently no upcoming events scheduled. Please check
+                back later or explore other sections.
+              </p>
 
-                <div className="mfsaEventMetaX">
-                  <span>
-                    <FiCalendar className="icon" /> {event.date}
-                  </span>
-                  <span>
-                    <FiMapPin className="icon" /> {event.location}
-                  </span>
+              <button className="mfsaEmptyBtn" onClick={() => navigate("/")}>
+                Back to Home
+              </button>
+            </div>
+          ) : (
+            events.map((event) => (
+              <div className="mfsaEventCardX" key={event.id}>
+                <div className="mfsaEventImgX">
+                  <img src={event.image} alt={event.event_name} />
                 </div>
 
-                <button
-                  className="mfsaEventBtnX"
-                  onClick={() => {
-                    navigate("/user/eventview");
-                  }}
-                >
-                  Read More →
-                </button>
+                <div className="mfsaEventOverlayX">
+                  <span className="mfsaEventTagX">Event</span>
+
+                  <h3 className="mfsaEventTitleX">{event.event_name}</h3>
+
+                  <div className="mfsaEventMetaX">
+                    <span>
+                      <FiCalendar className="icon" /> {event.date}
+                    </span>
+                    <span>
+                      <FiMapPin className="icon" /> {event.venue}
+                    </span>
+                  </div>
+
+                  <button
+                    className="mfsaEventBtnX"
+                    onClick={() => navigate("/eventview")}
+                  >
+                    Read More →
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
 
-        {/* PAGINATION */}
-        <div className="pagination">
-          <button>
-            <FiChevronLeft />
-          </button>
+        {events.length > 0 && (
+          <div className="pagination">
+            <button>
+              <FiChevronLeft />
+            </button>
 
-          <span className="active">1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>...</span>
-          <span>12</span>
+            <span className="active">1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>...</span>
+            <span>12</span>
 
-          <button>
-            <FiChevronRight />
-          </button>
-        </div>
+            <button>
+              <FiChevronRight />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

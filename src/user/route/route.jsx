@@ -29,6 +29,8 @@ function Page() {
         <Route path="state/:stateId" element={<StatePage />} />
         <Route path="state/:stateId/club/:clubId" element={<ClubPage />} />
         <Route path="event" element={<Event />} />
+        <Route path="state/:stateId/club/:clubId/event" element={<Event />} />
+        <Route path="state/:stateId/event" element={<Event />} />
         <Route path="eventview" element={<Eventview />} />
         <Route path="about" element={<About />} />
         <Route path="state/:stateId/club/:clubId/about" element={<About />} />
@@ -38,14 +40,19 @@ function Page() {
         <Route path="state/:stateId/association" element={<Association />} />
         <Route path="athelete" element={<Athelete />} />
         <Route path="contact" element={<Contact />} />
-
-        <Route path="state/:stateId/club/:clubId/contact" element={<Contact />} />
+        <Route
+          path="state/:stateId/club/:clubId/contact"
+          element={<Contact />}
+        />
         <Route path="news" element={<News />} />
         <Route path="registerabout" element={<RegistrationAboutForm />} />
         <Route path="registermembership" element={<Registermembership />} />
         <Route path="membershipabout" element={<Membership />} />
         <Route path="gallery" element={<Gallery />} />
-        <Route path="membershipsubmission" element={<Registermembershipsubmission />} />
+        <Route
+          path="membershipsubmission"
+          element={<Registermembershipsubmission />}
+        />
       </Routes>
     </>
   );
