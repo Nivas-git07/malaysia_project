@@ -8,6 +8,8 @@ import { FaAddressCard } from "react-icons/fa";
 import { logout } from "../../api/auth_api";
 import { PiNotePencilBold } from "react-icons/pi";
 import { GrGallery } from "react-icons/gr";
+import { BiCommentDetail } from "react-icons/bi";
+
 import {
   Home,
   User,
@@ -85,6 +87,11 @@ export default function Sidebar() {
           <NavLink to="/gallery" className="menuItem" onClick={closeSidebar}>
             <GrGallery size={20} />
             <span>Gallery</span>
+          </NavLink>
+
+          <NavLink to="/about" className="menuItem" onClick={closeSidebar}>
+            <BiCommentDetail   size={20} />
+            <span>About</span>
           </NavLink>
 
           <NavLink to="/settings" className="menuItem" onClick={closeSidebar}>

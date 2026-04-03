@@ -16,11 +16,11 @@ import Authenticate from "../page/authenticate/authenticate";
 import ClubList from "../page/dashboard/club";
 import Gallery from "../page/dashboard/gallery";
 import Record from "../page/dashboard/record";
+import About from "../page/dashboard/about";
 
 export default function AdminRoute() {
   return (
     <Routes>
-
       <Route path="/" element={<AdminLogin />} />
 
       {/* <Route
@@ -65,7 +65,6 @@ export default function AdminRoute() {
           </AdminLayout>
         }
       />
-
 
       <Route
         path="/tickets"
@@ -154,6 +153,15 @@ export default function AdminRoute() {
           </AdminLayout>
         }
       />
+
+      <Route
+        path="/about"
+        element={
+          <AdminLayout>
+            <About />
+          </AdminLayout>
+        }
+      />
       <Route
         path="/home"
         element={
@@ -163,7 +171,6 @@ export default function AdminRoute() {
         }
       />
       <Route path="*" element={<Navigate to="/login" />} />
-
     </Routes>
   );
 }
