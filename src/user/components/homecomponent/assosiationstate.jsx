@@ -206,7 +206,6 @@ export default function StateNetworkX() {
           </div>
         </div>
 
-       
         <div className="mfsaStateX-right">
           <div
             className="map-container"
@@ -224,13 +223,19 @@ export default function StateNetworkX() {
             <map name="malaysia-map">
               {mergedStates.map((state) => (
                 <React.Fragment key={state.name}>
-                  {/* RECTANGLES */}
                   {state.rectCoords?.map((coords, i) => (
                     <area
                       key={`rect-${i}`}
                       shape="rect"
                       coords={scaleCoords(coords, imgRef.current)}
-                      onMouseMove={(e) => handleHover(e, state)}
+                      onMouseEnter={() => {
+                        if (!imgRef.current) return;
+
+                        const pos = getStateCenter(state, imgRef.current);
+
+                        setActive(state);
+                        setPopupPos(pos);
+                      }}
                       onMouseLeave={() => setActive(null)}
                       href="#"
                       onClick={(e) => e.preventDefault()}
@@ -273,10 +278,11 @@ export default function StateNetworkX() {
                   position: "absolute",
                   top: popupPos.y,
                   left: popupPos.x,
-                  transform: "translate(-50%, -110%)",
-                  pointerEvents: "none",
+                  transform: "translate(-50%, -120%)",
                   zIndex: 100,
                 }}
+                onMouseEnter={() => setActive(active)}
+                onMouseLeave={() => setActive(null)}
               >
                 <div className="popup-card">
                   {/* IMAGE */}
@@ -303,19 +309,19 @@ export default function StateNetworkX() {
 
                       <div className="statItem">
                         <span>Medals</span>
-                        <strong>{active.medals}</strong>
+                        <strong>{active.medals || 0}</strong>
                       </div>
                     </div>
 
                     {/* BUTTON */}
-                    <button
+                    {/* <button
                       className="popup-btn"
                       onClick={() => {
                         navigate(`/state/${active.id}`);
                       }}
                     >
                       View Details →
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
