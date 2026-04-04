@@ -88,7 +88,9 @@ export default function ClubPage() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/news">NEWS</NavLink>
+                <NavLink to={`/state/${stateId}/club/${clubId}/news`}>
+                  NEWS
+                </NavLink>
               </li>
               <li>
                 <NavLink to={`/state/${stateId}/club/${clubId}/about`}>

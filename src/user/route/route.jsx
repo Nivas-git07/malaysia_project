@@ -48,6 +48,8 @@ function Page() {
           element={<Contact />}
         />
         <Route path="news" element={<News />} />
+        <Route path="/state/:stateId/news" element={<News />} />
+        <Route path="/state/:stateId/club/:clubId/news" element={<News />} />
         <Route path="registerabout" element={<RegistrationAboutForm />} />
         <Route path="registermembership" element={<Registermembership />} />
         <Route path="membershipabout" element={<Membership />} />

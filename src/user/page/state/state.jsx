@@ -29,7 +29,6 @@ export default function StatePage() {
     return null;
   }
 
-  
   if (isError || !stateId) {
     return <Unauthorized />;
   }
@@ -89,7 +88,7 @@ export default function StatePage() {
                   <NavLink to={`/state/${stateId}/event`}>EVENTS</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/news">NEWS</NavLink>
+                  <NavLink to={`/state/${stateId}/news`}>NEWS</NavLink>
                 </li>
                 <li>
                   <NavLink to={`/state/${stateId}/about`}>About</NavLink>
