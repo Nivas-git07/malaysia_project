@@ -3,7 +3,7 @@ import a1 from "../../assets/feature1.png";
 import a2 from "../../assets/feature2.png";
 import a3 from "../../assets/feature3.png";
 
-export default function FeaturedAthletes() {
+export default function FeaturedAthletes({ data }) {
 
   const athletes = [
     {

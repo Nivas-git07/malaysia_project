@@ -2986,3 +2986,32 @@ background-color: white !important;
     transform: translateY(-10px);
   }
 }
+
+.emptyState {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.emptyIcon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.emptyState h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.emptyState p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.emptyBtn {
+  background: #0ea5e9;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
