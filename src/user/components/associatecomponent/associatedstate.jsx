@@ -42,7 +42,7 @@ export default function StateAssociationX({ data, type }) {
               name: item.state_name || item.club_name || "Unknown",
               clubs: item.clubs_count || 0,
               athletes: item.athletes_count || 0,
-              user: item.user 
+              user: item.user,
             };
 
             return (
@@ -63,7 +63,7 @@ export default function StateAssociationX({ data, type }) {
                   <button
                     className="mfsaStateCardX-btn"
                     onClick={() => {
-                      navigate(`/user/state/${assocdata.user}`);
+                      navigate(`/state/${assocdata.user}`);
                     }}
                   >
                     VIEW State →
@@ -72,7 +72,7 @@ export default function StateAssociationX({ data, type }) {
                   <button
                     className="mfsaStateCardX-btn"
                     onClick={() => {
-                      navigate(`/user/state/${stateId}/club/${assocdata.user}`);
+                      navigate(`/state/${stateId}/club/${assocdata.user}`);
                     }}
                   >
                     VIEW Club →

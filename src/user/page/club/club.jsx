@@ -61,10 +61,10 @@ export default function ClubPage() {
                 <NavLink to="/membership">MEMBERSHIP</NavLink>
               </li>
               <li>
-                <NavLink to="/user/allathelete">ATHELETES</NavLink>
+                <NavLink to="/allathelete">ATHELETES</NavLink>
               </li>
               <li>
-                <NavLink to={`/user/state/${stateId}/club/${clubId}/event`}>
+                <NavLink to={`/state/${stateId}/club/${clubId}/event`}>
                   EVENTS
                 </NavLink>
               </li>
@@ -72,7 +72,7 @@ export default function ClubPage() {
                 <NavLink to="/news">NEWS</NavLink>
               </li>
               <li>
-                <NavLink to={`/user/state/${stateId}/club/${clubId}/about`}>
+                <NavLink to={`/state/${stateId}/club/${clubId}/about`}>
                   About
                 </NavLink>
               </li>

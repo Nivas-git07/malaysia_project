@@ -136,7 +136,7 @@ export default function EventsPage() {
 
                   <button
                     className="mfsaEventBtnX"
-                    onClick={() => navigate(`/user/eventview/${event.id}`)}
+                    onClick={() => navigate(`/eventview/${event.id}`)}
                   >
                     Read More →
                   </button>

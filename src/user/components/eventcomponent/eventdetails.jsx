@@ -37,11 +37,11 @@ export default function EventDetailX() {
         <div className="mfsaEventDetailX-banner">
           <span className="badges">FEATURED EVENT</span>
 
-          <h1>TYR SUMMER CHAMPIONSHIPS</h1>
+          <h1>{event.event_name || "Event Name"}</h1>
 
           <div className="mfsaEventDetailX-meta">
-            <span>📅 August 5 - 8, 2025</span>
-            <span>📍 Johor Aquatic Centre</span>
+            <span>📅 {event.date || "-"}</span>
+            <span>📍 {event.venue || "Johor Aquatic Centre"}</span>
           </div>
         </div>
 

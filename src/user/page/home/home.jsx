@@ -47,10 +47,10 @@ export default function Home() {
           </p>
 
           <div className="heroBtnGroupX">
-            <button className="heroBtnX primaryBtnX" onClick={() => navigate("/user/membershipabout")}>
+            <button className="heroBtnX primaryBtnX" onClick={() => navigate("/membershipabout")}>
               Learn More
             </button>
-            <button className="heroBtnX outlineBtnX" onClick={() => navigate("/user/register")}>
+            <button className="heroBtnX outlineBtnX" onClick={() => navigate("/register")}>
               Join Membership
             </button>
           </div>

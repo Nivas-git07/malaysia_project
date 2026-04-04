@@ -36,7 +36,7 @@ export default function HomeNews(){
 
         <div className="homeNewsArrows">
           <span className="readmore" onClick={()=>{
-            navigate("/user/news")
+            navigate("/news")
           }}>Read More</span>
       
         </div>

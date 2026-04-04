@@ -45,7 +45,7 @@ export default function HomeClubX() {
                   <button
                     className="mfsaClubX-btn"
                     onClick={() =>
-                      navigate(`/user/${location}/${item.name}`)
+                      navigate(`/${location}/${item.name}`)
                     }
                   >
                     VIEW

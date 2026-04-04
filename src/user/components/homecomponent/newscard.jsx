@@ -27,7 +27,7 @@ export default function NewsCard({ img, title, category }) {
         <button
           className="newsBtn"
           onClick={() => {
-            navigate("/user/news");
+            navigate("/news");
           }}
         >
           Read Full Story <FiArrowRight />

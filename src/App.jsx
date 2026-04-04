@@ -7,12 +7,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 function App() {
   return (
     <Router>
-        <Routes>
-          <Route path="/user/*" element={<Page />} /> 
-          <Route path="/*" element={<AdminRoute />} />
-        </Routes>
+      <Routes>
+        <Route path="/*" element={<Page />} />
+        <Route path="/admin/*" element={<AdminRoute />} />
+      </Routes>
     </Router>
-  )
+  );
 }
 
 export default App;

@@ -26,31 +26,29 @@ function Navbar() {
       <div className="mfsaPro-container">
         <ul className="mfsaPro-menu mfsaPro-left">
           <li
-            className={location.pathname === "/user" ? "active" : ""}
-            onClick={() => navigate("/user")}
+            className={location.pathname === "/" ? "active" : ""}
+            onClick={() => navigate("/")}
           >
             HOME
           </li>
 
           <li
-            className={location.pathname === "/user/event" ? "active" : ""}
-            onClick={() => navigate("/user/event")}
+            className={location.pathname === "/event" ? "active" : ""}
+            onClick={() => navigate("/event")}
           >
             EVENTS
           </li>
 
           <li
-            className={location.pathname === "/user/membershipabout" ? "active" : ""}
-            onClick={() => navigate("/user/membershipabout")}
+            className={location.pathname === "/membershipabout" ? "active" : ""}
+            onClick={() => navigate("/membershipabout")}
           >
             MEMBERSHIP
           </li>
 
           <li
-            className={
-              location.pathname === "/user/association" ? "active" : ""
-            }
-            onClick={() => navigate("/user/association")}
+            className={location.pathname === "/association" ? "active" : ""}
+            onClick={() => navigate("/association")}
           >
             ASSOCIATIONS
           </li>
@@ -62,21 +60,21 @@ function Navbar() {
 
         <ul className="mfsaPro-menu mfsaPro-left">
           <li
-            className={location.pathname === "/user/news" ? "active" : ""}
-            onClick={() => navigate("/user/news")}
+            className={location.pathname === "/news" ? "active" : ""}
+            onClick={() => navigate("/news")}
           >
             NEWS
           </li>
           <li
-            className={location.pathname === "/user/about" ? "active" : ""}
-            onClick={() => navigate("/user/about")}
+            className={location.pathname === "/about" ? "active" : ""}
+            onClick={() => navigate("/about")}
           >
             ABOUT US
           </li>
 
           <li
-            className={location.pathname === "/user/contact" ? "active" : ""}
-            onClick={() => navigate("/user/contact")}
+            className={location.pathname === "/contact" ? "active" : ""}
+            onClick={() => navigate("/contact")}
           >
             CONTACT
           </li>
@@ -86,7 +84,7 @@ function Navbar() {
           <button
             className="btnOutsline"
             onClick={() => {
-              navigate("/user/register");
+              navigate("/register");
             }}
           >
             MEMBER
