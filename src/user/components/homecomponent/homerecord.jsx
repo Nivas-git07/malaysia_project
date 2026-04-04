@@ -43,10 +43,26 @@ function CountUp({ value }) {
 export default function HomeRecords({ stats }) {
   console.log("HomeRecords stats:", stats);
   const records = [
-    { count: stats.total_events || "0", title: "TOTAL EVENTS" } ,
-    { count: stats.states_count || "0", title: "TOTAL STATES" },
-    { count: stats.clubs_count || "0", title: "TOTAL CLUBS" },
-    { count: stats.athletes_count || "0", title: "TOTAL SWIMMERS" },
+    {
+      count: stats.total_events || "0",
+      title: "TOTAL EVENTS",
+      para: "Total number of finswimming events organized across all regions, promoting competition and participation.",
+    },
+    {
+      count: stats.states_count || "0",
+      title: "TOTAL STATES",
+      para: "Number of states actively involved in developing and supporting finswimming activities.",
+    },
+    {
+      count: stats.clubs_count || "0",
+      title: "TOTAL CLUBS",
+      para: "Registered clubs contributing to athlete training, development, and competitive excellence.",
+    },
+    {
+      count: stats.athletes_count || "0",
+      title: "TOTAL SWIMMERS",
+      para: "Total athletes participating in finswimming, representing talent and growth in the sport.",
+    },
   ];
 
   return (
@@ -59,7 +75,7 @@ export default function HomeRecords({ stats }) {
             <p className="homeRecordTitle">{item.title}</p>
 
             <p className="homeRecordPara">
-              Lorem ipsum is velit amet tempor 3–16.
+              {item.para}
             </p>
           </div>
         ))}

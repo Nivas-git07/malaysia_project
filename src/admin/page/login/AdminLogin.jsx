@@ -27,7 +27,7 @@ export default function AdminLogin() {
 
       {/* Top Left Navigation Link */}
       <div className="backNav">
-        <a href="/user">← Back to main site</a>
+        <a href="/">← Back to main site</a>
       </div>
 
       <div className="adminCenter">
