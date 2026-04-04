@@ -18,11 +18,9 @@ export default function Event() {
         <div className="homeHeroContent">
           <h1 className="homeHeroTitle">Upcoming Event</h1>
           <p className="homeHeroSub">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-            commodi
+            Stay updated with our upcoming events, competitions, and activities.
             <br />
-            Vivamus vehicula, lorem a porttitor porttitor, velit erat amet
-            consectetur
+            Join us and be part of exciting moments across our sports community.
           </p>
         </div>
         {basePath && (

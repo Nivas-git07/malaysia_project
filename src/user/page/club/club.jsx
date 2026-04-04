@@ -50,9 +50,11 @@ export default function ClubPage() {
             </h1>
 
             <p className="homeHeroSub">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Welcome to the official platform of the{" "}
+              {clubcontent.club_name || "CLUB NAME"} Finswimming Association.
               <br />
-              Vivamus vehicula, lorem a porttitor porttitor, velit erat
+              Discover events, connect with athletes and clubs, and be part of a
+              growing aquatic sports community.
             </p>
           </div>
           <nav className="heroNav">

@@ -53,10 +53,12 @@ export default function StatePage() {
                 </div>
               </h1>
 
-              <p className="heroSubtitle">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              <p className="homeHeroSub">
+                Welcome to the official platform of the {statecontent.state_name || "STATE NAME"} Finswimming
+                Association.
                 <br />
-                Vivamus vehicula, lorem a porttitor porttitor.
+                Discover events, connect with athletes and clubs, and be part of
+                a growing aquatic sports community.
               </p>
             </div>
 

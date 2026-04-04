@@ -9,11 +9,10 @@ export default function Eventview() {
           <h1 className="homeHeroTitle">EVENT DETAILS</h1>
 
           <p className="homeHeroSub">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-            commodi
+            Get complete information about this event, including schedule,
+            venue, and participation details.
             <br />
-            Vivamus vehicula, lorem a porttitor porttitor, velit erat amet
-            consectetur
+            Stay informed and be prepared to take part in this exciting event.
           </p>
         </div>
       </Swimmer>

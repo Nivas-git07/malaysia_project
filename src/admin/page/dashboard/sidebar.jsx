@@ -44,57 +44,57 @@ export default function Sidebar() {
         </div>
 
         <nav className="sidebarMenu">
-          <NavLink to="/home" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/home" className="menuItem" onClick={closeSidebar}>
             <Home size={20} />
             <span>Home</span>
           </NavLink>
 
-          <NavLink to="/athlete" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/athlete" className="menuItem" onClick={closeSidebar}>
             <User size={20} />
             <span>Athlete</span>
           </NavLink>
 
-          <NavLink to="/calendar" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/calendar" className="menuItem" onClick={closeSidebar}>
             <Calendar size={20} />
             <span>Events</span>
           </NavLink>
 
-          <NavLink to="/membership" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/membership" className="menuItem" onClick={closeSidebar}>
             <FaAddressCard size={20} />
             <span>membership</span>
           </NavLink>
 
-          <NavLink to="/tickets" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/tickets" className="menuItem" onClick={closeSidebar}>
             <Ticket size={20} />
             <span>Tickets</span>
           </NavLink>
 
-          <NavLink to="/record" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/record" className="menuItem" onClick={closeSidebar}>
             <PiNotePencilBold size={20} />
             <span>Record Entry</span>
           </NavLink>
 
-          <NavLink to="/report" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/report" className="menuItem" onClick={closeSidebar}>
             <BarChart2 size={20} />
             <span>Report</span>
           </NavLink>
 
-          <NavLink to="/news" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/news" className="menuItem" onClick={closeSidebar}>
             <Newspaper size={20} />
             <span>News</span>
           </NavLink>
 
-          <NavLink to="/gallery" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/gallery" className="menuItem" onClick={closeSidebar}>
             <GrGallery size={20} />
             <span>Gallery</span>
           </NavLink>
 
-          <NavLink to="/about" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/about" className="menuItem" onClick={closeSidebar}>
             <BiCommentDetail   size={20} />
             <span>About</span>
           </NavLink>
 
-          <NavLink to="/settings" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/admin/settings" className="menuItem" onClick={closeSidebar}>
             <FaUserCircle size={20} />
             <span>Profile</span>
           </NavLink>

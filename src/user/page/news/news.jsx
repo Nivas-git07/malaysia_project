@@ -9,10 +9,12 @@ export default function News() {
         <div className="homeHeroContent">
           <h1 className="homeHeroTitle">News</h1>
           <p className="homeHeroSub">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Discover the latest updates, stories, and highlights from across our
+            network.
             <br />
-            Vivamus vehicula, lorem a porttitor porttitor, velit erat
-          </p>
+            From major events to key announcements — stay informed and
+            connected.
+          </p>  
         </div>
       </Swimmer>
       <NewsDetailX />

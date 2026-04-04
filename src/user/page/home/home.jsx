@@ -40,17 +40,24 @@ export default function Home() {
           </h1>
 
           <p className="homeHeroSub">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            veritatis necessitatibus earum
-            <br />V ivamus vehicula, lorem a porttitor porttitor, velit erat
-            .amet consectetur adipisicing elit lorem
+            Welcome to the official platform of the Malaysia Finswimming
+            Association.
+            <br />
+            Discover events, connect with athletes and clubs, and be part of a
+            growing aquatic sports community.
           </p>
 
           <div className="heroBtnGroupX">
-            <button className="heroBtnX primaryBtnX" onClick={() => navigate("/membershipabout")}>
+            <button
+              className="heroBtnX primaryBtnX"
+              onClick={() => navigate("/membershipabout")}
+            >
               Learn More
             </button>
-            <button className="heroBtnX outlineBtnX" onClick={() => navigate("/register")}>
+            <button
+              className="heroBtnX outlineBtnX"
+              onClick={() => navigate("/register")}
+            >
               Join Membership
             </button>
           </div>

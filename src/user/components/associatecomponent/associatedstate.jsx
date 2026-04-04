@@ -3,30 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { get_state } from "../../api/auth";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 export default function StateAssociationX({ data, type }) {
-  // const navigate = useNavigate();
-  // const { data: stateData } = useQuery({
-  //   queryKey: ["states"],
-  //   queryFn: get_state,
-  //   refetchOnWindowFocus: false,
-  //   retry: false,
-  // });
-
-  // const states = stateData?.data || [];
-
-  // const states = [
-  //   { name: "Johor Bahru", clubs: 10, athletes: 120 },
-  //   { name: "Kuala Lumpur", clubs: 8, athletes: 95 },
-  //   { name: "Penang", clubs: 6, athletes: 70 },
-  //   { name: "Selangor", clubs: 12, athletes: 150 },
-  //   { name: "Melaka", clubs: 4, athletes: 45 },
-  //   { name: "Perak", clubs: 5, athletes: 60 },
-  //   { name: "Kedah", clubs: 3, athletes: 35 },
-  //   { name: "Pahang", clubs: 4, athletes: 50 },
-  // ];
-  console.log("State Data:", data, type);
   const { stateName, stateId } = useParams();
   const navigate = useNavigate();
+
+  // ✅ NEW STATE
+  const [visibleCount, setVisibleCount] = useState(8);
+
+  // ✅ Slice data
+  const visibleData = data.slice(0, visibleCount);
 
   return (
     <section className="mfsaStateCardX-section">
@@ -37,7 +23,7 @@ export default function StateAssociationX({ data, type }) {
         </div>
 
         <div className="mfsaStateCardX-grid">
-          {data.map((item, i) => {
+          {visibleData.map((item, i) => {
             const assocdata = {
               name: item.state_name || item.club_name || "Unknown",
               clubs: item.clubs_count || 0,
@@ -82,6 +68,18 @@ export default function StateAssociationX({ data, type }) {
             );
           })}
         </div>
+
+      
+        {visibleCount < data.length && (
+          <div style={{ textAlign: "center", marginTop: "40px" }}>
+            <button
+              className="mfsaStateCardX-btn"
+              onClick={() => setVisibleCount((prev) => prev + 8)}
+            >
+              Show More
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

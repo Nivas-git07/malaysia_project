@@ -16,9 +16,11 @@ export default function About() {
         <div className="homeHeroContent">
           <h1 className="homeHeroTitle">ABOUT US</h1>
           <p className="homeHeroSub">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Learn more about our mission, vision, and the values that drive our
+            organization.
             <br />
-            Vivamus vehicula, lorem a porttitor porttitor, velit erat
+            We are committed to building a strong community by supporting
+            athletes, clubs, and regional associations.
           </p>
         </div>
         {basePath && (

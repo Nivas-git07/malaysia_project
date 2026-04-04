@@ -16,7 +16,7 @@ export default function AdminLogin() {
     try {
       const response = await adminLogin(email, password);
       console.log("Login successful:", response.data);
-      navigate("/home");
+      navigate("/admin/home");
     } catch (error) {
       console.error("Login failed:", error);
     }

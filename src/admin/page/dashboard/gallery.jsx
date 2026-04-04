@@ -100,8 +100,9 @@ export default function Gallery() {
             <button className="mfsaLoadMoreBtnX">Load More Assets →</button>
           </div>
         </div>
+        <Preview />
       </div>
-      <Preview />
+      
     </>
   );
 }

@@ -92,10 +92,10 @@ export function HowJoinMFSA() {
           </h2>
 
           <div className="mfsaCtaButtons">
-            <button className="mfsaBtnPrimary" onClick={() => navigate("/user/register")}>
+            <button className="mfsaBtnPrimary" onClick={() => navigate("/register")}>
               Register Now
             </button>
-            <button className="mfsaBtnOutline" onClick={() => navigate("/user/contact")}>
+            <button className="mfsaBtnOutline" onClick={() => navigate("/contact")}>
               Contact Support
             </button>
           </div>

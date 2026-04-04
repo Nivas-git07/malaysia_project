@@ -21,7 +21,7 @@ import About from "../page/dashboard/about";
 export default function AdminRoute() {
   return (
     <Routes>
-      <Route path="/" element={<AdminLogin />} />
+      <Route path="login" element={<AdminLogin />} />
 
       {/* <Route
         path="/home"
@@ -32,24 +32,24 @@ export default function AdminRoute() {
         }
       /> */}
       <Route
-        path="/notification"
+        path="notification"
         element={
           <AdminLayout>
             <AdminNotificationPage />
           </AdminLayout>
         }
       />
-      <Route
+      {/* <Route
         path="/notification"
         element={
           <AdminLayout>
             <AdminNotificationPage />
           </AdminLayout>
         }
-      />
+      /> */}
 
       <Route
-        path="/athlete"
+        path="athlete"
         element={
           <AdminLayout>
             <Athlete />
@@ -58,7 +58,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/calendar"
+        path="calendar"
         element={
           <AdminLayout>
             <Calendar />
@@ -67,7 +67,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/tickets"
+        path="tickets"
         element={
           <AdminLayout>
             <Tickets />
@@ -75,7 +75,7 @@ export default function AdminRoute() {
         }
       />
       <Route
-        path="/record"
+        path="record"
         element={
           <AdminLayout>
             <Record />
@@ -83,7 +83,7 @@ export default function AdminRoute() {
         }
       />
       <Route
-        path="/report"
+        path="report"
         element={
           <AdminLayout>
             <Report />
@@ -92,7 +92,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/gallery"
+        path="gallery"
         element={
           <AdminLayout>
             <Gallery />
@@ -101,7 +101,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/news"
+        path="news"
         element={
           <AdminLayout>
             <News />
@@ -110,7 +110,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/membership"
+        path="membership"
         element={
           <AdminLayout>
             <Manageuser />
@@ -119,7 +119,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/settings"
+        path="settings"
         element={
           <AdminLayout>
             <Settings />
@@ -128,7 +128,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/home/state/:id"
+        path="home/state/:id"
         element={
           <AdminLayout>
             <StateList />
@@ -137,7 +137,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/home/club/:id"
+        path="home/club/:id"
         element={
           <AdminLayout>
             <ClubList />
@@ -146,7 +146,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/athlete/:id"
+        path="athlete/:id"
         element={
           <AdminLayout>
             <AthleteProfile />
@@ -155,7 +155,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="/about"
+        path="about"
         element={
           <AdminLayout>
             <About />
@@ -163,14 +163,14 @@ export default function AdminRoute() {
         }
       />
       <Route
-        path="/home"
+        path="home"
         element={
           <AdminLayout>
             <Authenticate />
           </AdminLayout>
         }
       />
-      <Route path="*" element={<Navigate to="/login" />} />
+      {/* <Route path="*" element={<Navigate to="/login" />} /> */}
     </Routes>
   );
 }

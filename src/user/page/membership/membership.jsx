@@ -10,9 +10,10 @@ export default function Membership() {
         <div className="homeHeroContent">
           <h1 className="homeHeroTitle">Membership</h1>
           <p className="homeHeroSub">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Become a member and unlock new opportunities in sports and community
+            engagement.
             <br />
-            Vivamus vehicula, lorem a porttitor porttitor, velit erat
+            Take part in events, competitions, and build your journey with us.
           </p>
         </div>
       </Swimmer>

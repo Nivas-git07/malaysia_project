@@ -10,9 +10,9 @@ export default function Contact() {
         <div className="homeHeroContent">
           <h1 className="homeHeroTitle">Contact US</h1>
           <p className="homeHeroSub">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Have questions or need assistance? We’re here to help.
             <br />
-            Vivamus vehicula, lorem a porttitor porttitor, velit erat
+            Reach out to us and we’ll get back to you as soon as possible.
           </p>
         </div>
       </Swimmer>
