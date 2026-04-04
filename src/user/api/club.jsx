@@ -5,7 +5,12 @@ export const getclubpage = async (clubId) => {
 };
 
 export const getclubabout = async ({ clubId, stateId }) => {
-  console.log("Fetching about page with clubId:", clubId, "and stateId:", stateId);
+  console.log(
+    "Fetching about page with clubId:",
+    clubId,
+    "and stateId:",
+    stateId,
+  );
   if (clubId) {
     return API.get(`/user/get_about_page/?club_id=${clubId}`);
   }
@@ -17,3 +22,6 @@ export const getclubabout = async ({ clubId, stateId }) => {
   throw new Error("No ID provided");
 };
 
+export const getclubathlete = (clubId) => {
+  return API.get(`/user/athletes_list/?club_id=${clubId}`);
+};

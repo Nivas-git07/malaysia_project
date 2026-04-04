@@ -12,14 +12,28 @@ import { NavLink, useLocation } from "react-router-dom";
 import { get_state_page } from "../../api/state";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import Unauthorized from "../../components/unauthorize/unauthorized";
 export default function StatePage() {
   const location = useLocation();
   const { stateName, stateId } = useParams();
 
-  const { data: stateData } = useQuery({
+  const { data: stateData, isError } = useQuery({
     queryKey: ["statePage", stateId],
     queryFn: () => get_state_page(stateId),
+    enabled: !!stateId,
+    retry: false,
+    staleTime: 1000 * 60 * 5,
   });
+
+  if (!stateData && !isError) {
+    return null;
+  }
+
+  
+  if (isError || !stateId) {
+    return <Unauthorized />;
+  }
+
   const stateInfo = stateData?.data || {};
   const state_stats = stateInfo.stats || {};
 
@@ -54,7 +68,8 @@ export default function StatePage() {
               </h1>
 
               <p className="homeHeroSub">
-                Welcome to the official platform of the {statecontent.state_name || "STATE NAME"} Finswimming
+                Welcome to the official platform of the{" "}
+                {statecontent.state_name || "STATE NAME"} Finswimming
                 Association.
                 <br />
                 Discover events, connect with athletes and clubs, and be part of

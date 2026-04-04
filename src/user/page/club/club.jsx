@@ -14,14 +14,29 @@ import { NavLink } from "react-router-dom";
 import { getclubpage } from "../../api/club";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import Unauthorized from "../../components/unauthorize/unauthorized";
 export default function ClubPage() {
   const location = useLocation();
   const { stateName, stateId, clubName, clubId } = useParams();
 
-  const { data: clubData } = useQuery({
+  const {
+    data: clubData,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["clubPage", clubId],
     queryFn: () => getclubpage(clubId),
+    enabled: !!clubId,
+    retry: false,
   });
+
+  if (!clubData && !isError) {
+    return null;
+  }
+
+  if (isError || !clubId) {
+    return <Unauthorized />;
+  }
 
   const clubInfo = clubData?.data || {};
   console.log("Club Page Data:", clubInfo);
@@ -63,7 +78,9 @@ export default function ClubPage() {
                 <NavLink to="/membership">MEMBERSHIP</NavLink>
               </li>
               <li>
-                <NavLink to="/allathelete">ATHELETES</NavLink>
+                <NavLink to={`/state/${stateId}/club/${clubId}/athletes`}>
+                  ATHELETES
+                </NavLink>
               </li>
               <li>
                 <NavLink to={`/state/${stateId}/club/${clubId}/event`}>

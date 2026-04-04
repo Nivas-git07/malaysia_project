@@ -9,4 +9,8 @@ export const get_home = () =>{
 }
 
 
+export const raise_tiket = (payload) => {
+    console.log("Raising ticket with payload:", payload);
+    return API.post("/super/raise_ticket/", payload)
+}
 
