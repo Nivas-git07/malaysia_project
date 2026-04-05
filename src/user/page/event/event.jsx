@@ -31,21 +31,23 @@ export default function Event() {
               </li>
               <li>
                 <NavLink
-                  to={stateId ? `${basePath}/association` : "/association"}
+                  to={basePath ? `${basePath}/association` : "/association"}
                 >
                   CLUBS
                 </NavLink>
               </li>
               <li>
-                <NavLink to={stateId ? `${basePath}/event` : "/event"}>
+                <NavLink to={basePath ? `${basePath}/event` : "/event"}>
                   EVENTS
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/news">NEWS</NavLink>
+                <NavLink to={basePath ? `${basePath}/news` : "/news"}>
+                  NEWS
+                </NavLink>
               </li>
               <li>
-                <NavLink to={stateId ? `${basePath}/about` : "/about"}>
+                <NavLink to={basePath ? `${basePath}/about` : "/about"}>
                   ABOUT
                 </NavLink>
               </li>

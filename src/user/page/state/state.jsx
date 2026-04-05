@@ -79,7 +79,7 @@ export default function StatePage() {
             <nav className="heroNav">
               <ul>
                 <li>
-                  <NavLink to="/membership">MEMBERSHIP</NavLink>
+                  <NavLink to="/membershipabout">MEMBERSHIP</NavLink>
                 </li>
                 <li>
                   <NavLink to={`/state/${stateId}/association`}>CLUBS</NavLink>

@@ -75,7 +75,7 @@ export default function ClubPage() {
           <nav className="heroNav">
             <ul>
               <li>
-                <NavLink to="/membership">MEMBERSHIP</NavLink>
+                <NavLink to="/membershipabout">MEMBERSHIP</NavLink>
               </li>
               <li>
                 <NavLink to={`/state/${stateId}/club/${clubId}/athletes`}>

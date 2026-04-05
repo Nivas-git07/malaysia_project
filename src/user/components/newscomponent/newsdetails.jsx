@@ -28,13 +28,7 @@ export default function NewsDetailX() {
 
   const newsList = newsData?.data || [];
 
-  if (isLoading) {
-    return (
-      <div className="emptyState">
-        <p>Loading news...</p>
-      </div>
-    );
-  }
+  
 
   if (isError || newsList.length === 0) {
     return (
@@ -53,7 +47,7 @@ export default function NewsDetailX() {
   return (
     <section className="mfsaNewsDetailX-section">
       <div className="mfsaNewsDetailX-container">
-        {/* 🔥 FIRST BIG NEWS */}
+     
         <h1 className="mfsaNewsDetailX-title">{firstNews.title}</h1>
 
         <div className="mfsaNewsDetailX-hero">

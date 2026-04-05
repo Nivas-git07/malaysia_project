@@ -55,16 +55,20 @@ export default function Association() {
               </li>
               <li>
                 <NavLink
-                  to={stateId ? `${basePath}/association` : "/association"}
+                  to={basePath ? `${basePath}/association` : "/association"}
                 >
                   CLUBS
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/events">EVENTS</NavLink>
+                <NavLink to={basePath ? `${basePath}/event` : "/event"}>
+                  EVENTS
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/news">NEWS</NavLink>
+                <NavLink to={basePath ? `${basePath}/news` : "/news"}>
+                  NEWS
+                </NavLink>
               </li>
               <li>
                 <NavLink to={stateId ? `${basePath}/about` : "/about"}>
