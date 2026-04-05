@@ -16,3 +16,12 @@ export const raise_tiket = (payload) => {
 export const get_news = () => {
   return API.get("/user/get_all_news/");
 };
+
+export const get_particular_news = ({ clubId, stateId }) => {
+  if (clubId) {
+    return API.get(`/user/get_club_news/?club_id=${clubId}`);
+  }
+  if (stateId) {
+    return API.get(`/user/get_state_news/?state_id=${stateId}`);
+  }
+};

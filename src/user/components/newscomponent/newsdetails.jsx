@@ -7,16 +7,34 @@ import new5 from "../../assets/event5.png";
 import new6 from "../../assets/event6.png";
 import { get_news } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
-
+import { get_particular_news } from "../../api/home_api";
+import { useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 export default function NewsDetailX() {
-  const { data: newsData, isError } = useQuery({
-    queryKey: ["news"],
-    queryFn: get_news,
+  const { stateId, clubId } = useParams();
+
+  const {
+    data: newsData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["news", stateId, clubId],
+    queryFn: () => {
+      if (clubId) return get_particular_news({ clubId });
+      if (stateId) return get_particular_news({ stateId });
+      return get_news();
+    },
   });
 
   const newsList = newsData?.data || [];
 
-  if (!newsData && !isError) return null;
+  if (isLoading) {
+    return (
+      <div className="emptyState">
+        <p>Loading news...</p>
+      </div>
+    );
+  }
 
   if (isError || newsList.length === 0) {
     return (
@@ -27,6 +45,7 @@ export default function NewsDetailX() {
       </div>
     );
   }
+
 
   const firstNews = newsList[0];
   const remainingNews = newsList.slice(1);
@@ -60,7 +79,6 @@ export default function NewsDetailX() {
               <img src={new3} />
             </div>
 
-            {/* 🔥 NEXT NEWS BELOW (SAME STYLE SIMPLIFIED) */}
             {remainingNews.map((item) => (
               <div key={item.id} className="newsCardFull">
                 <h2 className="mfsaNewsDetailX-heading">{item.title}</h2>
