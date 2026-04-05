@@ -12,6 +12,8 @@ export default function Association() {
   const location = useLocation();
   // const { stateName, stateId } = useParams();
   const { stateId, clubId } = useParams();
+  const isClub = !!clubId;
+  const isState = !!stateId && !clubId;
 
   const basePath = stateId
     ? clubId
@@ -53,13 +55,18 @@ export default function Association() {
               <li>
                 <NavLink to="/membership">MEMBERSHIP</NavLink>
               </li>
-              <li>
-                <NavLink
-                  to={basePath ? `${basePath}/association` : "/association"}
-                >
-                  CLUBS
-                </NavLink>
-              </li>
+
+              {isState && (
+                <li>
+                  <NavLink to={`${basePath}/association`}>CLUBS</NavLink>
+                </li>
+              )}
+
+              {isClub && (
+                <li>
+                  <NavLink to={`${basePath}/athlete`}>ATHLETES</NavLink>
+                </li>
+              )}
               <li>
                 <NavLink to={basePath ? `${basePath}/event` : "/event"}>
                   EVENTS
@@ -71,7 +78,7 @@ export default function Association() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={stateId ? `${basePath}/about` : "/about"}>
+                <NavLink to={basePath ? `${basePath}/about` : "/about"}>
                   ABOUT
                 </NavLink>
               </li>

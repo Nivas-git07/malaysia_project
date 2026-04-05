@@ -96,7 +96,7 @@ export default function NewsDetailX() {
             </div>
           </div>
 
-          {/* RIGHT SIDE (UNCHANGED) */}
+       
           <div className="mfsaNewsSidebarX">
             <div className="mfsaSidebarBlockX">
               <h5 className="mfsaSidebarTitleX">Related News</h5>

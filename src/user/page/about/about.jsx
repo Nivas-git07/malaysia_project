@@ -4,7 +4,8 @@ import Footer from "../../layout/footer";
 import { NavLink, useParams } from "react-router-dom";
 export default function About() {
   const { stateId, clubId } = useParams();
-
+  const isClub = !!clubId;
+  const isState = !!stateId && !clubId;
   const basePath = stateId
     ? clubId
       ? `/state/${stateId}/club/${clubId}`
@@ -29,13 +30,19 @@ export default function About() {
               <li>
                 <NavLink to="/membershipabout">MEMBERSHIP</NavLink>
               </li>
-              <li>
-                <NavLink
-                  to={basePath ? `${basePath}/association` : "/association"}
-                >
-                  CLUBS
-                </NavLink>
-              </li>
+              
+              {isState && (
+                <li>
+                  <NavLink to={`${basePath}/association`}>CLUBS</NavLink>
+                </li>
+              )}
+
+              {isClub && (
+                <li>
+                  <NavLink to={`${basePath}/athlete`}>ATHLETES</NavLink>
+                </li>
+              )}
+
               <li>
                 <NavLink to={basePath ? `${basePath}/event` : `/event`}>
                   EVENTS
@@ -47,7 +54,7 @@ export default function About() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={stateId ? `${basePath}/about` : "/about"}>
+                <NavLink to={basePath ? `${basePath}/about` : "/about"}>
                   ABOUT
                 </NavLink>
               </li>

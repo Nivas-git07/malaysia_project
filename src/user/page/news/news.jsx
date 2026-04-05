@@ -12,6 +12,9 @@ export default function News() {
       : `/state/${stateId}`
     : "";
 
+  const isClub = !!clubId;
+  const isState = !!stateId && !clubId;
+
   return (
     <>
       <Swimmer>
@@ -30,13 +33,18 @@ export default function News() {
                 <li>
                   <NavLink to="/membershipabout">MEMBERSHIP</NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    to={basePath ? `${basePath}/association` : "/association"}
-                  >
-                    CLUBS
-                  </NavLink>
-                </li>
+
+                {isState && (
+                  <li>
+                    <NavLink to={`${basePath}/association`}>CLUBS</NavLink>
+                  </li>
+                )}
+
+                {isClub && (
+                  <li>
+                    <NavLink to={`${basePath}/athlete`}>ATHLETES</NavLink>
+                  </li>
+                )}
                 <li>
                   <NavLink to={basePath ? `${basePath}/event` : "/event"}>
                     EVENTS
