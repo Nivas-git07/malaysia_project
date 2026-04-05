@@ -35,10 +35,13 @@ export default function StatePage() {
 
   const stateInfo = stateData?.data || {};
   const state_stats = stateInfo.stats || {};
+  const state_gallery = stateInfo.gallery || {};
+  const state_news = stateInfo.latest_news || {};
+  const state_events = stateInfo.upcoming_events || {};
 
   const statecontent = stateInfo.content || {};
 
-  console.log("State Page Data:", stateData);
+  console.log("State Page Data:", stateInfo);
 
   return (
     <>
@@ -98,13 +101,13 @@ export default function StatePage() {
           </section>
         </Swimmer>
         <HomeAbout name={decodeURIComponent(location.pathname.split("/")[1])} />
-        <UpcomingEvents />
+        <UpcomingEvents events={state_events} />
         <HomeRecords stats={state_stats} />
         <BestRecords />
 
         <HomeClub />
-        <HomeGallery />
-        <HomeNews />
+        <HomeGallery gallery={state_gallery} />
+        <HomeNews news={state_news} />
         <Footer />
       </div>
     </>

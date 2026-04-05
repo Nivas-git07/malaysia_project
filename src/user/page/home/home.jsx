@@ -22,7 +22,8 @@ export default function Home() {
   const homeData = data?.data || {};
   const homeStats = homeData.stats || {};
   const homeevents = homeData.upcoming_events || {};
-  const homenews = homeData.latest_news || {}
+  const homenews = homeData.latest_news || {};
+  const homegallery = homeData.gallery || {};
   console.log(homeData);
   return (
     <div className="home-page">
@@ -73,8 +74,8 @@ export default function Home() {
 
       <BestRecordsX />
       <StateNetworkX />
-      <HomeGallery />
-      <HomeNews news={homenews}/>
+      <HomeGallery gallery={homegallery} />
+      <HomeNews news={homenews} />
       <Footer />
     </div>
   );
