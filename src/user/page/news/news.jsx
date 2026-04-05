@@ -30,9 +30,18 @@ export default function News() {
           {basePath && (
             <nav className="heroNav">
               <ul>
+                {isState && (
                 <li>
-                  <NavLink to="/membershipabout">MEMBERSHIP</NavLink>
+                  <NavLink to={`/state/${stateId}`}>Home</NavLink>
                 </li>
+              )}
+              {isClub && (
+                <li>
+                  <NavLink to={`/state/${stateId}/club/${clubId}`}>
+                    Home
+                  </NavLink>
+                </li>
+              )}
 
                 {isState && (
                   <li>

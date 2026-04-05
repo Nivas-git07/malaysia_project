@@ -27,10 +27,19 @@ export default function About() {
         {basePath && (
           <nav className="heroNav">
             <ul>
-              <li>
-                <NavLink to="/membershipabout">MEMBERSHIP</NavLink>
-              </li>
-              
+              {isState && (
+                <li>
+                  <NavLink to={`/state/${stateId}`}>Home</NavLink>
+                </li>
+              )}
+              {isClub && (
+                <li>
+                  <NavLink to={`/state/${stateId}/club/${clubId}`}>
+                    Home
+                  </NavLink>
+                </li>
+              )}
+
               {isState && (
                 <li>
                   <NavLink to={`${basePath}/association`}>CLUBS</NavLink>

@@ -5,9 +5,17 @@ import Footer from "../../layout/footer";
 import Swimmer from "../../layout/swimmer";
 import FeaturedAthletes from "../../components/athletecomponent/featuredathelete";
 import FindAthlete from "../../components/athletecomponent/atheletegrid";
-
+import { NavLink } from "react-router-dom";
 export default function ALLAthelete() {
   const { stateId, clubId } = useParams();
+  const basePath = stateId
+    ? clubId
+      ? `/state/${stateId}/club/${clubId}`
+      : `/state/${stateId}`
+    : "";
+
+  const isClub = !!clubId;
+  const isState = !!stateId && !clubId;
 
   const { data: athleteData, isError } = useQuery({
     queryKey: ["clubAthlete", clubId],
@@ -40,6 +48,51 @@ export default function ALLAthelete() {
             Discover talents, achievements, and profiles.
           </p>
         </div>
+        {basePath && (
+          <nav className="heroNav">
+            <ul>
+              {isState && (
+                <li>
+                  <NavLink to={`/state/${stateId}`}>Home</NavLink>
+                </li>
+              )}
+              {isClub && (
+                <li>
+                  <NavLink to={`/state/${stateId}/club/${clubId}`}>
+                    Home
+                  </NavLink>
+                </li>
+              )}
+
+              {isState && (
+                <li>
+                  <NavLink to={`${basePath}/association`}>CLUBS</NavLink>
+                </li>
+              )}
+
+              {isClub && (
+                <li>
+                  <NavLink to={`${basePath}/athlete`}>ATHLETES</NavLink>
+                </li>
+              )}
+              <li>
+                <NavLink to={basePath ? `${basePath}/event` : "/event"}>
+                  EVENTS
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={basePath ? `${basePath}/news` : "/news"}>
+                  NEWS
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={basePath ? `${basePath}/about` : "/about"}>
+                  ABOUT
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+        )}
       </Swimmer>
 
       {athletes.length > 0 ? (

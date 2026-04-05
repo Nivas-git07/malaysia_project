@@ -52,9 +52,18 @@ export default function Association() {
         {basePath && (
           <nav className="heroNav">
             <ul>
-              <li>
-                <NavLink to="/membership">MEMBERSHIP</NavLink>
-              </li>
+              {isState && (
+                <li>
+                  <NavLink to={`/state/${stateId}`}>Home</NavLink>
+                </li>
+              )}
+              {isClub && (
+                <li>
+                  <NavLink to={`/state/${stateId}/club/${clubId}`}>
+                    Home
+                  </NavLink>
+                </li>
+              )}
 
               {isState && (
                 <li>
