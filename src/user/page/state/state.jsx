@@ -43,9 +43,11 @@ export default function StatePage() {
 
   console.log("State Page Data:", stateInfo);
 
+  
+
   return (
     <>
-      <div className="home-page" key={location.pathname}>
+      <div className="home-page" >
         <Swimmer>
           <section className="hero">
             <video autoPlay muted loop className="heroVideo">
@@ -100,7 +102,7 @@ export default function StatePage() {
             </nav>
           </section>
         </Swimmer>
-        <HomeAbout name={decodeURIComponent(location.pathname.split("/")[1])} />
+        <HomeAbout name={statecontent.state_name} />
         <UpcomingEvents events={state_events} />
         <HomeRecords stats={state_stats} />
         <BestRecords />

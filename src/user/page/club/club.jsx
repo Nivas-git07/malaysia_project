@@ -42,6 +42,9 @@ export default function ClubPage() {
   console.log("Club Page Data:", clubInfo);
   const club_stats = clubInfo.stats || {};
   const clubcontent = clubInfo.content || {};
+  const clubgallery = clubInfo.gallery || {};
+  const clubnews = clubInfo.latest_news || {};
+  const clubevent = clubInfo.upcoming_events || {};
 
   return (
     <>
@@ -100,14 +103,14 @@ export default function ClubPage() {
             </ul>
           </nav>
         </Swimmer>
-        <HomeAbout name={decodeURIComponent(location.pathname.split("/")[3])} />
-        <UpcomingEvents />
+        <HomeAbout name={clubcontent.club_name} />
+        <UpcomingEvents events={clubevent} />
         <HomeRecords stats={club_stats} />
         <BestRecords />
 
         {/* <HomeClub /> */}
-        <HomeGallery />
-        <HomeNews />
+        <HomeGallery gallery={clubgallery} />
+        <HomeNews news={clubnews} />
         <Footer />
       </div>
     </>

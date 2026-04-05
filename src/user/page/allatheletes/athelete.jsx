@@ -27,6 +27,8 @@ export default function ALLAthelete() {
 
   const athletes = athleteData?.data || [];
 
+  console.log(athletes)
+
   if (!athleteData && !isError) return null;
 
   if (isError || !clubId) {

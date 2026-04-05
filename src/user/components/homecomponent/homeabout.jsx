@@ -78,7 +78,7 @@ export default function HomeAbout({ name }) {
           <h4 className="mfsaAboutX-subtitle fade-up">WHO WE ARE</h4>
 
           <h2 className="mfsaAboutX-title fade-up delay-1">
-            The Governing Body of Finswimming in Malaysia
+            The Governing Body of Finswimming in {name || "Malaysia"}
           </h2>
 
           <p className="mfsaAboutX-text fade-up delay-2">
