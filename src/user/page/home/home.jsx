@@ -10,6 +10,7 @@ import StateNetworkX from "../../components/homecomponent/assosiationstate";
 import { useQuery } from "@tanstack/react-query";
 import { get_home } from "../../api/home_api";
 import { useNavigate } from "react-router-dom";
+
 export default function Home() {
   const navigate = useNavigate();
   const { data, isLoading, error } = useQuery({
@@ -20,6 +21,8 @@ export default function Home() {
   });
   const homeData = data?.data || {};
   const homeStats = homeData.stats || {};
+  const homeevents = homeData.upcoming_events || {};
+  const homenews = homeData.latest_news || {}
   console.log(homeData);
   return (
     <div className="home-page">
@@ -65,13 +68,13 @@ export default function Home() {
       </Swimmer>
       <HomeAbout name="Malaysia" />
 
-      <UpcomingEvents />
+      <UpcomingEvents event={homeevents} />
       <HomeRecords stats={homeStats} />
 
       <BestRecordsX />
       <StateNetworkX />
       <HomeGallery />
-      <HomeNews />
+      <HomeNews news={homenews}/>
       <Footer />
     </div>
   );

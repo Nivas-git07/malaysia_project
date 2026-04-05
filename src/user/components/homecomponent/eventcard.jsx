@@ -1,12 +1,11 @@
 import { FiMapPin } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
-export default function EventCardX({ bg, title, date, location }) {
+export default function EventCardX({ id,bg, title, date, location }) {
   const navigate = useNavigate();
 
   return (
     <div className="mfsaEventX-card">
-
       {/* IMAGE */}
       <div className="mfsaEventX-imgWrap">
         <img src={bg} alt="event" />
@@ -17,7 +16,6 @@ export default function EventCardX({ bg, title, date, location }) {
 
       {/* CONTENT */}
       <div className="mfsaEventX-body">
-
         <h3 className="mfsaEventX-title">{title}</h3>
 
         <div className="mfsaEventX-location">
@@ -27,13 +25,11 @@ export default function EventCardX({ bg, title, date, location }) {
 
         <button
           className="mfsaEventX-btn"
-          onClick={() => navigate("/eventview")}
+          onClick={() => navigate(`/eventview/${id}`)}
         >
           Register Now
         </button>
-
       </div>
-
     </div>
   );
 }
