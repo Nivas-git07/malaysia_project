@@ -7,3 +7,4 @@ export const getclublist = (id) => {
 export const get_state_page = (state_id) => {
   return API.get(`/user/get_state_page/?state_id=${state_id}`);
 };
+

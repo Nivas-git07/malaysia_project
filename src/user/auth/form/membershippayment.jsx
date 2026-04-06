@@ -5,28 +5,41 @@ import { membrship_purchase } from "../../api/auth";
 import { get_state } from "../../api/auth";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-export default function MembershipPayment({ plan, amount }) {
+import { useNavigate } from "react-router-dom";
+export default function MembershipPayment({ plan, amount, user }) {
+  const navigate = useNavigate();
   const [Transaction, setTransaction] = useState({
     Transaction_id: "",
     club: "",
     receipt_image: null,
     notes: "",
-    amount: amount,
+    amount_paid: amount,
   });
-
 
   const membershippurchase = async () => {
     const formData = new FormData();
-
-    formData.append("Transaction_id", Transaction.Transaction_id);
+    formData.append("user", user);
+    formData.append("transaction_id", Transaction.Transaction_id);
     formData.append("club", Transaction.club);
     // formData.append("notes", Transaction.notes);
-    formData.append("amount", Transaction.amount);
-    formData.append("receipt_image", Transaction.receipt_image);
+    formData.append("amount_paid", Transaction.amount_paid);
+
+    if (Transaction.receipt_image) {
+      formData.append("receipt_image", Transaction.receipt_image);
+    }
+
+    console.log(
+      Transaction.amount_paid,
+      Transaction.club,
+      Transaction.receipt_image,
+      Transaction.Transaction_id,
+    );
 
     try {
       const response = await membrship_purchase(formData);
       console.log(response.data);
+      alert("Membership purchased successfully 🎉");
+      navigate("/");
     } catch (e) {
       console.log(e.response?.data);
     }
@@ -89,10 +102,10 @@ export default function MembershipPayment({ plan, amount }) {
               >
                 <FaCloudUploadAlt />
                 <p>Click or drag and drop your receipt here</p>
-               
+
                 <span>PNG, JPG or PDF up to 5MB</span>
               </div>
-               <p>{Transaction.receipt_image?.name || "No file selected"}</p>
+              <p>{Transaction.receipt_image?.name || "No file selected"}</p>
             </div>
 
             <input
@@ -119,7 +132,11 @@ export default function MembershipPayment({ plan, amount }) {
             </div>
 
             <div className="formActions">
-              <button className="btnPrimary" onClick={membershippurchase}  disabled={!Transaction.Transaction_id || !Transaction.club}>
+              <button
+                className="btnPrimary"
+                onClick={membershippurchase}
+                disabled={!Transaction.Transaction_id || !Transaction.club}
+              >
                 Submit Membership
               </button>
               <button className="btnOutline">Back to Plans</button>

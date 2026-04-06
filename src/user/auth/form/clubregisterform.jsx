@@ -5,7 +5,7 @@ import { club_register } from "../../api/auth";
 import MembershipX from "./membershipform";
 import Registermembershipsubmission from "../../page/register/registermemsubmission";
 import MembershipPayment from "./membershippayment";
-export default function ClubRegisterFlow({ onStepChange , step, setStep}) {
+export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
   console.log("Current Step:", step);
   const [formData, setFormData] = useState({
     club: {
@@ -28,8 +28,6 @@ export default function ClubRegisterFlow({ onStepChange , step, setStep}) {
       amount: 0,
     },
   });
-
-  
 
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
@@ -84,6 +82,14 @@ export default function ClubRegisterFlow({ onStepChange , step, setStep}) {
 
       if (response.status === 200 || response.status === 201) {
         alert("Club Registration successful 🎉");
+        setFormData((prev) => ({
+        ...prev,
+        club: {
+          ...prev.club,
+          id: response.data.id,        
+          state: response.data.state, 
+        },
+      }));
         nextStep();
       }
     } catch (e) {
@@ -99,8 +105,8 @@ export default function ClubRegisterFlow({ onStepChange , step, setStep}) {
       ...prev,
       membership: {
         plan: planData,
-        planType: type, // ✅ store type
-        amount: amount, // ✅ store correct price
+        planType: type,
+        amount: amount,
       },
     }));
 
@@ -119,6 +125,7 @@ export default function ClubRegisterFlow({ onStepChange , step, setStep}) {
         <MembershipPayment
           plan={formData.membership.plan}
           amount={formData.membership.amount}
+          user={formData.club.id}     
         />
       )}
     </>

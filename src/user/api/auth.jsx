@@ -84,7 +84,7 @@ export const get_state = () => {
 
 export const membrship_purchase = (formdata) => {
   console.log("Membership Data:", formdata);
-  return API.post("/auth/purchase_membership/", formdata, {
+  return API.post("/user/purchase_membership/", formdata, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
