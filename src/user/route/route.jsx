@@ -54,6 +54,11 @@ function Page() {
         <Route path="registermembership" element={<Registermembership />} />
         <Route path="membershipabout" element={<Membership />} />
         <Route path="gallery" element={<Gallery />} />
+        <Route path="/state/:stateId/gallery" element={<Gallery />} />
+        <Route
+          path="/state/:stateId/club/:clubId/gallery"
+          element={<Gallery />}
+        />
         <Route
           path="membershipsubmission"
           element={<Registermembershipsubmission />}

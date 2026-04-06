@@ -25,3 +25,16 @@ export const get_particular_news = ({ clubId, stateId }) => {
     return API.get(`/user/get_state_news/?state_id=${stateId}`);
   }
 };
+
+export const get_gallery = () => {
+  return API.get("/user/get_gaallery_images/");
+};
+
+export const get_particular_gallery = ({ clubId, stateId }) => {
+  if (clubId) {
+    return API.get(`/user/get_gaallery_images/?club_id=${clubId}`);
+  }
+  if (stateId) {
+    return API.get(`/user/get_gaallery_images/?state_id=${stateId}`);
+  }
+};

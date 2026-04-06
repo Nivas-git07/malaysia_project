@@ -1,33 +1,38 @@
-import { FiSearch, FiFilter } from "react-icons/fi";
-import img1 from "../../assets/event1.png";
-import img2 from "../../assets/event2.png";
-import img3 from "../../assets/event3.png";
-import img4 from "../../assets/event4.png";
-import img5 from "../../assets/event5.png";
-import img6 from "../../assets/event6.png";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { get_particular_gallery, get_gallery } from "../../api/home_api";
 import Swimmer from "../../layout/swimmer";
 import Footer from "../../layout/footer";
 export default function Gallery() {
-  const images = [
-    { id: 1, src: img1, tag: "NEW" },
-    { id: 2, src: img2 },
-    { id: 3, src: img3 },
-    { id: 4, src: img4 },
-    { id: 5, src: img5 },
-    { id: 6, src: img6, tag: "POPULAR" },
-  ];
+  const { stateId, clubId } = useParams();
+
+  const params = clubId ? { clubId } : stateId ? { stateId } : null;
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["gallery", stateId, clubId],
+    queryFn: () => (params ? get_particular_gallery(params) : get_gallery()),
+  });
+
+  const galleryList = Array.isArray(data?.data) ? data.data : [];
+
+  const [visibleCount, setVisibleCount] = useState(6);
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 6);
+  };
 
   return (
     <div>
       <Swimmer>
         <div className="homeHeroContent">
-          <h1 className="homeHeroTitle"> Gallery</h1>
+          <h1 className="homeHeroTitle">Gallery</h1>
           <p className="homeHeroSub">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-            commodi
+            Explore memorable moments from our events, training sessions, and
+            competitions.
             <br />
-            Vivamus vehicula, lorem a porttitor porttitor, velit erat amet
-            consectetur
+            Experience the passion, speed, and excellence of our finswimming
+            community.
           </p>
         </div>
       </Swimmer>
@@ -36,49 +41,33 @@ export default function Gallery() {
         <div className="galleryContainer">
           <div className="galleryHeader">
             <h2>Gallery</h2>
-            <p>
-              Explore moments from events, training, and competitions. Witness
-              velocity and grace of Malaysia's finest finswimmers.
-            </p>
-
-            <button className="filterBtn">
-              <FiFilter /> Filter Gallery
-            </button>
+            <p>Explore moments from events and competitions.</p>
           </div>
 
-          <div className="galleryControls">
-            <div className="searchBox">
-              {/* <FiSearch />
-            <input placeholder="Search by keyword..." /> */}
+          {!isLoading && (isError || galleryList.length === 0) && (
+            <div className="mfsaEmptyState">
+              <p>No gallery images available.</p>
             </div>
-
-            <div className="tabs">
-              <button className="active">All</button>
-              <button>Events</button>
-              <button>Training</button>
-              <button>Competition</button>
-            </div>
-          </div>
+          )}
 
           <div className="galleryGrid">
-            {images.map((item) => (
-              <div className="galleryCard" key={item.id}>
-                {item.tag && <span className="badge">{item.tag}</span>}
-
-                <img src={item.src} alt="" />
+            {galleryList.slice(0, visibleCount).map((item, index) => (
+              <div className="galleryCard" key={item.id || index}>
+                <img src={item.image || img1} alt="gallery" />
               </div>
             ))}
           </div>
 
-          <div className="galleryFooter">
-            <p>Showing 6 of 120 moments</p>
-
-            <div className="line"></div>
-
-            <button className="loadBtn">Load More Memories</button>
-          </div>
+          {visibleCount < galleryList.length && (
+            <div className="galleryFooter">
+              <button className="loadBtn" onClick={handleLoadMore}>
+                Load More Memories
+              </button>
+            </div>
+          )}
         </div>
       </section>
+
       <Footer />
     </div>
   );
