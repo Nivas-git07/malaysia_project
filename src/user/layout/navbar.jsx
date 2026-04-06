@@ -58,7 +58,7 @@ function Navbar() {
           <img src={logo} alt="logo" />
         </div>
 
-        <ul className="mfsaPro-menu mfsaPro-left">
+        <ul className="mfsaPro-menu mfsaPro-right">
           <li
             className={location.pathname === "/news" ? "active" : ""}
             onClick={() => navigate("/news")}
@@ -78,7 +78,7 @@ function Navbar() {
           >
             CONTACT
           </li>
-          <div className="mfsaPro-user">
+          <li>
             <button
               className="btnOutsline"
               onClick={() => {
@@ -87,6 +87,8 @@ function Navbar() {
             >
               MEMBER
             </button>
+          </li>
+          <li>
             <button
               className="btnFill"
               onClick={() => {
@@ -95,9 +97,7 @@ function Navbar() {
             >
               LOG IN
             </button>
-            {/* <img src="https://static.vecteezy.com/system/resources/previews/009/734/564/non_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg" />
-          <span>Nivas</span> */}
-          </div>
+          </li>
         </ul>
       </div>
     </nav>

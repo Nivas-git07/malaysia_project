@@ -39,6 +39,11 @@ function Page() {
           path="state/:stateId/club/:clubId/athletes"
           element={<AllAthelete />}
         />
+         <Route
+          path="/athletes"
+          element={<AllAthelete />}
+        />
+        
         <Route path="association" element={<Association />} />
         <Route path="state/:stateId/association" element={<Association />} />
         <Route path="athelete" element={<Athelete />} />

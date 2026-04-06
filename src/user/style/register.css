@@ -169,7 +169,7 @@ body{
 /* CONTAINER */
 .mfsaPro-container {
   width: 100%;
-  padding: 0 60px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   position: relative;
@@ -192,7 +192,8 @@ body{
 /* 🔥 RIGHT MENU */
 .mfsaPro-right {
   justify-content: space-evenly; /* spread items */
-  padding-left: 80px; /* space near logo */
+  /* padding-left: 80px; space near logo */
+  
 }
 
 /* MENU ITEMS */

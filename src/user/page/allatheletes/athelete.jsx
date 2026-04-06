@@ -29,15 +29,15 @@ export default function ALLAthelete() {
 
   console.log(athletes)
 
-  if (!athleteData && !isError) return null;
+  // if (!athleteData && !isError) return null;
 
-  if (isError || !clubId) {
-    return (
-      <div className="emptyState">
-        <h3>Failed to load athletes</h3>
-      </div>
-    );
-  }
+  // if (isError || !clubId) {
+  //   return (
+  //     <div className="emptyState">
+  //       <h3>Failed to load athletes</h3>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>

@@ -38,7 +38,13 @@ export default function Footer() {
         <div className="footCol">
           <h4>Explore</h4>
           <ul>
-            <li>About us</li>
+            <li
+              onClick={() => {
+                navigate("/about");
+              }}
+            >
+              About us
+            </li>
             <li>Committee</li>
             <li>Privacy policy</li>
             <li>Terms of Use</li>
@@ -49,10 +55,34 @@ export default function Footer() {
           <h4>Quick Access</h4>
           <ul>
             <li>FAQ's</li>
-            <li>Events</li>
-            <li>Contact</li>
-            <li>Clubs</li>
-            <li>Athletes</li>
+            <li
+              onClick={() => {
+                navigate("/event");
+              }}
+            >
+              Events
+            </li>
+            <li
+              onClick={() => {
+                navigate("/contact");
+              }}
+            >
+              Contact
+            </li>
+            <li
+              onClick={() => {
+                navigate("/association");
+              }}
+            >
+              State
+            </li>
+            <li
+              onClick={() => {
+                navigate("/athletes");
+              }}
+            >
+              Athletes
+            </li>
           </ul>
         </div>
 
