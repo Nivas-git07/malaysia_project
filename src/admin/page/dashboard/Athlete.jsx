@@ -116,7 +116,7 @@ const filteredData = data.filter((item) => {
               <option value="andhra">Andhra Pradesh</option>
             </select>
 
-            <button className="findBtn">Find Athlete</button>
+            <button className="findsBtn">Find Athlete</button>
 
           </div>
 

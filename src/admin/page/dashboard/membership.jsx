@@ -113,7 +113,7 @@ function ManageUser() {
                 <option value="REJECTED">Rejected</option>
                 <option value="PENDING">pending</option>
               </select>
-              <button className="findBtn">Find Athlete</button>
+              <button className="findsBtn">Find Athlete</button>
             </div>
           </div>
 

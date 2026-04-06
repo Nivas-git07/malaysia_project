@@ -39,7 +39,7 @@
 
 /* Button */
 
-.findBtn{
+.findsBtn{
   padding:12px 24px;
   background:#c10000;
   color:white;
@@ -52,7 +52,7 @@
 
 
 
-.findBtn:hover{
+.findsBtn:hover{
   background:#a00000;
 }
 
