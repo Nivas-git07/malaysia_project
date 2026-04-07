@@ -2,6 +2,8 @@ import Swimmer from "../../layout/swimmer";
 import AboutPageX from "../../components/aboutcomponent/aboutcontent";
 import Footer from "../../layout/footer";
 import { NavLink, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getclubabout } from "../../api/club";
 export default function About() {
   const { stateId, clubId } = useParams();
   const isClub = !!clubId;
@@ -11,6 +13,15 @@ export default function About() {
       ? `/state/${stateId}/club/${clubId}`
       : `/state/${stateId}`
     : "";
+
+  const { data: aboutData, isLoading } = useQuery({
+    queryKey: ["aboutPage", clubId, stateId],
+    queryFn: () => getclubabout({ clubId, stateId }),
+    enabled: !!clubId || !!stateId,
+  });
+
+  const aboutInfo = aboutData?.data;
+  console.log("the about page content ",aboutInfo)
   return (
     <>
       <Swimmer>
@@ -71,7 +82,7 @@ export default function About() {
           </nav>
         )}
       </Swimmer>
-      <AboutPageX />
+      <AboutPageX aboutInfo={aboutInfo} />
       <Footer />
     </>
   );

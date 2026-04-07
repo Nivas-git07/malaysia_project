@@ -5,7 +5,10 @@ import Preview from "../../hook/preview/preview";
 import { getabout } from "../../api/about_api";
 import { useQuery } from "@tanstack/react-query";
 import { editabout } from "../../api/about_api";
+import { useNavigate } from "react-router-dom";
+import Aboutpreview from "../../previewtemplate/aboutpreview";
 export default function About() {
+  const navigate = useNavigate();
   const { data: aboutData, isLoading } = useQuery({
     queryKey: ["aboutContent"],
     queryFn: getabout,
@@ -57,10 +60,6 @@ export default function About() {
     console.log("SAVE DATA:", payload);
     const response = editabout(payload);
     console.log("API Response:", response);
-
-
-    // 👉 Call your API here
-    // updateAbout(payload)
   };
 
   return (
@@ -69,7 +68,6 @@ export default function About() {
 
       <div className="mu-membership-wrapper">
         <div className="mfsaAboutAdminX-container">
-          {/* HEADER */}
           <div className="mfsaAboutAdminX-header">
             <h2>Edit About Content</h2>
             <p>
@@ -78,9 +76,7 @@ export default function About() {
             </p>
           </div>
 
-          {/* CARD */}
           <div className="mfsaAboutAdminX-card">
-            {/* ABOUT */}
             <div className="mfsaAboutAdminX-group">
               <label>About MFSA</label>
               <textarea
@@ -93,7 +89,6 @@ export default function About() {
               </span>
             </div>
 
-            {/* VISION */}
             <div className="mfsaAboutAdminX-group">
               <label>Our Vision</label>
               <textarea
@@ -103,7 +98,6 @@ export default function About() {
               />
             </div>
 
-            {/* MISSION */}
             <div className="mfsaAboutAdminX-group">
               <div className="mfsaAboutAdminX-missionHeader">
                 <label>Our Mission Points</label>
@@ -131,7 +125,6 @@ export default function About() {
               </button>
             </div>
 
-            {/* ACTIONS */}
             <div className="mfsaAboutAdminX-actions">
               <button className="mfsaAboutAdminX-btnOutline">Cancel</button>
 
@@ -145,8 +138,29 @@ export default function About() {
           </div>
         </div>
 
-        {/* PREVIEW SECTION */}
-        <Preview />
+        <div className="mfsaPreviewX-section">
+          <div className="mfsaPreviewX-card">
+            <div className="mfsaPreviewX-content">
+              <span className="mfsaPreviewX-badge">PREVIEW MODE</span>
+
+              <h3>Need a Live Preview?</h3>
+
+              <p>
+                View how your changes will appear to association members before
+                hitting publish.
+              </p>
+
+              <button
+                className="mfsaPreviewX-btn"
+                onClick={() => {
+                  navigate("/aboutpreview");
+                }}
+              >
+                Open Preview Page <FiArrowRight />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

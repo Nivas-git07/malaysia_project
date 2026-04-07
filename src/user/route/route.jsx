@@ -18,6 +18,7 @@ import Registermembership from "../page/register/registermembership";
 import Membership from "../page/membership/membership";
 import Gallery from "../page/gallery/gallery";
 import Registermembershipsubmission from "../page/register/registermemsubmission";
+import Aboutpreview from "../../admin/previewtemplate/aboutpreview";
 function Page() {
   return (
     <>
@@ -39,11 +40,8 @@ function Page() {
           path="state/:stateId/club/:clubId/athletes"
           element={<AllAthelete />}
         />
-         <Route
-          path="/athletes"
-          element={<AllAthelete />}
-        />
-        
+        <Route path="/athletes" element={<AllAthelete />} />
+
         <Route path="association" element={<Association />} />
         <Route path="state/:stateId/association" element={<Association />} />
         <Route path="athelete" element={<Athelete />} />
@@ -68,6 +66,7 @@ function Page() {
           path="membershipsubmission"
           element={<Registermembershipsubmission />}
         />
+        <Route path="aboutpreview" element={Aboutpreview} />
       </Routes>
     </>
   );

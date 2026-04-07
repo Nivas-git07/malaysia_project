@@ -8,10 +8,10 @@ export default function StateAssociationX({ data, type }) {
   const { stateName, stateId } = useParams();
   const navigate = useNavigate();
 
-  // ✅ NEW STATE
+
   const [visibleCount, setVisibleCount] = useState(8);
 
-  // ✅ Slice data
+
   const visibleData = data.slice(0, visibleCount);
 
   return (

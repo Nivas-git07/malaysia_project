@@ -3,26 +3,14 @@ import { useParams } from "react-router-dom";
 import { getclubabout } from "../../api/club";
 import { FaFlag, FaEye } from "react-icons/fa";
 
-export default function AboutPageX() {
+export default function AboutPageX({ aboutInfo }) {
   const { clubId, stateId } = useParams();
-
-  const { data: aboutData, isLoading } = useQuery({
-    queryKey: ["aboutPage", clubId, stateId],
-    queryFn: () => getclubabout({ clubId, stateId }),
-    enabled: !!clubId || !!stateId,
-  });
-
-  const aboutInfo = aboutData?.data;
-
- 
+  console.log(aboutInfo)
 
   return (
     <section className="mfsaAboutPageX-section">
       <div className="mfsaAboutPageX-container">
-
-     
         <div className="mfsaAboutPageX-topCard">
-
           <div className="mfsaAboutPageX-left">
             <span className="mfsaAboutPageX-sub">INTRODUCTION</span>
 
@@ -30,11 +18,10 @@ export default function AboutPageX() {
               {aboutInfo?.club_name
                 ? `About ${aboutInfo.club_name}`
                 : aboutInfo?.state_name
-                ? `About ${aboutInfo.state_name}`
-                : "About"}
+                  ? `About ${aboutInfo.state_name}`
+                  : "About"}
             </h2>
 
-           
             {aboutInfo?.about ? (
               <p>{aboutInfo.about}</p>
             ) : (
@@ -43,11 +30,7 @@ export default function AboutPageX() {
               </div>
             )}
 
-       
-            {aboutInfo?.description && (
-              <p>{aboutInfo.description}</p>
-            )}
-
+            {aboutInfo?.description && <p>{aboutInfo.description}</p>}
           </div>
 
           <div className="mfsaAboutPageX-right">
@@ -59,10 +42,7 @@ export default function AboutPageX() {
           </div>
         </div>
 
-  
         <div className="mfsaAboutPageX-bottom">
-
-    
           <div className="mfsaAboutPageX-card">
             <div className="mfsaAboutPageX-icon">
               <FaFlag />
@@ -79,7 +59,6 @@ export default function AboutPageX() {
             )}
           </div>
 
-    
           <div className="mfsaAboutPageX-card">
             <div className="mfsaAboutPageX-icon red">
               <FaEye />
@@ -95,9 +74,7 @@ export default function AboutPageX() {
               </div>
             )}
           </div>
-
         </div>
-
       </div>
     </section>
   );

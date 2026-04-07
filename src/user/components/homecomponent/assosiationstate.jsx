@@ -242,7 +242,7 @@ export default function StateNetworkX() {
                     />
                   ))}
 
-                  {/* POLYGONS */}
+                 
                   {state.polyCoords?.map((coords, i) => (
                     <area
                       key={`poly-${i}`}
@@ -255,7 +255,7 @@ export default function StateNetworkX() {
                     />
                   ))}
 
-                  {/* CIRCLES */}
+                  
                   {state.circleCoords?.map((coords, i) => (
                     <area
                       key={`circle-${i}`}
@@ -285,17 +285,17 @@ export default function StateNetworkX() {
                 onMouseLeave={() => setActive(null)}
               >
                 <div className="popup-card">
-                  {/* IMAGE */}
+               
                   <div className="popup-img">
                     <img src={active.image} alt={active.name} />
                   </div>
 
-                  {/* CONTENT */}
+                 
                   <div className="popup-content">
-                    {/* TITLE */}
+                   
                     <h4 className="popup-title">{active.name}</h4>
 
-                    {/* STATS */}
+              
                     <div className="popup-stats">
                       <div className="statItem">
                         <span>Clubs</span>
