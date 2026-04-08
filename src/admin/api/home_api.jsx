@@ -1,25 +1,25 @@
 import API from "../../user/api/axiosmodal";
 
 export const homeData = () => {
-  return API.get("/super/get_admin_home");
+  return API.get("/super/get-admin-home");
 }
 
 export const getClubList = () => {
-  return API.get("/super/get_club_list/");
+  return API.get("/super/get-club-list/");
 }
 
 export const getathleteList = () => {
-  return API.get("/super/get_athlete_list/");
+  return API.get("/super/get-athlete-list/");
 }
 
 export const athletedata = (id) => {
-  return API.get(`/super/get_athlete_list/?id=${id}`);
+  return API.get(`/super/get-athlete-list/?id=${id}`);
 }
 
 export const statedata = (id) => {
-  return API.get(`/super/get_club_list/?id=${id}`);
+  return API.get(`/super/get-club-list/?id=${id}`);
 }
 
 export const checksession = () => {
-  return API.get("/auth/check_session/");
+  return API.get("/auth/check-session/");
 }

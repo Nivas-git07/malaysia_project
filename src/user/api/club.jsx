@@ -1,7 +1,7 @@
 import API from "./axiosmodal";
 
 export const getclubpage = async (clubId) => {
-  return API.get(`/user/get_club_page/?club_id=${clubId}`);
+  return API.get(`/user/get-club-page/?club_id=${clubId}`);
 };
 
 export const getclubabout = async ({ clubId, stateId }) => {
@@ -12,16 +12,16 @@ export const getclubabout = async ({ clubId, stateId }) => {
     stateId,
   );
   if (clubId) {
-    return API.get(`/user/get_about_page/?club_id=${clubId}`);
+    return API.get(`/user/get-about-page/?club_id=${clubId}`);
   }
 
   if (stateId) {
-    return API.get(`/user/get_about_page/?state_id=${stateId}`);
+    return API.get(`/user/get-about-page/?state_id=${stateId}`);
   }
 
   throw new Error("No ID provided");
 };
 
 export const getclubathlete = (clubId) => {
-  return API.get(`/user/athletes_list/?club_id=${clubId}`);
+  return API.get(`/user/athletes-list/?club_id=${clubId}`);
 };

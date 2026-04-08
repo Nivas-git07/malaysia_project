@@ -23,7 +23,7 @@ export const athelete_register = (
     password,
   );
 
-  return API.post("/auth/athlette_register/", {
+  return API.post("/auth/athlette-register/", {
     gov_id,
     email_id,
     full_name,
@@ -63,7 +63,7 @@ export const club_register = (
     mission,
   );
 
-  return API.post("/auth/club_register/", {
+  return API.post("/auth/club-register/", {
     email_id,
     password,
     full_name,
@@ -79,12 +79,12 @@ export const club_register = (
 };
 
 export const get_state = () => {
-  return API.get("/user/get_all_states/");
+  return API.get("/user/get-all-states/");
 };
 
 export const membrship_purchase = (formdata) => {
   console.log("Membership Data:", formdata);
-  return API.post("/user/purchase_membership/", formdata, {
+  return API.post("/user/purchase-membership/", formdata, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
