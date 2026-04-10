@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { geteventdetails } from "../../api/event";
 
+
 export default function EventDetailX() {
   const { eventId } = useParams();
 
@@ -34,8 +35,10 @@ export default function EventDetailX() {
     <section className="mfsaEventDetailX-section">
       <div className="mfsaEventDetailX-container">
         {/* ===== TOP BANNER ===== */}
-        <div className="mfsaEventDetailX-banner">
-          <span className="badges">FEATURED EVENT</span>
+        <div className="mfsaEventDetailX-banner" style={{
+          backgroundImage: `url(${event.image})`
+        }}>
+          {/* <span className="badges">FEATURED EVENT</span> */}
 
           <h1>{event.event_name || "Event Name"}</h1>
 

@@ -2,8 +2,6 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import ScrollToTop from "../hooks/scrolltotop";
 import PageWrapper from "../hooks/animateroute";
-
-// pages
 import Register from "../page/register/register";
 import Login from "../page/login/login";
 import Home from "../page/home/home";
