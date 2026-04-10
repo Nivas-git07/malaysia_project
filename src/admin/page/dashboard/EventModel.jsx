@@ -4,8 +4,12 @@ import { postevent } from "../../api/event_api";
 import { editevent } from "../../api/event_api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useQueryClient } from "@tanstack/react-query";
+import { FiX } from "react-icons/fi";
 export default function EventModal({ close, data }) {
   console.log("EventModal received data:", data);
+  const queryClient = useQueryClient();
+  const [highlights, setHighlights] = useState([""]);
   const [form, setForm] = useState({
     event_name: "",
     description: "",
@@ -17,6 +21,20 @@ export default function EventModal({ close, data }) {
     visibility: "PUBLIC",
     status: "DRAFT"
   });
+  const handleHighlightChange = (index, value) => {
+    const updated = [...highlights];
+    updated[index] = value;
+    setHighlights(updated);
+  };
+
+  const addHighlight = () => {
+    setHighlights([...highlights, ""]);
+  };
+
+  const removeHighlight = (index) => {
+    const updated = highlights.filter((_, i) => i !== index);
+    setHighlights(updated.length ? updated : [""]);
+  };
 
   const handleChange = (e) => {
     setForm({
@@ -44,6 +62,10 @@ export default function EventModal({ close, data }) {
     formData.append("visibility", form.visibility);
     formData.append("organized_by", form.organizer);
     formData.append("status", form.status);
+    formData.append(
+      "highlight",
+      JSON.stringify(highlights.filter(h => h.trim() !== ""))
+    );
     formData.append("time", form.time);
     if (form.image) {
       formData.append("image", form.image);
@@ -51,7 +73,8 @@ export default function EventModal({ close, data }) {
     if (data && data[0]?.id) {
       editevent(data[0]?.id, formData)
         .then(() => {
-          alert("Event updated successfully!");
+          alert("Edit updated successfully!");
+          queryClient.invalidateQueries(["events"]);
           close();
         })
         .catch((err) => {
@@ -62,7 +85,8 @@ export default function EventModal({ close, data }) {
     else {
       postevent(formData)
         .then(() => {
-          alert("Event saved successfully!");
+          alert("Event saved successfully !");
+          queryClient.invalidateQueries(["events"]);
           close();
         })
         .catch((err) => {
@@ -85,6 +109,22 @@ export default function EventModal({ close, data }) {
         status: data[0]?.status || "DRAFT",
         image: null
       });
+
+    
+      let parsedHighlights = [""];
+
+      if (data[0]?.highlight) {
+        try {
+          parsedHighlights =
+            typeof data[0].highlight === "string"
+              ? JSON.parse(data[0].highlight)
+              : data[0].highlight;
+        } catch (e) {
+          parsedHighlights = [""];
+        }
+      }
+
+      setHighlights(parsedHighlights.length ? parsedHighlights : [""]);
     }
   }, [data]);
 
@@ -131,7 +171,7 @@ export default function EventModal({ close, data }) {
           lang="en-CA"
         /> */}
 
-        <DatePicker 
+        <DatePicker
           selected={form.date ? new Date(form.date) : null}
           onChange={(date) =>
             setForm({
@@ -175,6 +215,43 @@ export default function EventModal({ close, data }) {
           <option value="STATE">State</option>
           <option value="CLUB">Club</option>
         </select>
+
+
+        <label>Event Highlights</label>
+
+        <div className="highlightContainer">
+          {highlights.map((item, index) => (
+            <div className="highlightRow" key={index}>
+              <input
+                type="text"
+                className="highlightInput"
+                placeholder="Enter highlight"
+                value={item}
+                onChange={(e) =>
+                  handleHighlightChange(index, e.target.value)
+                }
+              />
+
+              {index !== 0 && (
+                <button
+                  type="button"
+                  className="removeHighlightBtn"
+                  onClick={() => removeHighlight(index)}
+                >
+                  <FiX />
+                </button>
+              )}
+            </div>
+          ))}
+
+          <button
+            type="button"
+            className="addHighlightBtn"
+            onClick={addHighlight}
+          >
+            + Add Highlight
+          </button>
+        </div>
 
         <label>Status</label>
         <select

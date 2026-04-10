@@ -1302,6 +1302,7 @@
 
 /* ===== MAIN ===== */
 .mfsaEventDetailX-main {
+  margin-top: 50px;
   display: grid;
   grid-template-columns: 320px 1fr;
   gap: 30px;

@@ -66,14 +66,14 @@ letter-spacing:1px;
   background:#c10000;
   color:#fff;
   display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns:2fr 1fr  1fr 0.5fr;
   padding:12px;
   font-weight:600;
 }
 
 .eventRow{
   display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns:2fr 1fr  1fr 0.5fr;
   padding:14px 12px;
   border-bottom:1px solid #eee;
   font-size:14px;
@@ -88,6 +88,64 @@ letter-spacing:1px;
 .editBtn{
   color:#c10000;
   cursor:pointer;
+}
+
+/* container */
+.highlightContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+/* input */
+.highlightInput {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+}
+
+.highlightInput:focus {
+  border-color: #c10000;
+}
+.removeHighlightBtn {
+  border: none;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+  font-size: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* hover effect */
+.removeHighlightBtn:hover {
+  color: #ff4d4f;
+}
+.highlightRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* button */
+.addHighlightBtn {
+  width: fit-content;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 20px;
+  background: #c10000;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.addHighlightBtn:hover {
+  background: #bb1616;
 }
 
 /* ================= MOBILE VIEW ================= */

@@ -97,10 +97,13 @@ export default function EventDetailX() {
             <h4>Event Highlights</h4>
 
             <div className="mfsaEventDetailX-highlights">
-              <div>✔ Professional timing systems</div>
-              <div>✔ Certified officials</div>
-              <div>✔ National ranking points</div>
-              <div>✔ Awards ceremony</div>
+              {event?.highlight &&
+                (typeof event.highlight === "string"
+                  ? JSON.parse(event.highlight)
+                  : event.highlight
+                ).map((item, index) => (
+                  <div key={index}>✔ {item}</div>
+                ))}
             </div>
           </div>
         </div>

@@ -79,7 +79,7 @@ function Calender() {
           <div>Event Title</div>
           <div>Event Date</div>
           <div>Status</div>
-          <div>Visibility</div>
+          {/* <div>Visibility</div> */}
           <div>Action</div>
         </div>
 
@@ -89,7 +89,7 @@ function Calender() {
             <div>{item.event_name}</div>
             <div><DateOnly value={item.date} /></div>
             <div>{item.status}</div>
-            <div>{item.visibility}</div>
+            {/* <div>{item.visibility}</div> */}
             <div
               className="editBtn"
               onClick={() => handleEdit(item.id)}
