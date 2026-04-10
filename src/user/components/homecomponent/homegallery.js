@@ -1,3 +1,4 @@
+import { useState } from "react";
 import g1 from "../../assets/g1.jpg";
 import g2 from "../../assets/g2.jpg";
 import g3 from "../../assets/g3.jpg";
@@ -8,35 +9,52 @@ import g7 from "../../assets/g7.jpg";
 
 import { FiArrowRight } from "react-icons/fi";
 
-export default function HomeGallery(){
+export default function HomeGallery() {
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  return(
+  const images = [g1, g2, g3, g4, g5, g6, g7];
 
-    <section className="homeGallerySection">
+  return (
+    <>
+      <section className="homeGallerySection">
+        
+        {/* HEADER */}
+        <div className="homeGalleryHeader">
+          <h2 className="homeGalleryTitle">GALLERY</h2>
 
-      {/* HEADER */}
-      <div className="homeGalleryHeader">
-        <h2 className="homeGalleryTitle">GALLERY</h2>
-
-        <div className="homeGalleryView">
-          View All <FiArrowRight/>
+          <div className="homeGalleryView">
+            View All <FiArrowRight />
+          </div>
         </div>
-      </div>
 
-      {/* COLLAGE GRID */}
-      <div className="homeGalleryGrid">
+        {/* GRID */}
+        <div className="homeGalleryGrid">
+          {images.map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              alt={`gallery-${index}`}
+              className={`galleryItem g${index + 1}`}
+              onClick={() => setSelectedImage(img)}
+            />
+          ))}
+        </div>
+      </section>
 
-        <img src={g1} className="galleryItem g1"/>
-        <img src={g2} className="galleryItem g2"/>
-        <img src={g3} className="galleryItem g3"/>
-        <img src={g4} className="galleryItem g4"/>
-        <img src={g5} className="galleryItem g5"/>
-        <img src={g6} className="galleryItem g6"/>
-        <img src={g7} className="galleryItem g7"/>
-
-      </div>
-
-    </section>
-
-  )
+      {/* LIGHTBOX MODAL */}
+      {selectedImage && (
+        <div
+          className="lightboxOverlay"
+          onClick={() => setSelectedImage(null)}
+        >
+          <img
+            src={selectedImage}
+            alt="preview"
+            className="lightboxImage"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </>
+  );
 }
