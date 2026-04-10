@@ -1,0 +1,473 @@
+/* ===== FONT (EXACT DASHBOARD STYLE) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+
+
+body {
+  margin: 0;
+  background: #f5f1f3;
+  font-family: 'Inter', sans-serif;
+}
+
+.pageWrapper {
+  position: relative;
+  width: 100%;
+  /* min-height: 100vh; */
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+  position: relative;
+  height: 120px;
+}
+
+/* ===== SEARCH BAR (LIKE IMAGE) ===== */
+
+
+
+.profileContainer{
+  position: relative;   /* IMPORTANT */
+}
+
+
+.profileEditIcon{
+  position:absolute;
+  top:16px;
+  right:16px;
+  width:34px;
+  height:34px;
+  background:#c10000;
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:5;                 /* ⭐ important for mobile tap */
+  touch-action:manipulation; /* ⭐ better mobile click */
+  transition:all 0.25s ease;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* 🔥 HOVER EFFECT */
+.profileEditIcon:hover{
+  transform:translateY(-2px) scale(1.05);
+  box-shadow:0 6px 14px rgba(237,29,36,0.25);
+}
+
+.editPopup{
+  position:absolute;
+  top:10px;      /* ⭐ keep inside container */
+  right:60px;
+  background:#111;
+  color:#fff;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:6px;
+  opacity:0.95;
+  white-space:nowrap;   /* prevents wrapping in mobile */
+  z-index:4;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(-4px);}
+  to{opacity:0.95; transform:translateY(0);}
+}
+
+.discardBtn,
+.saveBtn{
+  transition:all 0.2s ease;
+  cursor:pointer;
+}
+
+/* HOVER */
+.discardBtn:hover{
+  background:#ED1D24;
+  color:#fff;
+}
+
+.saveBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 14px rgba(237,29,36,0.25);
+}
+
+/* CLICK PRESS EFFECT */
+.discardBtn:active,
+.saveBtn:active{
+  transform:scale(0.97);
+  box-shadow:none;
+}
+.editBanner{
+  background: rgba(237, 29, 36, 0.06);
+  color:#c10000;
+  padding:5px 8px;        /* 🔥 smaller box size */
+  border-radius:6px;
+  font-size:17px;
+  font-weight:500;
+  margin-bottom:12px;
+  display:inline-block;   /* ⭐ prevents full-width stretch */
+}
+.readOnlyField{
+  background:#f5f5f5;
+  color:#888;
+  cursor:not-allowed;
+  border:1px solid #e0e0e0;
+}
+/* NAVBAR CONTAINER */
+.navbar{
+  height:90px;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 30px;
+  background:#f3f3f3;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* SEARCH AREA */
+.navSearchWrapper{
+  position:relative;
+  width:420px;
+  max-width:45%;
+  margin-left:40px;
+}
+
+.navSearchInput{
+  width:100%;
+  height:40px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  padding:0 40px 0 15px;
+  background:#f7f7f7;
+  font-size:14px;
+}
+
+.searchIcon{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#888;
+}
+
+/* RIGHT SIDE */
+.navRight{
+  display:flex;
+  align-items:center;
+  gap:45px;
+}
+
+.bell{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.bellDot{
+  position: absolute;
+  top: -6px;
+  right: -6px;
+
+  background-color: red;
+  color: white;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  min-width: 16px;
+  height: 16px;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2px;
+}
+
+/* AVATAR */
+.navAvatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  cursor:pointer;
+  object-fit:cover;
+}
+/* MOBILE DEVICES */
+@media (max-width:768px){
+
+  .navbar{
+    padding:10px 12px;
+  }
+
+  .navSearchWrapper{
+    width:60%;
+  }
+
+  .navSearchInput{
+    padding:8px 34px 8px 10px;
+    font-size:13px;
+  }
+
+  .navRight{
+    gap:12px;
+  }
+
+  .navAvatar{
+    width:30px;
+    height:30px;
+  }
+
+}
+
+/* VERY SMALL PHONES */
+@media (max-width:480px){
+
+  .navSearchWrapper{
+    width:55%;
+  }
+
+  .navSearchInput{
+    font-size:12px;
+  }
+
+  .navAvatar{
+    width:28px;
+    height:28px;
+  }
+
+}
+
+.personalTitle {
+ 
+  height: 50px;
+  padding: 10px 14px;
+
+  background: #ED1D240D;
+  color: #c10000;
+
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+
+  display: flex;
+  align-items: center;
+}
+
+/* ================= CARD ================= */
+
+.profileContainer {
+ margin-top: 30px;
+  background: white;
+  padding: 35px 40px;
+  border-radius: 6px;
+}
+
+
+.avatarBox {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.avatarBox img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.editIcon {
+  position: absolute;
+  bottom: 5px;
+  left: 55px;
+  color: #c10000;
+}
+
+/* FORM GRID */
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.formGroup label {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  padding: 14px;
+  background: #F3F2F3;
+  border: none;
+  font-family: 'Inter', sans-serif;
+}
+
+/* BUTTONS */
+
+.buttonRow {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+}
+
+.discardBtn {
+  width: 45%;
+  padding: 18px;
+  border: 2px solid #c10000;
+  background: transparent;
+  color: #c10000;
+  font-weight: 600;
+}
+
+.saveBtn {
+  width: 45%;
+  padding: 18px;
+  background: #c10000;
+  border: none;
+  color: white;
+  font-weight: 600;
+}
+
+
+@media(max-width:1200px){
+
+/* ===== TITLE BAR ===== */
+.personalTitle{
+  position:relative;   /* ⭐ stops overflow */
+  left:auto;
+  right:auto;
+  top:auto;
+  margin:20px;
+}
+.saveBtn,
+.discardBtn{
+  transition:all 0.2s ease;
+}
+
+@media(max-width:900px){
+  .saveBtn:active,
+  .discardBtn:active{
+    transform:scale(0.96);
+  }
+}
+
+/* ===== MAIN CARD ===== */
+.profileContainer{
+  position:relative;
+  left:auto;
+  top:auto;
+  width:auto;
+  margin:0 20px;
+  padding:24px;
+}
+
+/* ===== FORM GRID ADJUST ===== */
+.formGrid{
+  grid-template-columns:1fr 1fr;
+}
+
+}
+/* ================= TABLET ================= */
+
+@media(max-width:900px){
+
+/* NAVBAR ALIGNMENT (KEEP YOUR DESIGN) */
+.navSearchWrapper{
+  left:70px;
+  right:120px;
+  width:auto;
+  height:44px;
+}
+
+.bell{
+  right:70px;
+}
+
+.navAvatar{
+  right:16px;
+}
+
+/* FORM STACK */
+.formGrid{
+  grid-template-columns:1fr;
+}
+
+/* BUTTONS STACK */
+.buttonRow{
+  flex-direction:column;
+  gap:14px;
+}
+
+.discardBtn,
+.saveBtn{
+  width:100%;
+  padding:14px;
+}
+
+}
+
+/* ================= SMALL MOBILE ================= */
+
+@media(max-width:480px){
+
+.navSearchWrapper{
+  left:60px;
+  right:110px;
+  height:40px;
+  padding:0 12px;
+}
+
+.navSearchInput{
+  font-size:13px;
+}
+
+.personalTitle{
+  font-size:13px;
+  padding:8px 12px;
+}
+
+.profileContainer{
+  padding:18px;
+}
+
+.avatarBox img{
+  width:60px;
+  height:60px;
+}
+
+}
+/* ================= MOBILE ONLY — REDUCE SEARCH WIDTH ================= */
+
+@media (max-width:600px){
+
+.navSearchWrapper{
+  width:260px;   /* ⭐ reduce search width for mobile */
+}
+
+}
+/* ================= EXTRA SMALL MOBILE (337px FIX) ================= */
+
+@media (max-width:360px){
+
+.navSearchWrapper{
+  width:180px;   /* ⭐ smaller so bell & avatar never merge */
+}
+
+}
+/* VERY SMALL PHONE */
+
+@media (max-width:420px){
+
+.navSearchWrapper{
+  width:210px;   /* ⭐ smaller so bell & avatar align */
+}
+
+}

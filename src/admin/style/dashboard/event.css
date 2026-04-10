@@ -1,0 +1,150 @@
+/* ===== TITLE BAR ===== */
+.EventReport{
+
+ padding:14px 20px;
+margin-bottom:25px;
+letter-spacing:1px;
+  background:#ED1D240D;
+  color:#c10000;
+  font-weight:600;
+  font-size:14px;
+  letter-spacing:.5px;
+  display:flex;
+  align-items:center;
+}
+
+/* ===== MAIN CARD ===== */
+.eventCard{
+  /* position:absolute;
+  top:210px;
+  left:353px;
+  right:40px; */
+  background:#fff;
+  padding:25px;
+}
+
+/* TOP AREA */
+.eventTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.eventTop h2{
+  font-size:18px;
+  font-weight:600;
+}
+
+/* ADD BUTTON */
+.addEventBtn{
+  background:#c10000;
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* FILTERS */
+.eventFilters{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.eventFilters input,
+.eventFilters select{
+  background:#F2F2F2;
+  border:none;
+  padding:10px;
+  min-width:160px;
+}
+
+/* TABLE */
+.eventHead{
+  background:#c10000;
+  color:#fff;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+  padding:12px;
+  font-weight:600;
+}
+
+.eventRow{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+  padding:14px 12px;
+  border-bottom:1px solid #eee;
+  font-size:14px;
+}
+
+/* STATUS COLORS */
+.status.upcoming{color:#1e40ff;font-weight:600;}
+.status.registrationopen{color:#2e9e44;font-weight:600;}
+.status.completed{color:#999;}
+.status.cancelled{color:#ff2b2b;font-weight:600;}
+
+.editBtn{
+  color:#c10000;
+  cursor:pointer;
+}
+
+/* ================= MOBILE VIEW ================= */
+@media (max-width:768px){
+
+  /* TITLE BAR */
+  .EventReport{
+    left:20px;
+    right:20px;
+    top:110px;
+    height:45px;
+    font-size:14px;
+  }
+
+  /* MAIN CARD */
+  .eventCard{
+    left:20px;
+    right:20px;
+    top:170px;
+    padding:18px;
+  }
+
+  /* HEADER */
+  .eventTop{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .addEventBtn{
+    width:100%;
+    text-align:center;
+  }
+
+  /* FILTERS STACK */
+  .eventFilters{
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .eventFilters input,
+  .eventFilters select{
+    width:100%;
+  }
+
+
+.eventCard{
+  overflow-x:auto;
+}
+
+.eventHead,
+.eventRow{
+  min-width:650px;   /* keeps columns properly aligned */
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+}
+  .editBtn{
+    white-space:nowrap;
+    font-size:13px;
+  }
+}

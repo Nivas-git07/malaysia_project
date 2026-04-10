@@ -1,0 +1,166 @@
+/* ===== OVERLAY ===== */
+.modalOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:20px;
+}
+
+/* ===== MODAL BOX ===== */
+.newsModal{
+  width:720px;
+  max-width:100%;
+  background:#fff;
+  padding:40px 45px;
+  position:relative;
+  max-height:90vh;
+  overflow-y:auto;
+  border-radius:4px;
+}
+
+/* ===== RED CORNER + TITLE ===== */
+.modalHeader{
+  position:relative;
+  margin-bottom:25px;
+}
+
+.modalHeader h3{
+  color:#c10000;
+  font-size:16px;
+  letter-spacing:0.5px;
+  font-weight:600;
+}
+
+/* LEFT RED BAR */
+.modalHeader::before{
+  content:"";
+  position:absolute;
+  left:-20px;
+  top:4px;
+  width:4px;
+  height:28px;
+  background:#c10000;
+}
+
+/* CLOSE BUTTON (INSIDE MODAL) */
+.modalHeader span{
+  position:absolute;
+  right:0;
+  top:6px;
+  background:#c10000;
+  color:#fff;
+  width:32px;
+  height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:16px;
+  border-radius:2px;
+}
+
+/* ===== FORM SPACING ===== */
+.newsModal label{
+  display:block;
+  font-size:13px;
+  color:#333;
+  margin-bottom:6px;
+  margin-top:18px;
+}
+
+/* INPUT STYLE */
+.newsModal input,
+.newsModal textarea,
+.newsModal select{
+  width:100%;
+  padding:11px 12px;
+  background:#f2f2f2;
+  border:1px solid #e4e4e4;
+  outline:none;
+  font-size:13px;
+  border-radius:2px;
+}
+
+.newsModal textarea{
+  min-height:90px;
+  resize:none;
+}
+
+/* FILE AREA */
+.newsModal input[type="file"]{
+  background:transparent;
+  border:none;
+  padding:0;
+}
+
+/* ===== BUTTON AREA ===== */
+.modalActions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:30px;
+}
+
+.cancelBtn{
+  background:#dcdcdc;
+  border:none;
+  padding:8px 16px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.savesBtn{
+  background:#c10000;
+  color:#fff;
+  border:none;
+  padding:8px 16px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+
+/* ===== MOBILE ===== */
+/* Hide sidenav when modal is open (mobile only) */
+@media (max-width:768px){
+  body.modal-open .sideNav{
+    display:none !important;
+  }
+}
+
+/* Prevent background scroll */
+body.modal-open{
+  overflow:hidden;
+}
+/* ===== MOBILE ===== */
+@media (max-width:768px){
+
+  .modalOverlay{
+    padding:15px;   /* give breathing space */
+  }
+
+  .newsModal{
+    width:100%;
+    padding:25px;
+    max-height:95vh;
+    overflow-y:auto;
+  }
+
+  .modalHeader span{
+    right:0;
+    top:8px;
+  }
+
+  .modalActions{
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .cancelBtn,
+  .savesBtn{
+    width:100%;
+  }
+}

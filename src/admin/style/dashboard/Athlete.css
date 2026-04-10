@@ -1,0 +1,644 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap');
+
+*{
+  box-sizing:border-box;
+  font-family:'DM Sans',sans-serif;
+}
+
+.athleteFilters{
+  display:flex;
+  gap:20px;
+  margin-bottom:20px;
+  align-items:center;
+}
+
+/* Dropdown styling */
+
+.filterSelect{
+  flex:1;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:6px;
+  background:#f5f5f5;
+  font-size:14px;
+  outline:none;
+  transition:0.3s;
+}
+
+/* Focus effect */
+
+.filterSelect:focus{
+  border-color:#c10000;
+  background:white;
+  box-shadow:0 0 4px rgba(193,0,0,0.2);
+}
+.filterSelect option:hover{
+  background:#c10000;
+  color:white;
+}
+
+/* Button */
+
+.findsBtn{
+  padding:12px 24px;
+  background:#c10000;
+  color:white;
+  border:none;
+  border-radius:6px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+
+
+.findsBtn:hover{
+  background:#a00000;
+}
+
+.athleteFilters{
+  width:100%;
+  min-height:50px;
+
+  display:flex;
+  flex-wrap:wrap;     /* ⭐ allows shrinking */
+  gap:20px;
+}
+
+.athleteFilters select{
+  flex:1;
+  min-width:180px;    /* ⭐ prevents collapse */
+  background:#ECEAEC;
+  border:none;
+  padding:12px;
+}
+
+.findBtn{
+  background:#c10000;
+  color:#fff;
+  border:none;
+  padding:0 20px;
+  font-weight:600;
+}
+
+/* ================= TABLE ================= */
+
+.athleteTable{
+  width:100%;
+  margin-top:20px;
+}
+
+/* HEADER */
+
+.athleteHead{
+  background:#c10000;
+  color:white;
+
+  display:grid;
+  grid-template-columns: repeat(6,1fr);
+
+  padding:14px 18px;
+  font-size:14px;
+}
+.athleteHeads{
+  background:#c10000;
+  color:white;
+
+  display:grid;
+  grid-template-columns:repeat(6, 1fr);
+
+  padding:14px 18px;
+  font-size:14px;
+}
+.profileHead{
+  background:#c10000;
+  color:white;
+
+  display:grid;
+grid-template-columns: repeat(5,1fr);
+  padding:14px 18px;
+  font-size:14px;
+}
+.profileHeads{
+  background:#c10000;
+  color:white;
+  display:grid;
+  grid-template-columns: 1fr 2fr 1fr 1.5fr 0.5fr;
+  padding:14px 18px;
+  font-size:14px;
+}
+.statuss {
+  font-weight: 600;
+}
+
+/* Different colors */
+.statuss.active {
+  color: green;
+}
+
+.statuss.pending {
+  color: orange;
+}
+
+.statuss.rejected {
+  color: red;
+}
+
+/* MOVE ONLY ATHLETE HEADER */
+.athleteHead div:nth-child(2){
+  /* padding-left:40px; */
+}
+
+/* ROW */
+
+.athleteRow{
+  display:grid;
+  grid-template-columns: repeat(6,1fr);
+
+  align-items:center;
+  padding:18px;
+  border-bottom:1px solid #eee;
+}
+
+.athleteRows{
+  display:grid;
+  grid-template-columns:repeat(6, 1fr);
+
+  align-items:center;
+  padding:18px;
+  border-bottom:1px solid #eee;
+}
+
+.athleteprofileRow{
+  display:grid;
+  grid-template-columns: repeat(5,1fr);
+   
+
+  align-items:center;
+  padding:18px;
+  border-bottom:1px solid #eee;
+}
+.athleteprofileRows {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1.5fr 0.5fr;
+    align-items: center;
+    padding: 18px;
+    border-bottom: 1px solid #eee;
+}
+/* ================= COUNTRY ================= */
+
+.country{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:500;
+}
+
+/* FLAGS */
+
+.flag{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  display:inline-block;
+}
+
+.flag.uae{
+  background:
+    linear-gradient(to right,#ff0000 25%,transparent 25%),
+    linear-gradient(to bottom,#00732f 33%,#ffffff 33% 66%,#000000 66%);
+}
+
+.flag.arg{
+  background:
+    linear-gradient(to bottom,#75aadb 33%,#ffffff 33% 66%,#75aadb 66%);
+}
+
+.flag.ind{
+  background:
+    linear-gradient(to bottom,#ff9933 33%,#ffffff 33% 66%,#128807 66%);
+}
+
+/* ================= ATHLETE INFO ================= */
+
+.athleteInfo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;      /* ⭐ allows shrinking */
+}
+
+.athleteInfo img{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+}
+
+.athleteInfo p{
+  font-size:12px;
+  margin:0;
+  color:#777;
+}
+
+/* VIEW PROFILE */
+
+.viewProfile{
+  color:#c10000;
+  font-size:13px;
+  cursor: pointer;
+}
+
+/* ================= FOOTER ================= */
+
+.tableFooter{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;      /* ⭐ responsive */
+  gap:10px;
+  padding:15px 18px;
+  margin-top:20px;
+}
+
+.pagination button{
+  border:none;
+  background:#eee;
+  margin-left:6px;
+  padding:8px 12px;
+}
+
+.pagination .active{
+  background:#c10000;
+  color:white;
+}
+
+/* ================= LARGE LAPTOP ================= */
+
+
+
+
+/* ================= TABLET ================= */
+
+@media(max-width:900px){
+
+.athleteHead,
+.athleteRow{
+  grid-template-columns:
+    120px
+    2fr
+    1fr
+    1fr;
+}
+
+.athleteHead div:nth-child(n+5),
+.athleteRow div:nth-child(n+5){
+  display:none;    /* hide extra columns */
+}
+
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+/* ===== MAIN LAYOUT ===== */
+
+.AthleteTitle,
+.athleteCard{
+  margin-left:0;
+  margin-right:16px;
+  margin-top:20px;
+}
+
+/* ===== FILTERS ===== */
+
+.athleteFilters{
+  flex-direction:column;
+  gap:12px;
+}
+
+.findBtn{
+  height:44px;
+}
+
+/* ===== TABLE HEADER HIDE ===== */
+
+.athleteHead{
+  display:none;
+}
+
+/* ===== MOBILE ROW CARD STYLE ===== */
+
+.athleteRow{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:14px;
+
+  background:#fff;
+  border:1px solid #f0f0f0;
+  border-radius:8px;
+  padding:16px;
+  margin-bottom:14px;
+}
+
+/* COUNTRY + FLAG */
+
+.country{
+  width:100%;
+}
+
+/* PROFILE SECTION */
+
+.athleteInfo{
+  width:100%;
+}
+
+/* TEXT IMPROVEMENT */
+
+.athleteInfo p{
+  font-size:13px;
+}
+
+/* VIEW PROFILE BUTTON RIGHT */
+
+.viewProfile{
+  align-self:flex-end;
+  font-size:14px;
+  font-weight:600;
+}
+
+/* FOOTER STACK */
+
+.tableFooter{
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.pagination{
+  width:100%;
+  display:flex;
+  flex-wrap:wrap;
+}
+
+}
+
+/* MAIN CARD */
+
+.athlete-card{
+  display:flex;
+  background:#f6f6f6;
+  border-radius:14px;
+  overflow:hidden;
+  padding: 20px;
+  width: 100%;
+  margin:auto;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* IMAGE */
+
+.athlete-card-image{
+  width:35%;
+  margin-top: 15px;
+
+}
+
+.athlete-card-image img{
+  width:90%;
+  height:90%;
+  object-fit:cover;
+  border-radius: 12px;
+}
+
+/* CONTENT */
+
+.athlete-card-content{
+  flex:1;
+  padding:30px;
+}
+
+/* NAME */
+
+.athlete-card-name{
+  display:inline-block;
+  background:#c60000;
+  color:#fff;
+  padding:8px 18px;
+  font-size:20px;
+  letter-spacing:1px;
+  margin-bottom:20px;
+}
+
+/* INFO ROW */
+
+.athlete-card-info{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:20px 180px;
+  margin-bottom:20px;
+}
+
+.athlete-card-info-item{
+  display:flex;
+  flex-direction:column;
+}
+
+.athleteCard{
+  margin-top: 30px;
+}
+/* LABEL */
+
+.athlete-card-label{
+  font-size:11px;
+  color:#8a8a8a;
+  letter-spacing:1px;
+}
+
+/* VALUE */
+
+.athlete-card-value{
+  font-weight:600;
+  margin-top:4px;
+}
+
+
+/* MEDAL GRID */
+
+.athlete-card-medals{
+  margin-top: 60px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+.athlete-card-medal{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px;
+  border-radius:10px;
+  border:1px solid;
+}
+
+.athlete-card-medal h3{
+  margin:0;
+  font-size:18px;
+  font-weight:700;
+}
+
+.athlete-card-medal p{
+  margin:0;
+  font-size:12px;
+  font-weight:600;
+  color: #475569;
+  font-weight: 700;
+   font-family: 'Lexend', sans-serif !important;
+  letter-spacing:0.5px;
+}
+
+.athlete-medal-total{
+  background:rgba(225,29,72,0.10);
+  border-color:rgba(225,29,72,0.20);
+}
+
+.athlete-medal-total h3,
+.athlete-medal-total .athlete-medal-icon{
+  color:#E11D48;
+}
+
+.athlete-medal-gold{
+  background:rgba(212,160,23,0.10);
+  border-color:rgba(212,160,23,0.20);
+}
+
+.athlete-medal-gold h3,
+.athlete-medal-gold .athlete-medal-icon{
+  color:#D4A017;
+}
+
+.athlete-medal-silver{
+  background:rgba(107,114,128,0.10);
+  border-color:rgba(107,114,128,0.20);
+}
+
+.athlete-medal-silver h3,
+.athlete-medal-silver .athlete-medal-icon{
+  color:#6B7280;
+}
+
+.athlete-medal-bronze{
+  background:rgba(205,127,50,0.10);
+  border-color:rgba(205,127,50,0.20);
+}
+
+.athlete-medal-bronze h3,
+.athlete-medal-bronze .athlete-medal-icon{
+  color:#CD7F32;
+}
+/* MOBILE RESPONSIVE */
+
+@media(max-width:768px){
+
+  .athlete-card{
+    flex-direction:column;
+  }
+
+  .athlete-card-image{
+    width:100%;
+    height:250px;
+  }
+
+  .athlete-card-medals{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .athlete-card-info{
+    flex-direction:column;
+    gap:15px;
+  }
+
+}
+
+.recordFilters{
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.filterGroup{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.filterLabel{
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.addRowBtn{
+  height: 40px;
+}
+
+.recordRow{
+  align-items: center;
+}
+
+.tableSelect{
+  width: 120px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.tableInput{
+  width: 120px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.recordFooter{
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+.saveRecordBtn{
+  background: #d40000;
+  color: white;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.saveRecordBtn:hover{
+  background: #a80000;
+}
+
+.athleteHead,
+.athleteRow {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 0.3fr;
+  align-items: center;
+  padding: 12px;
+}
+
+.deleteBtn {
+  background: #ff4d4f;
+  border: none;
+  color: white;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteBtn:hover {
+  background: #d9363e;
+}

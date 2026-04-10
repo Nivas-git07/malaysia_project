@@ -1,0 +1,18 @@
+import API from "./axiosmodal";
+
+export const getallevents = () => {
+  return API.get("/user/get-all-events/");
+};
+
+export const getevents = ({ stateId, clubId }) => {
+  if (clubId) {
+    return API.get(`/user/get-club-events/?club_id=${clubId}`);
+  }
+  if (stateId) {
+    return API.get(`/user/get-state-events/?state_id=${stateId}`);
+  }
+};
+
+export const geteventdetails = (eventId) => {
+  return API.get(`/user/get-single-data/?event_id=${eventId}`);
+};

@@ -1,0 +1,683 @@
+/* SECTION */
+.featuredSection {
+  padding: 80px 0;
+  max-width: 1400px;
+  margin: auto; 
+}
+
+/* TOP BAR */
+.featuredTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.featuredTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #00008B;
+  letter-spacing: 1px;
+}
+
+/* NAV BUTTONS */
+.featuredNav button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #f3f3f3;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.featuredNav button:hover {
+  background: #C00000;
+  color: #fff;
+}
+
+/* GRID */
+.featuredGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+}
+
+/* CARD */
+.featureCard {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 420px;
+  cursor: pointer;
+}
+
+/* IMAGE */
+.featureCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.5s;
+}
+
+/* HOVER ZOOM */
+.featureCard:hover img {
+  transform: scale(1.05);
+}
+
+/* DARK GRADIENT OVERLAY */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.7),
+    rgba(0,0,0,0.2),
+    transparent
+  );
+}
+
+/* GLASS CONTENT */
+.contentBox {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+
+  padding: 18px;
+
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* TAG */
+.tag {
+  font-size: 11px;
+  color: #ff0000;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* NAME */
+.contentBox h3 {
+  color: #fff;
+  margin: 6px 0;
+  font-size: 20px;
+}
+
+/* RECORD */
+.contentBox p {
+  color: #ddd;
+  font-size: 13px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .featuredGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .featuredGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .featureCard {
+    height: 300px;
+  }
+
+  .featuredTop {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+
+
+/* SECTION */
+.findAthleteSection {
+  padding: 40px 0;
+  max-width: 1400px;
+  margin: auto;
+}
+
+/* CONTAINER */
+.findAthleteContainer {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* MAIN BOX */
+.findBox {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr auto;
+  gap: 20px;
+
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 18px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  align-items: end;
+}
+
+/* FIELD */
+.findField {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.findField label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #777;
+  letter-spacing: 0.5px;
+}
+
+/* INPUT WRAP */
+.inputWrap {
+  display: flex;
+  align-items: center;
+
+  background: #fff;
+  border-radius: 999px;
+  padding: 10px 14px;
+
+  border: 1px solid #eee;
+}
+
+/* ICON */
+.inputIcon {
+  color: #999;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* INPUT / SELECT */
+.inputWrap input,
+.inputWrap select {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  background: transparent;
+}
+
+/* BUTTON */
+.findButtonWrap {
+  display: flex;
+  align-items: end;
+}
+
+.findBtns {
+  background: #C00000;
+  color: #fff;
+
+  border: none;
+  border-radius: 999px;
+
+  padding: 14px 28px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  box-shadow: 0 10px 25px rgba(192,0,0,0.25);
+  transition: 0.3s;
+}
+
+.findBtn:hover {
+  background: #a00000;
+  transform: translateY(-2px);
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .findBox {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .findButtonWrap {
+    grid-column: span 2;
+    justify-content: center;
+  }
+
+  .findBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .findBox {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .findButtonWrap {
+    grid-column: span 1;
+  }
+
+  .findBtn {
+    width: 100%;
+  }
+}
+
+/* SECTION */
+.athListSection {
+  padding: 60px 0;
+}
+
+/* CONTAINER */
+.athListContainer {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* TITLE */
+.athListTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.athListTitle span {
+  width: 4px;
+  height: 20px;
+  background: #C00000;
+  border-radius: 2px;
+}
+
+/* GRID */
+.athListGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+/* CARD */
+.athListCard {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px 25px;
+  text-align: center;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.athListCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* AVATAR WRAP */
+.athListImgWrap {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 15px;
+}
+
+/* OUTER RING */
+.athListImgWrap::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: #f1f3f5;
+}
+
+/* IMAGE */
+.athListImgWrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+}
+
+/* BADGE */
+.athBadge {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+
+  width: 32px;
+  height: 32px;
+
+  background: #C00000;
+  color: #fff;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+  z-index: 3;
+
+  box-shadow: 0 5px 15px rgba(192,0,0,0.4);
+}
+
+/* NAME */
+.athListName {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+}
+
+/* CLUB */
+.athListClub {
+  font-size: 13px;
+  color: #6b7280;
+  letter-spacing: 1px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+/* DIVIDER */
+.athListDivider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 15px 0;
+}
+
+/* INFO */
+.athListInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ROW */
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* LABEL */
+.infoRow span {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* VALUE */
+.infoRow strong {
+  font-size: 16px;
+  color: #111827;
+  font-weight: 600;
+}
+
+/* COUNTRY ICON */
+.infoRow .country {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+/* PAGINATION */
+.athPaginationWrap {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.athPaginationInfo {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+/* PAGINATION BUTTONS */
+.eventsPagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.eventsPagination button {
+  border: none;
+  background: #f3f3f3;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.eventsPagination button.active {
+  background: #C00000;
+  color: #fff;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .athListGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .athListGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .athListCard {
+    padding: 20px;
+  }
+}
+.athPaginationWrap{
+  margin-top:40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+/* LEFT TEXT */
+.athPaginationInfo{
+  font-size:14px;
+  color:#666;
+}
+
+/* RIGHT PAGINATION */
+.eventsPagination{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.eventsPagination button{
+  width:36px;
+  height:36px;
+  border-radius:6px;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.eventsPagination button:hover{
+  background:#f3f3f3;
+}
+
+
+.eventsPagination button.active{
+  background:#d00000;
+  color:#fff;
+}
+
+.dots{
+  padding:0 6px;
+  color:#888;
+}
+@media(max-width:600px){
+
+  .athPaginationWrap{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:15px;
+  }
+
+}
+
+
+/* associatedstate */
+/* SECTION */
+.mfsaStateCardX-section {
+  background: #f5f6f8;
+  padding: 80px 20px;
+}
+
+/* CONTAINER */
+.mfsaStateCardX-container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 40px;
+}
+
+/* HEADER */
+.mfsaStateCardX-header {
+  margin-bottom: 40px;
+}
+
+.mfsaStateCardX-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.mfsaStateCardX-header p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* GRID */
+.mfsaStateCardX-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+/* CARD */
+.mfsaStateCardX-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 35px 20px;
+  text-align: center;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.mfsaStateCardX-card:hover {
+  transform: translateY(-6px);
+}
+
+/* LOGO OUTER */
+.mfsaStateCardX-logoOuter {
+  width: 110px;
+  height: 110px;
+  margin: auto;
+  border-radius: 50%;
+  background: #eef1f5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 20px;
+}
+
+/* LOGO INNER */
+.mfsaStateCardX-logoInner {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  background: #0f6c74;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mfsaStateCardX-logoInner img {
+  width: 60%;
+  border-radius: 50%;
+}
+
+/* TEXT */
+.mfsaStateCardX-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.mfsaStateCardX-meta {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+/* BUTTON */
+.mfsaStateCardX-btn {
+  background: #c10000;
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .mfsaStateCardX-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .mfsaStateCardX-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mfsaStateCardX-header {
+    text-align: center;
+  }
+
+  .mfsaStateCardX-name {
+    font-size: 16px;
+  }
+}

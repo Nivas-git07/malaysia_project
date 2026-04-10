@@ -1,0 +1,317 @@
+/* SECTION */
+.athProfileSection{
+  padding:80px 20px;
+      background: white;
+      
+}
+
+.athProfileContainer{
+  max-width:1400px;
+  padding: 50px 0px 50px 50px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:420px 1fr;
+border-right:5px solid #2f2a8c;
+  align-items:center;
+  background: rgba(249, 246, 249, 1);
+  border-radius: 5px;
+}
+
+.athProfileImgWrap{
+  width:300px;        /* exact width */
+  height:320px;       
+  border-radius:24px;
+  margin-left: 20px;
+  overflow:hidden;
+  position:relative;
+}
+
+/* LEFT GRADIENT STRIP */
+.athProfileImgWrap::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:70px;
+  height:100%;
+ 
+  z-index:2;
+}
+
+/* IMAGE FIT */
+.athProfileImgWrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;    
+  display:block;
+}
+
+
+
+.athProfileRight{
+  /* border-right:5px solid #2f2a8c; */
+  padding-right:40px;
+}
+
+
+.athProfileNameBar{
+  background:#2f2a8c;
+  color:white;
+  font-size:26px;
+  font-weight:700;
+  padding:14px 22px;
+  border-radius:8px;
+  width:100%;
+  margin-bottom:25px;
+}
+
+
+.athProfileInfoGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:40px;
+  margin-bottom:60px;
+}
+
+.athLabel{
+  font-weight:700;
+  color:#2f2a8c;
+  margin-bottom:6px;
+margin-top: 15px;
+}
+
+.athValue{
+    margin-top: 15px;
+  font-size:16px;
+}
+
+
+.athMedalRow{
+  display:flex;
+  align-items:center;
+  gap:30px;
+  flex-wrap:wrap;
+}
+
+.athMedalMain{
+  background:#c10000;
+  color:white;
+  padding:10px 18px;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:600;
+}
+
+.athMedalItem{
+  color:#2f2a8c;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-weight:600;
+}
+
+
+@media(max-width:992px){
+
+  .athProfileContainer{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .athProfileRight{
+    border-right:none;
+    padding-right:0;
+  }
+
+  .athProfileInfoGrid{
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+
+  .athMedalRow{
+    justify-content:center;
+  }
+}
+
+
+.perfSection{
+  padding:10px 20px;
+  background:#fff;
+}
+
+.perfContainer{
+  max-width:1400px;
+  margin:auto;
+}
+
+/* TITLE */
+.perfTitle{
+  color:#c10000;
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:25px;
+}
+
+/* FILTER ROW */
+.perfFilters{
+  margin-top: 38px;
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap:20px;
+  margin-bottom:25px;
+  align-items:center;
+}
+
+.perfInput{
+  width:100%;
+  height:48px;
+  border:1px solid #e2e2e2;
+  padding:0 14px;
+  background:#f6f6f6;
+  border-radius:6px;
+  font-size:14px;
+  outline:none;
+}
+
+.perfDateWrap{
+  position:relative;
+  width:100%;
+}
+
+.perfDateIcon{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:18px;
+  color:#d00000;
+  pointer-events:none;   
+}
+
+
+.perfFindBtn{
+  height:48px;
+  padding:0 32px;
+  background:#c10000;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.perfTable{
+  width:100%;
+  margin-top: 35px;
+}
+
+.perfHead{
+  display:grid;
+    margin-top: 25px;
+  grid-template-columns:2fr 1fr 1fr 2fr 1fr;
+  background:#2f2b85;
+  color:#fff;
+  padding:14px 20px;
+  border-radius:8px;
+  font-weight:600;
+}
+
+.perfRow{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 2fr 1fr;
+  padding:16px 20px;
+  font-size:14px;
+}
+
+
+.perfRow:nth-child(even){
+  background:#F9F6F9;
+}
+
+.perfRed{
+  color:#c10000;
+  font-weight:500;
+}
+
+@media(max-width:900px){
+
+  .perfFilters{
+    grid-template-columns:1fr;
+  }
+
+  .perfHead,
+  .perfRow{
+    grid-template-columns:1fr 1fr;
+    row-gap:10px;
+  }
+
+}
+
+
+.entityPaginationWrap{
+  max-width:1300px;
+  margin:40px auto 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:15px;
+}
+
+.entityPaginationInfo{
+  font-size:14px;
+  color:#555;
+}
+
+.entityPaginationControls{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom: 50px;
+}
+
+
+.entityPageBtn{
+  border:none;
+  background:transparent;
+  padding:8px 12px;
+  font-size:14px;
+  cursor:pointer;
+  border-radius:6px;
+  transition:0.25s;
+}
+
+/* ACTIVE PAGE */
+.entityPageBtn.active{
+  background:#c10000;
+  color:#fff;
+}
+
+/* ARROWS */
+.entityPageArrow{
+  border:none;
+  background:transparent;
+  font-size:18px;
+  cursor:pointer;
+  padding:6px;
+  color:#333;
+}
+
+.entityPageArrow:disabled{
+  opacity:0.3;
+  cursor:not-allowed;
+}
+
+@media(max-width:768px){
+
+  .entityPaginationWrap{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .entityPaginationControls{
+    flex-wrap:wrap;
+  }
+}

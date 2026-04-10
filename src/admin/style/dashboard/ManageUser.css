@@ -1,0 +1,490 @@
+/* ===== TITLE BAR ===== */
+.mu-title{
+  position:absolute;
+  top:137px;
+  left:353px;
+  right:40px;
+  height:50px;
+  padding:10px 14px;
+  background:#ED1D240D;
+  color:#c10000;
+  font-weight:600;
+  font-size:14px;
+  letter-spacing:.5px;
+  display:flex;
+  align-items:center;
+}
+
+/* ===== MAIN CARD ===== */
+.mu-card{
+ 
+  margin-top:40px;
+  margin-bottom: 40px;
+  background:white;
+    padding:25px;
+}
+
+/* TOP AREA */
+.mu-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.mu-top h2{
+  font-size:18px;
+  font-weight:600;
+}
+
+/* ADD BUTTON */
+.mu-add-btn{
+  background:#c10000;
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* TABLE */
+.mu-head{
+  background:#c10000;
+  color:#fff;
+  margin-top: 40px;
+  display:grid;
+  grid-template-columns:2fr 2fr 1fr 1fr 1fr;
+  padding:12px;
+  font-weight:600;
+}
+
+.mu-row{
+  display:grid;
+  grid-template-columns:2fr 2fr 1fr 1fr 1fr;
+  padding:14px 12px;
+  border-bottom:1px solid #eee;
+  font-size:14px;
+}
+
+.mu-edit-btn{
+  color:#c10000;
+  cursor:pointer;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width:768px){
+
+  .mu-title{
+    left:20px;
+    right:20px;
+    top:110px;
+    height:45px;
+  }
+
+  .mu-card{
+    left:20px;
+    right:20px;
+    top:170px;
+    padding:18px;
+    overflow-x:auto;
+  }
+
+  .mu-top{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .mu-add-btn{
+    width:100%;
+    text-align:center;
+  }
+
+  .mu-head,
+  .mu-row{
+    min-width:700px;
+    grid-template-columns:2fr 2fr 1fr 1fr 1fr;
+  }
+
+  .mu-edit-btn{
+    white-space:nowrap;
+    font-size:13px;
+  }
+}
+
+/* WRAPPER */
+
+.mu-membership-wrapper{
+padding: 50px;
+font-family:'DM Sans', sans-serif;
+}
+
+/* HEADER */
+
+.mu-membership-title{
+background:#f5dede;
+color:#c10000;
+font-weight:700;
+padding:14px 20px;
+margin-bottom:25px;
+letter-spacing:1px;
+}
+
+/* ROW */
+
+.mu-membership-row{
+display:flex;
+gap:25px;
+flex-wrap:wrap;
+}
+
+/* LEFT CARD */
+
+.mu-athlete-card{
+flex:1;
+min-width:360px;
+background:white;
+border:1px solid #eee;
+border-radius:6px;
+position:relative;
+overflow:hidden;
+}
+
+/* RED + BLACK STRIP */
+
+.mu-athlete-banner{
+position:absolute;
+left:0;
+top:0;
+height:100%;
+width:100px;
+
+background:linear-gradient(
+to right,
+#c10000 0px,
+#c10000 75px,
+#000000 75px,
+#000000 90px
+);
+}
+
+/* CONTENT */
+
+.mu-athlete-content{
+display:flex;
+align-items:center;
+gap:20px;
+padding:30px 25px 30px 160px;
+}
+
+/* AVATAR */
+
+.mu-athlete-avatar{
+position:absolute;
+left:45px;   /* move into red banner */
+top:50%;
+transform:translateY(-50%);
+width:95px;
+height:95px;
+border-radius:50%;
+border:3px solid #c10000;
+background:white;
+object-fit:cover;
+z-index:5;
+}
+
+/* INFO */
+
+.mu-athlete-name{
+background:#c10000;
+color:white;
+font-weight:700;
+margin-top: 25px;
+font-size:18px;
+padding:6px 14px;
+display:inline-block;
+margin-bottom:8px;
+}
+
+/* MEDALS */
+
+.mu-athlete-medals{
+display:flex;
+align-items:center;
+gap:6px;
+margin-top: 20px;
+font-weight:600;
+font-size: 20px;
+color:#c10000;
+}
+
+.mu-icon-red{
+color:#c10000;
+}
+
+/* SPORT */
+
+.mu-athlete-sport{
+color:#777;
+font-size:14px;
+margin-top: 10px;
+}
+
+/* SWIM ICON */
+
+.mu-swim-icon{
+margin-left:auto;
+font-size:38px;
+margin-top: 50px;
+color:#bbb;
+}
+
+/* RIGHT CARD */
+
+.mu-membership-card{
+flex:1;
+min-width:360px;
+background:white;
+border:1px solid #eee;
+border-radius:6px;
+padding:25px;
+}
+
+/* HEADER */
+
+.mu-membership-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.mu-membership-heading{
+display:flex;
+align-items:center;
+gap:6px;
+font-size:18px;
+font-weight:600;
+}
+
+.mu-help-icon{
+color:#777;
+font-size:18px;
+}
+
+/* RENEW BUTTON */
+
+.mu-renew-btn{
+background:#e0e0e0;
+border:none;
+padding:8px 18px;
+font-weight:600;
+cursor:pointer;
+}
+
+/* PLAN */
+
+.mu-plan-section label{
+font-size:13px;
+color:#777;
+}
+
+.mu-plan-section p{
+margin:4px 0 14px;
+font-weight:600;
+}
+
+/* DATES */
+
+.mu-date-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.mu-date-row label{
+font-size:13px;
+color:#777;
+}
+
+.mu-date-row p{
+font-weight:600;
+}
+
+.mu-divider{
+width:1px;
+height:30px;
+background:#ddd;
+}
+
+/* MEMBERSHIP CODE */
+
+.mu-membership-code{
+text-align:center;
+font-size:22px;
+font-weight:700;
+margin-top:10px;
+}
+
+.acceptBtn{
+background:#c10000;
+color:#fff;
+border:none;
+padding:8px 14px;
+cursor:pointer; 
+border-radius: 12px;
+}
+/* OVERLAY */
+
+.membership-popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.35);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+/* CARD */
+
+.membership-popup-card{
+  width:600px;
+  max-width:95%;
+   max-height: 80vh;   /* important */
+  overflow-y: auto;
+  background:#fff;
+  border-radius:12px;
+  padding:28px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.25);
+  position:relative;
+}
+
+/* HEADER */
+
+.membership-popup-header{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  margin-bottom:25px;
+}
+
+.membership-popup-title{
+  font-size:20px;
+  font-weight:600;
+  color:#111;
+}
+
+.membership-popup-close{
+  position:absolute;
+  right:0;
+  top:0;
+  border:none;
+  background:none;
+  cursor:pointer;
+}
+
+/* BODY */
+.membership-popup-body{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:30px 60px;
+  margin-top:30px;
+}
+
+.membership-item{
+  display:flex;
+  flex-direction:column;
+}
+
+.membership-label{
+  font-size:13px;
+  color:#6b7280;
+  margin-bottom:6px;
+}
+
+.membership-value{
+  font-size:18px;
+  font-weight:600;
+  color:#111;
+  word-break:break-word;
+}
+.membership-valuestatus{
+  font-size:18px;
+  font-weight:600;
+  color:#c10000;
+}
+
+.status{
+  color:#c10000;
+}
+/* STATUS */
+
+.status{
+  color:#C10000;
+}
+
+/* FOOTER */
+
+.membership-popup-footer{
+  display:flex;
+  gap: 20px;
+  justify-content:flex-end;
+  margin-top:25px;
+}
+
+.membership-action-btn{
+  background:#C10000;
+  color:#fff;
+  border:none;
+  padding:10px 18px;
+  border-radius:6px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.membership-reject-btn{
+  background:#e0e0e0;
+  color:#111;
+  border:none;
+  padding:10px 18px;
+  border-radius:6px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.view-btn{
+  color:#c10000;
+  cursor:pointer;
+  font-weight:600;
+}
+
+@media (max-width:768px){
+  .membership-popup-body{
+    grid-template-columns:1fr;
+  }
+}
+.full-width {
+  grid-column: span 2;
+}
+.receipt-container {
+  width: 100%;
+  margin-top: 8px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+
+.receipt-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.receipt-image:hover {
+  transform: scale(1.02);
+} 
