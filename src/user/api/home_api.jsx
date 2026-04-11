@@ -1,6 +1,6 @@
 import API from "./axiosmodal";
 
-export const get_home_data = () => {
+export const get_check = () => {
   return API.get("/auth/check-session/");
 };
 

@@ -3,24 +3,13 @@ import Swimmer from "../layout/swimmer";
 export default function Header() {
   return (
     <Swimmer>
-      <div className="container heroContent">
-        <div className="left">
-          <h1>
-            JOIN THE MALAYSIA <br />
-            <span className="red">FINSWIMMING</span><br />
-            ASSOCIATION
-          </h1>
-
-
-        </div>
-
-        <div className="right">
-          <p>
-            Register as a <br />
-            State, Club, or <br />
-            <span className="red">Individual Athlete</span>
-          </p>
-        </div>
+      <div className="homeHeroContents">
+        <h1 className="homeHeroTitle">MEMBER LOGIN</h1>
+        <p className="homeHeroSub">
+          Access your account to manage registrations and athlete details.
+          <br />
+          Sign in to continue your journey.
+        </p>
       </div>
     </Swimmer>
   );
