@@ -76,7 +76,7 @@ export default function EventDetailX() {
             <button className="registerBtn">Register Now →</button>
           </div>
 
-          {/* RIGHT */}
+    
           <div className="mfsaEventDetailX-right">
             <h2>{event.event_name}</h2>
 
@@ -108,7 +108,7 @@ export default function EventDetailX() {
           </div>
         </div>
 
-        {/* ===== MAP ===== */}
+      
         <div className="mfsaEventDetailX__map">
           <div className="mfsaEventDetailX__map-container">
             {/* Google Map */}

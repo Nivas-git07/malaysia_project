@@ -21,7 +21,7 @@ export default function RegistrationForm() {
                 <button
                   className={`regTab ${activeTab === "state" ? "active" : ""}`}
                   onClick={() => setActiveTab("state")}
-                >
+                > 
                   State / Club
                 </button>
 
