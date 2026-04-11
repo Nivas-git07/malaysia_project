@@ -22,6 +22,15 @@ body{
   color:white;
   border-bottom: 8px solid #c10000;
 }
+.herosmall{
+    max-height:450px;
+  position:relative;
+  /* overflow: visible; */
+  isolation:isolate;
+  color:white;
+  border-bottom: 8px solid #c10000;
+
+}
 .heroVideo{
   position:absolute;
   top:0;
@@ -56,7 +65,19 @@ body{
   text-align: center;
   padding: 0 20px;
 }
+.homeHeroContents {
+  position: relative;
+  z-index: 2;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 400px;
+  text-align: center;
+  padding: 0 20px;
+}
 /* ===== NAVBAR ===== */
 .heroNav {
   position: absolute;

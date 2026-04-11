@@ -1,4 +1,4 @@
-import Swimmer from "../../layout/swimmer";
+import SwimmerHero from "../../layout/hero";
 import AboutPageX from "../../components/aboutcomponent/aboutcontent";
 import Footer from "../../layout/footer";
 import { NavLink, useParams } from "react-router-dom";
@@ -24,8 +24,8 @@ export default function About() {
   console.log("the about page content ",aboutInfo)
   return (
     <>
-      <Swimmer>
-        <div className="homeHeroContent">
+      <SwimmerHero>
+        <div className="homeHeroContents">
           <h1 className="homeHeroTitle">ABOUT US</h1>
           <p className="homeHeroSub">
             Learn more about our mission, vision, and the values that drive our
@@ -81,7 +81,7 @@ export default function About() {
             </ul>
           </nav>
         )}
-      </Swimmer>
+      </SwimmerHero>
       <AboutPageX aboutInfo={aboutInfo} />
       <Footer />
     </>

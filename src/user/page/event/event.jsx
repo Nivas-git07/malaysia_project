@@ -1,6 +1,7 @@
 import EventsPage from "../../components/eventcomponent/allevent";
 import Footer from "../../layout/footer";
-import Swimmer from "../../layout/swimmer";
+import SwimmerHero from "../../layout/hero";
+
 import { NavLink } from "react-router-dom";
 import { useParams } from "react-router-dom";
 export default function Event() {
@@ -16,8 +17,8 @@ export default function Event() {
 
   return (
     <div>
-      <Swimmer>
-        <div className="homeHeroContent">
+      <SwimmerHero>
+        <div className="homeHeroContents">
           <h1 className="homeHeroTitle">Upcoming Event</h1>
           <p className="homeHeroSub">
             Stay updated with our upcoming events, competitions, and activities.
@@ -70,7 +71,7 @@ export default function Event() {
             </ul>
           </nav>
         )}
-      </Swimmer>
+      </SwimmerHero>
 
       <EventsPage />
       <Footer />

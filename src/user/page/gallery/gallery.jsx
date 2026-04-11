@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { get_particular_gallery, get_gallery } from "../../api/home_api";
-import Swimmer from "../../layout/swimmer";
+import SwimmerHero from "../../layout/hero";
 import Footer from "../../layout/footer";
 import { NavLink } from "react-router-dom";
 export default function Gallery() {
@@ -32,8 +32,8 @@ export default function Gallery() {
 
   return (
     <div>
-      <Swimmer>
-        <div className="homeHeroContent">
+      <SwimmerHero>
+        <div className="homeHeroContents">
           <h1 className="homeHeroTitle">Gallery</h1>
           <p className="homeHeroSub">
             Explore memorable moments from our events, training sessions, and
@@ -88,7 +88,7 @@ export default function Gallery() {
             </ul>
           </nav>
         )}
-      </Swimmer>
+      </SwimmerHero>
 
       <section className="gallerySection">
         <div className="galleryContainer">

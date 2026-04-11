@@ -1,5 +1,6 @@
 import Footer from "../../layout/footer";
-import Swimmer from "../../layout/swimmer";
+import SwimmerHero from "../../layout/hero";
+
 import AthleteProfile from "../../components/profile/profilesection";
 import AthletePerformance from "../../components/profile/performance";
 import { useParams } from "react-router-dom";
@@ -20,11 +21,11 @@ export default function Athelete() {
 
   return (
     <div>
-      <Swimmer>
-        <div className="homeHeroContent">
+      <SwimmerHero>
+        <div className="homeHeroContents">
           <h1 className="homeHeroTitle">Cameron Williamson</h1>
         </div>
-      </Swimmer>
+      </SwimmerHero>
 
       <AthleteProfile />
       <AthletePerformance />

@@ -1,4 +1,4 @@
-import Swimmer from "../../layout/swimmer";
+import SwimmerHero from "../../layout/hero";
 import Footer from "../../layout/footer";
 import { useParams } from "react-router-dom";
 import NewsDetailX from "../../components/newscomponent/newsdetails";
@@ -17,8 +17,8 @@ export default function News() {
 
   return (
     <>
-      <Swimmer>
-        <div className="homeHeroContent">
+      <SwimmerHero>
+        <div className="homeHeroContents">
           <h1 className="homeHeroTitle">News</h1>
           <p className="homeHeroSub">
             Discover the latest updates, stories, and highlights from across our
@@ -73,7 +73,7 @@ export default function News() {
             </nav>
           )}
         </div>
-      </Swimmer>
+      </SwimmerHero>
       <NewsDetailX />
 
       <Footer />

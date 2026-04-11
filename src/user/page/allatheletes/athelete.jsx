@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getclubathlete } from "../../api/club";
 import { useParams } from "react-router-dom";
 import Footer from "../../layout/footer";
+import SwimmerHero from "../../layout/hero";
 import Swimmer from "../../layout/swimmer";
 import FeaturedAthletes from "../../components/athletecomponent/featuredathelete";
 import FindAthlete from "../../components/athletecomponent/atheletegrid";
@@ -41,8 +42,8 @@ export default function ALLAthelete() {
 
   return (
     <div>
-      <Swimmer>
-        <div className="homeHeroContent">
+      <SwimmerHero>
+        <div className="homeHeroContents">
           <h1 className="homeHeroTitle">ALL ATHLETES</h1>
           <p className="homeHeroSub">
             Explore all athletes from this club.
@@ -95,7 +96,7 @@ export default function ALLAthelete() {
             </ul>
           </nav>
         )}
-      </Swimmer>
+      </SwimmerHero>
 
       {athletes.length > 0 ? (
         <>
