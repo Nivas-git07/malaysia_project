@@ -15,8 +15,8 @@ export default function EventModal({ close, data }) {
     description: "",
     location: "",
     date: "",
-    time: "",
-    organizer: "",
+    event_start: "",
+    event_end: "",
     image: null,
     visibility: "PUBLIC",
     status: "DRAFT"
@@ -50,51 +50,50 @@ export default function EventModal({ close, data }) {
     });
   };
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (loading) return; 
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("event_name", form.event_name);
     formData.append("description", form.description);
     formData.append("venue", form.location);
+    formData.append("event_start", form.event_start);
+    formData.append("event_end", form.event_end);
     formData.append("date", form.date);
-    formData.append("time", form.time);
     formData.append("visibility", form.visibility);
-    formData.append("organized_by", form.organizer);
     formData.append("status", form.status);
     formData.append(
       "highlight",
       JSON.stringify(highlights.filter(h => h.trim() !== ""))
     );
-    formData.append("time", form.time);
+
     if (form.image) {
       formData.append("image", form.image);
     }
-    if (data && data[0]?.id) {
-      editevent(data[0]?.id, formData)
-        .then(() => {
-          alert("Edit updated successfully!");
-          queryClient.invalidateQueries(["events"]);
-          close();
-        })
-        .catch((err) => {
-          console.error(err);
-          alert("Failed to update event. Please try again.");
-        });
-    }
-    else {
-      postevent(formData)
-        .then(() => {
-          alert("Event saved successfully !");
-          queryClient.invalidateQueries(["events"]);
-          close();
-        })
-        .catch((err) => {
-          console.error(err);
-          alert("Failed to save event.");
-        });
-    };
-  }
+
+    const request = data && data[0]?.id
+      ? editevent(data[0]?.id, formData)
+      : postevent(formData);
+
+    request
+      .then(() => {
+        alert(data ? "Event updated successfully!" : "Event saved successfully!");
+        queryClient.invalidateQueries(["events"]);
+        close();
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Something went wrong.");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
     if (data?.[0]) {
@@ -103,14 +102,14 @@ export default function EventModal({ close, data }) {
         description: data[0]?.description || "",
         location: data[0]?.venue || "",
         date: data[0]?.date || "",
-        time: data[0]?.time || "",
-        organizer: data[0]?.organized_by || "",
+        event_start: data[0]?.event_start || "",
+        event_end: data[0]?.event_end || "",
         visibility: data[0]?.visibility || "PUBLIC",
         status: data[0]?.status || "DRAFT",
         image: null
       });
 
-    
+
       let parsedHighlights = [""];
 
       if (data[0]?.highlight) {
@@ -135,7 +134,7 @@ export default function EventModal({ close, data }) {
 
         <div className="modalHeader">
           <h3>CREATE / EDIT EVENT</h3>
-          <span onClick={close}>✕</span>
+          <span onClick={close}><FiX /></span>
         </div>
 
         <label>Event Title</label>
@@ -183,24 +182,33 @@ export default function EventModal({ close, data }) {
           className="datePicker"
         />
 
-        <label> Time</label>
+        <label>Start Time</label>
         <input
           type="time"
-          name="time"
-          value={form.time}
+          name="event_start"
+          value={form.event_start}
+          onChange={handleChange}
+
+        />
+
+        <label>End Time</label>
+        <input
+          type="time"
+          name="event_end"
+          value={form.event_end}
           onChange={handleChange}
 
         />
 
 
 
-        <label>Organizer</label>
+        {/* <label>Organizer</label>
         <input
           name="organizer"
           value={form.organizer}
           placeholder="Enter organizer name"
           onChange={handleChange}
-        />
+        /> */}
 
         <label>Upload Banner</label>
         <input type="file" onChange={handleFileChange} />
@@ -265,7 +273,14 @@ export default function EventModal({ close, data }) {
 
         <div className="modalActions">
           <button className="cancelBtn" onClick={close}>Cancel</button>
-          <button className="savesBtn" onClick={handleSubmit}>Save Event</button>
+          <button
+            type="button"
+            className="savesBtn"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? "Saving..." : "Save Event"}
+          </button>
         </div>
 
       </div>

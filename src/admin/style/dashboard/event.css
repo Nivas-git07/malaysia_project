@@ -144,6 +144,21 @@ letter-spacing:1px;
   transition: 0.3s ease;
 }
 
+.savesBtn {
+  padding: 10px 20px;
+  background: #c10000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.savesBtn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
 .addHighlightBtn:hover {
   background: #bb1616;
 }
