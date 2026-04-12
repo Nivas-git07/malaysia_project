@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
 import { motion } from "framer-motion";
@@ -13,6 +13,11 @@ export default function HomeGallery({ gallery }) {
 
   const galleryList = Array.isArray(gallery) ? gallery : [];
 
+  // ✅ Reset loaded state when gallery changes (VERY IMPORTANT)
+  useEffect(() => {
+    setLoadedImages({});
+  }, [galleryList]);
+
   const handleNavigateGallery = () => {
     if (clubId && stateId) {
       navigate(`/state/${stateId}/club/${clubId}/gallery`);
@@ -25,7 +30,7 @@ export default function HomeGallery({ gallery }) {
 
   return (
     <section className="homeGallerySection">
-      
+
       {/* HEADER */}
       <div className="homeGalleryHeader">
         <h2 className="homeGalleryTitle">GALLERY</h2>
@@ -44,15 +49,13 @@ export default function HomeGallery({ gallery }) {
         variants={{
           hidden: {},
           visible: {
-            transition: {
-              staggerChildren: 0.12,
-            },
+            transition: { staggerChildren: 0.1 },
           },
         }}
       >
         {galleryList.length > 0 ? (
           galleryList.slice(0, 7).map((item, index) => {
-            const key = item.id || index;
+            const key = item.id || `${index}-${item.image}`;
             const isLoaded = loadedImages[key];
 
             return (
@@ -60,7 +63,7 @@ export default function HomeGallery({ gallery }) {
                 key={key}
                 className={`galleryItemWrapper g${index + 1}`}
                 variants={{
-                  hidden: { opacity: 0, y: 30 },
+                  hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0 },
                 }}
               >
