@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
 import fallbackImg from "../../assets/event1.png";
+import { motion } from "framer-motion";
 
 export default function HomeGallery({ gallery }) {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function HomeGallery({ gallery }) {
   return (
     <>
       <section className="homeGallerySection">
-        
+
         {/* HEADER */}
         <div className="homeGalleryHeader">
           <h2 className="homeGalleryTitle">GALLERY</h2>
@@ -35,14 +36,23 @@ export default function HomeGallery({ gallery }) {
         </div>
 
         {/* GRID */}
-        <div className="homeGalleryGrid">
-          {galleryList.length === 0 ? (
-            <div className="mfsaEmptyState">
-              <p>No gallery images available.</p>
-            </div>
-          ) : (
+        <motion.div
+          className="homeGalleryGrid"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.15,
+              },
+            },
+          }}
+        >
+          {galleryList && galleryList.length > 0 ? (
             galleryList.slice(0, 7).map((item, index) => (
-              <img
+              <motion.img
                 key={item.id || index}
                 src={item.image || fallbackImg}
                 alt="gallery"
@@ -50,10 +60,23 @@ export default function HomeGallery({ gallery }) {
                 onClick={() =>
                   setSelectedImage(item.image || fallbackImg)
                 }
+                variants={{
+                  hidden: { opacity: 0, y: 40 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
               />
             ))
+          ) : (
+            <motion.div
+              className="mfsaEmptyState"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              <p>No gallery images available.</p>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       </section>
 
       {/* LIGHTBOX MODAL */}
