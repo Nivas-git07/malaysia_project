@@ -120,7 +120,7 @@ export default function StateNetworkX() {
                   }}
                 >
                   <span className="mfsaStateX-radio"></span>
-                  <p>{item.state_name}</p>
+                  <p onClick={()=>{navigate(`/state/${item.user}`)}}>{item.state_name}</p>
                 </div>
               );
             })}
