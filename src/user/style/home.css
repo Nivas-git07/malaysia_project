@@ -25,26 +25,7 @@
   font-weight: 600;
   color: #ffffff;
 }
-.galleryItem {
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
 
-.galleryItem:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.homeGalleryGrid:hover .galleryItem {
-  transform: scale(0.95);
-  opacity: 0.7;
-}
-
-/* Only hovered image */
-.homeGalleryGrid .galleryItem:hover {
-  transform: scale(1.08);
-  opacity: 1;
-  z-index: 2;
-}
 /* HERO CONTAINER */
 /* .homeHeroContent {
   max-width: 1000px;
@@ -938,7 +919,6 @@
   height:100%;
   object-fit:cover;
   border-radius:30px;
-   transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
 .g1{ grid-column:1; grid-row:1; }
@@ -3136,75 +3116,181 @@ background-color: white !important;
   cursor: pointer;
 }
 
-/* Wrapper */
-.galleryItemWrapper {
-  position: relative;
-  overflow: hidden;
-  border-radius: 20px;
+/* ================= STATE MAP SECTION ================= */
+
+.mfsaStateX-section {
+  padding: 80px 20px;
+  background: white;
 }
 
-/* Skeleton */
-.imageSkeleton {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: linear-gradient(
-    90deg,
-    #eee 25%,
-    #ddd 37%,
-    #eee 63%
-  );
-  background-size: 400% 100%;
-  animation: shimmer 1.2s infinite;
+/* CONTAINER */
+.mfsaStateX-container {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  max-width: 1400px;
+  margin: auto;
 }
 
-@keyframes shimmer {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
+/* LEFT SIDE */
+.mfsaStateX-left {
+  flex: 1;
 }
 
-/* Image */
-.galleryItem {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.5s ease, transform 0.4s ease;
+.mfsaStateX-title {
+  font-size: 36px;
+  margin: 10px 0;
 }
 
-/* Show image */
-.galleryItem.show {
-  opacity: 1;
+.mfsaStateX-text {
+  color: #555;
+  margin-bottom: 20px;
 }
 
-/* Hover effect */
-.homeGalleryGrid:hover .galleryItem {
-  transform: scale(0.95);
-  opacity: 0.7;
+/* LIST */
+.mfsaStateX-list {
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  scrollbar-width: none;
+}
+.mfsaStateX-list::-webkit-scrollbar {
+  display: none;
 }
 
-.homeGalleryGrid .galleryItem:hover {
-  transform: scale(1.08);
-  opacity: 1;
-  z-index: 2;
+/* ITEM */
+.mfsaStateX-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: 0.3s ease;
 }
 
-/* Lightbox */
-.lightboxOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
+.mfsaStateX-item:hover {
+  color: #c8102e;
+  transform: translateX(5px);
+}
+
+.mfsaStateX-item.active {
+  color: #c8102e;
+  font-weight: 600;
+}
+
+/* RADIO */
+.mfsaStateX-radio {
+  width: 10px;
+  height: 10px;
+  border: 2px solid #bbb;
+  border-radius: 50%;
+}
+
+.mfsaStateX-item.active .mfsaStateX-radio {
+  background: #c8102e;
+  border-color: #c8102e;
+}
+
+/* ================= RIGHT SIDE (🔥 FIXED) ================= */
+
+.mfsaStateX-right {
+  flex: 2.5;              /* 🔥 MUCH BIGGER MAP */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
 }
 
-.lightboxImage {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 12px;
+/* MAP CONTAINER */
+.map-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;      /* 🔥 BIG SIZE */
+}
+
+/* IMAGE */
+.map-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ================= POPUP ================= */
+
+.popup-card {
+  width: 220px;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  animation: popupFade 0.25s ease;
+}
+
+.popup-img {
+  height: 100px;
+  overflow: hidden;
+}
+
+.popup-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.popup-content {
+  padding: 12px;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.popup-stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.statItem span {
+  font-size: 11px;
+  color: #888;
+}
+
+.statItem strong {
+  font-size: 14px;
+}
+
+/* ANIMATION */
+@keyframes popupFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1024px) {
+  .mfsaStateX-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .mfsaStateX-right {
+    width: 100%;
+  }
+
+  .map-container {
+    max-width: 100%;
+  }
 }
