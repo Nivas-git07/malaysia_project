@@ -88,7 +88,7 @@ export default function NewsDetailX() {
 
           </div>
 
-          {/* ✅ RIGHT SIDEBAR */}
+      
           <div className="mfsaNewsSidebarX">
 
             <div className="mfsaSidebarBlockX">
