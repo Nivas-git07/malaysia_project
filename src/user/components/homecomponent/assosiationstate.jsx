@@ -15,9 +15,11 @@ export default function StateNetworkX() {
 
   const [active, setActive] = useState(null);
   const [popupPos, setPopupPos] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
 
   const containerRef = useRef(null);
 
+  /* ================= HOVER ================= */
   const handleHover = (e, state) => {
     if (!containerRef.current) return;
 
@@ -34,6 +36,7 @@ export default function StateNetworkX() {
     <section className="mfsaStateX-section">
       <div className="mfsaStateX-container">
 
+        {/* LEFT SIDE */}
         <div className="mfsaStateX-left">
           <span className="mfsaStateX-sub">NETWORK</span>
           <h2 className="mfsaStateX-title">Our States</h2>
@@ -64,6 +67,7 @@ export default function StateNetworkX() {
           </div>
         </div>
 
+        {/* RIGHT SIDE */}
         <div className="mfsaStateX-right">
           <div
             className="map-container"
@@ -87,7 +91,6 @@ export default function StateNetworkX() {
               }}
             >
 
-              {/* 🔥 ALL STATES FIXED */}
               {[
                 { name: "Pahang", pts: "376,441 565,411 595,442 667,536 687,591 687,663 708,753 625,731 466,626 454,616" },
                 { name: "Perak", pts: "221,358 323,277 406,238 420,286 371,393 357,443 385,491 397,549 350,558 277,533" },
@@ -110,16 +113,21 @@ export default function StateNetworkX() {
                   fill="transparent"
                   stroke="transparent"
                   style={{ cursor: "pointer" }}
-                  onMouseEnter={(e) =>
+                  onMouseEnter={(e) => {
+                    setIsHovering(true);
                     handleHover(e, {
                       name: s.name,
                       clubs: 10,
                       athletes: 20,
                       image:
                         "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
-                    })
-                  }
-                  onMouseLeave={() => setActive(null)}
+                    });
+                  }}
+                  onMouseLeave={() => {
+                    setTimeout(() => {
+                      if (!isHovering) setActive(null);
+                    }, 300);
+                  }}
                 />
               ))}
 
@@ -129,6 +137,11 @@ export default function StateNetworkX() {
             {active && (
               <div
                 className="map-popup"
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => {
+                  setIsHovering(false);
+                  setActive(null);
+                }}
                 style={{
                   position: "absolute",
                   top: popupPos.y,
@@ -161,6 +174,16 @@ export default function StateNetworkX() {
                         <strong>{active.medals || 0}</strong>
                       </div>
                     </div>
+
+                    <button
+                      className="popup-btn"
+                      onClick={() => {
+                        window.location.href = `/clubs/${active.name}`;
+                      }}
+                    >
+                      View Clubs
+                    </button>
+
                   </div>
                 </div>
               </div>
