@@ -83,14 +83,14 @@ function Navbar() {
                     MEMBER
                   </button>
                 </li>
-                {/* <li>
+                <li>
                   <button
                     className="btnFill"
                     onClick={() => navigate("/login")}
                   >
                     LOG IN
                   </button>
-                </li> */}
+                </li>
               </>
             )
           )}

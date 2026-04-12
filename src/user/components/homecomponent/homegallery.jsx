@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 import fallbackImg from "../../assets/event1.png";
-import { motion } from "framer-motion";
 
 export default function HomeGallery({ gallery }) {
   const navigate = useNavigate();
   const { stateId, clubId } = useParams();
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const [loadedImages, setLoadedImages] = useState({});
 
   const galleryList = Array.isArray(gallery) ? gallery : [];
 
@@ -23,9 +24,14 @@ export default function HomeGallery({ gallery }) {
   };
 
   return (
-    <>
-      <section className="homeGallerySection">
-
+    <AnimatePresence>
+      <motion.section
+        className="homeGallerySection"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, y: -30 }}
+        transition={{ duration: 0.4 }}
+      >
         {/* HEADER */}
         <div className="homeGalleryHeader">
           <h2 className="homeGalleryTitle">GALLERY</h2>
@@ -50,23 +56,43 @@ export default function HomeGallery({ gallery }) {
             },
           }}
         >
-          {galleryList && galleryList.length > 0 ? (
-            galleryList.slice(0, 7).map((item, index) => (
-              <motion.img
-                key={item.id || index}
-                src={item.image || fallbackImg}
-                alt="gallery"
-                className={`galleryItem g${index + 1}`}
-                onClick={() =>
-                  setSelectedImage(item.image || fallbackImg)
-                }
-                variants={{
-                  hidden: { opacity: 0, y: 40 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              />
-            ))
+          {galleryList.length > 0 ? (
+            galleryList.slice(0, 7).map((item, index) => {
+              const isLoaded = loadedImages[index];
+
+              return (
+                <motion.div
+                  key={item.id || index}
+                  className={`galleryItemWrapper g${index + 1}`}
+                  variants={{
+                    hidden: { opacity: 0, y: 40 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.6 }}
+                >
+                  {/* Skeleton */}
+                  {!isLoaded && <div className="imageSkeleton" />}
+
+                  <img
+                    src={item.image || fallbackImg}
+                    alt="gallery"
+                    loading="lazy"
+                    className={`galleryItem ${
+                      isLoaded ? "show" : "hide"
+                    }`}
+                    onLoad={() =>
+                      setLoadedImages((prev) => ({
+                        ...prev,
+                        [index]: true,
+                      }))
+                    }
+                    onClick={() =>
+                      setSelectedImage(item.image || fallbackImg)
+                    }
+                  />
+                </motion.div>
+              );
+            })
           ) : (
             <motion.div
               className="mfsaEmptyState"
@@ -77,22 +103,28 @@ export default function HomeGallery({ gallery }) {
             </motion.div>
           )}
         </motion.div>
-      </section>
 
-      {/* LIGHTBOX MODAL */}
-      {selectedImage && (
-        <div
-          className="lightboxOverlay"
-          onClick={() => setSelectedImage(null)}
-        >
-          <img
-            src={selectedImage}
-            alt="preview"
-            className="lightboxImage"
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
-      )}
-    </>
+        {/* LIGHTBOX */}
+        {selectedImage && (
+          <motion.div
+            className="lightboxOverlay"
+            onClick={() => setSelectedImage(null)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.img
+              src={selectedImage}
+              alt="preview"
+              className="lightboxImage"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+          </motion.div>
+        )}
+      </motion.section>
+    </AnimatePresence>
   );
 }
