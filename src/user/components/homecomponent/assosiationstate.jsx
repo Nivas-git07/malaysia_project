@@ -1,10 +1,9 @@
 import React, { useState, useRef } from "react";
 import mapImg from "../../assets/malaysia-map.png";
-import { useNavigate } from "react-router-dom";
 import { get_state } from "../../api/auth";
 import { useQuery } from "@tanstack/react-query";
+
 export default function StateNetworkX() {
-  const navigate = useNavigate();
   const { data: stateData } = useQuery({
     queryKey: ["states"],
     queryFn: get_state,
@@ -16,191 +15,50 @@ export default function StateNetworkX() {
 
   const [active, setActive] = useState(null);
   const [popupPos, setPopupPos] = useState({ x: 0, y: 0 });
+
   const containerRef = useRef(null);
-  const imgRef = useRef(null);
-
-  const scaleCoords = (coords, img) => {
-    if (!img) return coords;
-
-    const scaleX = img.clientWidth / 1536;
-    const scaleY = img.clientHeight / 1024;
-
-    return coords
-      .split(",")
-      .map((val, i) =>
-        i % 2 === 0 ? Math.round(val * scaleX) : Math.round(val * scaleY),
-      )
-      .join(",");
-  };
-
-  const getStateCenter = (state, img) => {
-    if (!img) return { x: 0, y: 0 };
-
-    const scaleX = img.clientWidth / 1536;
-    const scaleY = img.clientHeight / 1024;
-
-    if (state.circleCoords) {
-      const [x, y] = state.circleCoords[0].split(",").map(Number);
-      return { x: x * scaleX, y: y * scaleY };
-    }
-
-    if (state.rectCoords && state.rectCoords.length > 0) {
-      const [x1, y1, x2, y2] = state.rectCoords[0].split(",").map(Number);
-      return {
-        x: ((x1 + x2) / 2) * scaleX,
-        y: ((y1 + y2) / 2) * scaleY,
-      };
-    }
-
-    if (state.polyCoords) {
-      const points = state.polyCoords[0].split(",").map(Number);
-
-      let sumX = 0;
-      let sumY = 0;
-      let count = 0;
-
-      for (let i = 0; i < points.length; i += 2) {
-        sumX += points[i];
-        sumY += points[i + 1];
-        count++;
-      }
-
-      return {
-        x: (sumX / count) * scaleX,
-        y: (sumY / count) * scaleY,
-      };
-    }
-
-    return { x: 0, y: 0 };
-  };
-
-  const scaleCircle = (coords, img) => {
-    if (!img) return coords;
-
-    const [x, y, r] = coords.split(",").map(Number);
-
-    const scaleX = img.clientWidth / 1536;
-    const scaleY = img.clientHeight / 1024;
-
-    return [
-      Math.round(x * scaleX),
-      Math.round(y * scaleY),
-      Math.round(r * ((scaleX + scaleY) / 2)),
-    ].join(",");
-  };
 
   const handleHover = (e, state) => {
     if (!containerRef.current) return;
-    const containerRect = containerRef.current.getBoundingClientRect();
+
+    const rect = containerRef.current.getBoundingClientRect();
 
     setActive(state);
     setPopupPos({
-      x: e.clientX - containerRect.left,
-      y: e.clientY - containerRect.top,
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
     });
   };
-
-  const stateCoordsMap = {
-    Sabah: {
-      polyCoords: [
-        "669,805,818,670,1063,494,1262,303,1301,267,1351,361,1383,409,1401,428,1429,447,1457,453,1477,461,1489,479,1188,540,1123,668,1127,697,1110,721,1110,743,1086,765,1046,780,1008,796,829,818,753,826,722,829,703,834,730,843,681,820,635,782,619,746,650,763,670,763,687,762,699,763,706,758,1151,600,1150,630,1155,639,1158,604,1276,539,1299,544,1334,551,1380,499,1195,541,1348,555,1357,550,1376,559,1399,551,1422,536,1398,513,1375,503,1151,600,703,792,1422,495",
-      ],
-    },
-    "Pulau Pinang": {
-      polyCoords: ["158,311,266,331,293,459,245,456,205,441,182,423,176,403"],
-    },
-    Kedah: {
-      circleCoords: ["168,205,76"],
-    },
-    Selangor: {
-      polyCoords: [
-        "205,453,262,464,305,458,328,471,328,510,312,512,319,527,302,529,287,539,251,509",
-      ],
-    },
-    Perak: {
-      polyCoords: [
-        "277,379,314,353,345,356,372,356,400,356,415,349,437,371,432,383,433,405,449,412,460,413,466,429,472,437,455,445,432,448,410,455,391,459,369,467,358,470,342,477,305,451",
-      ],
-    },
-    "Tunk-Jayra": {
-      polyCoords: [
-        "346,488,365,478,393,474,413,467,432,460,447,452,466,453,479,441,470,467,479,475,491,453,484,467,488,480,496,494,502,510,498,526,498,544,510,560,521,574,525,594,461,586,377,520,342,510",
-      ],
-    },
-    "Kuala Lumpur": {
-      polyCoords: [
-        "283,569,300,544,325,535,340,528,357,527,367,532,384,559,404,550,389,536,348,580,313,597,377,558,389,566,404,567,301,595",
-      ],
-    },
-    Melaka: {
-      polyCoords: [
-        "340,616,338,584,361,579,371,575,392,570,407,574,428,577,408,645,424,653,351,649,348,665,415,668",
-      ],
-    },
-    "Negeri Sembilan": {
-      polyCoords: [
-        "422,643,419,619,426,592,438,586,457,593,472,597,492,597,506,608,523,613,538,603,541,616,547,635,557,645,570,657,568,669,590,679,591,703,519,694,509,700",
-      ],
-    },
-    Kelantan: {
-      polyCoords: [
-        "275,343,303,278,317,221,355,180,383,212,409,233,437,255,488,312,503,371,501,408,466,436,418,344,365,365,355,353,281,371",
-      ],
-    },
-    Perlis: {
-      polyCoords: [
-        "210,276,248,244,285,223,310,276,286,294,275,332,206,314,187,302,275,318,161,320,200,330,231,332,254,332,268,330,172,314",
-      ],
-    },
-  };
-
-  const mergedStates = states.map((state) => {
-    const coords = stateCoordsMap[state.state_name] || {};
-
-    return {
-      id: state.user,
-      name: state.state_name,
-      clubs: state.clubs_count,
-      athletes: state.athletes_count,
-      image:
-        state.image ||
-        "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa",
-      ...coords,
-    };
-  });
-
-  console.log(mergedStates);
 
   return (
     <section className="mfsaStateX-section">
       <div className="mfsaStateX-container">
+
         <div className="mfsaStateX-left">
           <span className="mfsaStateX-sub">NETWORK</span>
           <h2 className="mfsaStateX-title">Our States</h2>
-          <p className="mfsaStateX-text">
-            We have registered clubs in all major states across Malaysia. Find a
-            center near you to start your finswimming journey.
-          </p>
+
           <div className="mfsaStateX-list">
-            {mergedStates.map((item) => (
+            {states.map((item) => (
               <div
-                key={item.name}
-                className={`mfsaStateX-item ${active?.name === item.name ? "active" : ""}`}
-                onMouseEnter={() => {
-                  if (!imgRef.current) return;
-
-                  const pos = getStateCenter(item, imgRef.current);
-
-                  setActive(item);
-                  setPopupPos(pos);
+                key={item.state_name}
+                className={`mfsaStateX-item ${
+                  active?.name === item.state_name ? "active" : ""
+                }`}
+                onClick={() => {
+                  setActive({
+                    name: item.state_name,
+                    clubs: item.clubs_count,
+                    athletes: item.athletes_count,
+                    image:
+                      item.image ||
+                      "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa",
+                  });
+                  setPopupPos({ x: 400, y: 300 });
                 }}
-                onMouseLeave={() => {
-                  setActive("");
-                }}
-                onClick={() => navigate(`/state/${item.id}`)}
               >
                 <span className="mfsaStateX-radio"></span>
-                <p>{item.name}</p>
+                <p>{item.state_name}</p>
               </div>
             ))}
           </div>
@@ -213,64 +71,61 @@ export default function StateNetworkX() {
             style={{ position: "relative" }}
           >
             <img
-              ref={imgRef}
               src={mapImg}
-              useMap="#malaysia-map"
-              alt="Malaysia map"
-              style={{ display: "block", width: "100%", height: "auto" }}
+              alt="map"
+              style={{ width: "100%", height: "auto" }}
             />
 
-            <map name="malaysia-map">
-              {mergedStates.map((state) => (
-                <React.Fragment key={state.name}>
-                  {state.rectCoords?.map((coords, i) => (
-                    <area
-                      key={`rect-${i}`}
-                      shape="rect"
-                      coords={scaleCoords(coords, imgRef.current)}
-                      onMouseEnter={() => {
-                        if (!imgRef.current) return;
+            <svg
+              viewBox="0 0 2000 907"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+              }}
+            >
 
-                        const pos = getStateCenter(state, imgRef.current);
-
-                        setActive(state);
-                        setPopupPos(pos);
-                      }}
-                      onMouseLeave={() => setActive(null)}
-                      href="#"
-                      onClick={(e) => e.preventDefault()}
-                    />
-                  ))}
-
-                 
-                  {state.polyCoords?.map((coords, i) => (
-                    <area
-                      key={`poly-${i}`}
-                      shape="poly"
-                      coords={scaleCoords(coords, imgRef.current)}
-                      onMouseMove={(e) => handleHover(e, state)}
-                      onMouseLeave={() => setActive(null)}
-                      href="#"
-                      onClick={(e) => e.preventDefault()}
-                    />
-                  ))}
-
-                  
-                  {state.circleCoords?.map((coords, i) => (
-                    <area
-                      key={`circle-${i}`}
-                      shape="circle"
-                      coords={scaleCircle(coords, imgRef.current)}
-                      onMouseMove={(e) => handleHover(e, state)}
-                      onMouseLeave={() => setActive(null)}
-                      href="#"
-                      onClick={(e) => e.preventDefault()}
-                    />
-                  ))}
-                </React.Fragment>
+              {/* 🔥 ALL STATES FIXED */}
+              {[
+                { name: "Pahang", pts: "376,441 565,411 595,442 667,536 687,591 687,663 708,753 625,731 466,626 454,616" },
+                { name: "Perak", pts: "221,358 323,277 406,238 420,286 371,393 357,443 385,491 397,549 350,558 277,533" },
+                { name: "Johor", pts: "544,812 568,713 644,759 699,761 729,761 743,768 775,837 808,936 757,892 729,911 697,927 568,848 685,927" },
+                { name: "Terengganu", pts: "547,234 534,297 555,370 604,439 631,441 614,495 673,523 701,474 694,418 683,380 624,294" },
+                { name: "Negeri Sembilan", pts: "436,771 434,697 475,651 508,651 521,663 551,683 565,690 560,727 545,757" },
+                { name: "Melaka", pts: "461,778 494,768 531,768 530,780 538,815 498,803" },
+                { name: "Selangor", pts: "376,703 427,667 455,653 425,577 390,568 288,551" },
+                { name: "Sabah", pts: "1643,296 1626,239 1643,195 1705,137 1732,87 1746,47 1776,73 1795,82 1818,91 1836,110 1808,160 1873,142 1866,176 1898,165 1924,183 1938,190 1979,193 1984,216 1883,268 1910,289 1873,301" },
+                { name: "Perlis", pts: "177,124 198,90 214,112 178,147 199,133" },
+                { name: "Pulau Pinang", pts: "216,264 241,264 239,333 216,333 196,278 178,310 192,317" },
+                { name: "Kelantan", pts: "369,409 397,343 425,310 425,260 462,234 482,202 498,174 530,197 549,228 523,260 535,303 524,334 544,347 553,382 523,400 404,419" },
+                { name: "Sarawak", pts: "1605,262 1583,275 1552,289 1486,299 1433,336 1419,370 1386,407 1331,427 1280,451 1246,465 1243,485 1192,478 1206,531 1190,575 1160,577 1103,564 1045,541 1098,605 1142,642 1216,621 1276,632 1349,554 1379,563 1435,598 1506,586 1569,513 1635,412 1640,344 1636,294 1626,246" },
+                { name: "Kedah", pts: "214,260 210,207 196,158 237,119 263,131 289,160 320,165 328,202 305,236 286,269 267,301 251,340 286,303 240,305" },
+                { name: "Putrajaya", pts: "388,717 390,688 411,687 420,687 424,704 424,717 422,734 397,734 406,736" }
+              ].map((s) => (
+                <polygon
+                  key={s.name}
+                  points={s.pts}
+                  fill="transparent"
+                  stroke="transparent"
+                  style={{ cursor: "pointer" }}
+                  onMouseEnter={(e) =>
+                    handleHover(e, {
+                      name: s.name,
+                      clubs: 10,
+                      athletes: 20,
+                      image:
+                        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+                    })
+                  }
+                  onMouseLeave={() => setActive(null)}
+                />
               ))}
-            </map>
 
+            </svg>
+
+            {/* POPUP */}
             {active && (
               <div
                 className="map-popup"
@@ -281,21 +136,15 @@ export default function StateNetworkX() {
                   transform: "translate(-50%, -120%)",
                   zIndex: 100,
                 }}
-                onMouseEnter={() => setActive(active)}
-                onMouseLeave={() => setActive(null)}
               >
                 <div className="popup-card">
-               
                   <div className="popup-img">
                     <img src={active.image} alt={active.name} />
                   </div>
 
-                 
                   <div className="popup-content">
-                   
                     <h4 className="popup-title">{active.name}</h4>
 
-              
                     <div className="popup-stats">
                       <div className="statItem">
                         <span>Clubs</span>
@@ -312,22 +161,14 @@ export default function StateNetworkX() {
                         <strong>{active.medals || 0}</strong>
                       </div>
                     </div>
-
-                    {/* BUTTON */}
-                    {/* <button
-                      className="popup-btn"
-                      onClick={() => {
-                        navigate(`/state/${active.id}`);
-                      }}
-                    >
-                      View Details →
-                    </button> */}
                   </div>
                 </div>
               </div>
             )}
+
           </div>
         </div>
+
       </div>
     </section>
   );
