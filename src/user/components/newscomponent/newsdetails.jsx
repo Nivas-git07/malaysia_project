@@ -5,11 +5,11 @@ import new3 from "../../assets/event4.png";
 import new4 from "../../assets/event3.png";
 import new5 from "../../assets/event5.png";
 import new6 from "../../assets/event6.png";
-import { get_news } from "../../api/home_api";
+
+import { get_news, get_particular_news } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
-import { get_particular_news } from "../../api/home_api";
 import { useParams } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+
 export default function NewsDetailX() {
   const { stateId, clubId } = useParams();
 
@@ -28,7 +28,9 @@ export default function NewsDetailX() {
 
   const newsList = newsData?.data || [];
 
-  
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   if (isError || newsList.length === 0) {
     return (
@@ -40,68 +42,59 @@ export default function NewsDetailX() {
     );
   }
 
-
-  const firstNews = newsList[0];
-  const remainingNews = newsList.slice(1);
-
   return (
     <section className="mfsaNewsDetailX-section">
       <div className="mfsaNewsDetailX-container">
-     
-        <h1 className="mfsaNewsDetailX-title">{firstNews.title}</h1>
-
-        <div className="mfsaNewsDetailX-hero">
-          <img src={firstNews.image || new2} alt="news" />
-        </div>
 
         <div className="mfsaNewsDetailX-main">
+
+          {/* ✅ LEFT SIDE - ALL NEWS SAME STYLE */}
           <div className="mfsaNewsDetailX-content">
-            <p className="mfsaNewsDetailX-intro">{firstNews.description}</p>
 
-            {(firstNews.content || "")
-              .split("\n")
-              .filter((p) => p.trim() !== "")
-              .map((para, i) => (
-                <p key={i} className="mfsaNewsDetailX-text">
-                  {para}
-                </p>
-              ))}
-
-            <div className="mfsaNewsDetailX-gallery">
-              <img src={new1} />
-              <img src={new6} />
-              <img src={new3} />
-            </div>
-
-            {remainingNews.map((item) => (
+            {newsList.map((item) => (
               <div key={item.id} className="newsCardFull">
-                <h2 className="mfsaNewsDetailX-heading">{item.title}</h2>
+
+                <h2 className="mfsaNewsDetailX-heading">
+                  {item.title}
+                </h2>
 
                 <div className="mfsaNewsDetailX-hero">
                   <img src={item.image || new2} alt="news" />
                 </div>
 
-                <p className="mfsaNewsDetailX-text">{item.description}</p>
-
                 <p className="mfsaNewsDetailX-text">
-                  {(item.content || "").replace(/\n/g, " ").trim()}
+                  {item.description}
                 </p>
+
+                {(item.content || "")
+                  .split("\n")
+                  .filter((p) => p.trim() !== "")
+                  .slice(0, 2) // 👈 limit content for listing feel
+                  .map((para, i) => (
+                    <p key={i} className="mfsaNewsDetailX-text">
+                      {para}
+                    </p>
+                  ))}
 
                 <hr className="newsDivider" />
               </div>
             ))}
 
             <div className="mfsaLoadMoreWrapX">
-              <button className="mfsaLoadMoreBtnX">Load More News →</button>
+              <button className="mfsaLoadMoreBtnX">
+                Load More News →
+              </button>
             </div>
+
           </div>
 
-       
+          {/* ✅ RIGHT SIDEBAR */}
           <div className="mfsaNewsSidebarX">
+
             <div className="mfsaSidebarBlockX">
               <h5 className="mfsaSidebarTitleX">Related News</h5>
 
-              {newsList.slice(1, 3).map((item) => (
+              {newsList.slice(0, 3).map((item) => (
                 <div className="mfsaSidebarItemX" key={item.id}>
                   <img src={item.image || new5} alt="" />
                   <span className="tag">News</span>
@@ -126,11 +119,14 @@ export default function NewsDetailX() {
 
             <div className="mfsaSidebarSubscribeX">
               <h4>Stay Elite.</h4>
-              <p>Get the latest technical analysis and competition updates.</p>
+              <p>
+                Get the latest technical analysis and competition updates.
+              </p>
 
               <input placeholder="Your email address" />
               <button>SUBSCRIBE</button>
             </div>
+
           </div>
         </div>
       </div>

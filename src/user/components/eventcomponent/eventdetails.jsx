@@ -55,7 +55,9 @@ export default function EventDetailX() {
 
             <div className="detailItem">
               <span>Organized by</span>
-              <p>{event.organized_by || "-"}</p>
+              <p>{event.
+                organizer_name
+                || "-"}</p>
             </div>
 
             <div className="detailItem">
@@ -70,13 +72,13 @@ export default function EventDetailX() {
 
             <div className="detailItem">
               <span>Time</span>
-              <p>{event.time || "-"}</p>
+              <p>{event.event_start || "-"} - {event.event_end || "-"}</p>
             </div>
 
             <button className="registerBtn">Register Now →</button>
           </div>
 
-    
+
           <div className="mfsaEventDetailX-right">
             <h2>{event.event_name}</h2>
 
@@ -108,7 +110,7 @@ export default function EventDetailX() {
           </div>
         </div>
 
-      
+
         <div className="mfsaEventDetailX__map">
           <div className="mfsaEventDetailX__map-container">
             {/* Google Map */}
