@@ -1,9 +1,20 @@
 import { FiArrowRight } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
 export default function NewsCard({ img, title, category }) {
   const navigate = useNavigate();
+
   return (
-    <div className="homeNewsCard">
+    <motion.div
+      className="homeNewsCard"
+      variants={{
+        hidden: { opacity: 0, y: 40 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ y: -10 }}
+    >
       {/* IMAGE */}
       <div className="newsImgWrap">
         <img src={img} alt="news" />
@@ -11,28 +22,24 @@ export default function NewsCard({ img, title, category }) {
 
       {/* CONTENT */}
       <div className="newsContent">
-        {/* CATEGORY */}
         <span className="newsCategory">{category}</span>
 
-        {/* TITLE */}
         <h3 className="newsTitles">{title}</h3>
 
-        {/* DESCRIPTION */}
         <p className="newsDesc">
           Calling all young swimmers! Join our developmental program and start
           your path to excellence.
         </p>
 
-        {/* READ MORE */}
-        <button
+        <motion.button
           className="newsBtn"
-          onClick={() => {
-            navigate("/news");
-          }}
+          whileHover={{ x: 5 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate("/news")}
         >
           Read Full Story <FiArrowRight />
-        </button>
+        </motion.button>
       </div>
-    </div>
+    </motion.div>
   );
 }
