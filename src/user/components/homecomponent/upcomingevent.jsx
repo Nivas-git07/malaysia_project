@@ -38,7 +38,10 @@ export default function UpcomingEvents({ event }) {
           }}
         >
           {events.length === 0 ? (
-            <p>No upcoming events available.</p>
+            <div className="mfsaEmptyState">
+                 <p>No upcoming events available.</p>
+            </div>
+         
           ) : (
             events.map((item) => (
               <EventCardX

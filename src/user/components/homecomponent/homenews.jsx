@@ -9,7 +9,7 @@ export default function HomeNews({ news }) {
 
   return (
     <section className="homeNewsSection">
-      
+
       {/* HEADER */}
       <motion.div
         className="homeNewsHeader"
@@ -42,7 +42,9 @@ export default function HomeNews({ news }) {
         }}
       >
         {newsList.length === 0 ? (
-          <p>No news available.</p>
+          <div className="mfsaEmptyState">
+            <p>No News available.</p>
+          </div>
         ) : (
           newsList.slice(0, 3).map((item) => (
             <NewsCard

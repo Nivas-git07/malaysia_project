@@ -13,7 +13,7 @@ export default function HomeGallery({ gallery }) {
 
   const galleryList = Array.isArray(gallery) ? gallery : [];
 
-  // ✅ Reset loaded state when gallery changes (VERY IMPORTANT)
+ 
   useEffect(() => {
     setLoadedImages({});
   }, [galleryList]);
