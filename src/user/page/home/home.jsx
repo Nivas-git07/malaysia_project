@@ -13,20 +13,46 @@ import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const navigate = useNavigate();
-  const { data, isLoading, error } = useQuery({
+
+  const { data, isLoading, isError, isFetching } = useQuery({
     queryKey: ["homeData"],
     queryFn: get_home,
+    staleTime: 1000 * 60 * 5, // 5 min cache
+    cacheTime: 1000 * 60 * 10,
     refetchOnWindowFocus: false,
-    retry: false,
+    keepPreviousData: true,
   });
-  const homeData = data?.data || {};
-  const homeStats = homeData.stats || {};
-  const homeevents = homeData.upcoming_events || {};
-  const homenews = homeData.latest_news || {};
-  const homegallery = homeData.gallery || {};
-  console.log(homeData);
+
+  // 🚨 IMPORTANT: don't default to [] here
+  const homeData = data?.data ?? null;
+
+  // ---------- UI STATES ----------
+
+  if (isLoading && !homeData) {
+    return (
+      <div className="home-page">
+        <div className="mfsaEmptyState">Loading Home...</div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="home-page">
+        <div className="mfsaEmptyState">Failed to load data</div>
+      </div>
+    );
+  }
+
+  // ---------- SAFE DATA ----------
+  const homeStats = homeData?.stats ?? null;
+  const homeevents = homeData?.upcoming_events ?? null;
+  const homenews = homeData?.latest_news ?? null;
+  const homegallery = homeData?.gallery ?? null;
+
   return (
     <div className="home-page">
+      {/* HERO */}
       <Swimmer>
         <div className="homeHeroContent">
           <h1 className="homeHeroTitle animateTitle">
@@ -67,15 +93,19 @@ export default function Home() {
           </div>
         </div>
       </Swimmer>
+
       <HomeAbout name="Malaysia" />
 
-      <UpcomingEvents event={homeevents} />
-      <HomeRecords stats={homeStats} />
+    
+      {homeevents && <UpcomingEvents event={homeevents} />}
+      {homeStats && <HomeRecords stats={homeStats} />}
 
       <BestRecordsX />
       <StateNetworkX />
-      <HomeGallery gallery={homegallery} />
-      <HomeNews news={homenews} />
+
+      {homegallery && <HomeGallery gallery={homegallery} />}
+      {homenews && <HomeNews news={homenews} />}
+
       <Footer />
     </div>
   );
