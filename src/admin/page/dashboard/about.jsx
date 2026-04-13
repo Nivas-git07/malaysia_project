@@ -7,6 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import { editabout } from "../../api/about_api";
 import { useNavigate } from "react-router-dom";
 import Aboutpreview from "../../previewtemplate/aboutpreview";
+
+import { post_about_preview } from "../../api/preview_api";
 export default function About() {
   const navigate = useNavigate();
   const { data: aboutData, isLoading } = useQuery({
@@ -34,6 +36,15 @@ export default function About() {
     setMissions(missionArray);
     setInitialized(true);
   }
+
+  const preview_post = () => {
+    try {
+      const response = post_about_preview(about, missions, vision);
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const addPoint = () => {
     setMissions([...missions, ""]);
@@ -153,10 +164,11 @@ export default function About() {
               <button
                 className="mfsaPreviewX-btn"
                 onClick={() => {
+                  preview_post(); 
                   navigate("/aboutpreview");
                 }}
               >
-                Open Preview Page <FiArrowRight />
+                Open Preview Page 
               </button>
             </div>
           </div>

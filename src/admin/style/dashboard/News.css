@@ -148,7 +148,7 @@
 /* gallery css */
 
 .mfsaAdminGalleryX {
-  padding: 50px 40px;
+  padding-top: 50px !important;
 }
 
 /* ===== UPLOAD SECTION ===== */

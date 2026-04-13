@@ -416,7 +416,7 @@ margin-left:2px;
 .mfsaPreviewX-section {
   max-width: 1350px;
   margin: 30px auto;
-  padding: 0 20px;
+  /* padding: 0 20px; */
 }
 
 /* CARD */

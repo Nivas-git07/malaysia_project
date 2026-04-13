@@ -1,5 +1,6 @@
 import { Template } from "./swimmer/template";
 import Footer from "../../user/layout/footer";
+import AboutPageX from "../../user/components/aboutcomponent/aboutcontent"
 export default function Aboutpreview({ data }) {
   return (
     <>
@@ -15,7 +16,7 @@ export default function Aboutpreview({ data }) {
       </Template>
       <AboutPageX />
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

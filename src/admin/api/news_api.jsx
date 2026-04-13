@@ -34,3 +34,7 @@ export const postgallery = (file) => {
     },
   });
 };
+
+export const get_recent_gallery = () =>{
+  return API.get("/super/get-latest-images/")
+}
