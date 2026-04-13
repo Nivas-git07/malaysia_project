@@ -9,7 +9,7 @@ import { logout } from "../../api/auth_api";
 import { PiNotePencilBold } from "react-icons/pi";
 import { GrGallery } from "react-icons/gr";
 import { BiCommentDetail } from "react-icons/bi";
-
+import { TbCreditCardRefund } from "react-icons/tb";
 import {
   Home,
   User,
@@ -62,6 +62,11 @@ export default function Sidebar() {
           <NavLink to="/admin/membership" className="menuItem" onClick={closeSidebar}>
             <FaAddressCard size={20} />
             <span>membership</span>
+          </NavLink>
+
+          <NavLink to="/admin/membershiprenew" className="menuItem" onClick={closeSidebar}>
+            <TbCreditCardRefund size={20} />
+            <span>membership Renew</span>
           </NavLink>
 
           <NavLink to="/admin/tickets" className="menuItem" onClick={closeSidebar}>

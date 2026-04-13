@@ -17,7 +17,7 @@ import ClubList from "../page/dashboard/club";
 import Gallery from "../page/dashboard/gallery";
 import Record from "../page/dashboard/record";
 import About from "../page/dashboard/about";
-
+import MembersipRenew from "../page/dashboard/membershiprrenew";
 export default function AdminRoute() {
   return (
     <Routes>
@@ -114,6 +114,15 @@ export default function AdminRoute() {
         element={
           <AdminLayout>
             <Manageuser />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="membershiprenew"
+        element={
+          <AdminLayout>
+            <MembersipRenew />
           </AdminLayout>
         }
       />
