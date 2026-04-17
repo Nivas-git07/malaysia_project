@@ -1,6 +1,6 @@
 
 import Navbar from "./navbar";
-import video from "../assets/animate3.mp4"
+import video from "../assets/animate5.mp4"
 export default function Swimmer({ children }) {
 
     return (
