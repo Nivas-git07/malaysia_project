@@ -18,6 +18,7 @@ import Gallery from "../page/dashboard/gallery";
 import Record from "../page/dashboard/record";
 import About from "../page/dashboard/about";
 import MembersipRenew from "../page/dashboard/membershiprrenew";
+import MembersipPurchase from "../page/dashboard/membershippurchase";
 export default function AdminRoute() {
   return (
     <Routes>
@@ -123,6 +124,15 @@ export default function AdminRoute() {
         element={
           <AdminLayout>
             <MembersipRenew />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="membershippurchase"
+        element={
+          <AdminLayout>
+            <MembersipPurchase />
           </AdminLayout>
         }
       />
