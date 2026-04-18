@@ -7,7 +7,7 @@ import {
   FaGraduationCap,
 } from "react-icons/fa";
 import Navbar from "../navbar/nav";
-
+import { useNavigate } from "react-router-dom";
 function MembersipPurchaseCenter() {
   const membershipPlans = [
     {
@@ -52,17 +52,17 @@ function MembersipPurchaseCenter() {
     },
   ];
 
+  const navigate = useNavigate();
+
   // ✅ Slider logic
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerPage = 3;
 
-  const totalPages = Math.ceil(
-    membershipPlans.length / itemsPerPage
-  );
+  const totalPages = Math.ceil(membershipPlans.length / itemsPerPage);
 
   const visiblePlans = membershipPlans.slice(
     currentIndex,
-    currentIndex + itemsPerPage
+    currentIndex + itemsPerPage,
   );
 
   const nextSlide = () => {
@@ -88,7 +88,7 @@ function MembersipPurchaseCenter() {
       <div className="mu-membership-wrapper">
         {/* Header */}
         <div className="mp-header">
-          <h1 >Membership</h1>
+          <h1>Membership</h1>
           <p>Join the federation to unlock full access and benefits</p>
         </div>
 
@@ -105,14 +105,11 @@ function MembersipPurchaseCenter() {
             exclusive benefits.
           </p>
 
-          <button className="mp-primary-btn">
-            Browse Membership Plans
-          </button>
+          <button className="mp-primary-btn">Browse Membership Plans</button>
         </div>
 
         {/* 🔥 SLIDER SECTION */}
         <div className="mp-slider-wrapper">
-
           {/* Prev Button */}
           {/* <button className="mp-nav-btn" onClick={prevSlide}>
             ⬅
@@ -150,7 +147,12 @@ function MembersipPurchaseCenter() {
                   ))}
                 </ul>
 
-                <button className="mp-select-btn">
+                <button
+                  className="mp-select-btn"
+                  onClick={() => {
+                    navigate(`/admin/membershippayment/${plan.name}`);
+                  }}
+                >
                   Select Plan
                 </button>
               </div>
@@ -178,65 +180,51 @@ function MembersipPurchaseCenter() {
 
         {/* Why Become Member */}
         <div className="mb-wrapper">
-           <div className="mb-wrapper">
-          <div className="mb-top">
-            <h2>Why Become a Member?</h2>
+          <div className="mb-wrapper">
+            <div className="mb-top">
+              <h2>Why Become a Member?</h2>
 
-            <div className="mb-grid">
-              <div className="mb-item">
-                <FaTrophy />
-                <h3>Official Rankings</h3>
-                <p>
-                  Track your progress and compete for the top national spots.
-                </p>
-              </div>
+              <div className="mb-grid">
+                <div className="mb-item">
+                  <FaTrophy />
+                  <h3>Official Rankings</h3>
+                  <p>
+                    Track your progress and compete for the top national spots.
+                  </p>
+                </div>
 
-              <div className="mb-item">
-                <FaCalendarCheck />
-                <h3>Event Access</h3>
-                <p>
-                  Priority registration for finswimming championships.
-                </p>
-              </div>
+                <div className="mb-item">
+                  <FaCalendarCheck />
+                  <h3>Event Access</h3>
+                  <p>Priority registration for finswimming championships.</p>
+                </div>
 
-              <div className="mb-item">
-                <FaShieldAlt />
-                <h3>Insurance Coverage</h3>
-                <p>
-                  Coverage for training sessions and competitions.
-                </p>
-              </div>
+                <div className="mb-item">
+                  <FaShieldAlt />
+                  <h3>Insurance Coverage</h3>
+                  <p>Coverage for training sessions and competitions.</p>
+                </div>
 
-              <div className="mb-item">
-                <FaGraduationCap />
-                <h3>Masterclasses</h3>
-                <p>
-                  Technical clinics led by international experts.
-                </p>
+                <div className="mb-item">
+                  <FaGraduationCap />
+                  <h3>Masterclasses</h3>
+                  <p>Technical clinics led by international experts.</p>
+                </div>
               </div>
             </div>
           </div>
-
-    
-        </div>
           <div className="mb-guidelines">
             <h3>Membership Guidelines</h3>
 
             <div className="mb-guidelines-grid">
               <ul>
-                <li>
-                  Memberships are valid for one calendar year.
-                </li>
-                <li>
-                  Compliance with Code of Conduct is mandatory.
-                </li>
+                <li>Memberships are valid for one calendar year.</li>
+                <li>Compliance with Code of Conduct is mandatory.</li>
               </ul>
 
               <ul>
                 <li>All fees are non-refundable.</li>
-                <li>
-                  Certifications required for advanced roles.
-                </li>
+                <li>Certifications required for advanced roles.</li>
               </ul>
             </div>
           </div>
@@ -257,5 +245,6 @@ function MembersipPurchaseCenter() {
 
 export default MembersipPurchaseCenter;
 
-      {/* Guidelines */}
-     
+{
+  /* Guidelines */
+}

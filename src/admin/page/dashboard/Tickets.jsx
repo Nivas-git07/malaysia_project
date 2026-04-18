@@ -19,11 +19,9 @@ function Tickets() {
     <>
       <Navbar />
       <div className="mu-membership-wrapper">
-
-  <div className="ticketStatusHeader">TICKET SUPPORT</div>
+        <div className="ticketStatusHeader">TICKET SUPPORT</div>
         <div className="ticketHeader">
-        
-{/* 
+          {/* 
           <button className="newTicketBtn">+ New Ticket</button> */}
         </div>
 
@@ -58,13 +56,15 @@ function Tickets() {
           {/* ===== TICKET LIST ===== */}
           <div className="ticketList">
             {tickets.map((ticket) => (
-                <div className="ticketItem" key={ticket.id}>
-                  <div className="ticketInfo">
+              <div className="ticketItem" key={ticket.id}>
+                <div className="ticketInfo">
                   <h4>{ticket.note}</h4>
                   <p>{ticket.email_id} · 06 Aug 2025</p>
                 </div>
-                <span className={`status ${ticket.status === "Resolved" ? "resolvedGreen" : ticket.status === "In Progress" ? "inProgressYellow" : "pendingRed"}`}>
-                  •  Pending
+                <span
+                  className={`status ${ticket.status === "Resolved" ? "resolvedGreen" : ticket.status === "In Progress" ? "inProgressYellow" : "pendingRed"}`}
+                >
+                  • Pending
                 </span>
               </div>
             ))}

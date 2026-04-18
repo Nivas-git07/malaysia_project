@@ -17,8 +17,10 @@ import ClubList from "../page/dashboard/club";
 import Gallery from "../page/dashboard/gallery";
 import Record from "../page/dashboard/record";
 import About from "../page/dashboard/about";
-import MembersipRenew from "../page/dashboard/membershiprrenew";
-import MembersipPurchase from "../page/dashboard/membershippurchase";
+import MembersipRenew from "../page/dashboard/membershiprenew";
+import MembershipStatus from "../page/membership/membershipstatus";
+import MembersipPurchase from "../page/membership/membershippurchase";
+import AdminMembershipPayment from "../page/membership/memberpayment";
 export default function AdminRoute() {
   return (
     <Routes>
@@ -115,6 +117,15 @@ export default function AdminRoute() {
         element={
           <AdminLayout>
             <Manageuser />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="membershippayment/:planName"
+        element={
+          <AdminLayout>
+            <AdminMembershipPayment />
           </AdminLayout>
         }
       />

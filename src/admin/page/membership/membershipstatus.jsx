@@ -1,7 +1,7 @@
 import Navbar from "../navbar/nav";
 
 
-function MembersipRenew() {
+function MembershipStatus() {
   return (
     <>
       <Navbar />
@@ -99,4 +99,4 @@ function MembersipRenew() {
   );
 }
 
-export default MembersipRenew;
+export default MembershipStatus;
