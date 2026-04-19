@@ -1,4 +1,4 @@
-import { FaUniversity, FaHeadset, FaCloudUploadAlt } from "react-icons/fa";
+import { FaUniversity, FaHeadset, FaCloudUploadAlt ,FaCheckCircle} from "react-icons/fa";
 // import MembershipStep from "./membershipsubmission";
 import { useRef } from "react";
 import { membrship_purchase } from "../../api/auth";
@@ -6,6 +6,7 @@ import { get_state } from "../../api/auth";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 export default function MembershipPayment({ plan, amount, user }) {
   const navigate = useNavigate();
   const [Transaction, setTransaction] = useState({
@@ -22,17 +23,20 @@ export default function MembershipPayment({ plan, amount, user }) {
     formData.append("transaction_id", Transaction.Transaction_id);
     formData.append("club", Transaction.club);
     // formData.append("notes", Transaction.notes);
-    formData.append("amount_paid", Transaction.amount_paid);
+    formData.append("amount_paid",  amount);
+    formData.append("membership_plan", plan);
 
     if (Transaction.receipt_image) {
       formData.append("receipt_image", Transaction.receipt_image);
     }
 
     console.log(
+
       Transaction.amount_paid,
       Transaction.club,
       Transaction.receipt_image,
       Transaction.Transaction_id,
+      plan
     );
 
     try {
@@ -52,6 +56,7 @@ export default function MembershipPayment({ plan, amount, user }) {
     retry: false,
   });
   const states = stateData?.data || [];
+  console.log(states);
 
   const fileInputRef = useRef(null);
 
@@ -83,7 +88,7 @@ export default function MembershipPayment({ plan, amount, user }) {
               <span className="planTag">SELECTED PLAN</span>
 
               <h3>
-                {plan.title} {plan}
+                {plan}
               </h3>
 
               <div className="planFeatures">
@@ -93,7 +98,7 @@ export default function MembershipPayment({ plan, amount, user }) {
             </div>
 
             <div className="planPrice">
-              $100
+              ${amount}
               <span>/per year</span>
             </div>
           </div>

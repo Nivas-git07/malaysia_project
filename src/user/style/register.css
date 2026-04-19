@@ -940,7 +940,7 @@ body{
 
 /* SECTION */
 .mfsaMembershipX-section {
-  background: #f6f7fb !important;
+  /* background: #f6f7fb !important; */
   padding: 80px 20px !important;
 }
 
@@ -1005,6 +1005,7 @@ body{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  margin-top: 35px;
 }
 
 /* CARD */
@@ -1150,7 +1151,7 @@ body{
 
 /* SECTION */
 .mfsaWhyX-section {
-  background: #f5f6f8;
+  /* background: #f5f6f8; */
   padding: 40px 20px;
 }
 
@@ -1321,7 +1322,7 @@ body{
 /* SECTION */
 .mfsaCompleteSection {
   padding: 60px 0 !important;
-  background: #f9fafb !important;
+  /* background: #f9fafb !important; */
 }
 
 /* CONTAINER */
@@ -1480,6 +1481,7 @@ body{
 .mfsaPaymentSection {
   padding: 40px 0;
   background: #f5f6f8;
+      border-radius: 12px;
 }
 
 .mfsaContainer {

@@ -2,55 +2,51 @@ import { useState } from "react";
 import img from "../../assets/event3.png";
 import { FaCheckCircle } from "react-icons/fa";
 import { BiWorld } from "react-icons/bi";
+
 export default function MembershipX({ onSubmit }) {
-  const [plan, setPlan] = useState("yearly");
   const [selected, setSelected] = useState(null);
+
+
   const plans = [
     {
       Membership_id: 101,
-      title: "Athlete Basic",
-      monthly: 5,
-      yearly: 49,
+      title: "INDIVIDUAL_MEMBER",
+      price: "RM 50",
       features: [
-        "Standard competition license",
-        "Regional rankings access",
-        "Digital athlete passport",
+        "Access to local competitions",
+        "Basic ranking visibility",
+        "Digital membership ID",
       ],
     },
     {
       Membership_id: 102,
-      title: "Athlete Elite",
-      monthly: 12,
-      yearly: 129,
+      title: "ALLIED_MEMBER",
+      price: "RM 100",
       popular: true,
       features: [
-        "Priority meet registration",
-        "National rankings profile",
-        "Pro gear discounts (20%)",
-        "Training workshop access",
+        "Access to allied events",
+        "Networking with clubs & members",
+        "Participation in workshops",
       ],
     },
     {
       Membership_id: 103,
-      title: "Coach / Official",
-      monthly: 8,
-      yearly: 89,
+      title: "Coach",
+      price: "RM 150",
       features: [
-        "Technical certification",
-        "Official scoring access",
-        "Federation voting rights",
+        "Official coach certification",
+        "Access to training programs",
+        "Eligibility to train athletes",
       ],
     },
     {
       Membership_id: 104,
-      title: "Affiliated Club",
-      monthly: 40,
-      yearly: 450,
+      title: "Technical Official",
+      price: "RM 120",
       features: [
-        "Club listing on federation",
-        "Hosting rights for meets",
-        "Bulk athlete insurance",
-        "Brand kit & resources",
+        "Eligibility to officiate events",
+        "Technical training access",
+        "Certification recognition",
       ],
     },
   ];
@@ -59,62 +55,60 @@ export default function MembershipX({ onSubmit }) {
     <>
       <section className="mfsaMembershipX-section">
         <div className="mfsaMembershipX-container">
-      
+
           <div className="mfsaMembershipX-header">
             <span className="tag">Membership Programs</span>
             <h1>Choose Your Membership</h1>
             <p>
-              Select the plan that fits your journey within the world of elite
-              finswimming.
+              Select the plan that fits your journey.
             </p>
           </div>
 
-          <div className="mfsaToggleX">
-            <span className={plan === "monthly" ? "active" : ""}>Monthly</span>
-
-            <div
-              className={`toggleSwitch ${plan}`}
-              onClick={() => setPlan(plan === "monthly" ? "yearly" : "monthly")}
-            />
-
-            <span className={plan === "yearly" ? "active" : ""}>
-              Yearly <small>-15%</small>
-            </span>
-          </div>
 
           <div className="mfsaMembershipGridX">
-            {plans.map((item, i) => (
+            {plans.map((item) => (
               <div
-                className={`mfsaMembershipCardX ${item.popular ? "popular" : ""}`}
+                className={`mfsaMembershipCardX ${
+                  item.popular ? "popular" : ""
+                }`}
                 key={item.Membership_id}
               >
                 {item.popular && (
                   <span className="popularTag">Most Popular</span>
                 )}
 
-                <h3>{item.title}</h3>
+                <h3>{item.title.replaceAll("_", " ")}</h3>
 
+                {/* ✅ FIXED PRICE */}
                 <div className="price">
-                  ${plan === "monthly" ? item.monthly : item.yearly}
-                  <span> / {plan === "monthly" ? "month" : "year"}</span>
+                  {item.price} <span>/ year</span>
                 </div>
 
                 <ul>
                   {item.features.map((f, idx) => (
-                    <li key={idx}>⭐ {f}</li>
+                    <li key={idx}>
+                      <FaCheckCircle /> {f}
+                    </li>
                   ))}
                 </ul>
 
                 <button
                   onClick={() => {
                     setSelected(item.Membership_id);
-                    onSubmit(item, plan);
-                  }}
-                  className={selected === item.Membership_id ? "activeBtn" : ""}
-                  style={{ cursor: "pointer" }}
 
+                   
+                    onSubmit({
+                      name: item.title,
+                      price: item.price,
+                    });
+                  }}
+                  className={
+                    selected === item.Membership_id ? "activeBtn" : ""
+                  }
                 >
-                  {selected === item.Membership_id ? "Selected" : "Select Plan"}
+                  {selected === item.Membership_id
+                    ? "Selected"
+                    : "Select Plan"}
                 </button>
               </div>
             ))}
@@ -126,6 +120,7 @@ export default function MembershipX({ onSubmit }) {
         </div>
       </section>
 
+      {/* WHY SECTION (UNCHANGED) */}
       <section className="mfsaWhyX-section">
         <div className="mfsaWhyX-container">
           <div className="mfsaWhyX-left">
@@ -133,8 +128,7 @@ export default function MembershipX({ onSubmit }) {
 
             <div className="mfsaWhyX-quote">
               <p>
-                “The federation has provided me with the global platform to
-                transition from a local swimmer to a world-ranked athlete.”
+                “The federation has provided me with the global platform...”
               </p>
 
               <h5>MARCELLO VIANNI</h5>
@@ -146,9 +140,7 @@ export default function MembershipX({ onSubmit }) {
             <h2>Why Join the World Federation?</h2>
 
             <p className="desc">
-              Membership in the International Finswimming Federation is more
-              than a credential— it’s an entry into an elite ecosystem of
-              performance, science, and global competition.
+              Membership is an entry into elite competition.
             </p>
 
             <div className="mfsaWhyX-stats">
@@ -166,22 +158,18 @@ export default function MembershipX({ onSubmit }) {
             <ul className="mfsaWhyX-list">
               <li>
                 <FaCheckCircle className="mfsaWhyX-icon" />
-                <span>
-                  Access to Olympic-standard training facilities and biological
-                  passports.
-                </span>
+                <span>Access to training facilities.</span>
               </li>
 
               <li>
                 <BiWorld className="mfsaWhyX-icon" />
-                <span>
-                  Automatic entry eligibility for Continental and World
-                  Championships.
-                </span>
+                <span>Entry to global championships.</span>
               </li>
             </ul>
 
-            <button className="mfsaWhyX-btn">Explore Membership</button>
+            <button className="mfsaWhyX-btn">
+              Explore Membership
+            </button>
           </div>
         </div>
       </section>

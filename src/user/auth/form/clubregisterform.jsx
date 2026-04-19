@@ -83,13 +83,13 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
       if (response.status === 200 || response.status === 201) {
         alert("Club Registration successful 🎉");
         setFormData((prev) => ({
-        ...prev,
-        club: {
-          ...prev.club,
-          id: response.data.id,        
-          state: response.data.state, 
-        },
-      }));
+          ...prev,
+          club: {
+            ...prev.club,
+            id: response.data.id,
+            state: response.data.state,
+          },
+        }));
         nextStep();
       }
     } catch (e) {
@@ -98,15 +98,12 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
     }
   };
 
-  const handleStep3Submit = (planData, type) => {
-    const amount = type === "monthly" ? planData.monthly : planData.yearly;
-
+  const handleStep3Submit = (planData) => {
     setFormData((prev) => ({
       ...prev,
       membership: {
-        plan: planData,
-        planType: type,
-        amount: amount,
+        plan: planData.name,
+        amount: planData.price,
       },
     }));
 
@@ -125,7 +122,7 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
         <MembershipPayment
           plan={formData.membership.plan}
           amount={formData.membership.amount}
-          user={formData.club.id}     
+          user={formData.club.id}
         />
       )}
     </>

@@ -10,6 +10,7 @@ export const athelete_register = (
   date_of_birth,
   state,
   password,
+  primary_discipline
 ) => {
   console.log(
     full_name,
@@ -21,6 +22,7 @@ export const athelete_register = (
     date_of_birth,
     state,
     password,
+    primary_discipline
   );
 
   return API.post("/auth/athlette-register/", {
@@ -33,6 +35,7 @@ export const athelete_register = (
     date_of_birth,
     state,
     password,
+    primary_discipline
   });
 };
 
