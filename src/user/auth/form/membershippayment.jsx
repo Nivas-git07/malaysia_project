@@ -1,7 +1,12 @@
-import { FaUniversity, FaHeadset, FaCloudUploadAlt ,FaCheckCircle} from "react-icons/fa";
+import {
+  FaUniversity,
+  FaHeadset,
+  FaCloudUploadAlt,
+  FaCheckCircle,
+} from "react-icons/fa";
 // import MembershipStep from "./membershipsubmission";
 import { useRef } from "react";
-import { membrship_purchase } from "../../api/auth";
+import { membrship_purchase, athletemembership_purchase } from "../../api/auth";
 import { get_state } from "../../api/auth";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -9,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function MembershipPayment({ plan, amount, user }) {
   const navigate = useNavigate();
+  console.log("User Data in MembershipPayment:", user);
+
   const [Transaction, setTransaction] = useState({
     Transaction_id: "",
     club: "",
@@ -19,33 +26,32 @@ export default function MembershipPayment({ plan, amount, user }) {
 
   const membershippurchase = async () => {
     const formData = new FormData();
-    formData.append("user", user);
+
+    formData.append("user", user.id);
+    // formData.append("user_state_id", user.state_id);
     formData.append("transaction_id", Transaction.Transaction_id);
-    formData.append("club", Transaction.club);
-    // formData.append("notes", Transaction.notes);
-    formData.append("amount_paid",  amount);
+    formData.append("state", Transaction.club);
+    formData.append("amount_paid", amount);
     formData.append("membership_plan", plan);
 
     if (Transaction.receipt_image) {
       formData.append("receipt_image", Transaction.receipt_image);
     }
 
-    console.log(
-
-      Transaction.amount_paid,
-      Transaction.club,
-      Transaction.receipt_image,
-      Transaction.Transaction_id,
-      plan
-    );
-
     try {
-      const response = await membrship_purchase(formData);
-      console.log(response.data);
+      if (user.role === "ATHLETE") {
+        await athletemembership_purchase(formData, user.state_id);
+        alert("Athlete Membership purchased successfully 🎉");
+        navigate("/");
+        return;
+      }
+
+      await membrship_purchase(formData);
       alert("Membership purchased successfully 🎉");
       navigate("/");
     } catch (e) {
       console.log(e.response?.data);
+      alert("Payment failed ❌");
     }
   };
 
@@ -55,9 +61,8 @@ export default function MembershipPayment({ plan, amount, user }) {
     refetchOnWindowFocus: false,
     retry: false,
   });
-  const states = stateData?.data || [];
-  console.log(states);
 
+  const states = stateData?.data || [];
   const fileInputRef = useRef(null);
 
   return (
@@ -87,9 +92,7 @@ export default function MembershipPayment({ plan, amount, user }) {
             <div className="planLeft">
               <span className="planTag">SELECTED PLAN</span>
 
-              <h3>
-                {plan}
-              </h3>
+              <h3>{plan}</h3>
 
               <div className="planFeatures">
                 <span>🏅 Global Rankings Entry</span>

@@ -7,11 +7,13 @@ import { athelete_register } from "../../api/auth";
 export default function AthleteRegisterFlow({
   step,
   setStep,
-  onStepChange, // ✅ ADDED
+  onStepChange,
 }) {
   const [formData, setFormData] = useState({
     athlete: {
       id: null,
+      state_id: null,
+      role: "ATHLETE",
     },
     membership: {
       plan: null,
@@ -20,9 +22,8 @@ export default function AthleteRegisterFlow({
   });
 
   const nextStep = () => setStep((prev) => prev + 1);
-  const prevStep = () => setStep((prev) => prev - 1);
 
-  // ✅ STEP 1: Athlete Registration
+  
   const handleAthleteSubmit = async (data) => {
     try {
       const response = await athelete_register(
@@ -44,13 +45,13 @@ export default function AthleteRegisterFlow({
         setFormData((prev) => ({
           ...prev,
           athlete: {
-            id: response.data.state, 
+            id: response.data.id,          
+            state_id: response.data.state, 
+            role: "ATHLETE",
           },
         }));
 
         nextStep();
-
-   
         onStepChange && onStepChange("individual");
       }
     } catch (e) {
@@ -58,6 +59,7 @@ export default function AthleteRegisterFlow({
       alert("Registration failed ❌");
     }
   };
+
 
   const handleMembershipSubmit = (planData) => {
     setFormData((prev) => ({
@@ -69,45 +71,26 @@ export default function AthleteRegisterFlow({
     }));
 
     nextStep();
-
-
     onStepChange && onStepChange("individual");
   };
 
   return (
     <>
-     
-      {step === 1 && (
-        <Atheleform onSubmit={handleAthleteSubmit} />
-      )}
+      {step === 1 && <Atheleform onSubmit={handleAthleteSubmit} />}
 
-   
       {step === 2 && (
-        <>
-        
-          {/* <button onClick={prevStep} style={{ marginBottom: "10px" }}>
-            ⬅ Back
-          </button> */}
-
-          <MembershipX onSubmit={handleMembershipSubmit} />
-        </>
+        <MembershipX onSubmit={handleMembershipSubmit} />
       )}
 
-     
-      {step === 3 && formData.athlete.id && (
-        <>
-     
-          {/* <button onClick={prevStep} style={{ marginBottom: "10px" }}>
-            ⬅ Back
-          </button> */}
-
+      {step === 3 &&
+        formData.athlete.id &&
+        formData.membership.plan && (
           <MembershipPayment
             plan={formData.membership.plan}
             amount={formData.membership.amount}
-            user={formData.athlete.id}
+            user={formData.athlete}
           />
-        </>
-      )}
+        )}
     </>
   );
 }

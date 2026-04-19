@@ -7,6 +7,11 @@ import Registermembershipsubmission from "../../page/register/registermemsubmiss
 import MembershipPayment from "./membershippayment";
 export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
   console.log("Current Step:", step);
+  const [club, setClub] = useState({
+    id: null,
+    role: "CLUB",
+  });
+
   const [formData, setFormData] = useState({
     club: {
       name: "",
@@ -82,6 +87,7 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
 
       if (response.status === 200 || response.status === 201) {
         alert("Club Registration successful 🎉");
+        setClub({ ...club, id: response.data.id });
         setFormData((prev) => ({
           ...prev,
           club: {
@@ -122,7 +128,7 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
         <MembershipPayment
           plan={formData.membership.plan}
           amount={formData.membership.amount}
-          user={formData.club.id}
+          user={club}
         />
       )}
     </>

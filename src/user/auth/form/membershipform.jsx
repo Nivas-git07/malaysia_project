@@ -11,7 +11,7 @@ export default function MembershipX({ onSubmit }) {
     {
       Membership_id: 101,
       title: "INDIVIDUAL_MEMBER",
-      price: "RM 50",
+      price: 50,
       features: [
         "Access to local competitions",
         "Basic ranking visibility",
@@ -21,7 +21,7 @@ export default function MembershipX({ onSubmit }) {
     {
       Membership_id: 102,
       title: "ALLIED_MEMBER",
-      price: "RM 100",
+      price: 100,
       popular: true,
       features: [
         "Access to allied events",
@@ -32,7 +32,7 @@ export default function MembershipX({ onSubmit }) {
     {
       Membership_id: 103,
       title: "Coach",
-      price: "RM 150",
+      price: 150,
       features: [
         "Official coach certification",
         "Access to training programs",
@@ -42,7 +42,7 @@ export default function MembershipX({ onSubmit }) {
     {
       Membership_id: 104,
       title: "Technical Official",
-      price: "RM 120",
+      price: 120,
       features: [
         "Eligibility to officiate events",
         "Technical training access",

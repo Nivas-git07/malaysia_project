@@ -10,7 +10,7 @@ export const athelete_register = (
   date_of_birth,
   state,
   password,
-  primary_discipline
+  primary_discipline,
 ) => {
   console.log(
     full_name,
@@ -22,7 +22,7 @@ export const athelete_register = (
     date_of_birth,
     state,
     password,
-    primary_discipline
+    primary_discipline,
   );
 
   return API.post("/auth/athlette-register/", {
@@ -35,7 +35,7 @@ export const athelete_register = (
     date_of_birth,
     state,
     password,
-    primary_discipline
+    primary_discipline,
   });
 };
 
@@ -92,6 +92,19 @@ export const membrship_purchase = (formdata) => {
       "Content-Type": "multipart/form-data",
     },
   });
+};
+
+export const athletemembership_purchase = (formdata, state) => {
+  console.log("Athlete Membership Data:", formdata);
+  return API.post(
+    `/user/purchase-membership/?user_state_id=${state}`,
+    formdata,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    },
+  );
 };
 
 export const login_user = (gov_id, email_id, password) => {

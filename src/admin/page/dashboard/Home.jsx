@@ -56,10 +56,10 @@ export default function Home() {
       <div className="mu-membership-wrapper">
 
 
-        <div className="dataTitle">DATA OVERVIEW</div>
+        {/* <div className="dataTitle">DATA OVERVIEW</div> */}
 
 
-        <div className="overviewCards">
+        {/* <div className="overviewCards">
           <div className="overviewCard">
             <p>Total States</p>
             <h2>{data?.data.stats.total_states || 0}</h2>
@@ -74,7 +74,7 @@ export default function Home() {
             <p>Total Members</p>
             <h2>{data?.data.stats.total_athletes || 0} +</h2>
           </div>
-        </div>
+        </div> */}
 
 
         <div className="stateTitle">STATE LIST</div>
