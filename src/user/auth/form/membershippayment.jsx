@@ -1,5 +1,5 @@
 import { FaUniversity, FaHeadset, FaCloudUploadAlt } from "react-icons/fa";
-import MembershipStep from "./membershipsubmission";
+// import MembershipStep from "./membershipsubmission";
 import { useRef } from "react";
 import { membrship_purchase } from "../../api/auth";
 import { get_state } from "../../api/auth";
