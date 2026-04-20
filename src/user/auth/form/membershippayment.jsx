@@ -65,7 +65,7 @@ export default function MembershipPayment({ plan, amount, user }) {
     queryFn: () =>
       user.role === "ATHLETE" ? getclublist(user.state_id) : get_state(),
 
-    enabled: !!user.role && !!user.state_id,
+    enabled: !!user.role,
   });
 
   const states = data?.data || [];

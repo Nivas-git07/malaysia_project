@@ -21,6 +21,7 @@ import MembersipRenew from "../page/dashboard/membershiprenew";
 import MembershipStatus from "../page/membership/membershipstatus";
 import MembersipPurchase from "../page/membership/membershippurchase";
 import AdminMembershipPayment from "../page/membership/memberpayment";
+import MembershipALLStatus from "../page/membership/membershipallstatus";
 export default function AdminRoute() {
   return (
     <Routes>
@@ -135,6 +136,15 @@ export default function AdminRoute() {
         element={
           <AdminLayout>
             <MembersipRenew />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="membershipallstatus"
+        element={
+          <AdminLayout>
+            <MembershipALLStatus />
           </AdminLayout>
         }
       />
