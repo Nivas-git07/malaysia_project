@@ -25,3 +25,7 @@ export const getclubabout = async ({ clubId, stateId }) => {
 export const getclubathlete = (clubId) => {
   return API.get(`/user/athletes-list/?club_id=${clubId}`);
 };
+
+export const getclublist = ({ state_id }) => {
+  return API.get(`/user/get-club-list/?id=${state_id}`);
+};

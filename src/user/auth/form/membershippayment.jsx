@@ -10,6 +10,7 @@ import { membrship_purchase, athletemembership_purchase } from "../../api/auth";
 import { get_state } from "../../api/auth";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { getclublist } from "../../api/club";
 import { useNavigate } from "react-router-dom";
 
 export default function MembershipPayment({ plan, amount, user }) {
@@ -55,14 +56,15 @@ export default function MembershipPayment({ plan, amount, user }) {
     }
   };
 
-  const { data: stateData } = useQuery({
-    queryKey: ["states"],
-    queryFn: get_state,
-    refetchOnWindowFocus: false,
-    retry: false,
+  const { data, isLoading } = useQuery({
+    queryKey: ["dropdown", user.role, user.id],
+    queryFn: () =>
+      user.role === "ATHLETE" ? getclublist(user.id) : get_state(),
+
+    enabled: !!user.role && !!user.id,
   });
 
-  const states = stateData?.data || [];
+  const states = data?.data || [];
   const fileInputRef = useRef(null);
 
   return (
@@ -136,7 +138,7 @@ export default function MembershipPayment({ plan, amount, user }) {
                 <option>Select your registered club</option>
                 {states.map((state) => (
                   <option key={state.user} value={state.user}>
-                    {state.state_name}
+                    {state.state_name} || {state.club_name}
                   </option>
                 ))}
               </select>

@@ -53,7 +53,7 @@ function Navbar() {
                 <li>
                   <button
                     className="btnFill"
-                    onClick={() => navigate("/login")}
+                    onClick={() => navigate("/admin/home")}
                   >
                     ACCOUNT
                   </button>
