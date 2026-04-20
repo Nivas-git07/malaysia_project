@@ -31,7 +31,11 @@ export default function MembershipPayment({ plan, amount, user }) {
     formData.append("user", user.id);
     // formData.append("user_state_id", user.state_id);
     formData.append("transaction_id", Transaction.Transaction_id);
-    formData.append("state", Transaction.club);
+    if (user.role === "ATHLETE") {
+      formData.append("club", Transaction.club);
+    } else {
+      formData.append("state", Transaction.club);
+    }
     formData.append("amount_paid", amount);
     formData.append("membership_plan", plan);
 
@@ -57,11 +61,11 @@ export default function MembershipPayment({ plan, amount, user }) {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ["dropdown", user.role, user.id],
+    queryKey: ["dropdown", user.role, user.state_id],
     queryFn: () =>
-      user.role === "ATHLETE" ? getclublist(user.id) : get_state(),
+      user.role === "ATHLETE" ? getclublist(user.state_id) : get_state(),
 
-    enabled: !!user.role && !!user.id,
+    enabled: !!user.role && !!user.state_id,
   });
 
   const states = data?.data || [];
@@ -138,7 +142,7 @@ export default function MembershipPayment({ plan, amount, user }) {
                 <option>Select your registered club</option>
                 {states.map((state) => (
                   <option key={state.user} value={state.user}>
-                    {state.state_name} || {state.club_name}
+                    {state.state_name || state.club_name}
                   </option>
                 ))}
               </select>

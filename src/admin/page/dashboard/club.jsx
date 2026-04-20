@@ -28,24 +28,24 @@ export default function ClubList() {
             <Navbar />
 
             <div className="mu-membership-wrapper">
-                <div className="dataTitle">DATA OVERVIEW</div>
+                    {/* <div className="dataTitle">DATA OVERVIEW</div>
 
-                <div className="overviewCards">
-                    <div className="overviewCard">
-                        <p>Total Athletes</p>
-                        <h2>{data?.data.athletes_count || 0}</h2>
-                    </div>
+                    <div className="overviewCards">
+                        <div className="overviewCard">
+                            <p>Total Athletes</p>
+                            <h2>{data?.data.athletes_count || 0}</h2>
+                        </div>
 
-                    <div className="overviewCard">
-                        <p>Total Clubs</p>
-                        <h2>{clubs_stats.total_clubs || 0}</h2>
-                    </div>
+                        <div className="overviewCard">
+                            <p>Total Clubs</p>
+                            <h2>{clubs_stats.total_clubs || 0}</h2>
+                        </div>
 
-                    <div className="overviewCard">
-                        <p>Total Members</p>
-                        <h2>{clubs_stats.total_athletes || 0} +</h2>
-                    </div>
-                </div>
+                        <div className="overviewCard">
+                            <p>Total Members</p>
+                            <h2>{clubs_stats.total_athletes || 0} +</h2>
+                        </div>
+                    </div> */}
 
                 <div className="stateTitle">Athlete LIST</div>
 

@@ -28,7 +28,7 @@ export default function StateList() {
       <Navbar />
 
       <div className="mu-membership-wrapper">
-        <div className="dataTitle">DATA OVERVIEW</div>
+        {/* <div className="dataTitle">DATA OVERVIEW</div>
 
         <div className="overviewCards">
           <div className="overviewCard">
@@ -45,7 +45,7 @@ export default function StateList() {
             <p>Total Members</p>
             <h2>{clubs_stats.athletes_count || 0} +</h2>
           </div>
-        </div>
+        </div> */}
 
         <div className="stateTitle">CLUB LIST</div>
 
