@@ -116,7 +116,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="membership"
+        path="membershipapproval"
         element={
           <AdminLayout>
             <Manageuser />
@@ -125,7 +125,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="membershiprenew"
+        path="membership/status"
         element={
           <AdminLayout>
             <MembersipRenew />
@@ -134,7 +134,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="membershippayment/:planName"
+        path="membership/status/payment/:planName"
         element={
           <AdminLayout>
             <AdminMembershipPayment />
@@ -161,7 +161,7 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="membershippurchase"
+        path="membership/status/new"
         element={
           <AdminLayout>
             <MembersipPurchase />

@@ -49,7 +49,7 @@ function MembershipALLStatus({ memberships }) {
               <p>View and manage all your purchased memberships</p>
             </div>
 
-            <button className="ms-add-btn" onClick={() => navigate("/admin/membershippurchase")}>
+            <button className="ms-add-btn" onClick={() => navigate("/admin/membership/status/new")}>
               <FaPlus /> Add New Membership
             </button>
           </div>

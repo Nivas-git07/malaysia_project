@@ -150,7 +150,7 @@ function MembersipPurchaseCenter() {
                 <button
                   className="mp-select-btn"
                   onClick={() => {
-                    navigate(`/admin/membershippayment/${plan.name}`);
+                    navigate(`/admin/membership/status/payment/${plan.name}`);
                   }}
                 >
                   Select Plan
