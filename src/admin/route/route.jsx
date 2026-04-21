@@ -17,7 +17,7 @@ import ClubList from "../page/dashboard/club";
 import Gallery from "../page/dashboard/gallery";
 import Record from "../page/dashboard/record";
 import About from "../page/dashboard/about";
-
+import MembersipRenew from "../page/dashboard/membershiprenew";
 import MembershipStatus from "../page/membership/membershipstatus";
 import MembersipPurchase from "../page/membership/membershippurchase";
 import AdminMembershipPayment from "../page/membership/memberpayment";
@@ -86,6 +86,8 @@ export default function AdminRoute() {
           </AdminLayout>
         }
       />
+
+      
       <Route
         path="report"
         element={
@@ -118,6 +120,15 @@ export default function AdminRoute() {
         element={
           <AdminLayout>
             <Manageuser />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="membershiprenew"
+        element={
+          <AdminLayout>
+            <MembersipRenew />
           </AdminLayout>
         }
       />

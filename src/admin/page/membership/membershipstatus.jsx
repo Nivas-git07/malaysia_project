@@ -56,10 +56,10 @@ function MembershipStatus() {
   const isExpired = daysLeft <= 0;
   const isExpiring = daysLeft > 0 && daysLeft <= 10;
 
-  /* ================= STATES ================= */
+  
 
-  if (isLoading) return <p style={{ padding: 20 }}>Loading...</p>;
-  if (isError) return <p style={{ padding: 20 }}>Error loading data</p>;
+  // if (isLoading) return <p style={{ padding: 20 }}>Loading...</p>;
+  // if (isError) return <p style={{ padding: 20 }}>Error loading data</p>;
 
   return (
     <>
@@ -67,13 +67,12 @@ function MembershipStatus() {
 
       <div className="mu-membership-wrapper">
 
-        {/* Header */}
+ 
         <div className="mu-header">
           <h1>Membership</h1>
           <p>Manage and renew your membership</p>
         </div>
 
-        {/* ================= TOP SECTION ================= */}
         <div className="mu-top-section">
 
           {/* LEFT CARD */}
@@ -108,7 +107,7 @@ function MembershipStatus() {
               <p>Expires on {formatDate(membership.expiry_date)}</p>
             </div>
 
-            {/* Progress */}
+            
             <div className="mu-progress">
               <div
                 className="mu-progress-bar"

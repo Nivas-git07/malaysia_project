@@ -3,14 +3,9 @@ import { FaEllipsisV, FaPlus } from "react-icons/fa";
 import { get_purchased_membership } from "../../api/membership";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-function MembershipALLStatus() {
+function MembershipALLStatus({ memberships }) {
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["purchased-memberships"],
-    queryFn: get_purchased_membership,
-  });
 
-  const memberships = data?.data || [];
 
  
 
