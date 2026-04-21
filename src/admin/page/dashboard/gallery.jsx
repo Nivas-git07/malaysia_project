@@ -4,7 +4,7 @@ import "../../style/dashboard/Athlete.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { postgallery, get_recent_gallery } from "../../api/news_api";
 import Preview from "../../hook/preview/preview";
-
+import { FiTrash2 } from "react-icons/fi";
 export default function Gallery() {
   const [image, setimage] = useState(null);
   const fileRef = useRef(null);
@@ -51,34 +51,45 @@ export default function Gallery() {
       <Navbar />
 
       <div className="mu-membership-wrapper">
-        <div className="dataTitle">Gallery</div>
+        <div className="gallery-header-wrapper">
+          <h1 className="gallery-title">Gallery Management</h1>
+          <p className="gallery-subtitle">
+            Upload and manage images for your website
+          </p>
+        </div>
 
         <div className="mfsaAdminGalleryX">
-          {/* ===== FILE INPUT ===== */}
-          <input
-            type="file"
-            ref={fileRef}
-            onChange={handleChange}
-            className="mfsaHiddenInputX"
-            accept="image/*"
-            hidden
-          />
+      
+          <div className="gallery-upload-wrapper">
+          
+            <input
+              type="file"
+              ref={fileRef}
+              onChange={handleChange}
+              accept="image/*"
+              hidden
+            />
 
-          {/* ===== UPLOAD BOX ===== */}
-          <div className="mfsaAdminUploadX">
-            <div className="mfsaUploadBoxX" onClick={handleClick}>
-              <div className="mfsaUploadInnerX">
-                <div className="mfsaUploadIconX">📤</div>
+            
+            <div className="gallery-upload-box" onClick={handleClick}>
+              <div className="gallery-upload-content">
+                <div className="upload-icon">☁️</div>
 
-                <p className="mfsaUploadTitleX">Click to upload images</p>
+                <h3>Drag and drop images here</h3>
 
-                <span className="mfsaUploadSubX">JPG, PNG, WEBP (Max 5MB)</span>
+                <p>PNG, JPG or WEBP up to 10MB</p>
+
+                <button
+                  className="upload-btn"
+                  onClick={(e) => {
+                    e.stopPropagation(); // prevent double click trigger
+                    handleClick();
+                  }}
+                >
+                  + Upload Image
+                </button>
               </div>
             </div>
-
-            <button className="mfsaUploadBtnX" onClick={handleClick}>
-              Upload Image
-            </button>
           </div>
 
           {/* ===== STATES ===== */}
@@ -90,27 +101,32 @@ export default function Gallery() {
             <div className="mfsaEmptyState">Failed to load gallery</div>
           )}
 
-          <div className="mfsaRecentHeaderX">
-            
-            <h3>Recent Uploads</h3>
-            
-          </div>
-          <div className="mfsaGalleryGridX">
-            {galleryItems && galleryItems.length > 0
-              ? galleryItems.slice(0, 4).map((item, i) => (
-                  <div className="mfsaGalleryCardX" key={item.id || i}>
-                    <img
-                      className="mfsaGalleryImgX"
-                      src={item.image}
-                      alt="gallery"
-                    />
-                  </div>
-                ))
-              : !isLoading && (
-                  <div className="mfsaEmptyState">
-                    No gallery images available
-                  </div>
-                )}
+          <div className="gallery-wrapper">
+            <div className="gallery-header">
+              <h2>Uploaded Images</h2>
+            </div>
+
+            <div className="gallery-grid">
+              {galleryItems && galleryItems.length > 0
+                ? galleryItems.map((item, i) => (
+                    <div className="gallery-card" key={item.id || i}>
+                      {/* IMAGE */}
+                      <img
+                        src={item.image}
+                        alt="gallery"
+                        className="gallery-img"
+                      />
+
+                   
+                      <div className="gallery-overlay">
+                        <button className="gallery-delete-btn">  <FiTrash2 /></button>
+                      </div>
+                    </div>
+                  ))
+                : !isLoading && (
+                    <div className="gallery-empty">No images available</div>
+                  )}
+            </div>
           </div>
         </div>
 
