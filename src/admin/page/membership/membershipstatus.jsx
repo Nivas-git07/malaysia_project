@@ -1,7 +1,19 @@
 import Navbar from "../navbar/nav";
-
-
+import { useParams } from "react-router-dom";
+import { getmebershipdetails } from "../../api/membership";
+import { useQuery } from "@tanstack/react-query";
 function MembershipStatus() {
+  const { id } = useParams();
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["membership-details", id],
+    queryFn: () => getmebershipdetails(id),
+  });
+
+  const membership = data?.data || {};
+
+  console.log("Membership Details:", membership);
+
+
   return (
     <>
       <Navbar />

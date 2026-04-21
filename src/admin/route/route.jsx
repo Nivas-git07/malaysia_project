@@ -17,7 +17,7 @@ import ClubList from "../page/dashboard/club";
 import Gallery from "../page/dashboard/gallery";
 import Record from "../page/dashboard/record";
 import About from "../page/dashboard/about";
-import MembersipRenew from "../page/dashboard/membershiprenew";
+
 import MembershipStatus from "../page/membership/membershipstatus";
 import MembersipPurchase from "../page/membership/membershippurchase";
 import AdminMembershipPayment from "../page/membership/memberpayment";
@@ -132,10 +132,10 @@ export default function AdminRoute() {
       />
 
       <Route
-        path="membershiprenew"
+        path="membership/status/:id"
         element={
           <AdminLayout>
-            <MembersipRenew />
+            <MembershipStatus />
           </AdminLayout>
         }
       />

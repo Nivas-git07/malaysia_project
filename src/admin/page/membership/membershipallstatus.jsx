@@ -135,7 +135,7 @@ function MembershipALLStatus() {
                     </span>
 
                     {/* BUTTONS */}
-                    <button className="ms-outline-btn">
+                    <button className="ms-outline-btn" onClick={()=>{navigate(`/admin/membership/status/${item.membership_id}`)}}>
                       View Details
                     </button>
 
