@@ -1,127 +1,164 @@
 import Navbar from "../navbar/nav";
 import { FaEllipsisV, FaPlus } from "react-icons/fa";
+import { get_purchased_membership } from "../../api/membership";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 function MembershipALLStatus() {
+  const navigate = useNavigate();
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["purchased-memberships"],
+    queryFn: get_purchased_membership,
+  });
+
+  const memberships = data?.data || [];
+
+ 
+
+  const formatPlan = (plan) => {
+    return plan
+      ?.replaceAll("_", " ")
+      .toLowerCase()
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+  };
+
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
+  const getDaysLeft = (expiry) => {
+    const today = new Date();
+    const exp = new Date(expiry);
+    return Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
+  };
+
+
+
+  // if (isLoading) return <p style={{ padding: 20 }}>Loading...</p>;
+  // if (isError) return <p style={{ padding: 20 }}>Error loading data</p>;
+
   return (
     <>
       <Navbar />
+
       <div className="mu-membership-wrapper">
         <div className="ms-wrapper">
+
+         
           <div className="ms-header">
             <div>
               <h1>My Memberships</h1>
               <p>View and manage all your purchased memberships</p>
             </div>
 
-            <button className="ms-add-btn">+ Add New Membership</button>
+            <button className="ms-add-btn" onClick={() => navigate("/admin/membershippurchase")}>
+              <FaPlus /> Add New Membership
+            </button>
           </div>
 
-          <div className="ms-card ms-active">
-            <div className="ms-bar"></div>
+         
+          {/* {memberships.length === 0 && (
+            <p style={{ marginTop: 20 }}>No memberships found</p>
+          )} */}
 
-            <div className="ms-card-content">
-              <div className="ms-info">
-                <h2>Athlete Elite</h2>
+          {memberships.map((item) => {
+            const daysLeft = getDaysLeft(item.expiry_date);
 
-                <div className="ms-grid">
-                  <div>
-                    <span>MEMBER ID</span>
-                    <p>MFSA-2024-001</p>
+            const isExpired = daysLeft <= 0;
+            const isExpiring = daysLeft > 0 && daysLeft <= 10;
+            const isActive = daysLeft > 10;
+
+            return (
+              <div
+                key={item.membership_id}
+                className={`ms-card 
+                  ${isActive ? "ms-active" : ""} 
+                  ${isExpired ? "ms-disabled" : ""}
+                `}
+              >
+                {isActive && <div className="ms-bar"></div>}
+
+                <div className="ms-card-content">
+
+          
+                  <div className="ms-info">
+                    <h2>{formatPlan(item.membership_plan)}</h2>
+
+                    <div className="ms-grid">
+                      <div>
+                        <span>MEMBER ID</span>
+                        <p>{item.membership_id.slice(0, 12)}...</p>
+                      </div>
+
+                      <div>
+                        <span>STATE</span>
+                        <p>{item.state_name || "-"}</p>
+                      </div>
+
+                      <div>
+                        <span>EXPIRY DATE</span>
+                        <p>{formatDate(item.expiry_date)}</p>
+                      </div>
+
+                      <div>
+                        <span>STATUS</span>
+                        <p className={isExpiring || isExpired ? "ms-red" : ""}>
+                          {isExpired
+                            ? "Expired"
+                            : `${daysLeft} Days Left`}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <span>CLUB AFFILIATE</span>
-                    <p>KL Dolphins</p>
-                  </div>
-                  <div>
-                    <span>EXPIRY DATE</span>
-                    <p>Dec 31, 2024</p>
-                  </div>
-                  <div>
-                    <span>STATUS</span>
-                    <p className="ms-red">12 Days Left</p>
+
+           
+                  <div className="ms-actions">
+
+                  
+                    <span
+                      className={`ms-badge ${
+                        isExpired
+                          ? "red"
+                          : isExpiring
+                          ? "orange"
+                          : "green"
+                      }`}
+                    >
+                      {isExpired
+                        ? "EXPIRED"
+                        : isExpiring
+                        ? "EXPIRING SOON"
+                        : "ACTIVE"}
+                    </span>
+
+                    {/* BUTTONS */}
+                    <button className="ms-outline-btn">
+                      View Details
+                    </button>
+
+                    {isExpired ? (
+                      <button className="ms-disabled-btn">
+                        Purchase New
+                      </button>
+                    ) : (
+                      <button className="ms-primary-btn">
+                        {isExpiring ? "Renew" : "Renew Now"}
+                      </button>
+                    )}
+
+                    <FaEllipsisV />
                   </div>
                 </div>
               </div>
+            );
+          })}
 
-              <div className="ms-actions">
-                <span className="ms-badge green">ACTIVE</span>
-                <button className="ms-outline-btn">View Details</button>
-                <button className="ms-primary-btn">Renew Now</button>
-                <FaEllipsisV />
-              </div>
-            </div>
-          </div>
-
-          <div className="ms-card">
-            <div className="ms-card-content">
-              <div className="ms-info">
-                <h2>Coach / Official</h2>
-
-                <div className="ms-grid">
-                  <div>
-                    <span>MEMBER ID</span>
-                    <p>MFSA-2024-042</p>
-                  </div>
-                  <div>
-                    <span>CLUB AFFILIATE</span>
-                    <p>Selangor Fins</p>
-                  </div>
-                  <div>
-                    <span>EXPIRY DATE</span>
-                    <p>Nov 25, 2024</p>
-                  </div>
-                  <div>
-                    <span>STATUS</span>
-                    <p className="ms-red">5 Days Left</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="ms-actions">
-                <span className="ms-badge orange">EXPIRING SOON</span>
-                <button className="ms-outline-btn">View Details</button>
-                <button className="ms-primary-btn small">Renew</button>
-                <FaEllipsisV />
-              </div>
-            </div>
-          </div>
-
-          <div className="ms-card ms-disabled">
-            <div className="ms-card-content">
-              <div className="ms-info">
-                <h2>Athlete Basic</h2>
-
-                <div className="ms-grid">
-                  <div>
-                    <span>MEMBER ID</span>
-                    <p>MFSA-2023-112</p>
-                  </div>
-                  <div>
-                    <span>CLUB AFFILIATE</span>
-                    <p>Penang aquatic</p>
-                  </div>
-                  <div>
-                    <span>EXPIRY DATE</span>
-                    <p>Oct 15, 2024</p>
-                  </div>
-                  <div>
-                    <span>STATUS</span>
-                    <p>0 Days Left</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="ms-actions">
-                <span className="ms-badge red">EXPIRED</span>
-                <button className="ms-outline-btn disabled">
-                  View Details
-                </button>
-                <button className="ms-disabled-btn">Purchase New</button>
-                <FaEllipsisV />
-              </div>
-            </div>
-          </div>
-
+          
           <div className="ms-bottom">
+
             <div className="ms-benefits">
               <h3>
                 Unlock your competitive edge with MFSA National Sanctioning
@@ -136,7 +173,6 @@ function MembershipALLStatus() {
               <button>View Full Rulebook</button>
             </div>
 
-            {/* Right Help */}
             <div className="ms-help">
               <div className="ms-help-icon">?</div>
               <h4>Need Assistance?</h4>
@@ -146,12 +182,14 @@ function MembershipALLStatus() {
               </p>
               <span>Contact Support →</span>
             </div>
+
           </div>
 
-          {/* Floating Button */}
+          {/* FLOAT BUTTON
           <div className="ms-float-btn">
             <FaPlus />
-          </div>
+          </div> */}
+
         </div>
       </div>
     </>

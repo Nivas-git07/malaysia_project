@@ -2,16 +2,20 @@ import API from "../../user/api/axiosmodal";
 
 export const getmebership = () => {
   return API.get("/super/get-membership-list/");
-}
+};
 
 export const getmebershipdetails = (id) => {
   return API.get(`/super/get-membership-data/?id=${id}`);
-}
+};
 
 export const approvemembership = (id, status) => {
-  return API.patch(`/super/set-status/?id=${id}`, { status })
-}
+  return API.patch(`/super/set-status/?id=${id}`, { status });
+};
 
 export const rejectmembership = (id, status, rejection_note) => {
-  return API.patch(`/super/set-status/?id=${id}`, { status, rejection_note })
-}
+  return API.patch(`/super/set-status/?id=${id}`, { status, rejection_note });
+};
+
+export const get_purchased_membership = () => {
+  return API.get("/super/membership-list/");
+};
