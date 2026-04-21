@@ -23,6 +23,7 @@ function MembershipStatus() {
   };
 
   const formatDate = (date) => {
+    if (!date) return "-";
     return new Date(date).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
@@ -50,16 +51,22 @@ function MembershipStatus() {
     return Math.max(0, Math.min(100, Math.round((remaining / total) * 100)));
   };
 
+  /* ================= STATUS ================= */
+
+  const status = membership.calculate_status;
+
+  const isPending = status === "PENDING";
+  const isExpired = status === "EXPIRED";
+  const isExpiring = status === "EXPIRING_SOON";
+  const isActive = status === "ACTIVE";
+
   const daysLeft = getDaysLeft();
   const progress = getProgress();
 
-  const isExpired = daysLeft <= 0;
-  const isExpiring = daysLeft > 0 && daysLeft <= 10;
+  /* ================= STATES ================= */
 
-  
-
-  // if (isLoading) return <p style={{ padding: 20 }}>Loading...</p>;
-  // if (isError) return <p style={{ padding: 20 }}>Error loading data</p>;
+  if (isLoading) return <p style={{ padding: 20 }}>Loading...</p>;
+  if (isError) return <p style={{ padding: 20 }}>Error loading data</p>;
 
   return (
     <>
@@ -67,12 +74,13 @@ function MembershipStatus() {
 
       <div className="mu-membership-wrapper">
 
- 
+        {/* HEADER */}
         <div className="mu-header">
           <h1>Membership</h1>
           <p>Manage and renew your membership</p>
         </div>
 
+        {/* ================= TOP ================= */}
         <div className="mu-top-section">
 
           {/* LEFT CARD */}
@@ -83,16 +91,21 @@ function MembershipStatus() {
                 <h2>{formatPlan(membership.membership_plan)}</h2>
               </div>
 
+              {/* STATUS BADGE */}
               <span
                 className={`mu-badge ${
-                  isExpired
+                  isPending
+                    ? "pending"
+                    : isExpired
                     ? "expired"
                     : isExpiring
                     ? "expiring"
                     : "active"
                 }`}
               >
-                {isExpired
+                {isPending
+                  ? "Pending Approval"
+                  : isExpired
                   ? "Expired"
                   : isExpiring
                   ? "Expiring Soon"
@@ -100,29 +113,47 @@ function MembershipStatus() {
               </span>
             </div>
 
+            {/* DAYS SECTION */}
             <div className="mu-days">
-              <h1>
-                {isExpired ? 0 : daysLeft} <span>Days Left</span>
-              </h1>
-              <p>Expires on {formatDate(membership.expiry_date)}</p>
+              {isPending ? (
+                <>
+                  <h1 style={{ color: "#dc2626" }}>
+                    Pending Approval
+                  </h1>
+                  <p>Your membership is under review</p>
+                </>
+              ) : (
+                <>
+                  <h1>
+                    {isExpired ? 0 : daysLeft} <span>Days Left</span>
+                  </h1>
+                  <p>
+                    Expires on {formatDate(membership.expiry_date)}
+                  </p>
+                </>
+              )}
             </div>
 
-            
-            <div className="mu-progress">
-              <div
-                className="mu-progress-bar"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
+            {/* PROGRESS */}
+            {!isPending && (
+              <>
+                <div className="mu-progress">
+                  <div
+                    className="mu-progress-bar"
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                </div>
 
-            <div className="mu-progress-info">
-              <span>Validity Remaining</span>
-              <span>{progress}%</span>
-            </div>
+                <div className="mu-progress-info">
+                  <span>Validity Remaining</span>
+                  <span>{progress}%</span>
+                </div>
+              </>
+            )}
           </div>
 
-          {/* RIGHT CARD */}
-          {!isExpired && (
+          {/* URGENT CARD */}
+          {!isPending && !isExpired && (
             <div className="mu-urgent-card">
               <h3>Urgent Action</h3>
               <p>
@@ -161,10 +192,14 @@ function MembershipStatus() {
               <span>Status</span>
               <p
                 className={`mu-status ${
-                  isExpired ? "red" : "green"
+                  isPending
+                    ? "orange"
+                    : isExpired
+                    ? "red"
+                    : "green"
                 }`}
               >
-                ● {membership.status}
+                ● {status}
               </p>
             </div>
 
@@ -192,19 +227,25 @@ function MembershipStatus() {
           </div>
 
           <div className="mu-actions">
-            {!isExpired ? (
+
+            {isPending ? (
+              <button className="mu-disabled-btn">
+                Awaiting Approval
+              </button>
+            ) : isExpired ? (
               <button className="mu-renew-btn big">
-                Renew Membership
+                Purchase New
               </button>
             ) : (
               <button className="mu-renew-btn big">
-                Purchase New
+                Renew Membership
               </button>
             )}
 
             <button className="mu-leave-btn">
               Leave Membership
             </button>
+
           </div>
         </div>
 

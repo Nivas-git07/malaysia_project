@@ -1399,7 +1399,16 @@ border-radius: 12px;
   border-radius: 16px;
   text-align: center;
 }
+.ms-badge.red {
+  background: #fee2e2;
+  color: #dc2626;
+}
 
+/* OPTIONAL: make pending stronger (recommended) */
+.ms-badge.red {
+  /* border: 1px solid #dc2626; */
+  font-weight: 600;
+}
 .ms-help-icon {
   width: 42px;
   height: 42px;
@@ -1414,6 +1423,21 @@ border-radius: 12px;
   font-weight: 700;
 }
 
+
+.mu-badge.pending {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px dashed #dc2626;
+}
+
+.mu-disabled-btn {
+  background: #9ca3af;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: not-allowed;
+}
 .ms-help h4 {
   margin-top: 12px;
   font-size: 16px;

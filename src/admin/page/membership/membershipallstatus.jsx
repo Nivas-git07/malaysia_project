@@ -5,9 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 function MembershipALLStatus({ memberships }) {
   const navigate = useNavigate();
-
-
- 
+  console.log("Memberships Data:", memberships);
 
   const formatPlan = (plan) => {
     return plan
@@ -30,8 +28,6 @@ function MembershipALLStatus({ memberships }) {
     return Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
   };
 
-
-
   // if (isLoading) return <p style={{ padding: 20 }}>Loading...</p>;
   // if (isError) return <p style={{ padding: 20 }}>Error loading data</p>;
 
@@ -41,20 +37,20 @@ function MembershipALLStatus({ memberships }) {
 
       <div className="mu-membership-wrapper">
         <div className="ms-wrapper">
-
-         
           <div className="ms-header">
             <div>
               <h1>My Memberships</h1>
               <p>View and manage all your purchased memberships</p>
             </div>
 
-            <button className="ms-add-btn" onClick={() => navigate("/admin/membership/status/new")}>
+            <button
+              className="ms-add-btn"
+              onClick={() => navigate("/admin/membership/status/new")}
+            >
               <FaPlus /> Add New Membership
             </button>
           </div>
 
-         
           {/* {memberships.length === 0 && (
             <p style={{ marginTop: 20 }}>No memberships found</p>
           )} */}
@@ -65,6 +61,24 @@ function MembershipALLStatus({ memberships }) {
             const isExpired = daysLeft <= 0;
             const isExpiring = daysLeft > 0 && daysLeft <= 10;
             const isActive = daysLeft > 10;
+
+            const status = item.calculate_status;
+
+            const getStatusClass = () => {
+              if (status === "EXPIRED") return "red";
+            if (status === "PENDING") return "red"; 
+              if (status === "ACTIVE") return "green";
+              if (status === "EXPIRING_SOON") return "orange";
+              return "gray";
+            };
+
+            const getStatusText = () => {
+              if (status === "EXPIRED") return "EXPIRED";
+              if (status === "PENDING") return "PENDING";
+              if (status === "ACTIVE") return "ACTIVE";
+              if (status === "EXPIRING_SOON") return "EXPIRING SOON";
+              return "UNKNOWN";
+            };
 
             return (
               <div
@@ -77,8 +91,6 @@ function MembershipALLStatus({ memberships }) {
                 {isActive && <div className="ms-bar"></div>}
 
                 <div className="ms-card-content">
-
-          
                   <div className="ms-info">
                     <h2>{formatPlan(item.membership_plan)}</h2>
 
@@ -101,43 +113,31 @@ function MembershipALLStatus({ memberships }) {
                       <div>
                         <span>STATUS</span>
                         <p className={isExpiring || isExpired ? "ms-red" : ""}>
-                          {isExpired
-                            ? "Expired"
-                            : `${daysLeft} Days Left`}
+                          {isExpired ? "Expired" : `${daysLeft} Days Left`}
                         </p>
                       </div>
                     </div>
                   </div>
 
-           
                   <div className="ms-actions">
-
-                  
-                    <span
-                      className={`ms-badge ${
-                        isExpired
-                          ? "red"
-                          : isExpiring
-                          ? "orange"
-                          : "green"
-                      }`}
-                    >
-                      {isExpired
-                        ? "EXPIRED"
-                        : isExpiring
-                        ? "EXPIRING SOON"
-                        : "ACTIVE"}
+                    <span className={`ms-badge ${getStatusClass()}`}>
+                      {getStatusText()}
                     </span>
 
                     {/* BUTTONS */}
-                    <button className="ms-outline-btn" onClick={()=>{navigate(`/admin/membership/status/${item.membership_id}`)}}>
+                    <button
+                      className="ms-outline-btn"
+                      onClick={() => {
+                        navigate(
+                          `/admin/membership/status/${item.membership_id}`,
+                        );
+                      }}
+                    >
                       View Details
                     </button>
 
                     {isExpired ? (
-                      <button className="ms-disabled-btn">
-                        Purchase New
-                      </button>
+                      <button className="ms-disabled-btn">Purchase New</button>
                     ) : (
                       <button className="ms-primary-btn">
                         {isExpiring ? "Renew" : "Renew Now"}
@@ -151,9 +151,7 @@ function MembershipALLStatus({ memberships }) {
             );
           })}
 
-          
           <div className="ms-bottom">
-
             <div className="ms-benefits">
               <h3>
                 Unlock your competitive edge with MFSA National Sanctioning
@@ -177,14 +175,12 @@ function MembershipALLStatus({ memberships }) {
               </p>
               <span>Contact Support →</span>
             </div>
-
           </div>
 
           {/* FLOAT BUTTON
           <div className="ms-float-btn">
             <FaPlus />
           </div> */}
-
         </div>
       </div>
     </>

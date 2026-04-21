@@ -53,7 +53,7 @@ export default function MembershipPayment({ plan, amount, user }) {
 
       await membrship_purchase(formData);
       alert("Membership purchased successfully 🎉");
-      navigate("/");
+      navigate("/admin/membership/status");
     } catch (e) {
       console.log(e.response?.data);
       alert("Payment failed ❌");
