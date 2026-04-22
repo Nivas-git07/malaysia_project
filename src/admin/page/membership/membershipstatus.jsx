@@ -2,10 +2,11 @@ import Navbar from "../navbar/nav";
 import { useParams } from "react-router-dom";
 import { getmebershipdetails } from "../../api/membership";
 import { useQuery } from "@tanstack/react-query";
-
+import LeaveMembershipModal from "./transfermembership/leavemembershipmodal";
+import { useState } from "react";
 function MembershipStatus() {
   const { id } = useParams();
-
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
   const { data, isLoading, isError } = useQuery({
     queryKey: ["membership-details", id],
     queryFn: () => getmebershipdetails(id),
@@ -50,7 +51,8 @@ function MembershipStatus() {
 
     return Math.max(0, Math.min(100, Math.round((remaining / total) * 100)));
   };
-
+ const handleLeaveMembership = async (state) => {
+ }
   /* ================= STATUS ================= */
 
   const status = membership.calculate_status;
@@ -70,10 +72,14 @@ function MembershipStatus() {
 
   return (
     <>
+      <LeaveMembershipModal
+        isOpen={showLeaveModal}
+        onClose={() => setShowLeaveModal(false)}
+        onSubmit={handleLeaveMembership}
+      />
       <Navbar />
 
       <div className="mu-membership-wrapper">
-
         {/* HEADER */}
         <div className="mu-header">
           <h1>Membership</h1>
@@ -82,7 +88,6 @@ function MembershipStatus() {
 
         {/* ================= TOP ================= */}
         <div className="mu-top-section">
-
           {/* LEFT CARD */}
           <div className="mu-plan-card">
             <div className="mu-plan-header">
@@ -97,19 +102,19 @@ function MembershipStatus() {
                   isPending
                     ? "pending"
                     : isExpired
-                    ? "expired"
-                    : isExpiring
-                    ? "expiring"
-                    : "active"
+                      ? "expired"
+                      : isExpiring
+                        ? "expiring"
+                        : "active"
                 }`}
               >
                 {isPending
                   ? "Pending Approval"
                   : isExpired
-                  ? "Expired"
-                  : isExpiring
-                  ? "Expiring Soon"
-                  : "Active"}
+                    ? "Expired"
+                    : isExpiring
+                      ? "Expiring Soon"
+                      : "Active"}
               </span>
             </div>
 
@@ -117,9 +122,7 @@ function MembershipStatus() {
             <div className="mu-days">
               {isPending ? (
                 <>
-                  <h1 style={{ color: "#dc2626" }}>
-                    Pending Approval
-                  </h1>
+                  <h1 style={{ color: "#dc2626" }}>Pending Approval</h1>
                   <p>Your membership is under review</p>
                 </>
               ) : (
@@ -127,9 +130,7 @@ function MembershipStatus() {
                   <h1>
                     {isExpired ? 0 : daysLeft} <span>Days Left</span>
                   </h1>
-                  <p>
-                    Expires on {formatDate(membership.expiry_date)}
-                  </p>
+                  <p>Expires on {formatDate(membership.expiry_date)}</p>
                 </>
               )}
             </div>
@@ -157,12 +158,10 @@ function MembershipStatus() {
             <div className="mu-urgent-card">
               <h3>Urgent Action</h3>
               <p>
-                Your membership will expire soon. Renew now to avoid interruption
-                in competition eligibility and member benefits.
+                Your membership will expire soon. Renew now to avoid
+                interruption in competition eligibility and member benefits.
               </p>
-              <button className="mu-renew-btn">
-                Renew Membership →
-              </button>
+              <button className="mu-renew-btn">Renew Membership →</button>
             </div>
           )}
         </div>
@@ -172,7 +171,6 @@ function MembershipStatus() {
           <h3>Member Credentials</h3>
 
           <div className="mu-cred-grid">
-
             <div>
               <span>User</span>
               <p>{membership.user_name}</p>
@@ -192,11 +190,7 @@ function MembershipStatus() {
               <span>Status</span>
               <p
                 className={`mu-status ${
-                  isPending
-                    ? "orange"
-                    : isExpired
-                    ? "red"
-                    : "green"
+                  isPending ? "orange" : isExpired ? "red" : "green"
                 }`}
               >
                 ● {status}
@@ -212,7 +206,6 @@ function MembershipStatus() {
               <span>Amount Paid</span>
               <p>RM {membership.amount_paid}</p>
             </div>
-
           </div>
         </div>
 
@@ -227,28 +220,22 @@ function MembershipStatus() {
           </div>
 
           <div className="mu-actions">
-
             {isPending ? (
-              <button className="mu-disabled-btn">
-                Awaiting Approval
-              </button>
+              <button className="mu-disabled-btn">Awaiting Approval</button>
             ) : isExpired ? (
-              <button className="mu-renew-btn big">
-                Purchase New
-              </button>
+              <button className="mu-renew-btn big">Purchase New</button>
             ) : (
-              <button className="mu-renew-btn big">
-                Renew Membership
-              </button>
+              <button className="mu-renew-btn big">Renew Membership</button>
             )}
 
-            <button className="mu-leave-btn">
+            <button
+              className="mu-leave-btn"
+              onClick={() => setShowLeaveModal(true)}
+            >
               Leave Membership
             </button>
-
           </div>
         </div>
-
       </div>
     </>
   );
