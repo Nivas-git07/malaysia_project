@@ -38,7 +38,7 @@ export default function Page() {
 
           <Route path="state/:stateId" element={<PageWrapper><StatePage /></PageWrapper>} />
           <Route path="state/:stateId/club/:clubId" element={<PageWrapper><ClubPage /></PageWrapper>} />
-
+          <Route path="/club/:clubId" element={<PageWrapper><ClubPage /></PageWrapper>} />
           <Route path="event" element={<PageWrapper><Event /></PageWrapper>} />
           <Route path="state/:stateId/event" element={<PageWrapper><Event /></PageWrapper>} />
           <Route path="state/:stateId/club/:clubId/event" element={<PageWrapper><Event /></PageWrapper>} />

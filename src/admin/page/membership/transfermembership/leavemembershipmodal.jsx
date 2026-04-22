@@ -2,12 +2,11 @@ import { useState } from "react";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { get_state } from "../../../../user/api/auth";
 import { useQuery } from "@tanstack/react-query";
-export default function LeaveMembershipModal({
-  isOpen,
-  onClose,
-  onSubmit, // async function
-}) {
+import { leaveMembership } from "../../../api/membership";
+import AlertPopup from "../../../../user/hooks/popuptemplate";
+export default function LeaveMembershipModal({ isOpen, onClose, id }) {
   const [selectedState, setSelectedState] = useState("");
+  const [alert, setAlert] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { data: stateData } = useQuery({
@@ -24,7 +23,6 @@ export default function LeaveMembershipModal({
   const handleConfirm = async () => {
     setError("");
 
-    // ✅ VALIDATION
     if (!selectedState) {
       setError("Please select a state");
       return;
@@ -33,89 +31,106 @@ export default function LeaveMembershipModal({
     try {
       setLoading(true);
 
-      // ✅ CALL API FROM PARENT
-      const res = await onSubmit(selectedState);
+      const res = await leaveMembership(id, selectedState); // ⚠️ pass correct value
 
-      // ✅ HANDLE SUCCESS
       if (res?.status === 200 || res?.status === 201) {
-        onClose(); // close popup
+        // ✅ SUCCESS ALERT
+        setAlert({
+          message: "Membership switched successfully 🎉",
+          type: "success",
+        });
+
+        // close modal after short delay
+        setTimeout(() => {
+          onClose();
+        }, 2000);
       } else {
-        setError("Unexpected response. Please try again.");
+        setAlert({
+          message: "Unexpected response ❌",
+          type: "error",
+        });
       }
     } catch (e) {
-      // ✅ HANDLE ALL ERROR TYPES
       const errData = e?.response?.data;
 
+      let message = "Something went wrong ❌";
+
       if (typeof errData === "string") {
-        setError(errData);
+        message = errData;
       } else if (errData?.message) {
-        setError(errData.message);
+        message = errData.message;
       } else if (typeof errData === "object") {
-        // multiple backend errors
-        const messages = Object.values(errData)
-          .flat()
-          .join(", ");
-        setError(messages);
-      } else {
-        setError("Something went wrong ❌");
+        message = Object.values(errData).flat().join(", ");
       }
+
+      // ✅ ERROR ALERT
+      setAlert({
+        message,
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="leaveModalOverlay">
-      <div className="leaveModal">
+    <>
+      {alert && (
+        <AlertPopup
+          message={alert.message}
+          type={alert.type}
+          onClose={() => setAlert(null)}
+        />
+      )}
+      <div className="leaveModalOverlay">
+        <div className="leaveModal">
+          {/* HEADER */}
+          <div className="leaveModalHeader">
+            <FaExclamationTriangle className="warnIcon" />
+            <div>
+              <h2>Leave Membership</h2>
+              <p>You can rejoin under a new state</p>
+            </div>
+          </div>
 
-        {/* HEADER */}
-        <div className="leaveModalHeader">
-          <FaExclamationTriangle className="warnIcon" />
-          <div>
-            <h2>Leave Membership</h2>
-            <p>You can rejoin under a new state</p>
+          <div className="leaveWarning">
+            Leaving will deactivate your current benefits, rankings, and access.
+          </div>
+
+          <div className="formGroup">
+            <label>Select New State *</label>
+            <select
+              value={selectedState}
+              onChange={(e) => setSelectedState(e.target.value)}
+            >
+              <option value="">Choose your state</option>
+              {states.map((s) => (
+                <option key={s.user} value={s.user}>
+                  {s.state_name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* ERROR */}
+          {error && <div className="errorBox">{error}</div>}
+
+          {/* BUTTONS */}
+          <div className="modalActions">
+            <button className="btnCancel" onClick={onClose}>
+              Cancel
+            </button>
+
+            <button
+              className="btnConfirm"
+              onClick={handleConfirm}
+              disabled={loading}
+            >
+              {loading ? "Processing..." : "Confirm & Switch"}
+            </button>
           </div>
         </div>
-
-        
-        <div className="leaveWarning">
-          Leaving will deactivate your current benefits, rankings, and access.
-        </div>
-
-       
-        <div className="formGroup">
-          <label>Select New State *</label>
-          <select
-            value={selectedState}
-            onChange={(e) => setSelectedState(e.target.value)}
-          >
-            <option value="">Choose your state</option>
-            {states.map((s) => (
-              <option key={s.user} value={s.user}>
-                {s.state_name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* ERROR */}
-        {error && <div className="errorBox">{error}</div>}
-
-        {/* BUTTONS */}
-        <div className="modalActions">
-          <button className="btnCancel" onClick={onClose}>
-            Cancel
-          </button>
-
-          <button
-            className="btnConfirm"
-            onClick={handleConfirm}
-            disabled={loading}
-          >
-            {loading ? "Processing..." : "Confirm & Switch"}
-          </button>
-        </div>
       </div>
-    </div>
+    </>
   );
 }

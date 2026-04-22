@@ -19,3 +19,8 @@ export const rejectmembership = (id, status, rejection_note) => {
 export const get_purchased_membership = () => {
   return API.get("/super/membership-list/");
 };
+
+export const leaveMembership = (id, target_state_id) => {
+  console.log("Leaving membership with ID:", id, "Target State ID:", target_state_id);
+  return API.post(`/super/initiate-transfer/?membership_id=${id}`, { target_state_id });
+};

@@ -10,6 +10,7 @@ import { getathleteList } from "../../api/home_api";
 export default function ClubList() {
     const { id } = useParams();
     console.log("Club ID:", id);
+    console.log("Fetching club list for ID:", id);
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["clubList", id],

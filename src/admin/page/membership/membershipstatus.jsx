@@ -4,6 +4,7 @@ import { getmebershipdetails } from "../../api/membership";
 import { useQuery } from "@tanstack/react-query";
 import LeaveMembershipModal from "./transfermembership/leavemembershipmodal";
 import { useState } from "react";
+import { leaveMembership } from "../../api/membership";
 function MembershipStatus() {
   const { id } = useParams();
   const [showLeaveModal, setShowLeaveModal] = useState(false);
@@ -51,8 +52,7 @@ function MembershipStatus() {
 
     return Math.max(0, Math.min(100, Math.round((remaining / total) * 100)));
   };
- const handleLeaveMembership = async (state) => {
- }
+
   /* ================= STATUS ================= */
 
   const status = membership.calculate_status;
@@ -75,7 +75,7 @@ function MembershipStatus() {
       <LeaveMembershipModal
         isOpen={showLeaveModal}
         onClose={() => setShowLeaveModal(false)}
-        onSubmit={handleLeaveMembership}
+        id={id}
       />
       <Navbar />
 

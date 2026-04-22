@@ -20,6 +20,7 @@ export default function StateList() {
   });
 
   const clubs_stats = data?.data || [];
+  const club_count = data?.data.clubs_count || 0;
 
   console.log(data, isLoading, error);
 
@@ -65,7 +66,13 @@ export default function StateList() {
             </div>
 
             {clubs_stats.clubs_list?.map((club) => (
-              <div className="stateRow" key={club.user} onClick={()=>{navigate(`/home/club/${club.user}`)}}>
+              <div
+                className="stateRow"
+                key={club.user}
+                onClick={() => {
+                  navigate(`/admin/home/club/${club.user}`);
+                }}
+              >
                 <div className="clubCell">
                   <img src={logo} alt="logo" />
                   {club.club_name}
@@ -75,18 +82,18 @@ export default function StateList() {
                   <img src="https://i.pravatar.cc/40" />
                   <img src="https://i.pravatar.cc/41" />
                   <img src="https://i.pravatar.cc/42" />
-                  <span> + {club.members_count} </span>
+                  <span> + { club_count } </span>
                 </div>
 
-                <div>{club.clubs_count}</div>
+                <div>{ club_count }</div>
 
                 <a
-                  href="https://www.georgetown.com"
+                  href={`http://localhost:5173/club/${club.user}`}
                   className="website"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  www.georgetown.com
+                  www.mfsa.com
                 </a>
               </div>
             ))}
