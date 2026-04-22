@@ -128,7 +128,7 @@ export default function Gallery() {
                       />
 
                       <div className="gallery-overlay">
-                        <button className="gallery-delete-btn" onClick={() => deleteImage(item.user)}>
+                        <button className="gallery-delete-btn" onClick={() => deleteImage(item.image_id)}>
                           {" "}
                           <FiTrash2 />
                         </button>

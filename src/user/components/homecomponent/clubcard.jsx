@@ -1,60 +1,90 @@
 import logo from "../../assets/logo.jpg";
 import { useNavigate, useParams } from "react-router-dom";
-
-export default function HomeClubX() {
+import { useLocation } from "react-router-dom";
+export default function HomeClubX({ clubs }) {
   const navigate = useNavigate();
-  const { location } = useParams();
+  // const { stateName, stateId, clubName, clubId } = useParams();
+  const { stateId } = useParams();
 
-  const clubs = [
-    { name: "Johor Bahru", clubs: 10, athletes: 120 },
-    { name: "Kuala Lumpur", clubs: 8, athletes: 95 },
-    { name: "Selangor", clubs: 12, athletes: 150 },
-    { name: "Penang", clubs: 6, athletes: 70 },
-    { name: "Melaka", clubs: 4, athletes: 45 },
-    { name: "Perak", clubs: 5, athletes: 60 },
-    { name: "Kedah", clubs: 3, athletes: 35 },
-    { name: "Pahang", clubs: 4, athletes: 50 },
-  ];
+  const clubList = clubs || [];
+
+  // ✅ CONDITION
+  const enableAnimation = clubList.length > 4;
+
+  // ✅ ONLY DUPLICATE IF ANIMATION ENABLED
+  const displayClubs = enableAnimation ? [...clubList, ...clubList] : clubList;
 
   return (
     <section className="mfsaClubX-section">
       <div className="mfsaClubX-container">
+        {/* HEADER */}
         <div className="mfsaClubX-header">
           <h2 className="mfsaEventX-header">Associate Club</h2>
           <span className="mfsaClubX-viewAll">View All →</span>
         </div>
 
-        {/* SMOOTH SCROLLER */}
-        <div className="mfsaClubX-marquee">
-          <div className="mfsaClubX-track">
-            {[...clubs, ...clubs].map((item, i) => (
-              <div className="mfsaClubX-slide" key={i}>
-                <div className="mfsaClubX-card">
-                  <div className="mfsaClubX-logoOuter">
-                    <div className="mfsaClubX-logoInner">
-                      <img src={logo} alt="club" />
+        {/* EMPTY STATE */}
+        {clubList.length === 0 ? (
+          <div className="mfsaEmptyState">No clubs available in this state</div>
+        ) : enableAnimation ? (
+          /* 🔥 MARQUEE (5+ clubs) */
+          <div className="mfsaClubX-marquee">
+            <div className="mfsaClubX-track">
+              {displayClubs.map((item, i) => (
+                <div className="mfsaClubX-slide" key={item.user || i}>
+                  <div className="mfsaClubX-card">
+                    <div className="mfsaClubX-logoOuter">
+                      <div className="mfsaClubX-logoInner">
+                        <img src={item.image || logo} alt="club" />
+                      </div>
                     </div>
+
+                    <h3 className="mfsaClubX-name">{item.club_name}</h3>
+
+                    <p className="mfsaClubX-meta">
+                      {item.athletes_count} Athletes
+                    </p>
+
+                    <button
+                      className="mfsaClubX-btn"
+                      onClick={() =>
+                        navigate(`/state/${stateId}/club/${item.user}`)
+                      }
+                    >
+                      VIEW
+                    </button>
                   </div>
-
-                  <h3 className="mfsaClubX-name">{item.name}</h3>
-
-                  <p className="mfsaClubX-meta">
-                    {item.clubs} clubs • {item.athletes} Athletes
-                  </p>
-
-                  <button
-                    className="mfsaClubX-btn"
-                    onClick={() =>
-                      navigate(`/${location}/${item.name}`)
-                    }
-                  >
-                    VIEW
-                  </button>
                 </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          /* ✅ STATIC GRID (≤4 clubs) */
+          <div className="mfsaClubX-grid">
+            {clubList.map((item) => (
+              <div className="mfsaClubX-card" key={item.user}>
+                <div className="mfsaClubX-logoOuter">
+                  <div className="mfsaClubX-logoInner">
+                    <img src={item.image || logo} alt="club" />
+                  </div>
+                </div>
+
+                <h3 className="mfsaClubX-name">{item.club_name}</h3>
+
+                <p className="mfsaClubX-meta">{item.athletes_count} Athletes</p>
+
+                <button
+                  className="mfsaClubX-btn"
+                  onClick={() =>
+                    navigate(`/state/${stateId}/club/${item.user}`)
+                  }
+                >
+                  VIEW
+                </button>
               </div>
             ))}
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

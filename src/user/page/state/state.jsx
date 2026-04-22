@@ -40,14 +40,13 @@ export default function StatePage() {
   const state_events = stateInfo.upcoming_events || {};
 
   const statecontent = stateInfo.content || {};
+  const state_clubs = stateInfo.associate_clubs || [];
 
   console.log("State Page Data:", stateInfo);
 
-  
-
   return (
     <>
-      <div className="home-page" >
+      <div className="home-page">
         <Swimmer>
           <section className="hero">
             <video autoPlay muted loop className="heroVideo">
@@ -107,7 +106,7 @@ export default function StatePage() {
         <HomeRecords stats={state_stats} />
         <BestRecords />
 
-        <HomeClub />
+        <HomeClub clubs={state_clubs} />
         <HomeGallery gallery={state_gallery} />
         <HomeNews news={state_news} />
         <Footer />
