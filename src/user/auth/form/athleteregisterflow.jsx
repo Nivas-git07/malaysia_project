@@ -57,7 +57,9 @@ export default function AthleteRegisterFlow({ step, setStep, onStepChange }) {
       console.log(e.response?.data);
 
       setAlert({
-        message: e.response?.data || "Registration failed ❌ Please try again.",
+        message:
+          e.response?.data?.non_field.errors ||
+          "Registration failed ❌ Please try again.",
         type: "error",
       });
     }

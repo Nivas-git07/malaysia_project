@@ -4,19 +4,23 @@ import {
   FaCloudUploadAlt,
   FaCheckCircle,
 } from "react-icons/fa";
-// import MembershipStep from "./membershipsubmission";
-import { useRef } from "react";
-import { membrship_purchase, athletemembership_purchase } from "../../api/auth";
-import { get_state } from "../../api/auth";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import {
+  membrship_purchase,
+  athletemembership_purchase,
+  get_state,
+} from "../../api/auth";
 import { getclublist } from "../../api/club";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import AlertPopup from "../../hooks/popuptemplate";
+
 export default function MembershipPayment({ plan, amount, user }) {
+  console.log("the page is rendering", user);
   const [alert, setAlert] = useState(null);
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  console.log("User Data in MembershipPayment:", user);
+  const fileInputRef = useRef(null);
 
   const [Transaction, setTransaction] = useState({
     Transaction_id: "",
@@ -26,56 +30,97 @@ export default function MembershipPayment({ plan, amount, user }) {
     amount_paid: amount,
   });
 
-  const membershippurchase = async () => {
-    const formData = new FormData();
+  console.log("the page is rendering", user);
 
-    formData.append("user", user.id);
-    formData.append("transaction_id", Transaction.Transaction_id);
+  // ✅ FETCH DATA
+  const { data } = useQuery({
+    queryKey: ["dropdown", user.role, user.state_id],
+    queryFn: () =>
+      user.role === "ATHLETE" ? getclublist(user.state_id) : get_state(),
+    enabled: !!user.role,
+  });
 
-    if (user.role === "ATHLETE") {
-      formData.append("club", Transaction.club);
-    } else {
-      formData.append("state", Transaction.club);
+  const states = data?.data || [];
+
+  // ✅ VALIDATION
+  const validateTransaction = () => {
+    const newErrors = {};
+
+    if (!Transaction.Transaction_id.trim()) {
+      newErrors.transaction = "Transaction ID is required";
+    } else if (Transaction.Transaction_id.length < 6) {
+      newErrors.transaction = "Minimum 6 characters required";
     }
 
+    if (!Transaction.receipt_image) {
+      newErrors.image = "Receipt is required";
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      setAlert({
+        message: "Please fill all required fields ❌",
+        type: "error",
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const membershippurchase = async () => {
+    if (!validateTransaction()) return;
+
+    const formData = new FormData();
+    formData.append("user", user.id);
+    formData.append("transaction_id", Transaction.Transaction_id);
     formData.append("amount_paid", amount);
     formData.append("membership_plan", plan);
+    formData.append("receipt_image", Transaction.receipt_image);
 
-    if (Transaction.receipt_image) {
-      formData.append("receipt_image", Transaction.receipt_image);
+    const hasClub = Transaction.club && Transaction.club.trim() !== "";
+
+    if (user.role === "ATHLETE") {
+      if (hasClub) formData.append("club", Transaction.club);
+    } else {
+      if (hasClub) formData.append("state", Transaction.club);
     }
 
     try {
-      if (user.role === "ATHLETE") {
-        await athletemembership_purchase(formData, user.state_id);
-        if (Transaction.club === null || Transaction.club === "") {
-          setAlert({
-            message:
-              "your state has no club,so your membership will be processed with under state or national 🎉",
-            type: "success",
-          });
-        } else {
-          setAlert({
-            message: "Athlete Membership purchased successfully 🎉",
-            type: "success",
-          });
-        }
+      let response;
 
-        setTimeout(() => navigate("/"), 3500);
-        return;
+      if (user.role === "ATHLETE") {
+        response = await athletemembership_purchase(formData, user.state_id);
+      } else {
+        response = await membrship_purchase(formData);
       }
 
-      await membrship_purchase(formData);
+      // ✅ IMPORTANT: check response
+      if (response && (response.status === 200 || response.status === 201)) {
+        setAlert({
+          message: !hasClub
+            ? "No club found. Processed under state/national 🎉"
+            : "Membership purchased successfully 🎉",
+          type: "success",
+        });
 
-      setAlert({
-        message: "Membership purchased successfully 🎉",
-        type: "success",
-      });
-
-      setTimeout(() => navigate("/admin/membership/status"), 3500);
+  
+        setTimeout(() => {
+          if (user.role === "ATHLETE") {
+            navigate("/");
+          } else {
+            navigate("/admin/home");
+          }
+        }, 2000);
+      } else {
+        // ❌ if response not valid
+        setAlert({
+          message: "Unexpected response from server ❌",
+          type: "error",
+        });
+      }
     } catch (e) {
-      console.log(e.response?.data);
-
       setAlert({
         message:
           e.response?.data?.message || "Payment failed ❌ Please try again.",
@@ -83,17 +128,6 @@ export default function MembershipPayment({ plan, amount, user }) {
       });
     }
   };
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["dropdown", user.role, user.state_id],
-    queryFn: () =>
-      user.role === "ATHLETE" ? getclublist(user.state_id) : get_state(),
-
-    enabled: !!user.role,
-  });
-
-  const states = data?.data || [];
-  const fileInputRef = useRef(null);
 
   return (
     <>
@@ -144,9 +178,11 @@ export default function MembershipPayment({ plan, amount, user }) {
           </div>
         </div>
       </section>
+
       <section className="mfsaPaymentSection">
         <div className="mfsaContainer mfsaPaymentGrid">
           <div className="mfsaFormCard">
+            {/* TRANSACTION ID */}
             <div className="formGroup">
               <label>TRANSACTION ID *</label>
               <input
@@ -160,38 +196,49 @@ export default function MembershipPayment({ plan, amount, user }) {
                   })
                 }
               />
+              {errors.transaction && (
+                <span className="errorText">{errors.transaction}</span>
+              )}
             </div>
 
+            {/* CLUB OPTIONAL */}
             <div className="formGroup">
-              <label>SELECT CLUB *</label>
+              <label>SELECT CLUB (Optional)</label>
               <select
                 value={Transaction.club}
                 onChange={(e) =>
                   setTransaction({ ...Transaction, club: e.target.value })
                 }
               >
-                <option>Select your registered club</option>
-                {states.map((state) => (
-                  <option key={state.user} value={state.user}>
-                    {state.state_name || state.club_name}
+                <option value="">Select your registered club</option>
+                {states.map((s) => (
+                  <option key={s.user} value={s.user}>
+                    {s.state_name || s.club_name}
                   </option>
                 ))}
               </select>
             </div>
 
+            {/* FILE UPLOAD */}
             <div className="formGroup">
               <label>UPLOAD PAYMENT RECEIPT *</label>
 
               <div
                 className="uploadBox"
-                onClick={() => fileInputRef.current.click()}
+                onClick={() =>
+                  fileInputRef.current && fileInputRef.current.click()
+                }
               >
                 <FaCloudUploadAlt />
-                <p>Click or drag and drop your receipt here</p>
-
-                <span>PNG, JPG or PDF up to 5MB</span>
+                <p>Click to upload receipt</p>
+                <span>PNG, JPG or PDF</span>
               </div>
+
               <p>{Transaction.receipt_image?.name || "No file selected"}</p>
+
+              {errors.image && (
+                <span className="errorText">{errors.image}</span>
+              )}
             </div>
 
             <input
@@ -206,10 +253,10 @@ export default function MembershipPayment({ plan, amount, user }) {
               }
             />
 
+            {/* NOTES */}
             <div className="formGroup">
-              <label>ADDITIONAL NOTES</label>
+              <label>NOTES</label>
               <textarea
-                placeholder="Any additional information for the federation..."
                 value={Transaction.notes}
                 onChange={(e) =>
                   setTransaction({ ...Transaction, notes: e.target.value })
@@ -217,18 +264,17 @@ export default function MembershipPayment({ plan, amount, user }) {
               />
             </div>
 
+            {/* BUTTON */}
             <div className="formActions">
               <button
+                type="button"
                 className="btnPrimary"
                 onClick={membershippurchase}
-                disabled={!Transaction.Transaction_id || !Transaction.club}
               >
                 Submit Membership
               </button>
-              {/* <button className="btnOutline">Back to Plans</button> */}
             </div>
           </div>
-
           <div className="mfsaSide">
             <div className="paymentCard">
               <h3>
