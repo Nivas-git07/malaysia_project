@@ -10,6 +10,7 @@ import { PiNotePencilBold } from "react-icons/pi";
 import { GrGallery } from "react-icons/gr";
 import { BiCommentDetail } from "react-icons/bi";
 import { TbCreditCardRefund } from "react-icons/tb";
+import { get_check } from "../../../user/api/home_api";
 import {
   Home,
   User,
@@ -21,13 +22,22 @@ import {
   LogOut,
   Menu,
 } from "lucide-react";
-
+import { useQuery } from "@tanstack/react-query";
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
 
   const closeSidebar = () => {
     setOpen(false);
   };
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["checkSession"],
+    queryFn: get_check,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
+  const checkdata = data?.data.role;
 
   return (
     <>
@@ -75,15 +85,16 @@ export default function Sidebar() {
             <FaAddressCard size={20} />
             <span>membership Approval</span>
           </NavLink>
-
-          <NavLink
-            to="/admin/membership/status"
-            className="menuItem"
-            onClick={closeSidebar}
-          >
-            <TbCreditCardRefund size={20} />
-            <span>membership Status</span>
-          </NavLink>
+          {checkdata !== "STATE" && (
+            <NavLink
+              to="/admin/membership/status"
+              className="menuItem"
+              onClick={closeSidebar}
+            >
+              <TbCreditCardRefund size={20} />
+              <span>membership Status</span>
+            </NavLink>
+          )}
 
           <NavLink
             to="/admin/tickets"

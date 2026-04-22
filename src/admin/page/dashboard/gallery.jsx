@@ -5,13 +5,25 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { postgallery, get_recent_gallery } from "../../api/news_api";
 import Preview from "../../hook/preview/preview";
 import { FiTrash2 } from "react-icons/fi";
+import { deletegallery } from "../../api/news_api";
 export default function Gallery() {
   const [image, setimage] = useState(null);
   const fileRef = useRef(null);
 
   const queryClient = useQueryClient();
 
-  // 🔥 FETCH GALLERY DATA
+  const deleteImage = async (id) => {
+    if (window.confirm("Are you sure you want to delete this image?")) {
+      try {
+        await deletegallery(id);
+        alert("Image deleted successfully");
+        queryClient.invalidateQueries(["recentGallery"]);
+      } catch (err) {
+        console.log(err);
+        alert("Failed to delete image");
+      }
+    }
+  };
   const { data, isLoading, isError } = useQuery({
     queryKey: ["recentGallery"],
     queryFn: get_recent_gallery,
@@ -19,6 +31,7 @@ export default function Gallery() {
   });
 
   const galleryItems = data?.data ?? null;
+  console.log("Gallery Items:", galleryItems);
 
   // 🔥 HANDLE FILE CLICK
   const handleClick = () => {
@@ -59,9 +72,7 @@ export default function Gallery() {
         </div>
 
         <div className="mfsaAdminGalleryX">
-      
           <div className="gallery-upload-wrapper">
-          
             <input
               type="file"
               ref={fileRef}
@@ -70,7 +81,6 @@ export default function Gallery() {
               hidden
             />
 
-            
             <div className="gallery-upload-box" onClick={handleClick}>
               <div className="gallery-upload-content">
                 <div className="upload-icon">☁️</div>
@@ -117,9 +127,11 @@ export default function Gallery() {
                         className="gallery-img"
                       />
 
-                   
                       <div className="gallery-overlay">
-                        <button className="gallery-delete-btn">  <FiTrash2 /></button>
+                        <button className="gallery-delete-btn" onClick={() => deleteImage(item.user)}>
+                          {" "}
+                          <FiTrash2 />
+                        </button>
                       </div>
                     </div>
                   ))

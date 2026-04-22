@@ -35,6 +35,10 @@ export const postgallery = (file) => {
   });
 };
 
-export const get_recent_gallery = () =>{
-  return API.get("/super/get-latest-images/")
-}
+export const get_recent_gallery = () => {
+  return API.get("/super/get-latest-images/");
+};
+
+export const deletegallery = (id) => {
+  return API.delete(`/super/gallery/${id}/`);
+};
