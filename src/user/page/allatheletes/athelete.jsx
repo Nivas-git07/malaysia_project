@@ -28,7 +28,7 @@ export default function ALLAthelete() {
 
   const athletes = athleteData?.data || [];
 
-  console.log(athletes)
+  console.log("athletes", athletes);
 
   // if (!athleteData && !isError) return null;
 

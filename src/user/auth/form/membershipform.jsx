@@ -3,9 +3,8 @@ import img from "../../assets/event3.png";
 import { FaCheckCircle } from "react-icons/fa";
 import { BiWorld } from "react-icons/bi";
 
-export default function MembershipX({ onSubmit }) {
+export default function MembershipX({ onSubmit, role }) {
   const [selected, setSelected] = useState(null);
-
 
   const plans = [
     {
@@ -55,63 +54,66 @@ export default function MembershipX({ onSubmit }) {
     <>
       <section className="mfsaMembershipX-section">
         <div className="mfsaMembershipX-container">
-
           <div className="mfsaMembershipX-header">
             <span className="tag">Membership Programs</span>
             <h1>Choose Your Membership</h1>
-            <p>
-              Select the plan that fits your journey.
-            </p>
+            <p>Select the plan that fits your journey.</p>
           </div>
 
-
           <div className="mfsaMembershipGridX">
-            {plans.map((item) => (
-              <div
-                className={`mfsaMembershipCardX ${
-                  item.popular ? "popular" : ""
-                }`}
-                key={item.Membership_id}
-              >
-                {item.popular && (
-                  <span className="popularTag">Most Popular</span>
-                )}
+            {plans.map((item) => {
+              const isAllowed = role === item.title;
 
-                <h3>{item.title.replaceAll("_", " ")}</h3>
-
-                {/* ✅ FIXED PRICE */}
-                <div className="price">
-                  {item.price} <span>/ year</span>
-                </div>
-
-                <ul>
-                  {item.features.map((f, idx) => (
-                    <li key={idx}>
-                      <FaCheckCircle /> {f}
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  onClick={() => {
-                    setSelected(item.Membership_id);
-
-                   
-                    onSubmit({
-                      name: item.title,
-                      price: item.price,
-                    });
-                  }}
-                  className={
-                    selected === item.Membership_id ? "activeBtn" : ""
-                  }
+              return (
+                <div
+                  className={`mfsaMembershipCardX 
+        ${item.popular ? "popular" : ""} 
+        ${!isAllowed ? "disabledCard" : ""}`}
+                  key={item.Membership_id}
                 >
-                  {selected === item.Membership_id
-                    ? "Selected"
-                    : "Select Plan"}
-                </button>
-              </div>
-            ))}
+                  {item.popular && (
+                    <span className="popularTag">Most Popular</span>
+                  )}
+
+                  <h3>{item.title.replaceAll("_", " ")}</h3>
+
+                  <div className="price">
+                    {item.price} <span>/ year</span>
+                  </div>
+
+                  <ul>
+                    {item.features.map((f, idx) => (
+                      <li key={idx}>
+                        <FaCheckCircle /> {f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <button
+                    disabled={!isAllowed}
+                    onClick={() => {
+                      if (!isAllowed) return;
+
+                      setSelected(item.Membership_id);
+
+                      onSubmit({
+                        name: item.title,
+                        price: item.price,
+                      });
+                    }}
+                    className={`${selected === item.Membership_id ? "activeBtn" : ""} ${
+                      !isAllowed ? "disabledBtn" : ""
+                    }`}
+                  >
+                    {!isAllowed
+                      ? "Not Available"
+                      : selected === item.Membership_id
+                        ? "Selected"
+                        : "Select Plan"}
+                  </button>
+                </div>
+              );
+            })}
           </div>
 
           <p className="helpText">
@@ -167,9 +169,7 @@ export default function MembershipX({ onSubmit }) {
               </li>
             </ul>
 
-            <button className="mfsaWhyX-btn">
-              Explore Membership
-            </button>
+            <button className="mfsaWhyX-btn">Explore Membership</button>
           </div>
         </div>
       </section>

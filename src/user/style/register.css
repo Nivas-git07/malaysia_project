@@ -1725,3 +1725,86 @@ body{
     width: 100%;
   }
 }
+
+.disabledCard {
+  opacity: 0.5;
+  pointer-events: none;
+  filter: grayscale(80%);
+}
+
+.disabledBtn {
+  cursor: not-allowed;
+  background: #ccc;
+}
+
+.toast-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+}
+
+/* Small box */
+.toast-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f1f5f9;
+  padding: 12px 18px;
+  border-radius: 12px;
+  min-width: 280px;
+  max-width: 380px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: slideDown 0.3s ease;
+}
+
+/* Icons */
+.toast-icon {
+  font-size: 18px;
+}
+
+.toast-icon.success {
+  color: #22c55e;
+}
+
+.toast-icon.error {
+  color: #ef4444;
+}
+
+/* Message */
+.toast-message {
+  flex: 1;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+/* Close */
+.toast-close {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: #64748b;
+}
+
+.toast-close:hover {
+  color: #000;
+}
+
+/* Animation
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  } */
+.errorText {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}

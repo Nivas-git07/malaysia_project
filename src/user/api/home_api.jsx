@@ -19,10 +19,10 @@ export const get_news = () => {
 
 export const get_particular_news = ({ clubId, stateId }) => {
   if (clubId) {
-    return API.get(`/user/get-club-news/?club_id=${clubId}`);
+    return API.get(`/user/get-all-news/?club_id=${clubId}`);
   }
   if (stateId) {
-    return API.get(`/user/get-state-news/?state_id=${stateId}`);
+    return API.get(`/user/get-all-news/?state_id=${stateId}`);
   }
 };
 

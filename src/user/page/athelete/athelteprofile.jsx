@@ -18,7 +18,7 @@ export default function Athelete() {
     enabled: !!clubId,
     retry: false,
   });
-
+  console.log("Athlete Data:", athleteData?.data);
   return (
     <div>
       <SwimmerHero>

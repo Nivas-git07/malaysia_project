@@ -3,12 +3,9 @@ import Atheleform from "./atheleform";
 import MembershipX from "./membershipform";
 import MembershipPayment from "./membershippayment";
 import { athelete_register } from "../../api/auth";
-
-export default function AthleteRegisterFlow({
-  step,
-  setStep,
-  onStepChange,
-}) {
+import AlertPopup from "../../hooks/popuptemplate";
+export default function AthleteRegisterFlow({ step, setStep, onStepChange }) {
+  const [alert, setAlert] = useState(null);
   const [formData, setFormData] = useState({
     athlete: {
       id: null,
@@ -23,7 +20,6 @@ export default function AthleteRegisterFlow({
 
   const nextStep = () => setStep((prev) => prev + 1);
 
-  
   const handleAthleteSubmit = async (data) => {
     try {
       const response = await athelete_register(
@@ -36,17 +32,20 @@ export default function AthleteRegisterFlow({
         data.dob,
         data.state,
         data.password,
-        data.discipline
+        data.discipline,
       );
 
       if (response.status === 200 || response.status === 201) {
-        alert("Athlete Registered ✅");
+        setAlert({
+          message: "Athlete Registered Successfully ✅",
+          type: "success",
+        });
 
         setFormData((prev) => ({
           ...prev,
           athlete: {
-            id: response.data.id,          
-            state_id: response.data.state, 
+            id: response.data.id,
+            state_id: response.data.state,
             role: "ATHLETE",
           },
         }));
@@ -56,10 +55,13 @@ export default function AthleteRegisterFlow({
       }
     } catch (e) {
       console.log(e.response?.data);
-      alert("Registration failed ❌");
+
+      setAlert({
+        message: e.response?.data || "Registration failed ❌ Please try again.",
+        type: "error",
+      });
     }
   };
-
 
   const handleMembershipSubmit = (planData) => {
     setFormData((prev) => ({
@@ -76,21 +78,29 @@ export default function AthleteRegisterFlow({
 
   return (
     <>
+      {alert && (
+        <AlertPopup
+          message={alert.message}
+          type={alert.type}
+          onClose={() => setAlert(null)}
+        />
+      )}
       {step === 1 && <Atheleform onSubmit={handleAthleteSubmit} />}
 
       {step === 2 && (
-        <MembershipX onSubmit={handleMembershipSubmit} />
+        <MembershipX
+          onSubmit={handleMembershipSubmit}
+          role="INDIVIDUAL_MEMBER"
+        />
       )}
 
-      {step === 3 &&
-        formData.athlete.id &&
-        formData.membership.plan && (
-          <MembershipPayment
-            plan={formData.membership.plan}
-            amount={formData.membership.amount}
-            user={formData.athlete}
-          />
-        )}
+      {step === 3 && formData.athlete.id && formData.membership.plan && (
+        <MembershipPayment
+          plan={formData.membership.plan}
+          amount={formData.membership.amount}
+          user={formData.athlete}
+        />
+      )}
     </>
   );
 }

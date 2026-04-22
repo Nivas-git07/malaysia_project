@@ -12,8 +12,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { getclublist } from "../../api/club";
 import { useNavigate } from "react-router-dom";
-
+import AlertPopup from "../../hooks/popuptemplate";
 export default function MembershipPayment({ plan, amount, user }) {
+  const [alert, setAlert] = useState(null);
   const navigate = useNavigate();
   console.log("User Data in MembershipPayment:", user);
 
@@ -29,13 +30,14 @@ export default function MembershipPayment({ plan, amount, user }) {
     const formData = new FormData();
 
     formData.append("user", user.id);
-    // formData.append("user_state_id", user.state_id);
     formData.append("transaction_id", Transaction.Transaction_id);
+
     if (user.role === "ATHLETE") {
       formData.append("club", Transaction.club);
     } else {
       formData.append("state", Transaction.club);
     }
+
     formData.append("amount_paid", amount);
     formData.append("membership_plan", plan);
 
@@ -46,17 +48,39 @@ export default function MembershipPayment({ plan, amount, user }) {
     try {
       if (user.role === "ATHLETE") {
         await athletemembership_purchase(formData, user.state_id);
-        alert("Athlete Membership purchased successfully 🎉");
-        navigate("/");
+        if (Transaction.club === null || Transaction.club === "") {
+          setAlert({
+            message:
+              "your state has no club,so your membership will be processed with under state or national 🎉",
+            type: "success",
+          });
+        } else {
+          setAlert({
+            message: "Athlete Membership purchased successfully 🎉",
+            type: "success",
+          });
+        }
+
+        setTimeout(() => navigate("/"), 3500);
         return;
       }
 
       await membrship_purchase(formData);
-      alert("Membership purchased successfully 🎉");
-      navigate("/admin/membership/status");
+
+      setAlert({
+        message: "Membership purchased successfully 🎉",
+        type: "success",
+      });
+
+      setTimeout(() => navigate("/admin/membership/status"), 3500);
     } catch (e) {
       console.log(e.response?.data);
-      alert("Payment failed ❌");
+
+      setAlert({
+        message:
+          e.response?.data?.message || "Payment failed ❌ Please try again.",
+        type: "error",
+      });
     }
   };
 
@@ -73,6 +97,13 @@ export default function MembershipPayment({ plan, amount, user }) {
 
   return (
     <>
+      {alert && (
+        <AlertPopup
+          message={alert.message}
+          type={alert.type}
+          onClose={() => setAlert(null)}
+        />
+      )}
       <section className="mfsaCompleteSection">
         <div className="mfsaContainer">
           <h1 className="mfsaTitle">Complete Your Membership</h1>
@@ -194,7 +225,7 @@ export default function MembershipPayment({ plan, amount, user }) {
               >
                 Submit Membership
               </button>
-              <button className="btnOutline">Back to Plans</button>
+              {/* <button className="btnOutline">Back to Plans</button> */}
             </div>
           </div>
 
