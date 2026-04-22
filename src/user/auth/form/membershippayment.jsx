@@ -105,9 +105,8 @@ export default function MembershipPayment({ plan, amount, user }) {
           type: "success",
         });
 
-  
         setTimeout(() => {
-          if (user.role === "ATHLETE") {
+          if (user.role === "ATHLETE" || user.role === "CLUB") {
             navigate("/");
           } else {
             navigate("/admin/home");
@@ -204,19 +203,25 @@ export default function MembershipPayment({ plan, amount, user }) {
             {/* CLUB OPTIONAL */}
             <div className="formGroup">
               <label>SELECT CLUB (Optional)</label>
-              <select
-                value={Transaction.club}
-                onChange={(e) =>
-                  setTransaction({ ...Transaction, club: e.target.value })
-                }
-              >
-                <option value="">Select your registered club</option>
-                {states.map((s) => (
-                  <option key={s.user} value={s.user}>
-                    {s.state_name || s.club_name}
-                  </option>
-                ))}
-              </select>
+              {states.length === 0 ? (
+                <div className="noDataBox">
+                  🚫 No club available for your region
+                </div>
+              ) : (
+                <select
+                  value={Transaction.club}
+                  onChange={(e) =>
+                    setTransaction({ ...Transaction, club: e.target.value })
+                  }
+                >
+                  <option value="">Select your registered club or State</option>
+                  {states.map((s) => (
+                    <option key={s.user} value={s.user}>
+                      {s.state_name || s.club_name}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
 
             {/* FILE UPLOAD */}

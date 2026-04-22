@@ -1,11 +1,16 @@
 import { useState } from "react";
-
-export default function ClubFormX({ onSubmit }) {
+import { useEffect } from "react";
+export default function ClubFormX({ onSubmit, onBack ,initialData}) {
   const [extraData, setExtraData] = useState({
     about: "",
     vision: "",
     mission: "",
   });
+  useEffect(() => {
+  if (initialData) {
+    setExtraData(initialData);
+  }
+}, [initialData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,6 +61,13 @@ export default function ClubFormX({ onSubmit }) {
           </div>
 
           <div className="mfsaFormBtnWrapX">
+            <button
+              type="button"
+              className="mfsaFormBtnX outline"
+              onClick={onBack}
+            >
+              ← Previous
+            </button>
             <button className="mfsaFormBtnX" onClick={handleSubmit}>
               Save & Continue
             </button>

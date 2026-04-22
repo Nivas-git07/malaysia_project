@@ -3,10 +3,12 @@ import ClubForm from "./clubform";
 import ClubFormX from "./clubabout";
 import { club_register } from "../../api/auth";
 import MembershipX from "./membershipform";
-import Registermembershipsubmission from "../../page/register/registermemsubmission";
 import MembershipPayment from "./membershippayment";
+import AlertPopup from "../../hooks/popuptemplate";
+
 export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
-  console.log("Current Step:", step);
+  const [alert, setAlert] = useState(null);
+
   const [club, setClub] = useState({
     id: null,
     role: "CLUB",
@@ -37,6 +39,7 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
+  // ✅ STEP 1
   const handleStep1Submit = (data) => {
     setFormData((prev) => ({
       ...prev,
@@ -56,6 +59,7 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
     onStepChange("clubFlow");
   };
 
+  // ✅ STEP 2 (REGISTER CLUB)
   const handleFinalSubmit = async (data) => {
     const updatedData = {
       ...formData,
@@ -80,14 +84,20 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
         updatedData.club.address,
         updatedData.about.about,
         updatedData.about.vision,
-        updatedData.about.mission,
+        updatedData.about.mission
       );
 
-      console.log(response.data);
+      if (response && (response.status === 200 || response.status === 201)) {
+        setAlert({
+          message: "Club Registration successful 🎉",
+          type: "success",
+        });
 
-      if (response.status === 200 || response.status === 201) {
-        alert("Club Registration successful 🎉");
-        setClub({ ...club, id: response.data.id });
+        setClub((prev) => ({
+          ...prev,
+          id: response.data.id,
+        }));
+
         setFormData((prev) => ({
           ...prev,
           club: {
@@ -96,14 +106,22 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
             state: response.data.state,
           },
         }));
-        nextStep();
+
+        setTimeout(() => {
+          nextStep();
+        }, 2000);
       }
     } catch (e) {
-      console.log(e.response?.data);
-      alert("Registration failed ❌");
+      setAlert({
+        message:
+          e.response?.data?.message ||
+          "Registration failed ❌ Please try again.",
+        type: "error",
+      });
     }
   };
 
+  // ✅ STEP 3
   const handleStep3Submit = (planData) => {
     setFormData((prev) => ({
       ...prev,
@@ -118,12 +136,40 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
 
   return (
     <>
-      {step === 1 && <ClubForm onNext={handleStep1Submit} />}
+     
+      {alert && (
+        <AlertPopup
+          message={alert.message}
+          type={alert.type}
+          onClose={() => setAlert(null)}
+        />
+      )}
 
-      {step === 2 && <ClubFormX onSubmit={handleFinalSubmit} />}
+    
+      {step === 1 && (
+        <ClubForm
+          onNext={handleStep1Submit}
+          initialData={formData.club} 
+        />
+      )}
 
-      {step === 3 && <MembershipX onSubmit={handleStep3Submit} />}
+     
+      {step === 2 && (
+        <ClubFormX
+          onSubmit={handleFinalSubmit}
+          onBack={prevStep}
+          initialData={formData.about} 
+        />
+      )}
 
+      {step === 3 && (
+        <MembershipX
+          onSubmit={handleStep3Submit}
+          role="ALLIED_MEMBER"
+        />
+      )}
+
+      {/* ✅ STEP 4 */}
       {step === 4 && (
         <MembershipPayment
           plan={formData.membership.plan}

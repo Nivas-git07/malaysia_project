@@ -34,7 +34,7 @@ export default function RegistrationForm() {
                     setClubStep(1); 
                   }}
                 >
-                  State / Club
+                   Club
                 </button>
 
                 
