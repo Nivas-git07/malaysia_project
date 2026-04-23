@@ -31,22 +31,22 @@ export default function AthleteSidebar() {
 
         {/* MENU */}
         <nav className="sidebarMenu">
-          <NavLink to="/dashboard" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/athlete/dashboard" className="menuItem" onClick={closeSidebar}>
             <Home size={20} />
             <span>Home Dashboard</span>
           </NavLink>
 
-          <NavLink to="/events" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/athlete/events" className="menuItem" onClick={closeSidebar}>
             <Calendar size={20} />
             <span>Event Registration</span>
           </NavLink>
 
-          <NavLink to="/membership" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/athlete/membership" className="menuItem" onClick={closeSidebar}>
             <Ticket size={20} />
             <span>Membership Status</span>
           </NavLink>
 
-          <NavLink to="/profile" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/athlete/profile" className="menuItem" onClick={closeSidebar}>
             <User size={20} />
             <span>Profile Settings</span>
           </NavLink>
