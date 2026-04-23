@@ -1,11 +1,14 @@
-import AthleteSidebar from "../components/sidebarcomponent";
-
+import AthleteSidebar from "./athletesidebar";
+import AthleteNavbar from "./athletenavbar";
 function AthleteLayout({ children }) {
   return (
-    <div className="layout">
-      <AthleteSidebar />
-      <main className="content">{children}</main>
-    </div>
+    <>
+      <AthleteNavbar />
+      <div className="layout">
+        <AthleteSidebar />
+        <main className="content">{children}</main>
+      </div>
+    </>
   );
 }
 

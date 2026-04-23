@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "../../style/dashboard/sidebar.css";
+
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/logo.jpg";
-import { logout } from "../../api/auth_api";
+import logo from "../../user/assets/logo.jpg";
+import { logout } from "../../admin/api/auth_api";
 
 import { Home, User, Calendar, Ticket, LogOut, Menu } from "lucide-react";
 
