@@ -1,29 +1,57 @@
 import React, { useState } from "react";
 import Navbar from "../navbar/nav";
 import "../../style/dashboard/ManageUser.css";
-import ManageUserModal from "./ManageUserModal";
-import MembershipSection from "../../components/membershipcard";
-import { getmebership } from "../../api/membership";
 import { useQuery } from "@tanstack/react-query";
-import { getmebershipdetails } from "../../api/membership";
+import {
+  getmebership,
+  getmebershipdetails,
+  get_pending_requests,
+} from "../../api/membership";
 import MembershipPopup from "../../components/membershippopup";
+
 function ManageUser() {
   const [Filter, setFilter] = useState({
     plan: "",
-    role: "",
     status: "",
   });
 
-  const { data, isLoading, error, refetch } = useQuery({
+  const [open, setOpen] = useState(false);
+  const [editData, setEditData] = useState(null);
+
+  const {
+    data: membershipRes,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["membership"],
     queryFn: getmebership,
-    refetchOnWindowFocus: false,
     retry: false,
+    refetchOnWindowFocus: false,
   });
-  console.log(data, isLoading, error);
-  const membershipData = data?.data || [];
 
-  console.log(membershipData);
+  const { data: pendingRes } = useQuery({
+    queryKey: ["pending"],
+    queryFn: get_pending_requests,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
+  const membershipData = membershipRes?.data || [];
+  const pendingData = pendingRes?.data || [];
+  console.log("Membership Data:", membershipData);
+  console.log("Pending Data:", pendingData);
+
+  const formattedPending = pendingData.map((p) => ({
+    membership_id: p.id,
+    user_name: "Pending User",
+    membership_plan: "STATE SWITCH",
+    status: p.status,
+    state_name: "Switch Request",
+    isPending: true,
+  }));
+
+  const combinedData = [...membershipData, ...formattedPending];
 
   const handleFilterChange = (e) => {
     setFilter({
@@ -31,40 +59,39 @@ function ManageUser() {
       [e.target.name]: e.target.value,
     });
   };
-  const filteredData = membershipData.filter((item) => {
+
+  const filteredData = combinedData.filter((item) => {
     return (
       (Filter.plan === "" ||
         item.membership_plan?.toLowerCase() === Filter.plan.toLowerCase()) &&
-      (Filter.role === "" ||
-        item.role?.toLowerCase() === Filter.role.toLowerCase()) &&
       (Filter.status === "" ||
-        item.status?.toLowerCase() === Filter.status.toLowerCase())
+        item.status?.toLowerCase().includes(Filter.status.toLowerCase()))
     );
   });
 
-  const [open, setOpen] = useState(false);
-  const [editData, setEditData] = useState(null);
+  const handleView = (item) => {
+    if (item.isPending) {
+      setEditData({
+        user_name: item.user_name,
+        membership_plan: item.membership_plan,
+        status: item.status,
+        state_name: item.state_name,
+        note: "This is a pending state switch request",
+      });
+      setOpen(true);
+      return;
+    }
 
-  const handlesubmit = (id) => {
-    getmebershipdetails(id)
+    getmebershipdetails(item.membership_id)
       .then((res) => {
         setEditData(res.data);
         setOpen(true);
       })
-      .catch((err) => {
-        console.error("Error fetching membership details:", err);
-      });
+      .catch((err) => console.error(err));
   };
 
-  const handleAdd = () => {
-    setEditData(null);
-    setOpen(true);
-  };
-
-  const handleEdit = (item) => {
-    setEditData(item);
-    setOpen(true);
-  };
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading</p>;
 
   return (
     <>
@@ -72,98 +99,56 @@ function ManageUser() {
 
       <div className="mu-membership-wrapper">
         <div className="EventReport">MEMBERSHIP</div>
+
         <div className="athleteProfileCard">
           <div className="athleteCard">
             <div className="athleteFilters">
-              <select
-                className="filterSelect"
-                name="plan"
-                onChange={handleFilterChange}
-             >
+              <select name="plan" onChange={handleFilterChange}>
                 <option value="">Select plan</option>
-                <option value="CLUB_ATHLETE_MEMBERSHIP">
-                  Club athlete membership
-                </option>
-                <option value="NATIONAL_ATHLETE_MEMBERSHIP">
-                  National athlete membership
-                </option>
-                <option value="COACH_MEMBERSHIP'">Coach membership</option>
-                <option value="TECHNICAL_OFFICIAL_MEMBERSHIP">
-                  Technical official membership
-                </option>
+                <option value="allied_member">Allied Member</option>
+                <option value="state switch">State Switch</option>
               </select>
 
-              <select
-                className="filterSelect"
-                name="role"
-                onChange={handleFilterChange}
-              >
-                <option value="">Select Role</option>
-                <option value="Admin">Admin</option>
-                <option value="Coach">Coach</option>
-              </select>
-
-              <select
-                className="filterSelect"
-                name="status"
-                onChange={handleFilterChange}
-              >
+              <select name="status" onChange={handleFilterChange}>
                 <option value="">Select Status</option>
-                <option value="Active">Active</option>
-                <option value="REJECTED">Rejected</option>
-                <option value="PENDING">pending</option>
+                <option value="active">Active</option>
+                <option value="pending">Pending</option>
               </select>
-              <button className="findsBtn">Find Athlete</button>
             </div>
           </div>
 
           <div className="athleteTable">
             <div className="profileHeads">
               <div>Name</div>
-              <div>Membership Plan</div>
-              <div>status</div>
-              <div>State / Club</div>
-              <div>view more</div>
+              <div>Plan</div>
+              <div>Status</div>
+              <div>State</div>
+              <div>View</div>
             </div>
 
             {filteredData.map((item, i) => (
               <div className="athleteprofileRows" key={i}>
-                <div className="country">
-                  <div className="country">{item.user_name}</div>
-                </div>
+                <div>{item.user_name}</div>
 
-                <div className="athleteInfo">
-                  <div>
-                    <span className="athleteName">{item.membership_plan}</span>
-                  </div>
-                </div>
+                <div>{item.membership_plan}</div>
 
-                <div className={`statuss ${item.status.toLowerCase()}`}>
-                  {item.status}
-                </div>
-                <div>{item.state_name || item.club_name || "N/A"}</div>
                 <div
-                  onClick={() => handlesubmit(item.membership_id)}
-                  className="view-btn"
+                  className={`statuss ${
+                    item.isPending ? "pending" : item.status.toLowerCase()
+                  }`}
                 >
-                  view
+                  {item.isPending ? "Pending Switch" : item.status}
+                </div>
+
+                <div>
+                  {item.isPending ? "Switching to new state" : item.state_name}
+                </div>
+
+                <div onClick={() => handleView(item)} className="view-btn">
+                  View
                 </div>
               </div>
             ))}
-
-            {/* FOOTER */}
-            <div className="tableFooter">
-              <span>Showing 1 to 5 of 100 entries</span>
-              <div className="pagination">
-                <button>{"<"}</button>
-                <button className="active">1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>25</button>
-                <button>{">"}</button>
-              </div>
-            </div>
           </div>
         </div>
       </div>

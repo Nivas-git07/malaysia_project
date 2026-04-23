@@ -21,6 +21,17 @@ export const get_purchased_membership = () => {
 };
 
 export const leaveMembership = (id, target_state_id) => {
-  console.log("Leaving membership with ID:", id, "Target State ID:", target_state_id);
-  return API.post(`/super/initiate-transfer/?membership_id=${id}`, { target_state_id });
+  console.log(
+    "Leaving membership with ID:",
+    id,
+    "Target State ID:",
+    target_state_id,
+  );
+  return API.post(`/super/initiate-transfer/?membership_id=${id}`, {
+    target_state_id,
+  });
+};
+
+export const get_pending_requests = () => {
+  return API.get("/super/get-pending-transfers/");
 };
