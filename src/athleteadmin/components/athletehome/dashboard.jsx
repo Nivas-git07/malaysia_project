@@ -6,6 +6,7 @@ import { GiFinishLine } from "react-icons/gi";
 import { IoTrophy } from "react-icons/io5";
 import RecentEvents from "./recentevent";
 // import { FaCrown, FaMapMarkerAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import {
   FaFlagCheckered,
   FaCrown,
@@ -13,6 +14,7 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 export default function AthleteHome() {
+  const navigate = useNavigate();
   return (
     <div className="athleteDashboard">
       {/* TOP */}
@@ -34,15 +36,15 @@ export default function AthleteHome() {
           <p className="athleteSmallTitle">QUICK ACTIONS</p>
           <h2 className="athleteActionTitle">Master Control</h2>
 
-          <div className="athleteActionBtn">
+          <div className="athleteActionBtn" onClick={() => navigate("/athlete/events")}>
             <MdEvent className="actionIcon" /> Register Event →
           </div>
 
-          <div className="athleteActionBtn">
+          <div className="athleteActionBtn" onClick={() => navigate("/athlete/membership")}>
             <FaShieldAlt className="actionIcon" /> View Membership →
           </div>
 
-          <div className="athleteActionBtn">
+          <div className="athleteActionBtn" onClick={() => navigate("/athlete/profile")}>
             <FaUserAlt className="actionIcon" /> Update Profile →
           </div>
         </div>
