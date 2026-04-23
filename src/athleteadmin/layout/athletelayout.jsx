@@ -3,7 +3,7 @@ import AthleteNavbar from "./athletenavbar";
 function AthleteLayout({ children }) {
   return (
     <>
-      <AthleteNavbar />
+      {/* <AthleteNavbar /> */}
       <div className="layout">
         <AthleteSidebar />
         <main className="content">{children}</main>
