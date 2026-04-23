@@ -1,11 +1,10 @@
 import AthleteNavbar from "../../layout/athletenavbar";
-import MembersipPurchaseCenter from "../../../admin/page/membership/membershippurchase";
+import AthleteMembersipPurchaseCenter from "../../components/membership/membershippurchase";
 function AthleteMembership() {
   return (
     <div>
-         <MembersipPurchaseCenter />
+      <AthleteMembersipPurchaseCenter role="INDIVIDUAL_MEMBER" />
     </div>
-      
   );
 }
 export default AthleteMembership;

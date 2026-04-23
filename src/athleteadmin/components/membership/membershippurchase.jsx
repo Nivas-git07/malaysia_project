@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa";
 import Navbar from "../navbar/nav";
 import { useNavigate } from "react-router-dom";
-function MembersipPurchaseCenter({ role }) {
+function AthleteMembersipPurchaseCenter({ role }) {
   const membershipPlans = [
     {
       name: "INDIVIDUAL_MEMBER",
@@ -254,7 +254,7 @@ function MembersipPurchaseCenter({ role }) {
   );
 }
 
-export default MembersipPurchaseCenter;
+export default AthleteMembersipPurchaseCenter;
 
 {
   /* Guidelines */

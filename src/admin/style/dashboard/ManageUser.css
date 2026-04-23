@@ -1574,3 +1574,8 @@ border-radius: 12px;
   padding: 8px 16px;
   border-radius: 8px;
 }
+.mp-select-btn.disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
