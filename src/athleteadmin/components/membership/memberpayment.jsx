@@ -1,7 +1,7 @@
-import Navbar from "../navbar/nav";
+import AthleteNavbar from "../../layout/athletenavbar";
 import MembershipPayment from "../../../user/auth/form/membershippayment";
 import { useParams } from "react-router-dom";
-import { checksession } from "../../api/home_api";
+import { checksession } from "../../../admin/api/home_api";
 import { useQuery } from "@tanstack/react-query";
 
 function AthleteMembershipPayment() {
@@ -50,7 +50,7 @@ function AthleteMembershipPayment() {
 
   return (
     <>
-      <Navbar />
+      <AthleteNavbar />
 
       <div className="mu-membership-wrapper">
         <MembershipPayment

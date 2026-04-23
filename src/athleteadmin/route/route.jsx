@@ -4,6 +4,9 @@ import { Routes, Route } from "react-router-dom";
 import AthleteEvent from "../page/event/athleteevent";
 import AthleteProfile from "../page/profile/athleteprofile";
 import AthleteMembership from "../page/membership/athletemembership";
+import AthleteMembershipPayment from "../components/membership/memberpayment";
+import AthleteMembersipPurchaseCenter from "../components/membership/membershippurchase";
+import AthleteMembershipALLStatus from "../components/membership/membershipallstatus";
 function AthleteRoute() {
   return (
     <>
@@ -43,6 +46,26 @@ function AthleteRoute() {
           element={
             <AthleteLayout>
               <AthleteMembership />
+            </AthleteLayout>
+          }
+        />
+      </Routes>
+      <Routes>
+        <Route
+          path="/membership/status/payment/:planName"
+          element={
+            <AthleteLayout>
+              <AthleteMembershipPayment />
+            </AthleteLayout>
+          }
+        />
+      </Routes>
+      <Routes>
+        <Route
+          path="/membership/all"
+          element={
+            <AthleteLayout>
+              <AthleteMembershipALLStatus />
             </AthleteLayout>
           }
         />

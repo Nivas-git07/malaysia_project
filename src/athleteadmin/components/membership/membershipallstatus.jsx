@@ -1,6 +1,6 @@
-import Navbar from "../navbar/nav";
+import AthleteNavbar from "../../layout/athletenavbar";
 import { FaEllipsisV, FaPlus } from "react-icons/fa";
-import { get_purchased_membership } from "../../api/membership";
+import { get_purchased_membership } from "../../../admin/api/membership";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 function AthleteMembershipALLStatus({ memberships }) {
@@ -33,7 +33,7 @@ function AthleteMembershipALLStatus({ memberships }) {
 
   return (
     <>
-      <Navbar />
+      <AthleteNavbar />
 
       <div className="mu-membership-wrapper">
         <div className="ms-wrapper">

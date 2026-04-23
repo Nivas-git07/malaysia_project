@@ -90,9 +90,29 @@ export default function MembershipPayment({ plan, amount, user }) {
     try {
       let response;
 
-      if (user.role === "ATHLETE") {
+      if (user.role === "ATHLETE" && user.state_id) {
+        console.log(
+          "Purchasing athlete membership with state_id:",
+          user.id,
+          user.state_id,
+          Transaction.Transaction_id,
+          amount,
+          plan,
+          Transaction.receipt_image,
+          Transaction.club,
+        );
         response = await athletemembership_purchase(formData, user.state_id);
       } else {
+        console.log(
+          "Purchasing general membership with user_id:",
+          user.id,
+          Transaction.Transaction_id,
+          amount,
+          plan,
+          Transaction.club,
+          Transaction.receipt_image,
+        );
+        console.log("particular club/state:", Transaction.club);
         response = await membrship_purchase(formData);
       }
 
@@ -106,7 +126,7 @@ export default function MembershipPayment({ plan, amount, user }) {
         });
 
         setTimeout(() => {
-          if (user.role === "ATHLETE" || user.role === "CLUB") {
+          if (user.role === "ATHLETE") {
             navigate("/");
           } else {
             navigate("/admin/home");

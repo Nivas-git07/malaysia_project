@@ -1346,7 +1346,7 @@ body{
 }
 /* SECTION */
 .mfsaCompleteSection {
-  padding: 60px 0 !important;
+  /* padding: 60px 0 !important; */
   /* background: #f9fafb !important; */
 }
 

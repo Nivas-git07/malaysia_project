@@ -6,7 +6,7 @@ import {
   FaShieldAlt,
   FaGraduationCap,
 } from "react-icons/fa";
-import Navbar from "../navbar/nav";
+import AthleteNavbar from "../../layout/athletenavbar";
 import { useNavigate } from "react-router-dom";
 function AthleteMembersipPurchaseCenter({ role }) {
   const membershipPlans = [
@@ -85,7 +85,7 @@ function AthleteMembersipPurchaseCenter({ role }) {
 
   return (
     <>
-      <Navbar />
+      <AthleteNavbar />
 
       <div className="mu-membership-wrapper">
         {/* Header */}
@@ -156,7 +156,7 @@ function AthleteMembersipPurchaseCenter({ role }) {
                   disabled={currentPlan && currentPlan !== plan.name}
                   onClick={() => {
                     if (!currentPlan || currentPlan === plan.name) {
-                      navigate(`/admin/membership/status/payment/${plan.name}`);
+                      navigate(`/athlete/membership/status/payment/${plan.name}`);
                     }
                   }}
                 >
