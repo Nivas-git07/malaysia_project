@@ -3,6 +3,7 @@ import AthleteHome from "../page/Home/athletehome";
 import { Routes, Route } from "react-router-dom";
 import AthleteEvent from "../page/event/athleteevent";
 import AthleteProfile from "../page/profile/athleteprofile";
+import AthleteMembership from "../page/membership/athletemembership";
 function AthleteRoute() {
   return (
     <>
@@ -32,6 +33,16 @@ function AthleteRoute() {
           element={
             <AthleteLayout>
               <AthleteProfile />
+            </AthleteLayout>
+          }
+        />
+      </Routes>
+      <Routes>
+        <Route
+          path="/membership"
+          element={
+            <AthleteLayout>
+              <AthleteMembership />
             </AthleteLayout>
           }
         />
