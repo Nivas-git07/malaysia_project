@@ -1,13 +1,16 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, NavLink } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { get_particular_gallery, get_gallery } from "../../api/home_api";
 import SwimmerHero from "../../layout/hero";
 import Footer from "../../layout/footer";
-import { NavLink } from "react-router-dom";
+import { FiChevronLeft, FiChevronRight, FiX } from "react-icons/fi";
+import { motion } from "framer-motion";
+import fallbackImg from "../../assets/event1.png";
+
 export default function Gallery() {
   const { stateId, clubId } = useParams();
-   const isClub = !!clubId;
+  const isClub = !!clubId;
   const isState = !!stateId && !clubId;
 
   const params = clubId ? { clubId } : stateId ? { stateId } : null;
@@ -25,10 +28,30 @@ export default function Gallery() {
   const galleryList = Array.isArray(data?.data) ? data.data : [];
 
   const [visibleCount, setVisibleCount] = useState(6);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 6);
-  };
+  const handleLoadMore = () => setVisibleCount((p) => p + 6);
+
+  const handlePrev = () =>
+    setSelectedIndex((p) =>
+      p === 0 ? galleryList.length - 1 : p - 1
+    );
+
+  const handleNext = () =>
+    setSelectedIndex((p) =>
+      p === galleryList.length - 1 ? 0 : p + 1
+    );
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (selectedIndex === null) return;
+      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "Escape") setSelectedIndex(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selectedIndex, galleryList]);
 
   return (
     <div>
@@ -43,6 +66,7 @@ export default function Gallery() {
             community.
           </p>
         </div>
+
         {basePath && (
           <nav className="heroNav">
             <ul>
@@ -58,13 +82,11 @@ export default function Gallery() {
                   </NavLink>
                 </li>
               )}
-
               {isState && (
                 <li>
                   <NavLink to={`${basePath}/association`}>CLUBS</NavLink>
                 </li>
               )}
-
               {isClub && (
                 <li>
                   <NavLink to={`${basePath}/athlete`}>ATHLETES</NavLink>
@@ -105,8 +127,12 @@ export default function Gallery() {
 
           <div className="galleryGrid">
             {galleryList.slice(0, visibleCount).map((item, index) => (
-              <div className="galleryCard" key={item.id || index}>
-                <img src={item.image || img1} alt="gallery" />
+              <div
+                className="galleryCard"
+                key={item.id || index}
+                onClick={() => setSelectedIndex(index)}
+              >
+                <img src={item.image || fallbackImg} alt="gallery" />
               </div>
             ))}
           </div>
@@ -120,6 +146,54 @@ export default function Gallery() {
           )}
         </div>
       </section>
+
+      {selectedIndex !== null && (
+        <div
+          className="lightboxOverlay"
+          onClick={() => setSelectedIndex(null)}
+        >
+          <div
+            className="lightboxClose"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedIndex(null);
+            }}
+          >
+            {/* <FiX /> */}
+          </div>
+
+          <div
+            className="lightboxArrow left"
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePrev();
+            }}
+          >
+            <FiChevronLeft />
+          </div>
+
+          <motion.img
+            src={
+              galleryList[selectedIndex]?.image || fallbackImg
+            }
+            alt="preview"
+            className="lightboxImage"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            onClick={(e) => e.stopPropagation()}
+          />
+
+          <div
+            className="lightboxArrow right"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNext();
+            }}
+          >
+            <FiChevronRight />
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
