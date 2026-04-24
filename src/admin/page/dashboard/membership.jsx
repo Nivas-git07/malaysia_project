@@ -8,6 +8,7 @@ import {
   get_pending_requests,
 } from "../../api/membership";
 import MembershipPopup from "../../components/membershippopup";
+import PendingPopup from "../../components/transfermembership";
 
 function ManageUser() {
   const [Filter, setFilter] = useState({
@@ -16,7 +17,10 @@ function ManageUser() {
   });
 
   const [open, setOpen] = useState(false);
+  const [pendingPopup, setPendingPopup] = useState(false);
+
   const [editData, setEditData] = useState(null);
+  const [selectedPending, setSelectedPending] = useState(null);
 
   const {
     data: membershipRes,
@@ -37,18 +41,20 @@ function ManageUser() {
     refetchOnWindowFocus: false,
   });
 
-  const membershipData = membershipRes?.data || [];
-  const pendingData = pendingRes?.data || [];
-  console.log("Membership Data:", membershipData);
-  console.log("Pending Data:", pendingData);
 
-  const formattedPending = pendingData.map((p) => ({
+  const membershipData = membershipRes?.data || [];
+  const pendingList = pendingRes?.data || [];
+  console.log("Membership Data:", membershipData);
+  console.log("Pending Requests:", pendingList);
+
+  const formattedPending = pendingList.map((p) => ({
     membership_id: p.id,
+    status: p.status,
     user_name: "Pending User",
     membership_plan: "STATE SWITCH",
-    status: p.status,
     state_name: "Switch Request",
     isPending: true,
+    raw: p,
   }));
 
   const combinedData = [...membershipData, ...formattedPending];
@@ -71,14 +77,8 @@ function ManageUser() {
 
   const handleView = (item) => {
     if (item.isPending) {
-      setEditData({
-        user_name: item.user_name,
-        membership_plan: item.membership_plan,
-        status: item.status,
-        state_name: item.state_name,
-        note: "This is a pending state switch request",
-      });
-      setOpen(true);
+      setSelectedPending(item.raw);
+      setPendingPopup(true);
       return;
     }
 
@@ -91,7 +91,7 @@ function ManageUser() {
   };
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading</p>;
+  if (error) return <p>Error loading data</p>;
 
   return (
     <>
@@ -141,10 +141,15 @@ function ManageUser() {
                 </div>
 
                 <div>
-                  {item.isPending ? "Switching to new state" : item.state_name}
+                  {item.isPending
+                    ? "Switching to new state"
+                    : item.state_name}
                 </div>
 
-                <div onClick={() => handleView(item)} className="view-btn">
+                <div
+                  onClick={() => handleView(item)}
+                  className="view-btn"
+                >
                   View
                 </div>
               </div>
@@ -158,6 +163,14 @@ function ManageUser() {
           data={editData}
           onClose={() => setOpen(false)}
           refetch={refetch}
+        />
+      )}
+
+      {pendingPopup && selectedPending && (
+        <PendingPopup
+          data={selectedPending}
+          onClose={() => setPendingPopup(false)}
+          
         />
       )}
     </>

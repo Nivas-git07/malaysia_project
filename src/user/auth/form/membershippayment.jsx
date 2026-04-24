@@ -39,9 +39,10 @@ export default function MembershipPayment({ plan, amount, user }) {
       user.role === "ATHLETE" ? getclublist(user.state_id) : get_state(),
     enabled: !!user.role,
   });
+  console.log("Fetched dropdown data:", data);
 
-  const states = data?.data || [];
-
+  const states = Array.isArray(data?.data) ? data.data : [];
+  console.log("Fetched states/clubs:", states);
   // ✅ VALIDATION
   const validateTransaction = () => {
     const newErrors = {};

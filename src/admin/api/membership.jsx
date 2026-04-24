@@ -35,3 +35,7 @@ export const leaveMembership = (id, target_state_id) => {
 export const get_pending_requests = () => {
   return API.get("/super/get-pending-transfers/");
 };
+
+export const approve_target_transfer = (id) => {
+  return API.post(`/super/transfer-approve/?transfer_id=${id}`);
+}

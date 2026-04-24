@@ -3,7 +3,7 @@ import MembershipPayment from "../../../user/auth/form/membershippayment";
 import { useParams } from "react-router-dom";
 import { checksession } from "../../../admin/api/home_api";
 import { useQuery } from "@tanstack/react-query";
-
+// import { get_check } from "../../../user/api/home_api";
 function AthleteMembershipPayment() {
 
 
@@ -15,6 +15,10 @@ function AthleteMembershipPayment() {
   });
 
   const user = sessionData?.data || {};
+
+  console.log("Session Data:", user);
+
+  
 
  
   const { planName } = useParams();
