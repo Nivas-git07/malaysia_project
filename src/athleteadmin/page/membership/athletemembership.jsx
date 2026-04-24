@@ -1,6 +1,6 @@
 import AthleteNavbar from "../../layout/athletenavbar";
 import AthleteMembersipPurchaseCenter from "../../components/membership/membershippurchase";
-import MembershipALLStatus from "../../../admin/page/membership/membershipallstatus";
+import AthleteMembershipALLStatus from "../../components/membership/membershipallstatus";
 import { useQuery } from "@tanstack/react-query";
 import { get_purchased_membership } from "../../../admin/api/membership";
 function AthleteMembership() {
@@ -15,6 +15,6 @@ function AthleteMembership() {
   if (memberships.length === 0) {
     return <AthleteMembersipPurchaseCenter />;
   }
-  return <MembershipALLStatus memberships={memberships} />;
+  return <AthleteMembershipALLStatus memberships={memberships} />;
 }
 export default AthleteMembership;

@@ -7,6 +7,7 @@ import AthleteMembership from "../page/membership/athletemembership";
 import AthleteMembershipPayment from "../components/membership/memberpayment";
 import AthleteMembersipPurchaseCenter from "../components/membership/membershippurchase";
 import AthleteMembershipALLStatus from "../components/membership/membershipallstatus";
+import AthleteMembershipStatus from "../components/membership/membershipstatus";
 function AthleteRoute() {
   return (
     <>
@@ -66,6 +67,17 @@ function AthleteRoute() {
           element={
             <AthleteLayout>
               <AthleteMembershipALLStatus />
+            </AthleteLayout>
+          }
+        />
+      </Routes>
+
+      <Routes>
+        <Route
+          path="/membership/status/:id"
+          element={
+            <AthleteLayout>
+              <AthleteMembershipStatus />
             </AthleteLayout>
           }
         />

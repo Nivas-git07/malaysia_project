@@ -129,7 +129,7 @@ function AthleteMembershipALLStatus({ memberships }) {
                       className="ms-outline-btn"
                       onClick={() => {
                         navigate(
-                          `/admin/membership/status/${item.membership_id}`,
+                          `/athlete/membership/status/${item.membership_id}`,
                         );
                       }}
                     >

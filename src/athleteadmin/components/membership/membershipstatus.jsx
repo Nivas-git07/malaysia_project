@@ -1,10 +1,11 @@
-import Navbar from "../navbar/nav";
+import AthleteNavbar from "../../layout/athletenavbar";
 import { useParams } from "react-router-dom";
-import { getmebershipdetails } from "../../api/membership";
+// import { getmebershipdetails } from "../../api/membership";
+import { getmebershipdetails } from "../../../admin/api/membership";
 import { useQuery } from "@tanstack/react-query";
 import LeaveMembershipModal from "./transfermembership/leavemembershipmodal";
 import { useState } from "react";
-import { leaveMembership } from "../../api/membership";
+import { leaveMembership } from "../../../admin/api/membership";
 function AthleteMembershipStatus() {
   const { id } = useParams();
   const [showLeaveModal, setShowLeaveModal] = useState(false);
@@ -77,7 +78,7 @@ function AthleteMembershipStatus() {
         onClose={() => setShowLeaveModal(false)}
         id={id}
       />
-      <Navbar />
+      <AthleteNavbar />
 
       <div className="mu-membership-wrapper">
         {/* HEADER */}

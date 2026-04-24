@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { get_state } from "../../../../user/api/auth";
 import { useQuery } from "@tanstack/react-query";
-import { leaveMembership } from "../../../api/membership";
+import { leaveMembership } from "../../../../admin/api/membership";
 import AlertPopup from "../../../../user/hooks/popuptemplate";
 export default function AthleteLeaveMembershipModal({ isOpen, onClose, id }) {
   const [selectedState, setSelectedState] = useState("");
