@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowRight, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 import fallbackImg from "../../assets/event1.png";
 
@@ -8,15 +8,27 @@ export default function HomeGallery({ gallery }) {
   const navigate = useNavigate();
   const { stateId, clubId } = useParams();
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [loadedImages, setLoadedImages] = useState({});
 
   const galleryList = Array.isArray(gallery) ? gallery : [];
 
- 
   useEffect(() => {
     setLoadedImages({});
   }, [galleryList]);
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (selectedIndex === null) return;
+
+      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "Escape") setSelectedIndex(null);
+    };
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedIndex, galleryList]);
 
   const handleNavigateGallery = () => {
     if (clubId && stateId) {
@@ -28,10 +40,20 @@ export default function HomeGallery({ gallery }) {
     }
   };
 
+  const handlePrev = () => {
+    setSelectedIndex((prev) =>
+      prev === 0 ? galleryList.length - 1 : prev - 1
+    );
+  };
+
+  const handleNext = () => {
+    setSelectedIndex((prev) =>
+      prev === galleryList.length - 1 ? 0 : prev + 1
+    );
+  };
+
   return (
     <section className="homeGallerySection">
-
-      {/* HEADER */}
       <div className="homeGalleryHeader">
         <h2 className="homeGalleryTitle">GALLERY</h2>
 
@@ -40,7 +62,6 @@ export default function HomeGallery({ gallery }) {
         </div>
       </div>
 
-      {/* GRID */}
       <motion.div
         className="homeGalleryGrid"
         initial="hidden"
@@ -67,7 +88,6 @@ export default function HomeGallery({ gallery }) {
                   visible: { opacity: 1, y: 0 },
                 }}
               >
-                {/* Skeleton */}
                 {!isLoaded && <div className="imageSkeleton" />}
 
                 <img
@@ -90,9 +110,7 @@ export default function HomeGallery({ gallery }) {
                       [key]: true,
                     }));
                   }}
-                  onClick={() =>
-                    setSelectedImage(item.image || fallbackImg)
-                  }
+                  onClick={() => setSelectedIndex(index)}
                 />
               </motion.div>
             );
@@ -104,19 +122,41 @@ export default function HomeGallery({ gallery }) {
         )}
       </motion.div>
 
-      {/* LIGHTBOX */}
-      {selectedImage && (
+      {selectedIndex !== null && (
         <div
           className="lightboxOverlay"
-          onClick={() => setSelectedImage(null)}
+          onClick={() => setSelectedIndex(null)}
         >
+          <div
+            className="lightboxArrow left"
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePrev();
+            }}
+          >
+            <FiChevronLeft />
+          </div>
+
           <motion.img
-            src={selectedImage}
+            src={
+              galleryList[selectedIndex]?.image || fallbackImg
+            }
             alt="preview"
             className="lightboxImage"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
+            onClick={(e) => e.stopPropagation()}
           />
+
+          <div
+            className="lightboxArrow right"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNext();
+            }}
+          >
+            <FiChevronRight />
+          </div>
         </div>
       )}
     </section>
