@@ -65,7 +65,7 @@ function Calender() {
       <div className="EventReport">EVENTS</div>
 
 
-      <div className="eventCard">
+      <div >
 
         <div className="eventTop">
           <h2>Events & Announcements</h2>

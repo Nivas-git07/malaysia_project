@@ -44,10 +44,11 @@ export default function NewsModal({ close, data, newsid }) {
       if (form.image) {
         formData.append("image", form.image);
       }
-      if (data[0]?.id) {
+      if (data && data[0]?.id) {
         editnews(data[0]?.id, formData)
           .then(() => {
             alert("News updated successfully!");
+            queryClient.invalidateQueries(["news"]); 
             close();
           })
           .catch((err) => {
@@ -58,6 +59,7 @@ export default function NewsModal({ close, data, newsid }) {
         postnews(formData)
           .then(() => {
             alert("News posted successfully!");
+            queryClient.invalidateQueries(["news"]); 
             close();
           })
           .catch((err) => {

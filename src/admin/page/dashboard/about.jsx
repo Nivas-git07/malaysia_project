@@ -69,8 +69,14 @@ export default function About() {
     };
 
     console.log("SAVE DATA:", payload);
-    const response = editabout(payload);
-    console.log("API Response:", response);
+    editabout(payload)
+      .then(() => {
+        alert("About content updated successfully!");
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Failed to update about content. Please try again.");
+      });
   };
 
   return (

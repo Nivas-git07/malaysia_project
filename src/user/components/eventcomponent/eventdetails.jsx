@@ -1,5 +1,5 @@
 import UserMap from "./usemap";
-
+import { eventregister } from "../../api/event";
 const eventLocation = {
   lat: 1.4927,
   lng: 103.7414,
@@ -7,10 +7,18 @@ const eventLocation = {
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { geteventdetails } from "../../api/event";
-
+import { get_check } from "../../api/home_api";
 
 export default function EventDetailX() {
   const { eventId } = useParams();
+  const { data: sessionData } = useQuery({
+    queryKey: ["checkSession"],
+    queryFn: get_check,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
+  const user = sessionData?.data || {};
 
   const {
     data: eventData,
@@ -23,6 +31,29 @@ export default function EventDetailX() {
   });
 
   const event = eventData?.data || {};
+
+  const handleRegister = () => {
+    if (!user) {
+      alert("Please log in to register for the event.");
+      Navigate("/login");
+      return;
+    }
+
+    eventregister(eventId)
+      .then((res) => {
+        if (res?.status === 200 || res?.status === 201) {
+          alert("Registered successfully!");
+        } else {
+          alert("Unexpected response. Please try again.");
+        }
+      })
+      .catch((e) => {
+        const errData = e?.response?.data;
+        let message = "Registration failed. Please try again.";
+        console.error("Registration Error:", errData);
+      });
+  };
+
   console.log("Event Detail Data:", event);
   if (!event) {
     return (
@@ -35,9 +66,12 @@ export default function EventDetailX() {
     <section className="mfsaEventDetailX-section">
       <div className="mfsaEventDetailX-container">
         {/* ===== TOP BANNER ===== */}
-        <div className="mfsaEventDetailX-banner" style={{
-          backgroundImage: `url(${event.image})`
-        }}>
+        <div
+          className="mfsaEventDetailX-banner"
+          style={{
+            backgroundImage: `url(${event.image})`,
+          }}
+        >
           {/* <span className="badges">FEATURED EVENT</span> */}
 
           <h1>{event.event_name || "Event Name"}</h1>
@@ -55,9 +89,7 @@ export default function EventDetailX() {
 
             <div className="detailItem">
               <span>Organized by</span>
-              <p>{event.
-                organizer_name
-                || "-"}</p>
+              <p>{event.organizer_name || "-"}</p>
             </div>
 
             <div className="detailItem">
@@ -72,12 +104,13 @@ export default function EventDetailX() {
 
             <div className="detailItem">
               <span>Time</span>
-              <p>{event.event_start || "-"} - {event.event_end || "-"}</p>
+              <p>
+                {event.event_start || "-"} - {event.event_end || "-"}
+              </p>
             </div>
 
-            <button className="registerBtn">Register Now →</button>
+            <button className="registerBtn" onClick={()=>{handleRegister()}}>Register Now →</button>
           </div>
-
 
           <div className="mfsaEventDetailX-right">
             <h2>{event.event_name}</h2>
@@ -103,13 +136,10 @@ export default function EventDetailX() {
                 (typeof event.highlight === "string"
                   ? JSON.parse(event.highlight)
                   : event.highlight
-                ).map((item, index) => (
-                  <div key={index}>✔ {item}</div>
-                ))}
+                ).map((item, index) => <div key={index}>✔ {item}</div>)}
             </div>
           </div>
         </div>
-
 
         <div className="mfsaEventDetailX__map">
           <div className="mfsaEventDetailX__map-container">

@@ -16,3 +16,7 @@ export const getevents = ({ stateId, clubId }) => {
 export const geteventdetails = (eventId) => {
   return API.get(`/user/get-single-data/?event_id=${eventId}`);
 };
+
+export const eventregister = (eventId) => {
+  return API.post(`/super/register-in-event/?event_id=${eventId}`);
+}

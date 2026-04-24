@@ -54,10 +54,8 @@ export default function PendingPopup({ data, onClose }) {
         </div>
 
         <div className="membership-popup-footer">
-          <button className="membership-reject-btn" onClick={onReject}>
-            Reject
-          </button>
-          <button className="membership-action-btn" onClick={onApprove}>
+          <button className="membership-reject-btn">Reject</button>
+          <button className="membership-action-btn" onClick={handleApprove}>
             Approve
           </button>
         </div>

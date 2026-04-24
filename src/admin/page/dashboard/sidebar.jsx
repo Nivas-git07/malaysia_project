@@ -85,7 +85,7 @@ export default function Sidebar() {
             <FaAddressCard size={20} />
             <span>membership Approval</span>
           </NavLink>
-          {checkdata !== "STATE" && (
+          {checkdata !== "SUPERADMIN" && (
             <NavLink
               to="/admin/membership/status"
               className="menuItem"

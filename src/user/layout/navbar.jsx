@@ -91,7 +91,8 @@ function Navbar() {
                       if (
                         role === "ADMIN" ||
                         role === "CLUB" ||
-                        role === "STATE"
+                        role === "STATE" ||
+                        role === "SUPERADMIN"
                       ) {
                         navigate("/admin/home");
                       } else if (role === "ATHLETE") {
