@@ -1579,3 +1579,10 @@ border-radius: 12px;
   color: #666;
   cursor: not-allowed;
 }
+.statuss.pending {
+  color: #fa4315;
+}
+
+.statuss.accepted {
+  color: #ea7121;
+}

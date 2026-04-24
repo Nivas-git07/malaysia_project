@@ -29,6 +29,10 @@ function AdminMembershipPayment() {
       price: 100,
     },
     {
+      name: "AFFILIATE_MEMBER",
+      price: 100,
+    },
+    {
       name: "Coach",
       price: 150,
     },
@@ -36,6 +40,7 @@ function AdminMembershipPayment() {
       name: "Technical Official",
       price: 120,
     },
+
   ];
 
 

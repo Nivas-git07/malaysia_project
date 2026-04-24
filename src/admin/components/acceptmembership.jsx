@@ -1,13 +1,18 @@
 import { IoClose } from "react-icons/io5";
-import { approve_target_transfer } from "../api/membership";
-export default function PendingPopup({ data, onClose }) {
+import { reject_target_transfer } from "../api/membership";
+export default function AcceptedPopup({ data, onClose }) {
   const handleApprove = async () => {
     try {
-      await approve_target_transfer(data.id);
-      alert("Transfer approved successfully!");
-      onClose();
+      await reject_target_transfer(data.id)
+        .then(() => {
+          alert("Transfer rejected successfully!");
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Failed to reject transfer. Please try again.");
+        });
     } catch (error) {
-      console.error("Error approving transfer:", error);
+      console.error("Error rejecting transfer:", error);
     }
   };
   return (
@@ -55,7 +60,9 @@ export default function PendingPopup({ data, onClose }) {
         </div>
 
         <div className="membership-popup-footer">
-          {/* <button className="membership-reject-btn">Reject</button> */}
+          {/* <button className="membership-reject-btn" onClick={handleApprove}>
+            Reject
+          </button> */}
           <button className="membership-action-btn" onClick={handleApprove}>
             Approve
           </button>

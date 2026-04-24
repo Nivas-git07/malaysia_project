@@ -103,7 +103,7 @@ export default function MembershipPayment({ plan, amount, user }) {
           Transaction.club,
         );
         response = await athletemembership_purchase(formData, user.state_id);
-      } else {
+      } else if (user.role === "STATE") {
         console.log(
           "Purchasing general membership with user_id:",
           user.id,
@@ -117,7 +117,6 @@ export default function MembershipPayment({ plan, amount, user }) {
         response = await membrship_purchase(formData);
       }
 
-      // ✅ IMPORTANT: check response
       if (response && (response.status === 200 || response.status === 201)) {
         setAlert({
           message: !hasClub
@@ -222,28 +221,32 @@ export default function MembershipPayment({ plan, amount, user }) {
             </div>
 
             {/* CLUB OPTIONAL */}
-            <div className="formGroup">
-              <label>SELECT CLUB (Optional)</label>
-              {states.length === 0 ? (
-                <div className="noDataBox">
-                  🚫 No club available for your region
-                </div>
-              ) : (
-                <select
-                  value={Transaction.club}
-                  onChange={(e) =>
-                    setTransaction({ ...Transaction, club: e.target.value })
-                  }
-                >
-                  <option value="">Select your registered club or State</option>
-                  {states.map((s) => (
-                    <option key={s.user} value={s.user}>
-                      {s.state_name || s.club_name}
+            {user.role !== "STATE" && (
+              <div className="formGroup">
+                <label>SELECT CLUB (Optional)</label>
+                {states.length === 0 ? (
+                  <div className="noDataBox">
+                    🚫 No club available for your region
+                  </div>
+                ) : (
+                  <select
+                    value={Transaction.club}
+                    onChange={(e) =>
+                      setTransaction({ ...Transaction, club: e.target.value })
+                    }
+                  >
+                    <option value="">
+                      Select your registered club or State
                     </option>
-                  ))}
-                </select>
-              )}
-            </div>
+                    {states.map((s) => (
+                      <option key={s.user} value={s.user}>
+                        {s.state_name || s.club_name}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
+            )}
 
             {/* FILE UPLOAD */}
             <div className="formGroup">

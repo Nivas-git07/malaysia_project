@@ -6,10 +6,11 @@ import {
   getmebership,
   getmebershipdetails,
   get_pending_requests,
+  get_accepted_transfers,
 } from "../../api/membership";
 import MembershipPopup from "../../components/membershippopup";
 import PendingPopup from "../../components/transfermembership";
-
+import AcceptedPopup from "../../components/acceptmembership";
 function ManageUser() {
   const [Filter, setFilter] = useState({
     plan: "",
@@ -18,9 +19,11 @@ function ManageUser() {
 
   const [open, setOpen] = useState(false);
   const [pendingPopup, setPendingPopup] = useState(false);
+  const [acceptedPopup, setAcceptedPopup] = useState(false);
 
   const [editData, setEditData] = useState(null);
   const [selectedPending, setSelectedPending] = useState(null);
+  const [selectedAccepted, setSelectedAccepted] = useState(null);
 
   const {
     data: membershipRes,
@@ -41,6 +44,14 @@ function ManageUser() {
     refetchOnWindowFocus: false,
   });
 
+  const { data: acceptedRes } = useQuery({
+    queryKey: ["acceptedTransfers"],
+    queryFn: get_accepted_transfers,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+  const acceptedTransfers = acceptedRes?.data || [];
+  console.log("Accepted Transfers:", acceptedTransfers);
 
   const membershipData = membershipRes?.data || [];
   const pendingList = pendingRes?.data || [];
@@ -52,12 +63,26 @@ function ManageUser() {
     status: p.status,
     user_name: "Pending User",
     membership_plan: "STATE SWITCH",
-    state_name: "Switch Request",
+    state_name: p.current_state_name,
     isPending: true,
     raw: p,
   }));
 
-  const combinedData = [...membershipData, ...formattedPending];
+  const formattedAccepted = acceptedTransfers.map((a) => ({
+    membership_id: a.id,
+    status: a.status,
+    user_name: "Accepted User",
+    membership_plan: "STATE SWITCH",
+    state_name: `${a.current_state_name} → ${a.target_state_name}`,
+    isAccepted: true,
+    raw: a,
+  }));
+
+  const combinedData = [
+    ...membershipData,
+    ...formattedPending,
+    ...formattedAccepted,
+  ];
 
   const handleFilterChange = (e) => {
     setFilter({
@@ -79,6 +104,12 @@ function ManageUser() {
     if (item.isPending) {
       setSelectedPending(item.raw);
       setPendingPopup(true);
+      return;
+    }
+
+    if (item.isAccepted) {
+      setSelectedAccepted(item.raw);
+      setAcceptedPopup(true);
       return;
     }
 
@@ -134,22 +165,20 @@ function ManageUser() {
 
                 <div
                   className={`statuss ${
-                    item.isPending ? "pending" : item.status.toLowerCase()
+                    item.isPending
+                      ? "pending"
+                      : item.status === "PENDING_OLD"
+                        ? "accepted"
+                        : item.status.toLowerCase()
                   }`}
                 >
-                  {item.isPending ? "Pending Switch" : item.status}
+                  {item.status}
                 </div>
-
                 <div>
-                  {item.isPending
-                    ? "Switching to new state"
-                    : item.state_name}
+                  {item.isPending ? "Switching to new state" : item.state_name}
                 </div>
 
-                <div
-                  onClick={() => handleView(item)}
-                  className="view-btn"
-                >
+                <div onClick={() => handleView(item)} className="view-btn">
                   View
                 </div>
               </div>
@@ -170,7 +199,13 @@ function ManageUser() {
         <PendingPopup
           data={selectedPending}
           onClose={() => setPendingPopup(false)}
-          
+        />
+      )}
+
+      {acceptedPopup && selectedAccepted && (
+        <AcceptedPopup
+          data={selectedAccepted}
+          onClose={() => setAcceptedPopup(false)}
         />
       )}
     </>

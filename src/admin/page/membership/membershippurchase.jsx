@@ -31,6 +31,16 @@ function MembersipPurchaseCenter({ role }) {
       ],
     },
     {
+      name: "AFFILIATE_MEMBER",
+      price: "RM 100",
+      duration: "/ year",
+      benefits: [
+        "Compete in state-level events",
+        "Get recognized by state federation",
+        "Priority for national selection",
+      ],
+    },
+    {
       name: "Coach",
       price: "RM 150",
       duration: "/ year",

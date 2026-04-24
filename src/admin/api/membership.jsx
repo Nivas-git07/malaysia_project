@@ -38,4 +38,12 @@ export const get_pending_requests = () => {
 
 export const approve_target_transfer = (id) => {
   return API.post(`/super/transfer-approve/?transfer_id=${id}`);
+};
+
+export const get_accepted_transfers = () => {
+  return API.get("/super/get-accepted-transfers/");
+};
+
+export const reject_target_transfer = (id) => {
+  return API.post(`/super/release-membership/?transfer_id=${id}`);
 }
