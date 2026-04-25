@@ -13,7 +13,12 @@
   letter-spacing: 1px;
   font-weight: 600;
 }
-
+.athleteProfile__title,
+.athleteProfile__formTitle {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
 .athleteProfile__title {
   font-size: 28px;
   font-weight: 700;
@@ -206,4 +211,43 @@
   .athleteProfile__full {
     grid-column: span 1;
   }
+}
+.athleteProfile__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.athleteProfile__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.athleteProfile__saveBtnPrimary {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.25);
+}
+
+.athleteProfile__saveBtnPrimary:hover {
+  background: linear-gradient(135deg, #b91c1c, #991b1b);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.35);
+}
+
+.athleteProfile__saveBtnPrimary:active {
+  transform: scale(0.97);
+}
+
+.athleteProfile__saveBtnPrimary:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+  box-shadow: none;
 }
