@@ -3,22 +3,11 @@ import { FaEllipsisV, FaPlus } from "react-icons/fa";
 import { get_purchased_membership } from "../../../admin/api/membership";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { HandleRenew } from "../../hook/renewcheck";
 function AthleteMembershipALLStatus({ memberships }) {
   const navigate = useNavigate();
   console.log("Memberships Data:", memberships);
-  const handleRenew = (item, daysLeft) => {
-    console.log("Renewing membership:", item, "Days left:", daysLeft);
-    if (daysLeft >= 0) {
-      alert(
-        "Your membership has not ended. You cannot renew it. Please purchase a new membership.",
-      );
-      return;
-    }
-    console.log("Navigating to renew page for membership ID:", item.membership_id);
-
-   
-    // navigate(`/athlete/membership/renew/${item.membership_id}`);
-  };
+  
   const formatPlan = (plan) => {
     return plan
       ?.replaceAll("_", " ")
@@ -151,12 +140,12 @@ function AthleteMembershipALLStatus({ memberships }) {
                     {isExpired ? (
                       <button className="ms-disabled-btn">Purchase New</button>
                     ) : (
-                      <button className="ms-primary-btn" onClick={() => handleRenew(item, daysLeft)}>
+                      <button className="ms-primary-btn" onClick={() => HandleRenew(item, daysLeft)}>
                         {isExpiring ? "Renew" : "Renew Now"}
                       </button>
                     )}
 
-                    <FaEllipsisV />
+                    {/* <FaEllipsisV /> */}
                   </div>
                 </div>
               </div>

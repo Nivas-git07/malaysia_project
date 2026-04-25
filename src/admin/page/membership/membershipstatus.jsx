@@ -5,7 +5,17 @@ import { useQuery } from "@tanstack/react-query";
 import LeaveMembershipModal from "./transfermembership/leavemembershipmodal";
 import { useState } from "react";
 import { leaveMembership } from "../../api/membership";
+import { checksession } from "../../api/home_api";
+import { HandleRenew } from "../../../athleteadmin/hook/renewcheck";
 function MembershipStatus() {
+  const { data:seesiondata } = useQuery({
+    queryKey: ["checkSession"],
+    queryFn: checksession,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+  const currentRole = seesiondata?.data?.role;
+  console.log("Current Role from API:", currentRole);
   const { id } = useParams();
   const [showLeaveModal, setShowLeaveModal] = useState(false);
   const { data, isLoading, isError } = useQuery({
@@ -225,15 +235,19 @@ function MembershipStatus() {
             ) : isExpired ? (
               <button className="mu-renew-btn big">Purchase New</button>
             ) : (
-              <button className="mu-renew-btn big">Renew Membership</button>
+              <button className="mu-renew-btn big" onClick={() => HandleRenew(membership, daysLeft)}>
+                Renew Membership
+              </button>
             )}
 
-            <button
-              className="mu-leave-btn"
-              onClick={() => setShowLeaveModal(true)}
-            >
-              Leave Membership
-            </button>
+            {currentRole !== "STATE" && (
+              <button
+                className="mu-leave-btn"
+                onClick={() => setShowLeaveModal(true)}
+              >
+                Leave Membership
+              </button>
+            )}
           </div>
         </div>
       </div>

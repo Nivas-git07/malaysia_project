@@ -3,9 +3,19 @@ import { FaEllipsisV, FaPlus } from "react-icons/fa";
 import { get_purchased_membership } from "../../api/membership";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { checksession } from "../../api/home_api";
+import { HandleRenew } from "../../../athleteadmin/hook/renewcheck";
 function MembershipALLStatus({ memberships }) {
   const navigate = useNavigate();
   console.log("Memberships Data:", memberships);
+  const { data } = useQuery({
+    queryKey: ["checkSession"],
+    queryFn: checksession,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
+  const currentRole = data?.data?.role;
 
   const formatPlan = (plan) => {
     return plan
@@ -42,13 +52,14 @@ function MembershipALLStatus({ memberships }) {
               <h1>My Memberships</h1>
               <p>View and manage all your purchased memberships</p>
             </div>
-
-            <button
-              className="ms-add-btn"
-              onClick={() => navigate("/admin/membership/status/new")}
-            >
-              <FaPlus /> Add New Membership
-            </button>
+            {currentRole !== "STATE" && (
+              <button
+                className="ms-add-btn"
+                onClick={() => navigate("/admin/membership/status/new")}
+              >
+                <FaPlus /> Add New Membership
+              </button>
+            )}
           </div>
 
           {/* {memberships.length === 0 && (
@@ -66,7 +77,7 @@ function MembershipALLStatus({ memberships }) {
 
             const getStatusClass = () => {
               if (status === "EXPIRED") return "red";
-            if (status === "PENDING") return "red"; 
+              if (status === "PENDING") return "red";
               if (status === "ACTIVE") return "green";
               if (status === "EXPIRING_SOON") return "orange";
               return "gray";
@@ -139,12 +150,12 @@ function MembershipALLStatus({ memberships }) {
                     {isExpired ? (
                       <button className="ms-disabled-btn">Purchase New</button>
                     ) : (
-                      <button className="ms-primary-btn">
+                      <button className="ms-primary-btn" onClick={() => HandleRenew(item, daysLeft)}>
                         {isExpiring ? "Renew" : "Renew Now"}
                       </button>
                     )}
 
-                    <FaEllipsisV />
+                    {/* <FaEllipsisV /> */}
                   </div>
                 </div>
               </div>

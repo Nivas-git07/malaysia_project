@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import LeaveMembershipModal from "./transfermembership/leavemembershipmodal";
 import { useState } from "react";
 import { leaveMembership } from "../../../admin/api/membership";
+import { HandleRenew } from "../../hook/renewcheck";
 function AthleteMembershipStatus() {
   const { id } = useParams();
   const [showLeaveModal, setShowLeaveModal] = useState(false);
@@ -226,7 +227,9 @@ function AthleteMembershipStatus() {
             ) : isExpired ? (
               <button className="mu-renew-btn big">Purchase New</button>
             ) : (
-              <button className="mu-renew-btn big">Renew Membership</button>
+              <button className="mu-renew-btn big" onClick={() => HandleRenew(membership, daysLeft)}>
+                Renew Membership
+              </button>
             )}
 
             <button
