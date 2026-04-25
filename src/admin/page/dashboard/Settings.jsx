@@ -135,8 +135,10 @@ export default function Settings() {
 
       fields.forEach((field) => {
         let value = form[field];
+
         if (field === "date_of_birth") value = formatDate(value);
-        if (value !== undefined && value !== null) {
+
+        if (value !== undefined && value !== null && value !== "") {
           formData.append(field, value);
         }
       });
@@ -144,6 +146,7 @@ export default function Settings() {
       if (form.profile_picture instanceof File) {
         formData.append("profile_picture", form.profile_picture);
       }
+      console.log("Submitting:", Object.fromEntries(formData));
 
       const res = await updateProfile(formData);
 
@@ -206,16 +209,12 @@ export default function Settings() {
             </div>
 
             <div className="athleteProfile__form">
-              <h3 className="athleteProfile__formTitle">
-                Personal Details
-              </h3>
+              <h3 className="athleteProfile__formTitle">Personal Details</h3>
 
               <div className="athleteProfile__formGrid">
                 {(ROLE_FIELDS[role] || []).map((field) => (
                   <div className="athleteProfile__group" key={field}>
-                    <label>
-                      {field.replaceAll("_", " ").toUpperCase()}
-                    </label>
+                    <label>{field.replaceAll("_", " ").toUpperCase()}</label>
                     {renderField(field)}
                   </div>
                 ))}
