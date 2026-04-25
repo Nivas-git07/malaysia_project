@@ -4,6 +4,6 @@ export const getProfile = () => {
     return API.get("/super/get-profile/");
 }
 
-export const updateProfile = (full_name, phone_number) => {
-    return API.patch("/super/edit-admin-profile/", { full_name, phone_number });
+export const updateProfile = (formData) => {
+    return API.patch("/super/edit-admin-profile/", formData);
 }

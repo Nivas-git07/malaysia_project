@@ -1,161 +1,245 @@
-import React, { useState } from "react";
-import { FiEdit2 } from "react-icons/fi";
-import "../../style/Settings.css";
+import React, { useState, useEffect } from "react";
+import { FaCamera, FaUserCircle } from "react-icons/fa";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Navbar from "../navbar/nav";
 import { getProfile, updateProfile } from "../../api/profile";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { checksession } from "../../api/home_api";
 
-function Settings() {
-  const [editMode, setEditMode] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
-
-  // editable state (used ONLY in edit mode)
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-
+export default function Settings() {
   const queryClient = useQueryClient();
 
-  const { data: profileData } = useQuery({
-    queryKey: ["profile"],
-    queryFn: getProfile,
-    refetchOnWindowFocus: false,
-    retry: false,
+  const [form, setForm] = useState({});
+  const [previewImage, setPreviewImage] = useState(null);
+  const formatDate = (date) => {
+    if (!date) return "";
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(date)) return date;
+
+    const [day, month, year] = date.split("-");
+    return `${year}-${month}-${day}`;
+  };
+  const { data: sessionData } = useQuery({
+    queryKey: ["checkSession"],
+    queryFn: checksession,
   });
 
-  const profile = profileData?.data || {};
+  const user = sessionData?.data || {};
+  const getNormalizedRole = (role) => {
+    if (role === "SUPERADMIN") return "NATIONAL";
+    return role;
+  };
+  const role = getNormalizedRole(user.role);
 
-  // 🔥 Handle edit click
-  const handleEdit = () => {
-    setEditMode(true);
-    setShowPopup(true);
+  const { data, isLoading } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  });
 
-    // preload API values into state
-    setFirstName(profile.first_name || "");
-    setLastName(profile.last_name || "");
-    setPhone(profile.phone_number || "");
+  const rawData = data?.data || {};
 
-    setTimeout(() => setShowPopup(false), 1500);
+  const profile = rawData.profile || rawData;
+
+  console.log("Profile Data:", profile);
+  const ROLE_FIELDS = {
+    CLUB: [
+      "full_name",
+      "email_id",
+      "phone_number",
+      "date_of_birth",
+      "gender",
+      "club_name",
+      "club_code",
+      "club_address",
+    ],
+    STATE: ["full_name", "email_id", "phone_number", "date_of_birth", "gender"],
+    NATIONAL: [
+      "full_name",
+      "email_id",
+      "phone_number",
+      "date_of_birth",
+      "gender",
+      "headquarters",
+      "contact_email",
+      "instagram",
+      "facebook",
+    ],
   };
 
-  // 🔥 Save changes
-  const handleSave = async () => {
-    try {
-      await updateProfile(firstName, phone);
+  useEffect(() => {
+    if (profile) {
+      setForm({
+        full_name: profile.full_name || "",
+        email_id: profile.email_id || "",
+        phone_number: profile.phone_number || "",
+        date_of_birth: profile.date_of_birth || "",
+        gender: profile.gender || "",
 
-      // refetch latest profile
-      queryClient.invalidateQueries(["profile"]);
+        club_name: profile.details?.club_name || "",
+        club_code: profile.details?.club_code || "",
+        club_address: profile.details?.club_address || "",
 
-      setEditMode(false);
-    } catch (error) {
-      console.error("Error updating profile:", error);
+        profile_picture: null,
+      });
+    }
+  }, [profile]);
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+
+    if (file instanceof File) {
+      setForm((prev) => ({
+        ...prev,
+        profile_picture: file,
+      }));
+
+      setPreviewImage(URL.createObjectURL(file));
     }
   };
+
+  const renderField = (field) => {
+    const props = {
+      name: field,
+      value: form[field] || "",
+      onChange: handleChange,
+    };
+
+    switch (field) {
+      case "email_id":
+        return <input {...props} readOnly />;
+
+      case "gender":
+        return (
+          <select {...props}>
+            <option value="">Select</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+            <option value="OTHER">Other</option>
+          </select>
+        );
+
+      case "club_address":
+      case "headquarters":
+        return <textarea {...props} />;
+
+      case "date_of_birth":
+        return <input type="date" {...props} />;
+
+      default:
+        return <input {...props} />;
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+      const fields = ROLE_FIELDS[user.role] || [];
+
+      fields.forEach((field) => {
+        let value = form[field];
+
+        if (field === "date_of_birth") {
+          value = formatDate(value);
+        }
+
+        if (value !== undefined && value !== null) {
+          formData.append(field, value);
+        }
+      });
+
+      if (form.profile_picture instanceof File) {
+        formData.append("profile_picture", form.profile_picture);
+      }
+
+      const res = await updateProfile(formData);
+      console.log("PROFILE PIC:", form.profile_picture);
+
+      if (res.status === 200 || res.status === 201) {
+        alert("Profile updated successfully ✅");
+        queryClient.invalidateQueries(["profile"]);
+      }
+    } catch (err) {
+      console.error(err.response?.data);
+      alert("Update failed ❌");
+    }
+  };
+
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <>
       <Navbar />
-
       <div className="mu-membership-wrapper">
-        <div className="personalTitle">PERSONAL INFORMATION</div>
-
-        <div className="profileContainer">
-          {showPopup && <div className="editPopup">Editing enabled</div>}
-
-          {/* Edit Icon */}
-          <div className="profileEditIcon" onClick={handleEdit}>
-            <FiEdit2 size={14} />
+        <div className="athleteProfile__page">
+          <div className="athleteProfile__header">
+            <p className="athleteProfile__smallTitle">ACCOUNT MANAGEMENT</p>
+            <h1 className="athleteProfile__title">Profile Settings</h1>
           </div>
 
-          {/* Avatar */}
-          <div className="avatarBox">
-            <img src="https://i.pravatar.cc/100" alt="profile" />
-          </div>
+          <div className="athleteProfile__layout">
+            {/* LEFT CARD */}
+            <div className="athleteProfile__card">
+              <div className="athleteProfile__imageWrapper">
+                {previewImage ? (
+                  <img src={previewImage} className="athleteProfile__image" />
+                ) : profile.profile_picture ? (
+                  <img
+                    src={profile.profile_picture}
+                    className="athleteProfile__image"
+                  />
+                ) : (
+                  <FaUserCircle className="athleteProfile__image" />
+                )}
 
-          <div className="formGrid">
-            {/* First Name */}
-            <div className="formGroup">
-              <label>First Name</label>
-              <input
-                value={editMode ? firstName : profile.full_name || ""}
-                onChange={(e) => setFirstName(e.target.value)}
-                readOnly={!editMode}
-                className={!editMode ? "readOnlyField" : ""}
-              />
+                <label className="athleteProfile__cameraIcon">
+                  <FaCamera />
+                  <input type="file" hidden onChange={handleImage} />
+                </label>
+              </div>
+
+              <h3 className="athleteProfile__name">{form.full_name}</h3>
+              <p className="athleteProfile__email">{form.email_id}</p>
+
+              <div className="athleteProfile__meta">
+                <div className="athleteProfile__metaItem">
+                  <p className="athleteProfile__label">STATUS</p>
+                  <span className="athleteProfile__status">ACTIVE</span>
+                </div>
+
+                <div className="athleteProfile__metaItem">
+                  <p className="athleteProfile__label">ROLE</p>
+                  <span className="athleteProfile__value">{user.role}</span>
+                </div>
+              </div>
             </div>
 
-            {/* Last Name */}
-            <div className="formGroup">
-              <label>Last Name</label>
-              <input
-                value={editMode ? lastName : profile.last_name || ""}
-                onChange={(e) => setLastName(e.target.value)}
-                readOnly={!editMode}
-                className={!editMode ? "readOnlyField" : ""}
-              />
-            </div>
+            {/* RIGHT FORM */}
+            <div className="athleteProfile__form">
+              <h3 className="athleteProfile__formTitle">Personal Details</h3>
 
-            {/* Email */}
-            <div className="formGroup">
-              <label>Email</label>
-              <input
-                value={profile.email_id || ""}
-                readOnly
-                className="readOnlyField"
-              />
-            </div>
+              <div className="athleteProfile__formGrid">
+                {(ROLE_FIELDS[user.role] || []).map((field) => (
+                  <div className="athleteProfile__group" key={field}>
+                    <label>{field.replaceAll("_", " ").toUpperCase()}</label>
+                    {renderField(field)}
+                  </div>
+                ))}
+              </div>
 
-            
-            <div className="formGroup">
-              <label>Phone number</label>
-              <input
-                value={editMode ? phone : profile.phone_number || ""}
-                onChange={(e) => setPhone(e.target.value)}
-                readOnly={!editMode}
-                className={!editMode ? "readOnlyField" : ""}
-              />
-            </div>
-
-      
-            <div className="formGroup">
-              <label>Role</label>
-              <input
-                value={profile.role || ""}
-                readOnly
-                className="readOnlyField"
-              />
-            </div>
-
-          
-            <div className="formGroup">
-              <label>State</label>
-              <input
-                value={profile.state || "Malaysia"}
-                readOnly
-                className="readOnlyField"
-              />
+              <div className="athleteProfile__actions">
+                <button
+                  className="athleteProfile__saveBtnPrimary"
+                  onClick={handleSubmit}
+                >
+                  Save Changes
+                </button>
+              </div>
             </div>
           </div>
-
-      
-          {editMode && (
-            <div className="buttonRow">
-              <button
-                className="discardBtn"
-                onClick={() => setEditMode(false)}
-              >
-                Discard Changes
-              </button>
-
-              <button className="saveBtn" onClick={handleSave}>
-                Save changes
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </>
   );
 }
-
-export default Settings;

@@ -126,7 +126,7 @@ export default function ProfileSettings() {
           <h3 className="athleteProfile__name">{form.full_name}</h3>
           <p className="athleteProfile__email">{form.email_id}</p>
 
-          <button className="athleteProfile__changeBtn">Change Image</button>
+         
 
           <div className="athleteProfile__meta">
             <div className="athleteProfile__metaItem">
