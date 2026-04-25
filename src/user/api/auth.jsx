@@ -87,7 +87,7 @@ export const get_state = () => {
 
 export const membrship_purchase = (formdata) => {
   console.log("Membership Data:", formdata);
-  return API.post("/user/purchase-membership/", formdata, {
+  return API.post("/auth/purchase-membership/", formdata, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -105,6 +105,14 @@ export const athletemembership_purchase = (formdata, state) => {
       },
     },
   );
+};
+export const clubmembership_purchase = (formdata) => {
+  console.log("Club Membership Data:", formdata);
+  return API.post(`/user/purchase-membership/`, formdata, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 export const login_user = (gov_id, email_id, password) => {

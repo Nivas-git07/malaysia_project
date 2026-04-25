@@ -43,7 +43,8 @@ export default function MemberLogin() {
       if (
         response.data.role === "ADMIN" ||
         response.data.role === "STATE" ||
-        response.data.role === "CLUB"
+        response.data.role === "CLUB" ||
+        response.data.role === "SUPERADMIN"
       ) {
         navigate("/admin/home");
       } else if (response.data.role === "ATHLETE") {

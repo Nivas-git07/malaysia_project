@@ -68,7 +68,7 @@ export default function MembershipPopup({ data, onClose, refetch }) {
 
           <div className="membership-item">
             <div className="membership-label">State</div>
-            <div className="membership-value">Tamil Nadu</div>
+            <div className="membership-value">{data.state_name}</div>
           </div>
 
           <div className="membership-item">

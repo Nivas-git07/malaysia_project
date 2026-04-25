@@ -9,6 +9,7 @@ import {
   membrship_purchase,
   athletemembership_purchase,
   get_state,
+  clubmembership_purchase,
 } from "../../api/auth";
 import { getclublist } from "../../api/club";
 import { useQuery } from "@tanstack/react-query";
@@ -72,74 +73,61 @@ export default function MembershipPayment({ plan, amount, user }) {
 
   const membershippurchase = async () => {
     if (!validateTransaction()) return;
-
-    const formData = new FormData();
-    formData.append("user", user.id);
-    formData.append("transaction_id", Transaction.Transaction_id);
-    formData.append("amount_paid", amount);
-    formData.append("membership_plan", plan);
-    formData.append("receipt_image", Transaction.receipt_image);
-
     const hasClub = Transaction.club && Transaction.club.trim() !== "";
-
-    if (user.role === "ATHLETE") {
-      if (hasClub) formData.append("club", Transaction.club);
-    } else {
-      if (hasClub) formData.append("state", Transaction.club);
-    }
-
     try {
+      const formData = new FormData();
+      // const hasClub = Transaction.club?.trim();
+
+      // Common fields
+      formData.append("transaction_id", Transaction.Transaction_id);
+      formData.append("amount_paid", amount);
+      formData.append("membership_plan", plan);
+
+      if (Transaction.receipt_image) {
+        formData.append("receipt_image", Transaction.receipt_image);
+      }
+
+      // Role-based fields
+      if (user.role === "ATHLETE") {
+        formData.append("user", user.id);
+        formData.append("club", Transaction.club);
+      } else if (user.role === "CLUB") {
+        formData.append("user", user.id);
+        formData.append("state", Transaction.club);
+      }
+
       let response;
 
+      // API selection
       if (user.role === "ATHLETE" && user.state_id) {
-        console.log(
-          "Purchasing athlete membership with state_id:",
-          user.id,
-          user.state_id,
-          Transaction.Transaction_id,
-          amount,
-          plan,
-          Transaction.receipt_image,
-          Transaction.club,
-        );
+        console.log("Submitting athlete membership with data:", {
+          user: user.id,
+          club: Transaction.club,
+          transaction_id: Transaction.Transaction_id,
+          amount_paid: amount,
+          membership_plan: plan,
+          receipt_image: Transaction.receipt_image,
+        });
         response = await athletemembership_purchase(formData, user.state_id);
-      } else if (user.role === "STATE") {
-        console.log(
-          "Purchasing general membership with user_id:",
-          user.id,
-          Transaction.Transaction_id,
-          amount,
-          plan,
-          Transaction.club,
-          Transaction.receipt_image,
-        );
-        console.log("particular club/state:", Transaction.club);
+      } else if (user.role === "CLUB") {
+        response = await clubmembership_purchase(formData);
+      } else {
         response = await membrship_purchase(formData);
       }
 
-      if (response && (response.status === 200 || response.status === 201)) {
-        setAlert({
-          message: !hasClub
-            ? "No club found. Processed under state/national 🎉"
-            : "Membership purchased successfully 🎉",
-          type: "success",
-        });
+      setAlert({
+        message: !hasClub
+          ? "No club found. Processed under state/national 🎉"
+          : "Membership purchased successfully 🎉",
+        type: "success",
+      });
 
-        setTimeout(() => {
-          if (user.role === "ATHLETE") {
-            navigate("/");
-          } else {
-            navigate("/admin/home");
-          }
-        }, 2000);
-      } else {
-        // ❌ if response not valid
-        setAlert({
-          message: "Unexpected response from server ❌",
-          type: "error",
-        });
-      }
+      setTimeout(() => {
+        navigate(user.role === "ATHLETE" ? "/" : "/membership/status");
+      }, 2000);
     } catch (e) {
+      console.error("Membership Error:", e);
+
       setAlert({
         message:
           e.response?.data?.message || "Payment failed ❌ Please try again.",

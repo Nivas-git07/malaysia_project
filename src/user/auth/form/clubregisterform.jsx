@@ -12,6 +12,7 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
   const [club, setClub] = useState({
     id: null,
     role: "CLUB",
+    state_id: null,
   });
 
   const [formData, setFormData] = useState({
@@ -92,10 +93,12 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
           message: "Club Registration successful 🎉",
           type: "success",
         });
+        console.log("Club registered successfully:", response.data);
 
         setClub((prev) => ({
           ...prev,
           id: response.data.id,
+          state_id: response.data.state,
         }));
 
         setFormData((prev) => ({
