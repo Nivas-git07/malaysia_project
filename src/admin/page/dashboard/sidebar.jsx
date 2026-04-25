@@ -95,15 +95,16 @@ export default function Sidebar() {
               <span>membership Status</span>
             </NavLink>
           )}
-
-          <NavLink
-            to="/admin/tickets"
-            className="menuItem"
-            onClick={closeSidebar}
-          >
-            <Ticket size={20} />
-            <span>Tickets</span>
-          </NavLink>
+          {checkdata === "SUPERADMIN" && (
+            <NavLink
+              to="/admin/tickets"
+              className="menuItem"
+              onClick={closeSidebar}
+            >
+              <Ticket size={20} />
+              <span>Tickets</span>
+            </NavLink>
+          )}
 
           <NavLink
             to="/admin/record"

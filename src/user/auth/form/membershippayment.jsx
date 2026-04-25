@@ -15,13 +15,15 @@ import { getclublist } from "../../api/club";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import AlertPopup from "../../hooks/popuptemplate";
-
+import { useLocation } from "react-router-dom";
 export default function MembershipPayment({ plan, amount, user }) {
   console.log("the page is rendering", user);
   const [alert, setAlert] = useState(null);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+
+  const location = useLocation();
 
   const [Transaction, setTransaction] = useState({
     Transaction_id: "",
@@ -32,6 +34,21 @@ export default function MembershipPayment({ plan, amount, user }) {
   });
 
   console.log("the page is rendering", user);
+  const getRedirectPath = () => {
+    if (location.pathname.startsWith("/admin")) {
+      return "/admin/membership/status";
+    }
+
+    if (location.pathname.startsWith("/athlete")) {
+      return "/athlete/membership/status";
+    }
+
+    if (location.pathname.startsWith("/register")) {
+      return "/login";
+    }
+
+    return "/";
+  };
 
   // ✅ FETCH DATA
   const { data } = useQuery({
@@ -123,7 +140,7 @@ export default function MembershipPayment({ plan, amount, user }) {
       });
 
       setTimeout(() => {
-        navigate(user.role === "ATHLETE" ? "/" : "/membership/status");
+        navigate(getRedirectPath());
       }, 2000);
     } catch (e) {
       console.error("Membership Error:", e);

@@ -8,6 +8,7 @@ import AthleteMembershipPayment from "../components/membership/memberpayment";
 import AthleteMembersipPurchaseCenter from "../components/membership/membershippurchase";
 import AthleteMembershipALLStatus from "../components/membership/membershipallstatus";
 import AthleteMembershipStatus from "../components/membership/membershipstatus";
+
 function AthleteRoute() {
   return (
     <>
@@ -43,7 +44,7 @@ function AthleteRoute() {
       </Routes>
       <Routes>
         <Route
-          path="/membership"
+          path="/membership/status"
           element={
             <AthleteLayout>
               <AthleteMembership />
@@ -78,6 +79,16 @@ function AthleteRoute() {
           element={
             <AthleteLayout>
               <AthleteMembershipStatus />
+            </AthleteLayout>
+          }
+        />
+      </Routes>
+      <Routes>
+        <Route
+          path="/membership/purchase"
+          element={
+            <AthleteLayout>
+              <AthleteMembersipPurchaseCenter />
             </AthleteLayout>
           }
         />

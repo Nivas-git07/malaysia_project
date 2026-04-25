@@ -39,20 +39,7 @@ export const athelete_register = (
   });
 };
 
-export const club_register = (
-  email_id,
-  password,
-  full_name,
-  phone_number,
-  state,
-  club_name,
-  club_code,
-  club_address,
-  about,
-  vision,
-  mission,
-) => {
-  console.log(
+  export const club_register = (
     email_id,
     password,
     full_name,
@@ -64,22 +51,41 @@ export const club_register = (
     about,
     vision,
     mission,
-  );
+    date_of_birth,
+    gender,
+  ) => {
+    console.log(
+      "email_id: " + email_id,
+      "password: " + password,
+      "full_name: " + full_name,
+      "phone_number: " + phone_number,
+      "state: " + state,
+      "club_name: " + club_name,
+      "club_code: " + club_code,
+      "club_address: " + club_address,
+      "about: " + about,
+      "vision: " + vision,
+      "mission: " + mission,
+      "date_of_birth: " + date_of_birth,
+      "gender: " + gender,
+    );
 
-  return API.post("/auth/club-register/", {
-    email_id,
-    password,
-    full_name,
-    phone_number,
-    state,
-    club_name,
-    club_code,
-    club_address,
-    about,
-    vision,
-    mission,
-  });
-};
+    return API.post("/auth/club-register/", {
+      email_id,
+      password,
+      full_name,
+      phone_number,
+      state,
+      club_name,
+      club_code,
+      club_address,
+      about,
+      vision,
+      mission,
+      date_of_birth,
+      gender,
+    });
+  };
 
 export const get_state = () => {
   return API.get("/user/get-all-states/");

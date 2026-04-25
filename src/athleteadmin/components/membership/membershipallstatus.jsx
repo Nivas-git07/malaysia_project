@@ -6,7 +6,19 @@ import { useNavigate } from "react-router-dom";
 function AthleteMembershipALLStatus({ memberships }) {
   const navigate = useNavigate();
   console.log("Memberships Data:", memberships);
+  const handleRenew = (item, daysLeft) => {
+    console.log("Renewing membership:", item, "Days left:", daysLeft);
+    if (daysLeft >= 0) {
+      alert(
+        "Your membership has not ended. You cannot renew it. Please purchase a new membership.",
+      );
+      return;
+    }
+    console.log("Navigating to renew page for membership ID:", item.membership_id);
 
+   
+    // navigate(`/athlete/membership/renew/${item.membership_id}`);
+  };
   const formatPlan = (plan) => {
     return plan
       ?.replaceAll("_", " ")
@@ -45,7 +57,7 @@ function AthleteMembershipALLStatus({ memberships }) {
 
             <button
               className="ms-add-btn"
-              onClick={() => navigate("/admin/membership/status/new")}
+              onClick={() => navigate("/athlete/membership/purchase")}
             >
               <FaPlus /> Add New Membership
             </button>
@@ -66,7 +78,7 @@ function AthleteMembershipALLStatus({ memberships }) {
 
             const getStatusClass = () => {
               if (status === "EXPIRED") return "red";
-            if (status === "PENDING") return "red"; 
+              if (status === "PENDING") return "red";
               if (status === "ACTIVE") return "green";
               if (status === "EXPIRING_SOON") return "orange";
               return "gray";
@@ -139,7 +151,7 @@ function AthleteMembershipALLStatus({ memberships }) {
                     {isExpired ? (
                       <button className="ms-disabled-btn">Purchase New</button>
                     ) : (
-                      <button className="ms-primary-btn">
+                      <button className="ms-primary-btn" onClick={() => handleRenew(item, daysLeft)}>
                         {isExpiring ? "Renew" : "Renew Now"}
                       </button>
                     )}

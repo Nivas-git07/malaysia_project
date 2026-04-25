@@ -41,7 +41,7 @@ export default function AthleteSidebar() {
             <span>Event Registration</span>
           </NavLink>
 
-          <NavLink to="/athlete/membership" className="menuItem" onClick={closeSidebar}>
+          <NavLink to="/athlete/membership/status" className="menuItem" onClick={closeSidebar}>
             <Ticket size={20} />
             <span>Membership Status</span>
           </NavLink>

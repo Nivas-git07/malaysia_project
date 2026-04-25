@@ -25,6 +25,8 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
       phone: "",
       address: "",
       password: "",
+      date_of_birth: "",
+      gender: "",
     },
     about: {
       about: "",
@@ -53,6 +55,8 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
         phone: data.phone,
         address: data.address,
         password: data.password,
+        date_of_birth: data.date_of_birth,
+        gender: data.gender,
       },
     }));
 
@@ -85,7 +89,9 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
         updatedData.club.address,
         updatedData.about.about,
         updatedData.about.vision,
-        updatedData.about.mission
+        updatedData.about.mission,
+        updatedData.club.date_of_birth,
+        updatedData.club.gender
       );
 
       if (response && (response.status === 200 || response.status === 201)) {
@@ -117,11 +123,13 @@ export default function ClubRegisterFlow({ onStepChange, step, setStep }) {
     } catch (e) {
       setAlert({
         message:
-          e.response?.data?.message ||
+          e.response?.data   ||
           "Registration failed ❌ Please try again.",
         type: "error",
       });
+      console.log("Error during club registration:", e.response?.data || e.message);
     }
+    
   };
 
   // ✅ STEP 3
