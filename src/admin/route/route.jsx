@@ -22,6 +22,7 @@ import MembershipStatus from "../page/membership/membershipstatus";
 import MembersipPurchase from "../page/membership/membershippurchase";
 import AdminMembershipPayment from "../page/membership/memberpayment";
 import MembershipALLStatus from "../page/membership/membershipallstatus";
+import StateManagement from "../page/dashboard/statemanagement";
 export default function AdminRoute() {
   return (
     <Routes>
@@ -60,6 +61,14 @@ export default function AdminRoute() {
           </AdminLayout>
         }
       />
+      <Route
+        path="state-management"
+        element={
+          <AdminLayout>
+            <StateManagement />
+          </AdminLayout>
+        }
+      />
 
       <Route
         path="calendar"
@@ -87,7 +96,6 @@ export default function AdminRoute() {
         }
       />
 
-      
       <Route
         path="report"
         element={

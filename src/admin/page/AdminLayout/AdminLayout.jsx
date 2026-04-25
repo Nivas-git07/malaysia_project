@@ -1,4 +1,4 @@
-import Sidebar from "../dashboard/sidebar";
+import Sidebar from "./sidebar";
 
 function AdminLayout({ children }) {
   return (
