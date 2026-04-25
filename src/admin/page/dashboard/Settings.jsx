@@ -7,27 +7,21 @@ import { checksession } from "../../api/home_api";
 
 export default function Settings() {
   const queryClient = useQueryClient();
-
   const [form, setForm] = useState({});
   const [previewImage, setPreviewImage] = useState(null);
-  const formatDate = (date) => {
-    if (!date) return "";
 
-    if (/^\d{4}-\d{2}-\d{2}$/.test(date)) return date;
-
-    const [day, month, year] = date.split("-");
-    return `${year}-${month}-${day}`;
-  };
   const { data: sessionData } = useQuery({
     queryKey: ["checkSession"],
     queryFn: checksession,
   });
 
   const user = sessionData?.data || {};
+
   const getNormalizedRole = (role) => {
     if (role === "SUPERADMIN") return "NATIONAL";
     return role;
   };
+
   const role = getNormalizedRole(user.role);
 
   const { data, isLoading } = useQuery({
@@ -36,10 +30,9 @@ export default function Settings() {
   });
 
   const rawData = data?.data || {};
-
   const profile = rawData.profile || rawData;
+  console.log("Profile data:", profile);
 
-  console.log("Profile Data:", profile);
   const ROLE_FIELDS = {
     CLUB: [
       "full_name",
@@ -73,30 +66,35 @@ export default function Settings() {
         phone_number: profile.phone_number || "",
         date_of_birth: profile.date_of_birth || "",
         gender: profile.gender || "",
-
+        headquarters: profile.headquarters || "",
+        contact_email: profile.contact_email || "",
+        instagram: profile.instagram || "",
+        facebook: profile.facebook || "",
         club_name: profile.details?.club_name || "",
         club_code: profile.details?.club_code || "",
         club_address: profile.details?.club_address || "",
-
         profile_picture: null,
       });
     }
   }, [profile]);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleImage = (e) => {
     const file = e.target.files[0];
-
     if (file instanceof File) {
-      setForm((prev) => ({
-        ...prev,
-        profile_picture: file,
-      }));
-
+      setForm((prev) => ({ ...prev, profile_picture: file }));
       setPreviewImage(URL.createObjectURL(file));
     }
+  };
+
+  const formatDate = (date) => {
+    if (!date) return "";
+    if (/^\d{4}-\d{2}-\d{2}$/.test(date)) return date;
+    const [day, month, year] = date.split("-");
+    return `${year}-${month}-${day}`;
   };
 
   const renderField = (field) => {
@@ -106,44 +104,38 @@ export default function Settings() {
       onChange: handleChange,
     };
 
-    switch (field) {
-      case "email_id":
-        return <input {...props} readOnly />;
+    if (field === "email_id") return <input {...props} readOnly />;
 
-      case "gender":
-        return (
-          <select {...props}>
-            <option value="">Select</option>
-            <option value="MALE">Male</option>
-            <option value="FEMALE">Female</option>
-            <option value="OTHER">Other</option>
-          </select>
-        );
-
-      case "club_address":
-      case "headquarters":
-        return <textarea {...props} />;
-
-      case "date_of_birth":
-        return <input type="date" {...props} />;
-
-      default:
-        return <input {...props} />;
+    if (field === "gender") {
+      return (
+        <select {...props}>
+          <option value="">Select</option>
+          <option value="MALE">Male</option>
+          <option value="FEMALE">Female</option>
+          <option value="OTHER">Other</option>
+        </select>
+      );
     }
+
+    if (field === "club_address" || field === "headquarters") {
+      return <textarea {...props} />;
+    }
+
+    if (field === "date_of_birth") {
+      return <input type="date" {...props} />;
+    }
+
+    return <input {...props} />;
   };
 
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
-      const fields = ROLE_FIELDS[user.role] || [];
+      const fields = ROLE_FIELDS[role] || [];
 
       fields.forEach((field) => {
         let value = form[field];
-
-        if (field === "date_of_birth") {
-          value = formatDate(value);
-        }
-
+        if (field === "date_of_birth") value = formatDate(value);
         if (value !== undefined && value !== null) {
           formData.append(field, value);
         }
@@ -154,7 +146,6 @@ export default function Settings() {
       }
 
       const res = await updateProfile(formData);
-      console.log("PROFILE PIC:", form.profile_picture);
 
       if (res.status === 200 || res.status === 201) {
         alert("Profile updated successfully ✅");
@@ -179,7 +170,6 @@ export default function Settings() {
           </div>
 
           <div className="athleteProfile__layout">
-            {/* LEFT CARD */}
             <div className="athleteProfile__card">
               <div className="athleteProfile__imageWrapper">
                 {previewImage ? (
@@ -215,14 +205,17 @@ export default function Settings() {
               </div>
             </div>
 
-            {/* RIGHT FORM */}
             <div className="athleteProfile__form">
-              <h3 className="athleteProfile__formTitle">Personal Details</h3>
+              <h3 className="athleteProfile__formTitle">
+                Personal Details
+              </h3>
 
               <div className="athleteProfile__formGrid">
-                {(ROLE_FIELDS[user.role] || []).map((field) => (
+                {(ROLE_FIELDS[role] || []).map((field) => (
                   <div className="athleteProfile__group" key={field}>
-                    <label>{field.replaceAll("_", " ").toUpperCase()}</label>
+                    <label>
+                      {field.replaceAll("_", " ").toUpperCase()}
+                    </label>
                     {renderField(field)}
                   </div>
                 ))}
