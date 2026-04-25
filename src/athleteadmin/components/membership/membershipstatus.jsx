@@ -163,7 +163,9 @@ function AthleteMembershipStatus() {
                 Your membership will expire soon. Renew now to avoid
                 interruption in competition eligibility and member benefits.
               </p>
-              <button className="mu-renew-btn">Renew Membership →</button>
+              <button className="mu-renew-btn" onClick={() => HandleRenew(membership, daysLeft)}>
+                Renew Membership →
+              </button>
             </div>
           )}
         </div>

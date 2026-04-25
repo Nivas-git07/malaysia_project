@@ -42,7 +42,7 @@ export default function EventDetailX() {
     eventregister(eventId)
       .then((res) => {
         if (res?.status === 200 || res?.status === 201) {
-          alert("Registered successfully!");
+          alert("Registered successfully!. Go your Admin profile to view details.");
         } else {
           alert("Unexpected response. Please try again.");
         }
