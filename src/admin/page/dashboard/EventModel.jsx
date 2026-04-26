@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "../../style/dashboard/EventModel.css";
-import { postevent } from "../../api/event_api";
-import { editevent } from "../../api/event_api";
+import { postevent, editevent } from "../../api/event_api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useQueryClient } from "@tanstack/react-query";
 import { FiX } from "react-icons/fi";
+
 export default function EventModal({ close, data }) {
-  console.log("EventModal received data:", data);
   const queryClient = useQueryClient();
+  const eventData = Array.isArray(data) ? data[0] : data;
+
   const [highlights, setHighlights] = useState([""]);
   const [form, setForm] = useState({
     event_name: "",
@@ -21,6 +22,9 @@ export default function EventModal({ close, data }) {
     visibility: "PUBLIC",
     status: "DRAFT"
   });
+
+  const [loading, setLoading] = useState(false);
+
   const handleHighlightChange = (index, value) => {
     const updated = [...highlights];
     updated[index] = value;
@@ -50,12 +54,10 @@ export default function EventModal({ close, data }) {
     });
   };
 
-  const [loading, setLoading] = useState(false);
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (loading) return;
 
-    if (loading) return; 
     setLoading(true);
 
     const formData = new FormData();
@@ -76,18 +78,17 @@ export default function EventModal({ close, data }) {
       formData.append("image", form.image);
     }
 
-    const request = data && data[0]?.id
-      ? editevent(data[0]?.id, formData)
+    const request = eventData?.id
+      ? editevent(eventData.id, formData)
       : postevent(formData);
 
     request
       .then(() => {
-        alert(data ? "Event updated successfully!" : "Event saved successfully!");
+        alert(eventData ? "Event updated successfully!" : "Event saved successfully!");
         queryClient.invalidateQueries(["events"]);
         close();
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
         alert("Something went wrong.");
       })
       .finally(() => {
@@ -96,42 +97,39 @@ export default function EventModal({ close, data }) {
   };
 
   useEffect(() => {
-    if (data?.[0]) {
+    if (eventData) {
       setForm({
-        event_name: data[0]?.event_name || "",
-        description: data[0]?.description || "",
-        location: data[0]?.venue || "",
-        date: data[0]?.date || "",
-        event_start: data[0]?.event_start || "",
-        event_end: data[0]?.event_end || "",
-        visibility: data[0]?.visibility || "PUBLIC",
-        status: data[0]?.status || "DRAFT",
+        event_name: eventData.event_name || "",
+        description: eventData.description || "",
+        location: eventData.venue || "",
+        date: eventData.date || "",
+        event_start: eventData.event_start || "",
+        event_end: eventData.event_end || "",
+        visibility: eventData.visibility || "PUBLIC",
+        status: eventData.status || "DRAFT",
         image: null
       });
 
-
       let parsedHighlights = [""];
 
-      if (data[0]?.highlight) {
+      if (eventData.highlight) {
         try {
           parsedHighlights =
-            typeof data[0].highlight === "string"
-              ? JSON.parse(data[0].highlight)
-              : data[0].highlight;
-        } catch (e) {
+            typeof eventData.highlight === "string"
+              ? JSON.parse(eventData.highlight)
+              : eventData.highlight;
+        } catch {
           parsedHighlights = [""];
         }
       }
 
       setHighlights(parsedHighlights.length ? parsedHighlights : [""]);
     }
-  }, [data]);
+  }, [eventData]);
 
   return (
     <div className="modalOverlay">
-
       <div className="eventModal">
-
         <div className="modalHeader">
           <h3>CREATE / EDIT EVENT</h3>
           <span onClick={close}><FiX /></span>
@@ -161,15 +159,7 @@ export default function EventModal({ close, data }) {
           onChange={handleChange}
         />
 
-        <label> Date</label>
-        {/* <input
-          type="date"
-          name="date"
-          value={form.date}
-          onChange={handleChange}
-          lang="en-CA"
-        /> */}
-
+        <label>Date</label>
         <DatePicker
           selected={form.date ? new Date(form.date) : null}
           onChange={(date) =>
@@ -188,7 +178,6 @@ export default function EventModal({ close, data }) {
           name="event_start"
           value={form.event_start}
           onChange={handleChange}
-
         />
 
         <label>End Time</label>
@@ -197,18 +186,7 @@ export default function EventModal({ close, data }) {
           name="event_end"
           value={form.event_end}
           onChange={handleChange}
-
         />
-
-
-
-        {/* <label>Organizer</label>
-        <input
-          name="organizer"
-          value={form.organizer}
-          placeholder="Enter organizer name"
-          onChange={handleChange}
-        /> */}
 
         <label>Upload Banner</label>
         <input type="file" onChange={handleFileChange} />
@@ -224,9 +202,7 @@ export default function EventModal({ close, data }) {
           <option value="CLUB">Club</option>
         </select>
 
-
         <label>Event Highlights</label>
-
         <div className="highlightContainer">
           {highlights.map((item, index) => (
             <div className="highlightRow" key={index}>
@@ -239,7 +215,6 @@ export default function EventModal({ close, data }) {
                   handleHighlightChange(index, e.target.value)
                 }
               />
-
               {index !== 0 && (
                 <button
                   type="button"
@@ -282,7 +257,6 @@ export default function EventModal({ close, data }) {
             {loading ? "Saving..." : "Save Event"}
           </button>
         </div>
-
       </div>
     </div>
   );
