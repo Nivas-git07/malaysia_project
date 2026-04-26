@@ -24,10 +24,7 @@ export const editnews = (id, formData) => {
   });
 };
 
-export const postgallery = (file) => {
-  const formData = new FormData();
-  formData.append("image", file);
-
+export const postgallery = (formData) => {
   return API.post("/super/add-gallery-images/", formData, {
     headers: {
       "Content-Type": "multipart/form-data",

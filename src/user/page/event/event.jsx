@@ -19,7 +19,7 @@ export default function Event() {
     <div>
       <SwimmerHero>
         <div className="homeHeroContents">
-          <h1 className="homeHeroTitle">Upcoming Event</h1>
+          <h1 className="homeHeroTitle"> Event</h1>
           <p className="homeHeroSub">
             Stay updated with our upcoming events, competitions, and activities.
             <br />

@@ -41,21 +41,29 @@ export default function Gallery() {
   // 🔥 HANDLE UPLOAD
   const handleChange = async (e) => {
     const file = e.target.files[0];
+    if (!file) return;
 
-    if (file) {
-      try {
-        setimage(file);
+    const formData = new FormData();
 
-        await postgallery(file);
+    const isVideo = file.type.startsWith("video");
 
-        alert("Successfully uploaded image");
+    try {
+      setimage(file);
 
-        // 🔥 REFRESH DATA
-        queryClient.invalidateQueries(["recentGallery"]);
-      } catch (err) {
-        console.log(err);
-        alert("Upload failed");
+      if (isVideo) {
+        formData.append("video", file);
+      } else {
+        formData.append("image", file);
       }
+
+      await postgallery(formData);
+
+      alert(`${isVideo ? "Video" : "Image"} uploaded successfully`);
+
+      queryClient.invalidateQueries(["recentGallery"]);
+    } catch (err) {
+      console.log(err);
+      alert("Upload failed");
     }
   };
 
@@ -77,7 +85,7 @@ export default function Gallery() {
               type="file"
               ref={fileRef}
               onChange={handleChange}
-              accept="image/*"
+              accept="image/*,video/*"
               hidden
             />
 
@@ -89,14 +97,23 @@ export default function Gallery() {
 
                 <p>PNG, JPG or WEBP up to 10MB</p>
 
+               
+                {image && (
+                  <p className="upload-status">
+                    {image.type.startsWith("video")
+                      ? "Uploading video..."
+                      : "Uploading image..."}
+                  </p>
+                )}
+
                 <button
                   className="upload-btn"
                   onClick={(e) => {
-                    e.stopPropagation(); // prevent double click trigger
+                    e.stopPropagation();
                     handleClick();
                   }}
                 >
-                  + Upload Image
+                  + Upload Image or Video
                 </button>
               </div>
             </div>
@@ -118,25 +135,40 @@ export default function Gallery() {
 
             <div className="gallery-grid">
               {galleryItems && galleryItems.length > 0
-                ? galleryItems.map((item, i) => (
-                    <div className="gallery-card" key={item.id || i}>
-                      {/* IMAGE */}
-                      <img
-                        src={item.image}
-                        alt="gallery"
-                        className="gallery-img"
-                      />
+                ? galleryItems.map((item, i) => {
+                    const isVideo = item.video;
 
-                      <div className="gallery-overlay">
-                        <button className="gallery-delete-btn" onClick={() => deleteImage(item.image_id)}>
-                          {" "}
-                          <FiTrash2 />
-                        </button>
+                    return (
+                      <div className="gallery-card" key={item.id || i}>
+                        {isVideo ? (
+                          <video
+                            src={item.video}
+                            className="gallery-img"
+                            controls
+                          />
+                        ) : (
+                          <img
+                            src={item.image}
+                            alt="gallery"
+                            className="gallery-img"
+                          />
+                        )}
+
+                        <div className="gallery-overlay">
+                          <button
+                            className="gallery-delete-btn"
+                            onClick={() =>
+                              deleteImage(item.image_id || item.video_id)
+                            }
+                          >
+                            <FiTrash2 />
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  ))
+                    );
+                  })
                 : !isLoading && (
-                    <div className="gallery-empty">No images available</div>
+                    <div className="gallery-empty">No media available</div>
                   )}
             </div>
           </div>

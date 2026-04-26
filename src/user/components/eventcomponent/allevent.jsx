@@ -15,6 +15,8 @@ import { getevents } from "../../api/event";
 export default function EventsPage() {
   const { stateId, clubId } = useParams();
 
+  const [filter, setFilter] = useState("");
+
   const params = clubId ? { clubId } : stateId ? { stateId } : null;
 
   const { data, isLoading, isError } = useQuery({
@@ -23,62 +25,26 @@ export default function EventsPage() {
   });
 
   const events = data?.data || [];
+  const today = new Date();
+
+  const filteredEvents = events.filter((event) => {
+    if (!event.date) return true;
+
+    const eventDate = new Date(event.date);
+
+    if (filter === "UPCOMING") {
+      return eventDate >= today;
+    } else if (filter === "PAST") {
+      return eventDate < today;
+    }
+
+    return true;
+  });
 
   // const events = eventData?.data || [];
   console.log("Events Data:", events);
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
-
-  // const events = [
-  //   {
-  //     id: 1,
-  //     category: "Championship",
-  //     title: "Finswimming State Cup",
-  //     date: "09.10.2025",
-  //     location: "Johor Bahru",
-  //     image: img1,
-  //   },
-  //   {
-  //     id: 2,
-  //     category: "Trials",
-  //     title: "Junior National Selection",
-  //     date: "15.11.2025",
-  //     location: "Kuala Lumpur",
-  //     image: img2,
-  //   },
-  //   {
-  //     id: 3,
-  //     category: "Open Water",
-  //     title: "Desaru Ocean Sprint",
-  //     date: "03.12.2025",
-  //     location: "Desaru Coast",
-  //     image: img3,
-  //   },
-  //   {
-  //     id: 4,
-  //     category: "Community",
-  //     title: "Annual Member Dinner",
-  //     date: "20.12.2025",
-  //     location: "JB Convention Center",
-  //     image: img4,
-  //   },
-  //   {
-  //     id: 5,
-  //     category: "Workshop",
-  //     title: "Finswimming Coaching Clinic",
-  //     date: "10.01.2026",
-  //     location: "Larkin Aquatic Centre",
-  //     image: img5,
-  //   },
-  //   {
-  //     id: 6,
-  //     category: "Qualifiers",
-  //     title: "SEA Games 2026 Qualifiers",
-  //     date: "22.02.2026",
-  //     location: "Johor State Stadium",
-  //     image: img6,
-  //   },
-  // ];
 
   return (
     <section className="eventsSection">
@@ -86,19 +52,34 @@ export default function EventsPage() {
         {/* HEADER */}
         <div className="eventsHeader">
           <div className="left">
-            <h2 className="up">UPCOMING EVENTS</h2>
+            <h2 className="up">EVENTS</h2>
             <p>Discover the latest competitions and community gatherings.</p>
           </div>
 
           <div className="right">
-            <span className="filterText">Filter by:</span>
-            <button className="filterBtns">Category</button>
-            <button className="calendarBtn">View Calendar</button>
+            <span className="filterText">Filter :</span>
+            
+
+            <button
+              className={`filterBtns ${filter === "UPCOMING" ? "active" : ""}`}
+              onClick={() => setFilter("UPCOMING")}
+            >
+              Upcoming
+            </button>
+
+            <button
+              className={`filterBtns ${filter === "PAST" ? "active" : ""}`}
+              onClick={() => setFilter("PAST")}
+            >
+              Past Events
+            </button>
+
+            {/* <button className="calendarBtn">View Calendar</button> */}
           </div>
         </div>
 
         <div className="eventsGrid">
-          {events.length === 0 ? (
+          {filteredEvents.length === 0 ? (
             <div className="mfsaEmptyState">
               <div className="mfsaEmptyIcon">📅</div>
 
@@ -114,10 +95,14 @@ export default function EventsPage() {
               </button>
             </div>
           ) : (
-            events.map((event) => (
+            filteredEvents.map((event) => (
               <div className="mfsaEventCardX" key={event.id}>
                 <div className="mfsaEventImgX">
-                  <img src={event.image} alt={event.event_name} loading="lazy"/>
+                  <img
+                    src={event.image}
+                    alt={event.event_name}
+                    loading="lazy"
+                  />
                 </div>
 
                 <div className="mfsaEventOverlayX">
@@ -146,7 +131,7 @@ export default function EventsPage() {
           )}
         </div>
 
-        {events.length > 0 && (
+        {/* {events.length > 0 && (
           <div className="pagination">
             <button>
               <FiChevronLeft />
@@ -162,7 +147,7 @@ export default function EventsPage() {
               <FiChevronRight />
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </section>
   );

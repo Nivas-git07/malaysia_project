@@ -70,7 +70,10 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   position: relative;
 }
-
+.filterBtns.active {
+  background: #c10000;
+  color: #fff;
+}
 /* --- THE SHIELD ICON (CSS TRICK FOR OUTLINE) --- */
 .shieldIcon {
   font-size: 28px; /* Size of the icon */
@@ -122,15 +125,33 @@
 
 /* INNER PADDING (NO MAX WIDTH) */
 .eventsInner {
-  padding: 0 60px; /* THIS controls left-right spacing */
+  padding: 0 40px; /* THIS controls left-right spacing */
+}
+/* ============================= */
+/* CONTAINER FIX (IMPORTANT) */
+/* ============================= */
+.eventsInner {
+  width: 100%;
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 
+/* ============================= */
 /* HEADER */
+/* ============================= */
 .eventsHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+/* LEFT */
+.eventsHeader .left {
+  display: flex;
+  flex-direction: column;
 }
 
 /* TITLE */
@@ -154,75 +175,80 @@
 .eventsHeader p {
   font-size: 14px;
   color: #6b7280;
+  margin-top: 4px;
 }
 
+/* ============================= */
 /* RIGHT SIDE */
+/* ============================= */
 .eventsHeader .right {
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-left: auto;
 }
 
-/* RIGHT CONTAINER */
-.right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+/* REMOVE DUPLICATE .right RULE (important fix) */
 
-  flex-wrap: nowrap;      /* 👈 IMPORTANT */
-  white-space: nowrap;    /* 👈 prevents breaking */
-}
-.filterBtn,
-.calendarBtn {
-  flex-shrink: 0; /* 👈 prevents squeezing/wrapping */
-}
-
+/* ============================= */
 /* FILTER TEXT */
+/* ============================= */
 .filterText {
-  font-size: 15px;
-  color: #6b7280; /* soft gray */
+  font-size: 14px;
+  color: #6b7280;
   font-weight: 500;
 }
 
-/* CATEGORY BUTTON (light pill) */
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
 .filterBtns {
-  background: #fcfcfc;
-  color:#0F172A;
+  background: #f3f4f6;
+  color: #111827;
   border: none;
   padding: 6px 16px;
   border-radius: 999px;
   font-size: 14px;
-
-
-  font-weight: 600; /* 👈 BOLD */
-
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s ease;
 }
 
 .filterBtns:hover {
   background: #e5e7eb;
 }
 
-/* VIEW CALENDAR BUTTON (red pill) */
+/* ACTIVE STATE */
+.filterBtns.active {
+  background: #c1121f;
+  color: #fff;
+}
+
+/* CALENDAR BUTTON */
 .calendarBtn {
-  background:  #C10000;
+  background: #c1121f;
   color: white;
   border: none;
   padding: 6px 16px;
   border-radius: 999px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s ease;
 }
 
 .calendarBtn:hover {
   background: #a50f1a;
 }
 
+/* PREVENT SHRINK */
+.filterBtns,
+.calendarBtn {
+  flex-shrink: 0;
+}
+
 /* ============================= */
-/* TABLET (≤ 1024px) */
+/* TABLET */
 /* ============================= */
 @media (max-width: 1024px) {
   .eventsHeader {
@@ -231,8 +257,23 @@
     gap: 16px;
   }
 
+  .eventsHeader .right {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+@media (max-width: 768px) {
+  .eventsInner {
+    padding: 0 20px;
+  }
+
   .eventsHeader h2 {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .eventsHeader p {
@@ -241,64 +282,31 @@
 
   .eventsHeader .right {
     width: 100%;
-    justify-content: space-between;
-  }
-}
-/* ============================= */
-/* MOBILE (≤ 768px) */
-/* ============================= */
-@media (max-width: 768px) {
-  .eventsHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  /* TITLE */
-  .eventsHeader h2 {
-    font-size: 22px;
-    padding-left: 12px;
-  }
-
-  .eventsHeader h2::before {
-    height: 18px;
-    top: 4px;
-  }
-
-  .eventsHeader p {
-    font-size: 12px;
-  }
-
-  /* RIGHT SECTION STACK */
-  .eventsHeader .right {
-    width: 100%;
-    flex-wrap: wrap; /* 👈 allow wrapping */
+    flex-wrap: wrap;
     gap: 10px;
   }
 
-  .right {
-    flex-wrap: wrap;
-    white-space: normal;
+  .filterText {
+    width: 100%;
   }
 
-  /* BUTTONS FULL WIDTH */
-  .filterBtn,
+  .filterBtns,
   .calendarBtn {
     flex: 1;
     text-align: center;
     padding: 8px 12px;
     font-size: 13px;
   }
-
-  .filterText {
-    width: 100%;
-    font-size: 13px;
-  }
 }
+
 /* ============================= */
-/* SMALL MOBILE (≤ 480px) */
+/* SMALL MOBILE */
 /* ============================= */
 @media (max-width: 480px) {
+  .eventsInner {
+    padding: 0 16px;
+  }
+
   .eventsHeader {
     gap: 12px;
   }
@@ -308,28 +316,225 @@
   }
 
   .eventsHeader p {
-    font-size: 11px;
+    font-size: 12px;
   }
 
-  /* Stack buttons vertically */
   .eventsHeader .right {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .filterBtn,
+  .filterBtns,
   .calendarBtn {
     width: 100%;
     padding: 10px;
+  }
+}/* ============================= */
+/* CONTAINER FIX (IMPORTANT) */
+/* ============================= */
+.eventsInner {
+  width: 100%;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+/* ============================= */
+/* HEADER */
+/* ============================= */
+.eventsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+/* LEFT */
+.eventsHeader .left {
+  display: flex;
+  flex-direction: column;
+}
+
+/* TITLE */
+.eventsHeader h2 {
+  font-size: 26px;
+  font-weight: 800;
+  padding-left: 14px;
+  position: relative;
+}
+
+.eventsHeader h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 4px;
+  height: 22px;
+  background: #c1121f;
+}
+
+.eventsHeader p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* ============================= */
+/* RIGHT SIDE */
+/* ============================= */
+.eventsHeader .right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+/* REMOVE DUPLICATE .right RULE (important fix) */
+
+/* ============================= */
+/* FILTER TEXT */
+/* ============================= */
+.filterText {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+.filterBtns {
+  background: #e4e4e4;
+  color: #111827;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterBtns:hover {
+  background: #e5e7eb;
+}
+
+/* ACTIVE STATE */
+.filterBtns.active {
+  background: #c1121f;
+  color: #fff;
+}
+
+/* CALENDAR BUTTON */
+.calendarBtn {
+  background: #c1121f;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.calendarBtn:hover {
+  background: #a50f1a;
+}
+
+/* PREVENT SHRINK */
+.filterBtns,
+.calendarBtn {
+  flex-shrink: 0;
+}
+
+/* ============================= */
+/* TABLET */
+/* ============================= */
+@media (max-width: 1024px) {
+  .eventsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .eventsHeader .right {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+@media (max-width: 768px) {
+  .eventsInner {
+    padding: 0 20px;
+  }
+
+  .eventsHeader h2 {
+    font-size: 22px;
+  }
+
+  .eventsHeader p {
     font-size: 13px;
   }
 
+  .eventsHeader .right {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
   .filterText {
+    width: 100%;
+  }
+
+  .filterBtns,
+  .calendarBtn {
+    flex: 1;
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+/* ============================= */
+/* SMALL MOBILE */
+/* ============================= */
+@media (max-width: 480px) {
+  .eventsInner {
+    padding: 0 16px;
+  }
+
+  .eventsHeader {
+    gap: 12px;
+  }
+
+  .eventsHeader h2 {
+    font-size: 20px;
+  }
+
+  .eventsHeader p {
     font-size: 12px;
+  }
+
+  .eventsHeader .right {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterBtns,
+  .calendarBtn {
+    width: 100%;
+    padding: 10px;
   }
 }
 /* GRID (IMPORTANT FIX) */
 .eventsGrid {
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px; /* more spacing like design */
