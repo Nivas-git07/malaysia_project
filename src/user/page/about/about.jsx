@@ -17,7 +17,7 @@ export default function About() {
   const { data: aboutData, isLoading } = useQuery({
     queryKey: ["aboutPage", clubId, stateId],
     queryFn: () => getclubabout({ clubId, stateId }),
-    enabled: !!clubId || !!stateId,
+    
   });
 
   const aboutInfo = aboutData?.data;

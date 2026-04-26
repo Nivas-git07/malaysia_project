@@ -19,7 +19,7 @@ export const getclubabout = async ({ clubId, stateId }) => {
     return API.get(`/user/get-about-page/?state_id=${stateId}`);
   }
 
-  throw new Error("No ID provided");
+  return API.get(`/user/get-about-page/`);
 };
 
 export const getclubathlete = (clubId) => {

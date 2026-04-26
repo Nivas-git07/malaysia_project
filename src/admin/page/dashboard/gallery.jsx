@@ -13,6 +13,7 @@ export default function Gallery() {
   const queryClient = useQueryClient();
 
   const deleteImage = async (id) => {
+    console.log("Deleting image with ID:", id);
     if (window.confirm("Are you sure you want to delete this image?")) {
       try {
         await deletegallery(id);
@@ -38,7 +39,7 @@ export default function Gallery() {
     fileRef.current.click();
   };
 
-  // 🔥 HANDLE UPLOAD
+
   const handleChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -62,7 +63,7 @@ export default function Gallery() {
 
       queryClient.invalidateQueries(["recentGallery"]);
     } catch (err) {
-      console.log(err);
+      console.log(err.data);
       alert("Upload failed");
     }
   };
@@ -97,7 +98,6 @@ export default function Gallery() {
 
                 <p>PNG, JPG or WEBP up to 10MB</p>
 
-               
                 {image && (
                   <p className="upload-status">
                     {image.type.startsWith("video")
@@ -158,7 +158,7 @@ export default function Gallery() {
                           <button
                             className="gallery-delete-btn"
                             onClick={() =>
-                              deleteImage(item.image_id || item.video_id)
+                              deleteImage(item.media_id)
                             }
                           >
                             <FiTrash2 />

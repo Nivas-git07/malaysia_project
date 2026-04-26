@@ -23,8 +23,10 @@ export default function Home() {
     keepPreviousData: true,
   });
 
-  // 🚨 IMPORTANT: don't default to [] here
+
   const homeData = data?.data ?? null;
+  console.log("Home Data:", homeData);
+  
 
   // ---------- UI STATES ----------
 
@@ -49,6 +51,7 @@ export default function Home() {
   const homeevents = homeData?.upcoming_events ?? null;
   const homenews = homeData?.latest_news ?? null;
   const homegallery = homeData?.gallery ?? null;
+  const bestRecords = homeData?.best_records ?? null;
 
   return (
     <div className="home-page">
@@ -100,7 +103,7 @@ export default function Home() {
       {homeevents && <UpcomingEvents event={homeevents} />}
       {homeStats && <HomeRecords stats={homeStats} />}
 
-      <BestRecordsX />
+      {bestRecords && <BestRecordsX records={bestRecords} />}
       <StateNetworkX />
 
       {homegallery && <HomeGallery gallery={homegallery} />}

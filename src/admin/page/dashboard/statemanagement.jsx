@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import Navbar from "../navbar/nav";
 // import "./StateManagement.css";
-
+import { state_register } from "../../api/auth_api";
 export default function StateManagement() {
   const [form, setForm] = useState({
     state_name: "",
@@ -45,6 +45,15 @@ export default function StateManagement() {
 
   const handleSubmit = () => {
     if (!form.state_name || !form.email || !form.password) return;
+
+    state_register(form.state_name, form.email, form.password)
+      .then((res) => {
+        alert("State registered successfully:", res.data);
+      })
+      .catch((err) => {
+        console.log("Error registering state:", err.data);
+        alert("Failed to register state. Please try again.");
+      });
 
     const newState = {
       id: Date.now(),
@@ -96,25 +105,36 @@ export default function StateManagement() {
             <h3>New State Configuration</h3>
 
             <div className="formGrid">
-              <input
-                name="state_name"
-                placeholder="e.g. Maharashtra Federation"
-                value={form.state_name}
-                onChange={handleChange}
-              />
-              <input
-                name="email"
-                placeholder="admin@state-mfsa.org"
-                value={form.email}
-                onChange={handleChange}
-              />
-              <input
-                name="password"
-                type="password"
-                placeholder="********"
-                value={form.password}
-                onChange={handleChange}
-              />
+              <div className="formGroup">
+                <label>State Name</label>
+                <input
+                  name="state_name"
+                  placeholder="e.g. Maharashtra Federation"
+                  value={form.state_name}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="formGroup">
+                <label>Email Address</label>
+                <input
+                  name="email"
+                  placeholder="admin@state-mfsa.org"
+                  value={form.email}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="formGroup">
+                <label>Password</label>
+                <input
+                  name="password"
+                  type="password"
+                  placeholder="********"
+                  value={form.password}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
 
             <div className="formAction">
