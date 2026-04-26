@@ -84,7 +84,7 @@ export default function News() {
             <div>Title</div>
             <div>Date</div>
             <div>Status</div>
-            <div>Visibility</div>
+            {/* <div>Visibility</div> */}
             <div>Action</div>
           </div>
 
@@ -93,7 +93,7 @@ export default function News() {
               <div>{item.title}</div>
               <div><DateOnly value={item.created_at} /></div>
               <div>{item.status}</div>
-              <div>{item.visibility}</div>
+              {/* <div>{item.visibility}</div> */}
               <div
                 className="editBtn"
                 onClick={() => handleEdit(item.id)}

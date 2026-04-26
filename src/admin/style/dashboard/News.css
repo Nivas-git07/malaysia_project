@@ -60,14 +60,14 @@
   background:#c10000;
   color:#fff;
   display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns:2fr 1fr  1fr 1fr;
   padding:12px;
   font-weight:600;
 }
 
 .newsRow{
   display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns:2fr 1fr  1fr 1fr;
   padding:14px 12px;
   border-bottom:1px solid #eee;
   font-size:14px;

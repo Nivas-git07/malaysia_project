@@ -33,7 +33,7 @@ export const postgallery = (formData) => {
 };
 
 export const get_recent_gallery = () => {
-  return API.get("/super/get-latest-images/");
+  return API.get("/super/get-all-images/");
 };
 
 export const deletegallery = (id) => {
