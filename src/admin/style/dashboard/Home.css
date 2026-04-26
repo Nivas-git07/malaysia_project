@@ -126,13 +126,13 @@
   background:#c10000;
   color:#fff;
   display:grid;
- grid-template-columns: repeat(4, 1fr);
+ grid-template-columns: 2fr 1fr  1fr 1fr;
   padding:12px;
 }
 
 .stateRow{
   display:grid;
-grid-template-columns: repeat(4, 1fr);
+grid-template-columns: 2fr 1fr  1fr 1fr;
   padding:14px 12px;
   border-bottom:1px solid #eee;
   align-items:center;

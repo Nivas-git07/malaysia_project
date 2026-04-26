@@ -39,3 +39,7 @@ export const get_recent_gallery = () => {
 export const deletegallery = (id) => {
   return API.delete(`/super/gallery/${id}/`);
 };
+
+export const delete_news = (id) => {
+  return API.delete(`/super/delete-event-or-news/?news_id${id}`);
+};

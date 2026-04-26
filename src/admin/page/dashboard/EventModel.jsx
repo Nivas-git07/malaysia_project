@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useQueryClient } from "@tanstack/react-query";
 import { FiX } from "react-icons/fi";
-
+import { delete_event } from "../../api/event_api";
 export default function EventModal({ close, data }) {
   const queryClient = useQueryClient();
   const eventData = Array.isArray(data) ? data[0] : data;
@@ -19,8 +19,7 @@ export default function EventModal({ close, data }) {
     event_start: "",
     event_end: "",
     image: null,
-    visibility: "PUBLIC",
-    status: "DRAFT"
+    status: "DRAFT",
   });
 
   const [loading, setLoading] = useState(false);
@@ -43,14 +42,14 @@ export default function EventModal({ close, data }) {
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleFileChange = (e) => {
     setForm({
       ...form,
-      image: e.target.files[0]
+      image: e.target.files[0],
     });
   };
 
@@ -67,11 +66,11 @@ export default function EventModal({ close, data }) {
     formData.append("event_start", form.event_start);
     formData.append("event_end", form.event_end);
     formData.append("date", form.date);
-    formData.append("visibility", form.visibility);
+    // formData.append("visibility", form.visibility);
     formData.append("status", form.status);
     formData.append(
       "highlight",
-      JSON.stringify(highlights.filter(h => h.trim() !== ""))
+      JSON.stringify(highlights.filter((h) => h.trim() !== "")),
     );
 
     if (form.image) {
@@ -84,11 +83,16 @@ export default function EventModal({ close, data }) {
 
     request
       .then(() => {
-        alert(eventData ? "Event updated successfully!" : "Event saved successfully!");
+        alert(
+          eventData
+            ? "Event updated successfully!"
+            : "Event saved successfully!",
+        );
         queryClient.invalidateQueries(["events"]);
         close();
       })
-      .catch(() => {
+      .catch((e) => {
+        console.error(e?.response?.data || e);
         alert("Something went wrong.");
       })
       .finally(() => {
@@ -107,7 +111,7 @@ export default function EventModal({ close, data }) {
         event_end: eventData.event_end || "",
         visibility: eventData.visibility || "PUBLIC",
         status: eventData.status || "DRAFT",
-        image: null
+        image: eventData.image || null,
       });
 
       let parsedHighlights = [""];
@@ -132,7 +136,9 @@ export default function EventModal({ close, data }) {
       <div className="eventModal">
         <div className="modalHeader">
           <h3>CREATE / EDIT EVENT</h3>
-          <span onClick={close}><FiX /></span>
+          <span onClick={close}>
+            <FiX />
+          </span>
         </div>
 
         <label>Event Title</label>
@@ -165,7 +171,7 @@ export default function EventModal({ close, data }) {
           onChange={(date) =>
             setForm({
               ...form,
-              date: date.toISOString().split("T")[0]
+              date: date.toISOString().split("T")[0],
             })
           }
           dateFormat="yyyy/MM/dd"
@@ -191,17 +197,6 @@ export default function EventModal({ close, data }) {
         <label>Upload Banner</label>
         <input type="file" onChange={handleFileChange} />
 
-        <label>Visibility Level</label>
-        <select
-          name="visibility"
-          value={form.visibility}
-          onChange={handleChange}
-        >
-          <option value="PUBLIC">Public</option>
-          <option value="STATE">State</option>
-          <option value="CLUB">Club</option>
-        </select>
-
         <label>Event Highlights</label>
         <div className="highlightContainer">
           {highlights.map((item, index) => (
@@ -211,9 +206,7 @@ export default function EventModal({ close, data }) {
                 className="highlightInput"
                 placeholder="Enter highlight"
                 value={item}
-                onChange={(e) =>
-                  handleHighlightChange(index, e.target.value)
-                }
+                onChange={(e) => handleHighlightChange(index, e.target.value)}
               />
               {index !== 0 && (
                 <button
@@ -237,17 +230,46 @@ export default function EventModal({ close, data }) {
         </div>
 
         <label>Status</label>
-        <select
-          name="status"
-          value={form.status}
-          onChange={handleChange}
-        >
+        <select name="status" value={form.status} onChange={handleChange}>
           <option value="DRAFT">Save as Draft</option>
           <option value="PUBLISHED">Publish</option>
         </select>
 
         <div className="modalActions">
-          <button className="cancelBtn" onClick={close}>Cancel</button>
+          {data && (
+            <button
+              type="button"
+              className="cancelBtn"
+              onClick={() => {
+                if (
+                  window.confirm("Are you sure you want to delete this event?")
+                ) {
+                  delete_event(eventData.id)
+                    .then((res) => {
+                      if (res?.status === 200 || res?.status === 204) {
+                        alert("Event deleted successfully!");
+                        queryClient.invalidateQueries(["events"]);
+                        close();
+                      } else {
+                        throw new Error("Delete failed");
+                      }
+                    })
+                    .catch((e) => {
+                      console.error(e?.response?.data || e);
+                      alert("Failed to delete event. Please try again.");
+                    });
+                }
+              }}
+            >
+              Delete Event
+            </button>
+          )}
+          {!data && (
+            <button className="cancelBtn" onClick={close}>
+              Cancel
+            </button>
+          )}
+
           <button
             type="button"
             className="savesBtn"

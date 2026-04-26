@@ -3,12 +3,22 @@ import { FiEdit2 } from "react-icons/fi";
 import Navbar from "../navbar/nav";
 // import "./StateManagement.css";
 import { state_register } from "../../api/auth_api";
+import { get_state } from "../../../user/api/auth";
+import { useQuery } from "@tanstack/react-query";
 export default function StateManagement() {
   const [form, setForm] = useState({
     state_name: "",
     email: "",
     password: "",
   });
+  // const { data } = useQuery({
+  //   querykey: ["get-state-data"],
+  //   queryFn: get_state(),
+  //   refetchOnWindowFocus: false,
+  //   retry: false,
+  // });
+  // const states = data?.data || [];
+  // console.log(s)
 
   const [showAlert, setShowAlert] = useState(false);
 

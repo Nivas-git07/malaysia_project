@@ -21,7 +21,7 @@ export default function StateList() {
 
   const clubs_stats = data?.data || [];
   const club_count = data?.data.clubs_count || 0;
-
+  console.log(clubs_stats);
   console.log(data, isLoading, error);
 
   return (
@@ -60,8 +60,8 @@ export default function StateList() {
           <div className="stateTable">
             <div className="stateHead">
               <div>Club Name</div>
-              <div>Members</div>
-              <div>Club Count</div>
+              <div>Members count</div>
+              <div>Club owner</div>
               <div>Website</div>
             </div>
 
@@ -78,14 +78,14 @@ export default function StateList() {
                   {club.club_name}
                 </div>
 
-                <div className="membersCell">
-                  <img src="https://i.pravatar.cc/40" />
+                <div>
+                  {/* <img src="https://i.pravatar.cc/40" />
                   <img src="https://i.pravatar.cc/41" />
-                  <img src="https://i.pravatar.cc/42" />
-                  <span> + { club_count } </span>
+                  <img src="https://i.pravatar.cc/42" /> */}
+                  <span> {club.athlete_count} </span>
                 </div>
 
-                <div>{ club_count }</div>
+                <div>{club.owner_name}</div>
 
                 <a
                   href={`http://localhost:5173/club/${club.user}`}

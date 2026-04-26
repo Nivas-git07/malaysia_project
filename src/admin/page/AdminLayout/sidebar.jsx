@@ -67,14 +67,16 @@ export default function Sidebar() {
             <User size={20} />
             <span>Athlete</span>
           </NavLink>
-          <NavLink
-            to="/admin/state-management"
-            className="menuItem"
-            onClick={closeSidebar}
-          >
-            <RiGroupFill size={20} />
-            <span>State Management</span>
-          </NavLink>
+          {checkdata === "SUPERADMIN" && (
+            <NavLink
+              to="/admin/state-management"
+              className="menuItem"
+              onClick={closeSidebar}
+            >
+              <RiGroupFill size={20} />
+              <span>State Management</span>
+            </NavLink>
+          )}
           <NavLink
             to="/admin/calendar"
             className="menuItem"
