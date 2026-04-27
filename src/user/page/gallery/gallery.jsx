@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { get_particular_gallery, get_gallery } from "../../api/home_api";
 import SwimmerHero from "../../layout/hero";
 import Footer from "../../layout/footer";
-import { FiChevronLeft, FiChevronRight, FiX } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 import fallbackImg from "../../assets/event1.png";
 
@@ -59,11 +59,7 @@ export default function Gallery() {
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle">Gallery</h1>
           <p className="homeHeroSub">
-            Explore memorable moments from our events, training sessions, and
-            competitions.
-            <br />
-            Experience the passion, speed, and excellence of our finswimming
-            community.
+            Explore memorable moments from our events, training sessions, and competitions.
           </p>
         </div>
 
@@ -80,16 +76,6 @@ export default function Gallery() {
                   <NavLink to={`/state/${stateId}/club/${clubId}`}>
                     Home
                   </NavLink>
-                </li>
-              )}
-              {isState && (
-                <li>
-                  <NavLink to={`${basePath}/association`}>CLUBS</NavLink>
-                </li>
-              )}
-              {isClub && (
-                <li>
-                  <NavLink to={`${basePath}/athlete`}>ATHLETES</NavLink>
                 </li>
               )}
               <li>
@@ -121,7 +107,7 @@ export default function Gallery() {
 
           {!isLoading && (isError || galleryList.length === 0) && (
             <div className="mfsaEmptyState">
-              <p>No gallery images available.</p>
+              <p>No gallery media available.</p>
             </div>
           )}
 
@@ -129,10 +115,23 @@ export default function Gallery() {
             {galleryList.slice(0, visibleCount).map((item, index) => (
               <div
                 className="galleryCard"
-                key={item.id || index}
+                key={item.media_id || index}
                 onClick={() => setSelectedIndex(index)}
               >
-                <img src={item.image || fallbackImg} alt="gallery" />
+                {item.video ? (
+                  <video
+                    src={item.video}
+                    className="galleryMedia"
+                    muted
+                    playsInline
+                  />
+                ) : (
+                  <img
+                    src={item.image || fallbackImg}
+                    alt="gallery"
+                    className="galleryMedia"
+                  />
+                )}
               </div>
             ))}
           </div>
@@ -153,16 +152,6 @@ export default function Gallery() {
           onClick={() => setSelectedIndex(null)}
         >
           <div
-            className="lightboxClose"
-            onClick={(e) => {
-              e.stopPropagation();
-              setSelectedIndex(null);
-            }}
-          >
-            {/* <FiX /> */}
-          </div>
-
-          <div
             className="lightboxArrow left"
             onClick={(e) => {
               e.stopPropagation();
@@ -172,16 +161,24 @@ export default function Gallery() {
             <FiChevronLeft />
           </div>
 
-          <motion.img
-            src={
-              galleryList[selectedIndex]?.image || fallbackImg
-            }
-            alt="preview"
-            className="lightboxImage"
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            onClick={(e) => e.stopPropagation()}
-          />
+          {galleryList[selectedIndex]?.video ? (
+            <motion.video
+              src={galleryList[selectedIndex].video}
+              className="lightboxImage"
+              controls
+              autoPlay
+              playsInline
+              onClick={(e) => e.stopPropagation()}
+            />
+          ) : (
+            <motion.img
+              src={
+                galleryList[selectedIndex]?.image || fallbackImg
+              }
+              className="lightboxImage"
+              onClick={(e) => e.stopPropagation()}
+            />
+          )}
 
           <div
             className="lightboxArrow right"

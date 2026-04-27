@@ -3,6 +3,8 @@ import RecordCardX from "./recordcard";
 
 export default function BestRecordsX({ records = [] }) {
   const [active, setActive] = useState("Surface");
+  console.log(records)
+
 
   const categories = ["Surface", "Bi-fins", "Apnea", "Immersion"];
 

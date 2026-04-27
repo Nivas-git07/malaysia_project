@@ -18,6 +18,7 @@ export default function StateList() {
     refetchOnWindowFocus: false,
     retry: false,
   });
+  
 
   const clubs_stats = data?.data || [];
   const club_count = data?.data.clubs_count || 0;

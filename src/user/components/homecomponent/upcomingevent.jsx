@@ -3,6 +3,7 @@ import { FiArrowRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 export default function UpcomingEvents({ event }) {
+  console.log(event)
   const events = Array.isArray(event) ? event : [];
 
   return (

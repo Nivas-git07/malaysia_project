@@ -18,6 +18,7 @@ export default function Record() {
   const athleteList = Array.isArray(athleteRecords?.data?.athletes_list)
     ? athleteRecords.data.athletes_list
     : [];
+    console.log(athleteList)
 
   // const athleteList = athleteRecords?.data?.athletes_list || [];
 
@@ -30,7 +31,7 @@ export default function Record() {
     ? eventRecords.data
     : eventRecords?.data?.events || [];
   console.log(records);
-  const handleSave = () => {
+  const handleSave = async () => {
     const filteredRows = rows.filter(
       (row) => row.full_name && row.distance && row.time,
     );
@@ -53,45 +54,58 @@ export default function Record() {
       date: date,
     }));
 
-    try {
-      post_record(payload);
+   try {
+  const res = await post_record(payload);
 
-      alert("Record saved successfully");
+  // ✅ SUCCESS CHECK
+  if (res?.status === 200 || res?.status === 201) {
+    alert("Record saved successfully ✅");
 
-      setRows([
-        {
-          distance: "",
-          full_name: "",
-          state: "",
-          medal: "",
-          rank: "",
-          time: "",
-        },
-        {
-          distance: "",
-          full_name: "",
-          state: "",
-          medal: "",
-          rank: "",
-          time: "",
-        },
-        {
-          distance: "",
-          full_name: "",
-          state: "",
-          medal: "",
-          rank: "",
-          time: "",
-        },
-      ]);
+    setRows([
+      {
+        distance: "",
+        full_name: "",
+        state: "",
+        medal: "",
+        rank: "",
+        time: "",
+      },
+      {
+        distance: "",
+        full_name: "",
+        state: "",
+        medal: "",
+        rank: "",
+        time: "",
+      },
+      {
+        distance: "",
+        full_name: "",
+        state: "",
+        medal: "",
+        rank: "",
+        time: "",
+      },
+    ]);
 
-      setSelectedEvent("");
-      setSelectedEventId("");
-      setdiscipline("");
-      setdate("");
-    } catch (err) {
-      console.log("ERROR RESPONSE:", err.response?.data);
-    }
+    setSelectedEvent("");
+    setSelectedEventId("");
+    setdiscipline("");
+    setdate("");
+  } else {
+  
+    alert("Failed to save record ❌");
+  }
+
+} catch (err) {
+  console.error(err);
+  const errorMsg =
+    err?.response?.data?.message ||
+    err?.response?.data?.detail ||
+    "Something went wrong ❌";
+
+  alert(errorMsg);
+}
   };
 
   const [rows, setRows] = useState([

@@ -7,7 +7,8 @@ import Preview from "../../hook/preview/preview";
 import { FiTrash2 } from "react-icons/fi";
 import { deletegallery } from "../../api/news_api";
 export default function Gallery() {
-  const [image, setimage] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [fileType, setFileType] = useState("");
   const fileRef = useRef(null);
 
   const queryClient = useQueryClient();
@@ -39,18 +40,17 @@ export default function Gallery() {
     fileRef.current.click();
   };
 
-
   const handleChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     const formData = new FormData();
-
     const isVideo = file.type.startsWith("video");
 
-    try {
-      setimage(file);
+    setUploading(true);
+    setFileType(isVideo ? "video" : "image");
 
+    try {
       if (isVideo) {
         formData.append("video", file);
       } else {
@@ -62,9 +62,15 @@ export default function Gallery() {
       alert(`${isVideo ? "Video" : "Image"} uploaded successfully`);
 
       queryClient.invalidateQueries(["recentGallery"]);
+
+      setUploading(false);
+      setFileType("");
+      fileRef.current.value = ""; // reset input
     } catch (err) {
-      console.log(err.data);
+      console.log(err);
       alert("Upload failed");
+
+      setUploading(false);
     }
   };
 
@@ -98,9 +104,9 @@ export default function Gallery() {
 
                 <p>PNG, JPG or WEBP up to 10MB</p>
 
-                {image && (
+                {uploading && (
                   <p className="upload-status">
-                    {image.type.startsWith("video")
+                    {fileType === "video"
                       ? "Uploading video..."
                       : "Uploading image..."}
                   </p>
@@ -157,9 +163,7 @@ export default function Gallery() {
                         <div className="gallery-overlay">
                           <button
                             className="gallery-delete-btn"
-                            onClick={() =>
-                              deleteImage(item.media_id)
-                            }
+                            onClick={() => deleteImage(item.media_id)}
                           >
                             <FiTrash2 />
                           </button>

@@ -25,6 +25,7 @@ export default function StatePage() {
     staleTime: 1000 * 60 * 5,
   });
 
+
   if (!stateData && !isError) {
     return null;
   }
@@ -102,7 +103,7 @@ export default function StatePage() {
           </section>
         </Swimmer>
         <HomeAbout name={statecontent.state_name} />
-        <UpcomingEvents events={state_events} />
+        <UpcomingEvents event={state_events} />
         <HomeRecords stats={state_stats} />
         <BestRecords />
 

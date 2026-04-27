@@ -6,10 +6,10 @@ export const getallevents = () => {
 
 export const getevents = ({ stateId, clubId }) => {
   if (clubId) {
-    return API.get(`/user/get-club-events/?club_id=${clubId}`);
+    return API.get(`/user/get-all-events//?club_id=${clubId}`);
   }
   if (stateId) {
-    return API.get(`/user/get-state-events/?state_id=${stateId}`);
+    return API.get(`/user/get-all-events/?state_id=${stateId}`);
   }
 };
 
@@ -19,4 +19,4 @@ export const geteventdetails = (eventId) => {
 
 export const eventregister = (eventId) => {
   return API.post(`/super/register-in-event/?event_id=${eventId}`);
-}
+};
