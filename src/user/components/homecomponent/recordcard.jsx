@@ -10,7 +10,7 @@ export default function RecordCardX({
     <div className="mfsaRecordX-card">
       <div className="mfsaRecordX-imgWrap">
         <img
-           src={`${import.meta.env.VITE_APP_API}/${profile_picture}`}
+           src={profile_picture}
           alt={name}
         />
       </div>
