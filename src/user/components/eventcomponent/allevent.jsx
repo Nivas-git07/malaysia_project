@@ -152,6 +152,19 @@ export default function EventsPage() {
                 center: "title",
                 right: "",
               }}
+              buttonText={{
+                today: "Today",
+              }}
+              buttonIcons={{
+                prev: "chevron-left",
+                next: "chevron-right",
+              }}
+              eventContent={(arg) => (
+                <div className="customEvent">
+                  <span className="dot"></span>
+                  {arg.event.title}
+                </div>
+              )}
               eventClick={(info) => {
                 navigate(`/eventview/${info.event.id}`);
               }}
