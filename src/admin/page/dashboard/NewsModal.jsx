@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../style/dashboard/NewsModal.css";
 import { postnews, editnews } from "../../api/news_api";
 import { useQueryClient } from "@tanstack/react-query";
-
+import { delete_news } from "../../api/news_api";
 export default function NewsModal({ close, data }) {
   const queryClient = useQueryClient();
   const newsData = Array.isArray(data) ? data[0] : data;
@@ -13,20 +13,20 @@ export default function NewsModal({ close, data }) {
     content: "",
     image: null,
     visibility: "PUBLIC",
-    status: "DRAFT"
+    status: "DRAFT",
   });
 
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleFileChange = (e) => {
     setForm({
       ...form,
-      image: e.target.files[0]
+      image: e.target.files[0],
     });
   };
 
@@ -50,7 +50,9 @@ export default function NewsModal({ close, data }) {
 
     request
       .then(() => {
-        alert(newsData ? "News updated successfully!" : "News posted successfully!");
+        alert(
+          newsData ? "News updated successfully!" : "News posted successfully!",
+        );
         queryClient.invalidateQueries(["news"]);
         close();
       })
@@ -67,7 +69,7 @@ export default function NewsModal({ close, data }) {
         content: newsData.content || "",
         image: null,
         visibility: newsData.visibility || "PUBLIC",
-        status: newsData.status || "DRAFT"
+        status: newsData.status || "DRAFT",
       });
     }
   }, [newsData]);
@@ -126,19 +128,46 @@ export default function NewsModal({ close, data }) {
         </select>
 
         <label>Status</label>
-        <select
-          name="status"
-          value={form.status}
-          onChange={handleChange}
-        >
+        <select name="status" value={form.status} onChange={handleChange}>
           <option value="DRAFT">Save as Draft</option>
           <option value="PUBLISHED">Publish</option>
         </select>
 
         <div className="modalActions">
-          <button className="cancelBtn" onClick={close}>
-            Cancel
-          </button>
+          {data && (
+            <button
+              type="button"
+              className="cancelBtn"
+              onClick={() => {
+                if (
+                  window.confirm("Are you sure you want to delete this event?")
+                ) {
+                  delete_news(newsData.id)
+                    .then((res) => {
+                      if (res?.status === 200 || res?.status === 204) {
+                        alert("news deleted successfully!");
+                        queryClient.invalidateQueries(["news"]);
+                        close();
+                      } else {
+                        throw new Error("Delete failed");
+                      }
+                    })
+                    .catch((e) => {
+                      console.error(e?.response?.data || e);
+                      alert("Failed to delete event. Please try again.");
+                    });
+                }
+              }}
+            >
+              Delete Event
+            </button>
+          )}
+          {!data && (
+            <button className="cancelBtn" onClick={close}>
+              Cancel
+            </button>
+          )}
+
           <button className="savesBtn" onClick={handleSubmit}>
             Save News
           </button>

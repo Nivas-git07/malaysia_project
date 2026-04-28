@@ -6,6 +6,7 @@ import { getnews } from "../../api/news_api";
 import { useQuery } from "@tanstack/react-query";
 import DateOnly from "../../hook/time/time";
 import { fetct_one_news } from "../../api/news_api";
+
 // const newsData = [
 //   {
 //     id: 1,
@@ -43,6 +44,7 @@ export default function News() {
     setEditData(null);
     setOpen(true);
   };
+
 
   /* EDIT */
   const handleEdit = (id) => {

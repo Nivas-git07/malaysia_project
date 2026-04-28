@@ -41,5 +41,5 @@ export const deletegallery = (id) => {
 };
 
 export const delete_news = (id) => {
-  return API.delete(`/super/delete-event-or-news/?news_id${id}`);
+  return API.delete(`/super/delete-event-or-news/?news_id=${id}`);
 };

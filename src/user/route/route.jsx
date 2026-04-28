@@ -21,7 +21,7 @@ import Membership from "../page/membership/membership";
 import Gallery from "../page/gallery/gallery";
 import Registermembershipsubmission from "../page/register/registermemsubmission";
 import Aboutpreview from "../../admin/previewtemplate/aboutpreview";
-
+import BestRecords from "../page/bestrecord/bestrecord";
 export default function Page() {
   const location = useLocation();
 
@@ -74,6 +74,7 @@ export default function Page() {
           <Route path="membershipsubmission" element={<PageWrapper><Registermembershipsubmission /></PageWrapper>} />
 
           <Route path="aboutpreview" element={<PageWrapper><Aboutpreview /></PageWrapper>} />
+          <Route path="bestrecords" element={<PageWrapper><BestRecords /></PageWrapper>} />
 
         </Routes>
       </AnimatePresence>
