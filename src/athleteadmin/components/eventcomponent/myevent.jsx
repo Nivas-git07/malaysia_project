@@ -1,104 +1,91 @@
 import React from "react";
-
-
-import { FaCalendarAlt, FaMapMarkerAlt, FaDownload } from "react-icons/fa";
-import { MdPending } from "react-icons/md";
-import { IoCheckmarkCircle, IoCloseCircle } from "react-icons/io5";
-
-const events = [
-  {
-    status: "approved",
-    title: "National Finswimming Championship 2024",
-    date: "October 15-17, 2024",
-    location: "Olympic Aquatic Center, Athens",
-  },
-  {
-    status: "pending",
-    title: "Mediterranean Open Invitational",
-    date: "November 05, 2024",
-    location: "Port Vell Aquatic Park, Barcelona",
-  },
-  {
-    status: "rejected",
-    title: "Elite Speed Finals - Series IV",
-    date: "September 12, 2024",
-    location: "National Stadium Pool, Valletta",
-  },
-  {
-    status: "approved",
-    title: "World Aquatics Qualifying Rounds",
-    date: "August 30, 2024",
-    location: "Sports Complex, Marseille",
-  },
-];
+import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { IoCheckmarkCircle } from "react-icons/io5";
+import { useQuery } from "@tanstack/react-query";
+import { get_all_register_events } from "../../api/event_api";
 
 export default function MyEvents() {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["allevents"],
+    queryFn: get_all_register_events,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
+  const events = data?.data || [];
+
+  if (isLoading) {
+    return <p style={{ padding: "20px" }}>Loading events...</p>;
+  }
+
+  if (isError) {
+    return <p style={{ padding: "20px" }}>Failed to load events ❌</p>;
+  }
+
+  if (!events.length) {
+    return (
+      <div className="myEventsContainer">
+        <h2>My Events</h2>
+        <p>No events found</p>
+      </div>
+    );
+  }
+
+  const getStatus = (date) => {
+    const today = new Date();
+    const eventDate = new Date(date);
+    return eventDate < today ? "completed" : "registered";
+  };
+
   return (
     <div className="myEventsContainer">
-
       <div className="myEventsHeader">
         <h2>My Events</h2>
         <p>Track your registered competitions and application statuses</p>
       </div>
 
       <div className="myEventsGrid">
-        {events.map((event, index) => (
-          <div className="eventBox" key={index}>
+        {events.map((event) => {
+          const status = getStatus(event.date);
 
-            {/* STATUS */}
-            <div className={`statusBadge ${event.status}`}>
-              {event.status === "approved" && <IoCheckmarkCircle />}
-              {event.status === "pending" && <MdPending />}
-              {event.status === "rejected" && <IoCloseCircle />}
-              {event.status.toUpperCase()}
-            </div>
+          return (
+            <div className="eventBox" key={event.id}>
+              <div className={`statusBadge ${status}`}>
+                <IoCheckmarkCircle />
+                {status.toUpperCase()}
+              </div>
 
-            {/* TITLE */}
-            <h3>{event.title}</h3>
+              <h3>{event.event_name}</h3>
 
-            {/* META */}
-            <div className="meta">
-              <FaCalendarAlt />
-              <span>{event.date}</span>
-            </div>
+              <div className="meta">
+                <FaCalendarAlt />
+                <span>{event.date}</span>
+              </div>
 
-            <div className="meta">
-              <FaMapMarkerAlt />
-              <span>{event.location}</span>
-            </div>
+              <div className="meta">
+                <FaMapMarkerAlt />
+                <span>{event.venue}</span>
+              </div>
 
-            <hr />
+              <hr />
 
-            {/* FOOTER */}
-            <div className="eventFooter">
-
-              {event.status === "approved" && (
-                <>
-                  <span className="successText">
-                    Approved for participation
+              <div className="eventFooter">
+                {status === "registered" && (
+                  <span className="pendingText">
+                    You are registered for this event
                   </span>
-                  <button className="downloadBtn">
-                    <FaDownload /> Download Pass
-                  </button>
-                </>
-              )}
+                )}
 
-              {event.status === "pending" && (
-                <span className="pendingText">Awaiting approval</span>
-              )}
-
-              {event.status === "rejected" && (
-                <>
-                  <span className="errorText">Application rejected</span>
-                  <button className="reasonBtn">View Reason</button>
-                </>
-              )}
-
+                {status === "completed" && (
+                  <span className="successText">
+                    Event completed
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
-
     </div>
   );
 }

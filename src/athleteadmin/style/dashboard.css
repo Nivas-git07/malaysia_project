@@ -26,34 +26,44 @@
   width: 100%;
   height: 260px;
   object-fit: cover;
+  transition: transform 0.5s ease;
   display: block;          /* 🔥 MUST */
   vertical-align: top;     /* extra safety */
 }
 
-/* OVERLAY */
+/* 🔥 Hover = zoom in */
+.athleteWelcomeCard:hover .athleteBannerImg {
+  transform: scale(1.08);
+}
+
+/* Smooth reset when mouse leaves */
+.athleteWelcomeCard:not(:hover) .athleteBannerImg {
+  transform: scale(1);
+}
 .athleteOverlay {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 20px;
-  color: white;
+  padding: 30px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  transition: background 0.4s ease;
+}
 
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.65),
-    rgba(0, 0, 0, 0)
-  );
+.athleteWelcomeCard:hover .athleteOverlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
 }
 
 /* TEXT */
 .athleteTitle {
   font-size: 28px;
   font-weight: 700;
+  color: white;
   margin-bottom: 5px;
 }
 
 .athleteSubtitle {
+    color: white;
   font-size: 14px;
   opacity: 0.9;
   line-height: 1.4;

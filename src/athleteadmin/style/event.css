@@ -42,8 +42,30 @@
   font-weight: 600;
   margin-bottom: 10px;
 }
+/* Base badge */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 20px;
+  width: fit-content;
+}
 
-.statusBadge.approved {
+/* 🟢 Registered */
+.statusBadge.registered {
+  background: #e6f9f0;
+  color: #0f9d58;
+}
+
+/* 🔵 Completed */
+.statusBadge.completed {
+  background: #e6f0ff;
+  color: #2563eb;
+}
+/* .statusBadge.approved {
   background: #eafaf1;
   color: #27ae60;
 }
@@ -56,7 +78,7 @@
 .statusBadge.rejected {
   background: #fdecea;
   color: #e74c3c;
-}
+} */
 
 /* TITLE */
 .eventBox h3 {

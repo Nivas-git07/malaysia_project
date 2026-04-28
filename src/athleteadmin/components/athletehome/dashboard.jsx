@@ -20,8 +20,16 @@ import React from "react";
 import photo from "../../assets/swim.png";
 import { FaCalendarAlt } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
+import { checksession } from "../../../admin/api/home_api";
 export default function AthleteHome() {
   const navigate = useNavigate();
+  const { data: sessiondata } = useQuery({
+    queryKey: ["checksession"],
+    queryFn: checksession,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+  const name = sessiondata?.data.full_name || "user";
   const { data: dashboardData } = useQuery({
     queryKey: ["dashboardData"],
     queryFn: get_dashboard_data,
@@ -29,9 +37,10 @@ export default function AthleteHome() {
     retry: false,
   });
   const dashboard = dashboardData?.data || {};
+  console.log(dashboard);
 
   const analytics = dashboard.analytics_data || {};
-  const participate_events =  [];
+  const participate_events = dashboard.participated_events || [];
   return (
     <div className="athleteDashboard">
       {/* TOP */}
@@ -40,7 +49,7 @@ export default function AthleteHome() {
         <div className="athleteWelcomeCard">
           <img src={banner} alt="swim" className="athleteBannerImg" />
           <div className="athleteOverlay">
-            <h1 className="athleteTitle">Welcome back, Sarah.</h1>
+            <h1 className="athleteTitle">Welcome back, {name}.</h1>
             <p className="athleteSubtitle">
               Your performance stats are up 12% this month. <br />
               You're currently ranked 4th in the Elite Division.
@@ -62,7 +71,7 @@ export default function AthleteHome() {
 
           <div
             className="athleteActionBtn"
-            onClick={() => navigate("/athlete/membership")}
+            onClick={() => navigate("/athlete/membership/status")}
           >
             <FaShieldAlt className="actionIcon" /> View Membership →
           </div>
@@ -121,7 +130,9 @@ export default function AthleteHome() {
         {/* HEADER */}
         <div className="eventsHeader">
           <h2>Recent Events</h2>
-          <span className="viewAll">View All Schedule</span>
+          <span className="viewAll" onClick={() => navigate("/athlete/events")}>
+            View All Schedule
+          </span>
         </div>
         {participate_events && participate_events.length > 0 ? (
           participate_events.map((event) => {
