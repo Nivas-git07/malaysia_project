@@ -31,7 +31,18 @@ export const leaveMembership = (id, target_state_id) => {
     target_state_id,
   });
 };
+export const leaveclubMembership = (id, target_club_id) => {
+  console.log(
+    "Leaving membership with ID:",
+    id,
+    "Target Club ID:",
+    target_club_id, 
+  );
 
+  return API.post(`/super/initiate-transfer/?membership_id=${id}`, {
+    target_club_id,
+  });
+};
 export const get_pending_requests = () => {
   return API.get("/super/get-pending-transfers/");
 };
@@ -46,4 +57,4 @@ export const get_accepted_transfers = () => {
 
 export const reject_target_transfer = (id) => {
   return API.post(`/super/release-membership/?transfer_id=${id}`);
-}
+};

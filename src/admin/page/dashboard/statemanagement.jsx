@@ -4,8 +4,17 @@ import Navbar from "../navbar/nav";
 // import "./StateManagement.css";
 import { state_register } from "../../api/auth_api";
 import { get_state } from "../../../user/api/auth";
+import { get_national_state } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
 export default function StateManagement() {
+  const { data } = useQuery({
+    queryKey: ["getnationalstate"],
+    queryFn: get_national_state,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+  const states = data?.data || [];
+  console.log(states);
   const [form, setForm] = useState({
     state_name: "",
     email: "",
@@ -22,32 +31,32 @@ export default function StateManagement() {
 
   const [showAlert, setShowAlert] = useState(false);
 
-  const [states, setStates] = useState([
-    {
-      id: 1,
-      name: "California Finswimming",
-      email: "cal@mfsa-admin.gov",
-      status: "ACTIVE",
-    },
-    {
-      id: 2,
-      name: "New South Wales State",
-      email: "nsw@finswim-mfsa.au",
-      status: "ACTIVE",
-    },
-    {
-      id: 3,
-      name: "Berlin Aquatic Division",
-      email: "berlin.rep@mfsa.de",
-      status: "INACTIVE",
-    },
-    {
-      id: 4,
-      name: "Tokyo Metropolitan",
-      email: "tokyo_fins@mfsa-org.jp",
-      status: "ACTIVE",
-    },
-  ]);
+  // const [states, setStates] = useState([
+  //   {
+  //     id: 1,
+  //     name: "California Finswimming",
+  //     email: "cal@mfsa-admin.gov",
+  //     status: "ACTIVE",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "New South Wales State",
+  //     email: "nsw@finswim-mfsa.au",
+  //     status: "ACTIVE",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Berlin Aquatic Division",
+  //     email: "berlin.rep@mfsa.de",
+  //     status: "INACTIVE",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Tokyo Metropolitan",
+  //     email: "tokyo_fins@mfsa-org.jp",
+  //     status: "ACTIVE",
+  //   },
+  // ]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -169,12 +178,14 @@ export default function StateManagement() {
 
               {states.map((item) => (
                 <div className="statetableRow" key={item.id}>
-                  <span className="stateName">{item.name}</span>
-                  <span>{item.email}</span>
+                  <span className="stateName">{item.state_name}</span>
+                  <span>{item.email_id}</span>
 
-                  <span className={`statusPill ${item.status.toLowerCase()}`}>
+                  <span
+                    className={`statusPill ${item.is_active ? "active" : "inactive"}`}
+                  >
                     <span className="statusDot"></span>
-                    {item.status}
+                    {item.is_active ? "Active" : "Inactive"}
                   </span>
 
                   <span className="control">

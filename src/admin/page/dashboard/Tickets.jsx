@@ -58,7 +58,7 @@ function Tickets() {
             {tickets.map((ticket) => (
               <div className="ticketItem" key={ticket.id}>
                 <div className="ticketInfo">
-                  <h4>{ticket.note}</h4>
+                  <h4>{ticket.message}</h4>
                   <p>{ticket.email_id} · 06 Aug 2025</p>
                 </div>
                 <span

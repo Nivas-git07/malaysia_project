@@ -2,19 +2,44 @@ import { useState } from "react";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { get_state } from "../../../../user/api/auth";
 import { useQuery } from "@tanstack/react-query";
-import { leaveMembership } from "../../../../admin/api/membership";
+import { leaveclubMembership} from "../../../../admin/api/membership";
 import AlertPopup from "../../../../user/hooks/popuptemplate";
+import { checksession } from "../../../../admin/api/home_api";
+import { getmembershipClubList } from "../../../../admin/api/home_api";
 export default function AthleteLeaveMembershipModal({ isOpen, onClose, id }) {
   const [selectedState, setSelectedState] = useState("");
   const [alert, setAlert] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  console.log(id)
   const { data: stateData } = useQuery({
     queryKey: ["states"],
     queryFn: get_state,
     refetchOnWindowFocus: false,
     retry: false,
   });
+  const { data: sessiondata } = useQuery({
+    queryKey: ["sessiondata"],
+    queryFn: checksession,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
+  const user = sessiondata?.data;
+  const state_id = user?.state_id;
+
+  // console.log("state_id:", state_id);
+
+  const { data: clubListData } = useQuery({
+    queryKey: ["get_club_list", state_id],
+    queryFn: () => getmembershipClubList(state_id),
+    refetchOnWindowFocus: false,
+    retry: false,
+    enabled: !!state_id,
+  });
+
+  // console.log(clubListData?.data.clubs_list);
+  const club = clubListData?.data.clubs_list;
 
   const states = stateData?.data || [];
 
@@ -31,12 +56,14 @@ export default function AthleteLeaveMembershipModal({ isOpen, onClose, id }) {
     try {
       setLoading(true);
 
-      const res = await leaveMembership(id, selectedState); // ⚠️ pass correct value
+      const res = await leaveclubMembership(id, selectedState); 
+
+      console.log("check membership status",res)
 
       if (res?.status === 200 || res?.status === 201) {
         // ✅ SUCCESS ALERT
         setAlert({
-          message: "Membership switched successfully 🎉",
+          message: "your transfer Membership initial process successfully 🎉",
           type: "success",
         });
 
@@ -98,17 +125,27 @@ export default function AthleteLeaveMembershipModal({ isOpen, onClose, id }) {
           </div>
 
           <div className="formGroup">
-            <label>Select New State *</label>
+            <label>Select New club *</label>
+
             <select
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value)}
+              disabled={!club || club.length === 0} 
             >
-              <option value="">Choose your state</option>
-              {states.map((s) => (
-                <option key={s.user} value={s.user}>
-                  {s.state_name}
-                </option>
-              ))}
+          
+              <option value="">
+                {club?.length > 0
+                  ? "Choose your club"
+                  : "No clubs found in this state"}
+              </option>
+
+             
+              {club?.length > 0 &&
+                club.map((s) => (
+                  <option key={s.user} value={s.user}>
+                    {s.club_name}
+                  </option>
+                ))}
             </select>
           </div>
 
