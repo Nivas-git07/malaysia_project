@@ -18,9 +18,9 @@ export default function UpcomingEvents({ event }) {
           transition={{ duration: 0.5 }}
         >
           <h2>Upcoming Events</h2>
-          <span className="mfsaEventX-view">
+          {/* <span className="mfsaEventX-view">
             View Calendar <FiArrowRight />
-          </span>
+          </span> */}
         </motion.div>
 
         {/* GRID */}
