@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import Navbar from "../navbar/nav";
-import { staff_register } from "../../api/auth_api";
-import { get_national_state } from "../../api/home_api";
+import { staff_register, get_staffs } from "../../api/auth_api";
+// import { get_national_state } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
 import SkeletonLoader from "../../components/common/SkeletonLoader";
 import ErrorState from "../../components/common/ErrorState";
@@ -10,18 +10,19 @@ import ErrorState from "../../components/common/ErrorState";
 export default function StaffManagement() {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["getStaffList"],
-    queryFn: get_national_state,
+    queryFn: get_staffs,
     refetchOnWindowFocus: false,
     retry: false,
   });
+  console.log(data?.data);
 
   const [form, setForm] = useState({
-    email_id: "",
+    staff_email_id: "",
     password: "",
   });
 
   const [errors, setErrors] = useState({
-    email_id: "",
+    staff_email_id: "",
     password: "",
   });
 
@@ -41,10 +42,10 @@ export default function StaffManagement() {
   const handleSubmit = () => {
     let newErrors = {};
 
-    if (!form.email_id) {
-      newErrors.email_id = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(form.email_id)) {
-      newErrors.email_id = "Enter a valid email";
+    if (!form.staff_email_id) {
+      newErrors.staff_email_id = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(form.staff_email_id)) {
+      newErrors.staff_email_id = "Enter a valid email";
     }
 
     if (!form.password) {
@@ -56,20 +57,20 @@ export default function StaffManagement() {
       return;
     }
 
-    state_register(form.email_id, form.password)
+    staff_register(form.staff_email_id, form.password)
       .then((res) => {
         alert("Staff registered successfully");
 
         const newStaff = {
           id: Date.now(),
-          email_id: form.email_id,
+          staff_email_id: form.staff_email_id,
           is_active: true,
         };
 
         setStaffs([newStaff, ...displayStaffs]);
 
         setForm({
-          email_id: "",
+          staff_email_id: "",
           password: "",
         });
 
@@ -139,13 +140,13 @@ export default function StaffManagement() {
               <div className="formGroup">
                 <label>Email ID</label>
                 <input
-                  name="email_id"
+                  name="staff_email_id"
                   placeholder="staff@mfsa.org"
-                  value={form.email_id}
+                  value={form.staff_email_id}
                   onChange={handleChange}
                 />
-                {errors.email_id && (
-                  <p className="errorText">{errors.email_id}</p>
+                {errors.staff_email_id && (
+                  <p className="errorText">{errors.staff_email_id}</p>
                 )}
               </div>
 
@@ -176,6 +177,7 @@ export default function StaffManagement() {
           <div className="card tableCard">
             <div className="statetable">
               <div className="statetableHead">
+                <span>STAFF NAME </span>
                 <span>EMAIL ID</span>
                 <span>STATUS</span>
                 <span>CONTROL</span>
@@ -183,7 +185,8 @@ export default function StaffManagement() {
 
               {displayStaffs.map((item) => (
                 <div className="statetableRow" key={item.id}>
-                  <span>{item.email_id}</span>
+                    <span>{item.staff_name || "-"}</span>
+                  <span>{item.staff_email_id}</span>
 
                   <span
                     className={`statusPill ${
