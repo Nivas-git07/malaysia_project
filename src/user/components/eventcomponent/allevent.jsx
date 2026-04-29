@@ -7,6 +7,9 @@ import { getallevents, getevents } from "../../api/event";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import SkeletonLoader from "../common/SkeletonLoader";
+import ErrorState from "../common/ErrorState";
+import EmptyState from "../common/EmptyState";
 
 export default function EventsPage() {
   const { stateId, clubId } = useParams();
@@ -86,21 +89,25 @@ export default function EventsPage() {
         </div>
 
         {/* LOADING / ERROR */}
-        {isLoading && <div className="mfsaEmptyState">Loading...</div>}
-        {isError && <div className="mfsaEmptyState">Failed to load events</div>}
+        {isLoading && <SkeletonLoader variant="card" count={6} />}
+        {isError && (
+          <ErrorState
+            title="Unable to load events"
+            message="Please check your network and retry."
+            onRetry={() => window.location.reload()}
+          />
+        )}
 
         {/* GRID VIEW */}
         {viewMode === "grid" && !isLoading && (
           <div className="eventsGrid">
             {filteredEvents.length === 0 ? (
-              <div className="mfsaEmptyState">
-                <div className="mfsaEmptyIcon">📅</div>
-                <h3>No Events Available</h3>
-                <p>No events found for selected filter.</p>
-                <button className="mfsaEmptyBtn" onClick={() => navigate("/")}>
-                  Back to Home
-                </button>
-              </div>
+              <EmptyState
+                title="No Events Available"
+                message="No events found for selected filter."
+                actionLabel="Back to Home"
+                onAction={() => navigate("/")}
+              />
             ) : (
               filteredEvents.map((event) => (
                 <div className="mfsaEventCardX" key={event.id}>

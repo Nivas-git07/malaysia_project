@@ -21,16 +21,20 @@ import photo from "../../assets/swim.png";
 import { FaCalendarAlt } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
 import { checksession } from "../../../admin/api/home_api";
+import SkeletonLoader from "../common/SkeletonLoader";
+import ErrorState from "../common/ErrorState";
+import { useAuth } from "../../../auth/AuthContext";
 export default function AthleteHome() {
   const navigate = useNavigate();
+  const { session } = useAuth();
   const { data: sessiondata } = useQuery({
-    queryKey: ["checksession"],
+    queryKey: ["checksession", session?.userId, session?.role],
     queryFn: checksession,
     refetchOnWindowFocus: false,
     retry: false,
   });
   const name = sessiondata?.data.full_name || "user";
-  const { data: dashboardData } = useQuery({
+  const { data: dashboardData, isLoading, isError } = useQuery({
     queryKey: ["dashboardData"],
     queryFn: get_dashboard_data,
     refetchOnWindowFocus: false,
@@ -41,6 +45,19 @@ export default function AthleteHome() {
 
   const analytics = dashboard.analytics_data || {};
   const participate_events = dashboard.participated_events || [];
+
+  if (isLoading) return <SkeletonLoader variant="card" count={4} />;
+
+  if (isError) {
+    return (
+      <ErrorState
+        title="Unable to load dashboard"
+        message="Please check your connection and try again."
+        onRetry={() => window.location.reload()}
+      />
+    );
+  }
+
   return (
     <div className="athleteDashboard">
       {/* TOP */}
@@ -159,20 +176,12 @@ export default function AthleteHome() {
             );
           })
         ) : (
-          <div className="emptyEventState">
-            <div className="emptyIcon">📅</div>
-
-            <h3>No Events Registered</h3>
-
-            <p>
-              You haven’t registered for any events yet. Start exploring
-              upcoming competitions and participate.
-            </p>
-
-            <button className="browseBtn" onClick={() => navigate("/event")}>
-              Browse Events
-            </button>
-          </div>
+          <EmptyState
+            title="No Events Registered"
+            message="You haven’t registered for any events yet. Explore upcoming competitions and participate."
+            actionLabel="Browse Events"
+            onAction={() => navigate("/event")}
+          />
         )}
       </div>
     </div>

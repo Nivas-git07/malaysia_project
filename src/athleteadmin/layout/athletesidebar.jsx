@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../user/assets/logo.jpg";
 import { logout } from "../../admin/api/auth_api";
+import { useAuth } from "../../auth/AuthContext";
 
 import { Home, User, Calendar, Ticket, LogOut, Menu } from "lucide-react";
+import "../style/sidebar.css";
 
 export default function AthleteSidebar() {
   const [open, setOpen] = useState(false);
+  const { logout: logoutSession } = useAuth();
 
   const closeSidebar = () => {
     setOpen(false);
@@ -19,6 +22,11 @@ export default function AthleteSidebar() {
       <div className="mobileToggle" onClick={() => setOpen(!open)}>
         <Menu size={22} />
       </div>
+
+      <div
+        className={`mfsaSidebarBackdrop ${open ? "open" : ""}`}
+        onClick={closeSidebar}
+      />
 
       <aside className={`sidebar ${open ? "show" : ""}`}>
         
@@ -56,9 +64,14 @@ export default function AthleteSidebar() {
         <NavLink
           to="/"
           className="logoutBar"
-          onClick={() => {
+          onClick={async () => {
             closeSidebar();
-            logout();
+            try {
+              await logout();
+            } catch (error) {
+              // Session cleanup must continue even if server logout fails
+            }
+            await logoutSession();
           }}
         >
           <LogOut size={18} />

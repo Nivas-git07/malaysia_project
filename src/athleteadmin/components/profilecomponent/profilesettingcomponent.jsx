@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { FaCamera, FaUserCircle } from "react-icons/fa";
 import { edit_profile } from "../../api/profile_api";
 import { get_profile } from "../../api/profile_api"; // make sure this exists
+import SkeletonLoader from "../common/SkeletonLoader";
+import ErrorState from "../common/ErrorState";
 
 export default function ProfileSettings() {
   const [previewImage, setPreviewImage] = useState(null);
@@ -17,7 +19,7 @@ export default function ProfileSettings() {
     profile_picture: null,
   });
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["profile"],
     queryFn: get_profile,
     refetchOnWindowFocus: false,
@@ -88,7 +90,16 @@ export default function ProfileSettings() {
   }
 };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <SkeletonLoader variant="card" count={2} />;
+
+  if (isError)
+    return (
+      <ErrorState
+        title="Unable to load profile"
+        message="Please check your connection and try again."
+        onRetry={() => refetch()}
+      />
+    );
 
   return (
     <div className="athleteProfile__page">

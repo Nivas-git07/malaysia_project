@@ -9,6 +9,9 @@ import new6 from "../../assets/event6.png";
 import { get_news, get_particular_news } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import SkeletonLoader from "../common/SkeletonLoader";
+import ErrorState from "../common/ErrorState";
+import EmptyState from "../common/EmptyState";
 
 export default function NewsDetailX() {
   const { stateId, clubId } = useParams();
@@ -29,16 +32,25 @@ export default function NewsDetailX() {
   const newsList = newsData?.data || [];
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <SkeletonLoader variant="card" count={4} />;
   }
 
-  if (isError || newsList.length === 0) {
+  if (isError) {
     return (
-      <div className="emptyState">
-        <div className="emptyIcon">📰</div>
-        <h3>No News Found</h3>
-        <p>No news articles are available at the moment.</p>
-      </div>
+      <ErrorState
+        title="Unable to load news"
+        message="Please check your network and try again."
+        onRetry={() => window.location.reload()}
+      />
+    );
+  }
+
+  if (newsList.length === 0) {
+    return (
+      <EmptyState
+        title="No News Found"
+        message="No news articles are available at the moment."
+      />
     );
   }
 

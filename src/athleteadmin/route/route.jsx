@@ -1,6 +1,6 @@
 import AthleteLayout from "../layout/athletelayout";
 import AthleteHome from "../page/Home/athletehome";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import AthleteEvent from "../page/event/athleteevent";
 import AthleteProfile from "../page/profile/athleteprofile";
 import AthleteMembership from "../page/membership/athletemembership";
@@ -8,92 +8,97 @@ import AthleteMembershipPayment from "../components/membership/memberpayment";
 import AthleteMembersipPurchaseCenter from "../components/membership/membershippurchase";
 import AthleteMembershipALLStatus from "../components/membership/membershipallstatus";
 import AthleteMembershipStatus from "../components/membership/membershipstatus";
+import { AnimatePresence } from "framer-motion";
+import PageWrapper from "../hooks/animateroute";
 
 function AthleteRoute() {
+  const location = useLocation();
+
   return (
-    <>
-      <Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
         <Route
           path="/dashboard"
           element={
-            <AthleteLayout>
-              <AthleteHome />
-            </AthleteLayout>
+            <PageWrapper>
+              <AthleteLayout>
+                <AthleteHome />
+              </AthleteLayout>
+            </PageWrapper>
           }
         />
-      </Routes>
-      <Routes>
         <Route
           path="/events"
           element={
-            <AthleteLayout>
-              <AthleteEvent />
-            </AthleteLayout>
+            <PageWrapper>
+              <AthleteLayout>
+                <AthleteEvent />
+              </AthleteLayout>
+            </PageWrapper>
           }
         />
-      </Routes>
-      <Routes>
         <Route
           path="/profile"
           element={
-            <AthleteLayout>
-              <AthleteProfile />
-            </AthleteLayout>
+            <PageWrapper>
+              <AthleteLayout>
+                <AthleteProfile />
+              </AthleteLayout>
+            </PageWrapper>
           }
         />
-      </Routes>
-      <Routes>
         <Route
           path="/membership/status"
           element={
-            <AthleteLayout>
-              <AthleteMembership />
-            </AthleteLayout>
+            <PageWrapper>
+              <AthleteLayout>
+                <AthleteMembership />
+              </AthleteLayout>
+            </PageWrapper>
           }
         />
-      </Routes>
-      <Routes>
         <Route
           path="/membership/status/payment/:planName"
           element={
-            <AthleteLayout>
-              <AthleteMembershipPayment />
-            </AthleteLayout>
+            <PageWrapper>
+              <AthleteLayout>
+                <AthleteMembershipPayment />
+              </AthleteLayout>
+            </PageWrapper>
           }
         />
-      </Routes>
-      <Routes>
         <Route
           path="/membership/all"
           element={
-            <AthleteLayout>
-              <AthleteMembershipALLStatus />
-            </AthleteLayout>
+            <PageWrapper>
+              <AthleteLayout>
+                <AthleteMembershipALLStatus />
+              </AthleteLayout>
+            </PageWrapper>
           }
         />
-      </Routes>
-
-      <Routes>
         <Route
           path="/membership/status/:id"
           element={
-            <AthleteLayout>
-              <AthleteMembershipStatus />
-            </AthleteLayout>
+            <PageWrapper>
+              <AthleteLayout>
+                <AthleteMembershipStatus />
+              </AthleteLayout>
+            </PageWrapper>
           }
         />
-      </Routes>
-      <Routes>
         <Route
           path="/membership/purchase"
           element={
-            <AthleteLayout>
-              <AthleteMembersipPurchaseCenter />
-            </AthleteLayout>
+            <PageWrapper>
+              <AthleteLayout>
+                <AthleteMembersipPurchaseCenter />
+              </AthleteLayout>
+            </PageWrapper>
           }
         />
       </Routes>
-    </>
+    </AnimatePresence>
   );
 }
 export default AthleteRoute;

@@ -1,4 +1,5 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import AdminLayout from "../page/AdminLayout/AdminLayout";
 import AdminLogin from "../page/login/AdminLogin";
 import Home from "../page/dashboard/Home";
@@ -23,12 +24,24 @@ import MembersipPurchase from "../page/membership/membershippurchase";
 import AdminMembershipPayment from "../page/membership/memberpayment";
 import MembershipALLStatus from "../page/membership/membershipallstatus";
 import StateManagement from "../page/dashboard/statemanagement";
+import PageWrapper from "../hooks/animateroute";
+import ProtectedRoute from "../../auth/ProtectedRoute";
 export default function AdminRoute() {
-  return (
-    <Routes>
-      <Route path="login" element={<AdminLogin />} />
+  const location = useLocation();
 
-      {/* <Route
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route
+          path="login"
+          element={
+            <PageWrapper>
+              <AdminLogin />
+            </PageWrapper>
+          }
+        />
+
+        {/* <Route
         path="/home"
         element={
           <AdminLayout>
@@ -36,15 +49,17 @@ export default function AdminRoute() {
           </AdminLayout>
         }
       /> */}
-      <Route
-        path="notification"
-        element={
-          <AdminLayout>
-            <AdminNotificationPage />
-          </AdminLayout>
-        }
-      />
-      {/* <Route
+        <Route
+          path="notification"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <AdminNotificationPage />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
+        {/* <Route
         path="/notification"
         element={
           <AdminLayout>
@@ -53,183 +68,228 @@ export default function AdminRoute() {
         }
       /> */}
 
-      <Route
-        path="athlete"
-        element={
-          <AdminLayout>
-            <Athlete />
-          </AdminLayout>
-        }
-      />
-      <Route
-        path="state-management"
-        element={
-          <AdminLayout>
-            <StateManagement />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="athlete"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <Athlete />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="state-management"
+          element={
+            <ProtectedRoute allowedRoles={["SUPERADMIN"]}>
+              <PageWrapper>
+                <AdminLayout>
+                  <StateManagement />
+                </AdminLayout>
+              </PageWrapper>
+            </ProtectedRoute>
+          }
+        />
 
-      <Route
-        path="calendar"
-        element={
-          <AdminLayout>
-            <Calendar />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="calendar"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <Calendar />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="tickets"
-        element={
-          <AdminLayout>
-            <Tickets />
-          </AdminLayout>
-        }
-      />
-      <Route
-        path="record"
-        element={
-          <AdminLayout>
-            <Record />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="tickets"
+          element={
+            <ProtectedRoute allowedRoles={["SUPERADMIN"]}>
+              <PageWrapper>
+                <AdminLayout>
+                  <Tickets />
+                </AdminLayout>
+              </PageWrapper>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="record"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <Record />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="report"
-        element={
-          <AdminLayout>
-            <Report />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="report"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <Report />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="gallery"
-        element={
-          <AdminLayout>
-            <Gallery />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="gallery"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <Gallery />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="news"
-        element={
-          <AdminLayout>
-            <News />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="news"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <News />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="membershipapproval"
-        element={
-          <AdminLayout>
-            <Manageuser />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="membershipapproval"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <Manageuser />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="membership/status"
-        element={
-          <AdminLayout>
-            <MembersipRenew />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="membership/status"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <MembersipRenew />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="membership/status/payment/:planName"
-        element={
-          <AdminLayout>
-            <AdminMembershipPayment />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="membership/status/payment/:planName"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <AdminMembershipPayment />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="membership/status/:id"
-        element={
-          <AdminLayout>
-            <MembershipStatus />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="membership/status/:id"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <MembershipStatus />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="membershipallstatus"
-        element={
-          <AdminLayout>
-            <MembershipALLStatus />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="membershipallstatus"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <MembershipALLStatus />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="membership/status/new"
-        element={
-          <AdminLayout>
-            <MembersipPurchase />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="membership/status/new"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <MembersipPurchase />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="settings"
-        element={
-          <AdminLayout>
-            <Settings />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="settings"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <Settings />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="home/state/:id"
-        element={
-          <AdminLayout>
-            <StateList />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="home/state/:id"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <StateList />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="home/club/:id"
-        element={
-          <AdminLayout>
-            <ClubList />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="home/club/:id"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <ClubList />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="athlete/:id"
-        element={
-          <AdminLayout>
-            <AthleteProfile />
-          </AdminLayout>
-        }
-      />
+        <Route
+          path="athlete/:id"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <AthleteProfile />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
 
-      <Route
-        path="about"
-        element={
-          <AdminLayout>
-            <About />
-          </AdminLayout>
-        }
-      />
-      <Route
-        path="home"
-        element={
-          <AdminLayout>
-            <Authenticate />
-          </AdminLayout>
-        }
-      />
-      {/* <Route path="*" element={<Navigate to="/login" />} /> */}
-    </Routes>
+        <Route
+          path="about"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <About />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="home"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <Authenticate />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
+        {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+      </Routes>
+    </AnimatePresence>
   );
 }

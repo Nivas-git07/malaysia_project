@@ -6,6 +6,7 @@ import { leaveclubMembership} from "../../../../admin/api/membership";
 import AlertPopup from "../../../../user/hooks/popuptemplate";
 import { checksession } from "../../../../admin/api/home_api";
 import { getmembershipClubList } from "../../../../admin/api/home_api";
+import "../../../../admin/style/dashboard/ManageUser.css";
 export default function AthleteLeaveMembershipModal({ isOpen, onClose, id }) {
   const [selectedState, setSelectedState] = useState("");
   const [alert, setAlert] = useState(null);

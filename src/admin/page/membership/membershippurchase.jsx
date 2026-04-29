@@ -10,9 +10,11 @@ import Navbar from "../navbar/nav";
 import { useNavigate } from "react-router-dom";
 import { checksession } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
 
 function MembersipPurchaseCenter() {
-  const { data } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["checkSession"],
     queryFn: checksession,
     refetchOnWindowFocus: false,
@@ -21,6 +23,32 @@ function MembersipPurchaseCenter() {
 
   const currentRole = data?.data?.role;
   console.log("Current Role from API:", currentRole);
+
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="card" count={3} />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load membership"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
+  }
 
   const membershipPlans = [
     {

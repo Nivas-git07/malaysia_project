@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import StateList from "./state";
 import { checksession } from "../../api/home_api";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
+import EmptyState from "../../components/common/EmptyState";
 export default function Home() {
 
   const { data: sessionData, isLoading: sessionLoading, error: sessionError } = useQuery({
@@ -47,7 +50,31 @@ export default function Home() {
   });
   console.log(data?.data.stats);
 
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="table" count={6} />
+        </div>
+      </>
+    );
+  }
 
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load state list"
+            message="Please check your connection and try again."
+            onRetry={() => window.location.reload()}
+          />
+        </div>
+      </>
+    );
+  }
 
   return (
 
@@ -109,41 +136,51 @@ export default function Home() {
           </div>
 
 
-          <div className="stateTable">
-            <div className="stateHead">
-              <div>State Name</div>
-              <div>Members</div>
-              <div>Club Count</div>
-              <div>Website</div>
-            </div>
-
-            {filteredData.map((club, i) => (
-              <div className="stateRow" key={i} onClick={() => navigate(`/admin/home/state/${club.user}`)}>
-                <div className="clubCell">
-                  <img src={logo} alt="logo" />
-
-                  {data?.data.states_list[i].state_name}
-                </div>
-
-                <div className="membersCell">
-                  <img src="https://i.pravatar.cc/40" />
-                  <img src="https://i.pravatar.cc/41" />
-                  <img src="https://i.pravatar.cc/42" />
-                  <span> + {data?.data.states_list[i].members_count} </span>
-                </div>
-
-                <div>{data?.data.states_list[i].clubs_count}</div>
-
-                <a
-                  href="https://www.georgetown.com"
-                  className="website"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  www.georgetown.com
-                </a>
+          <div className="mfsaTableScroll">
+            <div className="stateTable">
+              <div className="stateHead">
+                <div>State Name</div>
+                <div>Members</div>
+                <div>Club Count</div>
+                <div>Website</div>
               </div>
-            ))}
+
+              {filteredData.length === 0 ? (
+                <EmptyState title="No states found" message="Try adjusting your filters." />
+              ) : (
+                filteredData.map((club, i) => (
+                  <div
+                    className="stateRow"
+                    key={i}
+                    onClick={() => navigate(`/admin/home/state/${club.user}`)}
+                  >
+                    <div className="clubCell">
+                      <img src={logo} alt="logo" />
+                      {data?.data.states_list[i].state_name}
+                    </div>
+
+                    <div className="membersCell">
+                      <img src="https://i.pravatar.cc/40" />
+                      <img src="https://i.pravatar.cc/41" />
+                      <img src="https://i.pravatar.cc/42" />
+                      <span> + {data?.data.states_list[i].members_count} </span>
+                    </div>
+
+                    <div>{data?.data.states_list[i].clubs_count}</div>
+
+                    <a
+                      href="https://www.georgetown.com"
+                      className="website"
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      www.georgetown.com
+                    </a>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>

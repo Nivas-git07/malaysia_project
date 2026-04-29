@@ -5,10 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { checksession } from "../../api/home_api";
 import { HandleRenew } from "../../../athleteadmin/hook/renewcheck";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
 function MembershipALLStatus({ memberships }) {
   const navigate = useNavigate();
   console.log("Memberships Data:", memberships);
-  const { data } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["checkSession"],
     queryFn: checksession,
     refetchOnWindowFocus: false,
@@ -38,8 +40,29 @@ function MembershipALLStatus({ memberships }) {
     return Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
   };
 
-  // if (isLoading) return <p style={{ padding: 20 }}>Loading...</p>;
-  // if (isError) return <p style={{ padding: 20 }}>Error loading data</p>;
+  if (isLoading)
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="card" count={3} />
+        </div>
+      </>
+    );
+
+  if (isError)
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load session"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
 
   return (
     <>

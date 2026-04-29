@@ -23,15 +23,17 @@ import {
   Menu,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../../../auth/AuthContext";
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
+  const { logout: logoutSession, session } = useAuth();
 
   const closeSidebar = () => {
     setOpen(false);
   };
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["checkSession"],
+    queryKey: ["checkSession", session?.userId, session?.role],
     queryFn: get_check,
     refetchOnWindowFocus: false,
     retry: false,
@@ -45,6 +47,11 @@ export default function Sidebar() {
       <div className="mobileToggle" onClick={() => setOpen(!open)}>
         <Menu size={22} />
       </div>
+
+      <div
+        className={`mfsaSidebarBackdrop ${open ? "open" : ""}`}
+        onClick={closeSidebar}
+      />
 
       <aside className={`sidebar ${open ? "show" : ""}`}>
         <div className="sidebarTop">
@@ -169,9 +176,14 @@ export default function Sidebar() {
         <NavLink
           to="/"
           className="logoutBar"
-          onClick={() => {
+          onClick={async () => {
             closeSidebar();
-            logout();
+            try {
+              await logout();
+            } catch (error) {
+              // Session cleanup must continue even if server logout fails
+            }
+            await logoutSession();
           }}
         >
           <LogOut size={18} />

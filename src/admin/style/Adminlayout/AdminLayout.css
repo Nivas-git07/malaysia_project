@@ -5,6 +5,11 @@
   min-height:100vh;
 }
 
+/* Desktop-only sidebar wrapper (hidden on mobile) */
+.adminSidebarDesktop{
+  display:block;
+}
+
 /* ===== SIDEBAR ===== */
 
 .sidebar{
@@ -31,5 +36,80 @@
      width:calc(100% - 240px) !important;
   min-height:100vh !important;
   background:#f5f5f5 !important;
+  }
+}
+
+@media(max-width:768px){
+  .layout{
+    display:block;
+  }
+
+  .adminSidebarDesktop{
+    display:none;
+  }
+
+  .content{
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 16px;
+  }
+}
+
+/* ================= Mobile Topbar ================= */
+.adminMobileTopbar{
+  display:none;
+}
+
+@media (max-width:768px){
+  .adminMobileTopbar{
+    display:flex;
+    position:sticky;
+    top:0;
+    z-index:10050;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:10px 12px;
+    height:72px;
+    background:#f3f3f3;
+    border-bottom:1px solid rgba(0,0,0,0.06);
+  }
+
+  .adminMobileMenuBtn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:44px;
+    height:44px;
+    border:none;
+    border-radius:10px;
+    background:#c10000;
+    color:#fff;
+    cursor:pointer;
+  }
+
+  .adminMobileTopbarTitle{
+    flex:1;
+    text-align:center;
+    font-weight:800;
+    color:#c10000;
+    letter-spacing:0.4px;
+  }
+
+  .adminMobileProfileBtn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:44px;
+    height:44px;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    color:#333;
+  }
+
+  /* Hide each page's desktop navbar on mobile shell */
+  .content .navbar{
+    display:none;
   }
 }

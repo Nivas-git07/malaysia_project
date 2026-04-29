@@ -7,6 +7,8 @@ import { useState } from "react";
 import { leaveMembership } from "../../api/membership";
 import { checksession } from "../../api/home_api";
 import { HandleRenew } from "../../../athleteadmin/hook/renewcheck";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
 function MembershipStatus() {
   const { data:seesiondata } = useQuery({
     queryKey: ["checkSession"],
@@ -18,7 +20,7 @@ function MembershipStatus() {
   console.log("Current Role from API:", currentRole);
   const { id } = useParams();
   const [showLeaveModal, setShowLeaveModal] = useState(false);
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["membership-details", id],
     queryFn: () => getmebershipdetails(id),
   });
@@ -77,8 +79,29 @@ function MembershipStatus() {
 
   /* ================= STATES ================= */
 
-  if (isLoading) return <p style={{ padding: 20 }}>Loading...</p>;
-  if (isError) return <p style={{ padding: 20 }}>Error loading data</p>;
+  if (isLoading)
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="card" count={2} />
+        </div>
+      </>
+    );
+
+  if (isError)
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load membership"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
 
   return (
     <>

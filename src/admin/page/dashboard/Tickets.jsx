@@ -3,8 +3,11 @@ import Navbar from "../navbar/nav";
 import "../../style/dashboard/Tickets.css";
 import { getTickets } from "../../api/ticket";
 import { useQuery } from "@tanstack/react-query";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
+import EmptyState from "../../components/common/EmptyState";
 function Tickets() {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["tickets"],
     queryFn: getTickets,
     refetchOnWindowFocus: false,
@@ -15,6 +18,30 @@ function Tickets() {
   const tickets = data?.data.data || [];
 
   console.log("Tickets:", tickets);
+  if (isLoading)
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="card" count={4} />
+        </div>
+      </>
+    );
+
+  if (error)
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load tickets"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
+
   return (
     <>
       <Navbar />
@@ -55,35 +82,34 @@ function Tickets() {
 
           {/* ===== TICKET LIST ===== */}
           <div className="ticketList">
-            {tickets.map((ticket) => (
-              <div className="ticketItem" key={ticket.id}>
-                <div className="ticketInfo">
-                  <h4>{ticket.message}</h4>
-                  <p>{ticket.email_id} · 06 Aug 2025</p>
+            {tickets.length === 0 ? (
+              <EmptyState
+                title="No tickets found"
+                message="There are no support tickets to display right now."
+                actionLabel="Retry"
+                onAction={() => refetch()}
+              />
+            ) : (
+              tickets.map((ticket) => (
+                <div className="ticketItem" key={ticket.id}>
+                  <div className="ticketInfo">
+                    <h4>{ticket.message}</h4>
+                    <p>{ticket.email_id} · 06 Aug 2025</p>
+                  </div>
+                  <span
+                    className={`status ${
+                      ticket.status === "Resolved"
+                        ? "resolvedGreen"
+                        : ticket.status === "In Progress"
+                          ? "inProgressYellow"
+                          : "pendingRed"
+                    }`}
+                  >
+                    • Pending
+                  </span>
                 </div>
-                <span
-                  className={`status ${ticket.status === "Resolved" ? "resolvedGreen" : ticket.status === "In Progress" ? "inProgressYellow" : "pendingRed"}`}
-                >
-                  • Pending
-                </span>
-              </div>
-            ))}
-
-            {/* <div className="ticketItem">
-              <div className="ticketInfo">
-                <h4>Cannot Upload Profile Photo</h4>
-                <p>maya@example.com · 06 Aug 2025</p>
-              </div>
-              <span className="status pendingRed">• Pending</span>
-            </div>
-
-            <div className="ticketItem">
-              <div className="ticketInfo">
-                <h4>Payment Receipt Not Verified</h4>
-                <p>maya@example.com · 06 Aug 2025</p>
-              </div>
-              <span className="status pendingGreen">• Pending</span>
-            </div> */}
+              ))
+            )}
           </div>
         </div>
       </div>

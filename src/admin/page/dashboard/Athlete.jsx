@@ -5,6 +5,9 @@ import { getAthletes } from "../../api/athlete_api";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
+import EmptyState from "../../components/common/EmptyState";
 // const data = [
 //   {
 //     country: "UAE",
@@ -82,6 +85,32 @@ const filteredData = data.filter((item) => {
   );
 });
 
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="table" count={8} />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load athletes"
+            message="Please check your connection and try again."
+            onRetry={() => window.location.reload()}
+          />
+        </div>
+      </>
+    );
+  }
+
 
   return (
     <>
@@ -121,53 +150,63 @@ const filteredData = data.filter((item) => {
           </div>
 
           {/* ===== TABLE ===== */}
-          <div className="athleteTable">
-            <div className="athleteHeads">
-              <div>Country</div>
-              <div>Athelete</div>
-              <div>Gender</div>
-              <div>DOB</div>
-              <div>Discipline</div>
-              <div>view more</div>
-            </div>
-
-            {filteredData.map((item, i) => (
-              <div className="athleteRows" key={i}>
-                <div className="country">
-                  <div className="country">
-                    {item.state}
-                  </div>
-                </div>
-
-                <div className="athleteInfo">
-                  <img src="https://i.pravatar.cc/60" alt="" />
-                  <div>
-                    <span className="athleteName">{item.full_name}</span>
-                    <p>IND</p>
-                  </div>
-                </div>
-
-                <div>{item.gender}</div>
-                <div>{item.date_of_birth}</div>
-                <div>{item.discipline}</div>
-
-                <div className="viewProfile" onClick={() => navigate(`/athlete/${item.id}`)}>
-                  View Profile
-                </div>
+          <div className="mfsaTableScroll">
+            <div className="athleteTable">
+              <div className="athleteHeads">
+                <div>Country</div>
+                <div>Athelete</div>
+                <div>Gender</div>
+                <div>DOB</div>
+                <div>Discipline</div>
+                <div>view more</div>
               </div>
-            ))}
 
-            {/* FOOTER */}
-            <div className="tableFooter">
-              <span>Showing 1 to 5 of 100 entries</span>
-              <div className="pagination">
-                <button>{"<"}</button>
-                <button className="active">1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>25</button>
-                <button>{">"}</button>
+              {filteredData.length === 0 ? (
+                <EmptyState
+                  title="No athletes found"
+                  message="Try adjusting your filters."
+                />
+              ) : (
+                filteredData.map((item, i) => (
+                  <div className="athleteRows" key={i}>
+                    <div className="country">
+                      <div className="country">{item.state}</div>
+                    </div>
+
+                    <div className="athleteInfo">
+                      <img src="https://i.pravatar.cc/60" alt="" />
+                      <div>
+                        <span className="athleteName">{item.full_name}</span>
+                        <p>IND</p>
+                      </div>
+                    </div>
+
+                    <div>{item.gender}</div>
+                    <div>{item.date_of_birth}</div>
+                    <div>{item.discipline}</div>
+
+                    <div
+                      className="viewProfile"
+                      onClick={() => navigate(`/athlete/${item.id}`)}
+                    >
+                      View Profile
+                    </div>
+                  </div>
+                ))
+              )}
+
+              {/* FOOTER */}
+              <div className="tableFooter">
+                <span>Showing 1 to 5 of 100 entries</span>
+                <div className="pagination">
+                  <button>{"<"}</button>
+                  <button className="active">1</button>
+                  <button>2</button>
+                  <button>3</button>
+                  <button>4</button>
+                  <button>25</button>
+                  <button>{">"}</button>
+                </div>
               </div>
             </div>
           </div>

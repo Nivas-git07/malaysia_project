@@ -5,10 +5,10 @@ import bg from "../../assets/background.png";
 import { FaRegEye } from "react-icons/fa";
 import { adminLogin } from "../../api/auth_api";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Authenticate from "../authenticate/authenticate";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../../auth/AuthContext";
 export default function AdminLogin() {
-  const navigate = useNavigate();
+  const { loginWithPayload, isAuthenticated, isLoading, role } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,11 +16,19 @@ export default function AdminLogin() {
     try {
       const response = await adminLogin(email, password);
       console.log("Login successful:", response.data);
-      navigate("/admin/home");
+      await loginWithPayload(response.data);
     } catch (error) {
       console.error("Login failed:", error);
     }
   };
+  if (isLoading) {
+    return <div className="adminWrapper">Checking session...</div>;
+  }
+  if (isAuthenticated) {
+    const to = role === "ATHLETE" ? "/athlete/dashboard" : "/admin/home";
+    return <Navigate to={to} replace />;
+  }
+
   return (
     <div className="adminWrapper">
       <div className="bgLayer" style={{ backgroundImage: `url(${bg})` }}></div>

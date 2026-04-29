@@ -4,13 +4,15 @@ import StateList from "../dashboard/state";
 import { useNavigate } from "react-router-dom";
 import Home from "../dashboard/Home";
 import ClubList from "../dashboard/club";
+import { useAuth } from "../../../auth/AuthContext";
 export default function Authenticate() {
+  const { session } = useAuth();
   const {
     data: sessionData,
     isLoading: sessionLoading,
     error: sessionError,
   } = useQuery({
-    queryKey: ["checkSession"],
+    queryKey: ["checkSession", session?.userId, session?.role],
     queryFn: checksession,
     refetchOnWindowFocus: false,
     retry: false,

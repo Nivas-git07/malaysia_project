@@ -6,20 +6,54 @@ import { state_register } from "../../api/auth_api";
 import { get_state } from "../../../user/api/auth";
 import { get_national_state } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
 export default function StateManagement() {
-  const { data } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["getnationalstate"],
     queryFn: get_national_state,
     refetchOnWindowFocus: false,
     retry: false,
   });
-  const states = data?.data || [];
-  console.log(states);
+
+  // Move all hooks to the top, before any conditional returns
   const [form, setForm] = useState({
     state_name: "",
     email: "",
     password: "",
   });
+
+  const [showAlert, setShowAlert] = useState(false);
+
+  // Conditional returns must happen AFTER all hooks are called
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="card" count={3} />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load state list"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
+  }
+
+  const states = data?.data || [];
+  console.log(states);
   // const { data } = useQuery({
   //   querykey: ["get-state-data"],
   //   queryFn: get_state(),
@@ -28,8 +62,6 @@ export default function StateManagement() {
   // });
   // const states = data?.data || [];
   // console.log(s)
-
-  const [showAlert, setShowAlert] = useState(false);
 
   // const [states, setStates] = useState([
   //   {

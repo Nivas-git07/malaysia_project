@@ -14,6 +14,7 @@ export default function Footer() {
           </div>
 
           <div className="footBrandInfo">
+            <h4 className="footBrandTitle">MFSA — User</h4>
             <div className="footSocial">
               <FaFacebookF />
               <FaInstagram
@@ -36,8 +37,9 @@ export default function Footer() {
         </div>
 
         <div className="footCol">
-          <h4>Explore</h4>
+          <h4>Navigation</h4>
           <ul>
+            <li onClick={() => navigate("/")}>Home</li>
             <li
               onClick={() => {
                 navigate("/about");

@@ -1,6 +1,7 @@
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { raise_tiket } from "../../api/home_api";
 import { useState } from "react";
+import SpinnerLoader from "../common/SpinnerLoader";
 export default function ContactX() {
   const [formData, setFormData] = useState({
     full_name: "",
@@ -8,21 +9,36 @@ export default function ContactX() {
     subject: "",
     message: "",
   });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
+  };
+
+  const validate = () => {
+    const nextErrors = {};
+    if (!formData.full_name.trim()) nextErrors.full_name = "Full name is required";
+    if (!formData.email_id.trim()) nextErrors.email_id = "Email is required";
+    if (!formData.message.trim()) nextErrors.message = "Message is required";
+    return nextErrors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.full_name || !formData.email_id || !formData.message) {
-      alert("Please fill all required fields");
+    const nextErrors = validate();
+    if (Object.keys(nextErrors).length > 0) {
+      setErrors(nextErrors);
       return;
     }
+    setIsSubmitting(true);
+    setSubmitMessage("");
 
     raise_tiket(formData)
       .then((res) => {
-        alert("Message sent successfully!");
+        setSubmitMessage("Message sent successfully.");
         setFormData({
           full_name: "",
           email_id: "",
@@ -31,7 +47,10 @@ export default function ContactX() {
         });
       })
       .catch((err) => {
-        alert("Failed to send message. Please try again.");
+        setSubmitMessage("Failed to send message. Please try again.");
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
   };
 
@@ -93,7 +112,9 @@ export default function ContactX() {
                   name="full_name"
                   value={formData.full_name}
                   onChange={handleChange}
+                  className={errors.full_name ? "mfsaInputError" : ""}
                 />
+                {errors.full_name && <small className="errorText">{errors.full_name}</small>}
               </div>
 
               <div className="mfsaContactX-field">
@@ -104,7 +125,9 @@ export default function ContactX() {
                   placeholder="john@example.com"
                   value={formData.email_id}
                   onChange={handleChange}
+                  className={errors.email_id ? "mfsaInputError" : ""}
                 />
+                {errors.email_id && <small className="errorText">{errors.email_id}</small>}
               </div>
             </div>
 
@@ -126,10 +149,15 @@ export default function ContactX() {
                 placeholder="Your message here..."
                 value={formData.message}
                 onChange={handleChange}
+                className={errors.message ? "mfsaInputError" : ""}
               ></textarea>
+              {errors.message && <small className="errorText">{errors.message}</small>}
             </div>
 
-            <button className="mfsaContactX-btn">Send Message</button>
+            <button className="mfsaContactX-btn" disabled={isSubmitting}>
+              {isSubmitting ? <SpinnerLoader label="Sending..." /> : "Send Message"}
+            </button>
+            {submitMessage && <div className="noDataBox">{submitMessage}</div>}
           </form>
         </div>
       </div>

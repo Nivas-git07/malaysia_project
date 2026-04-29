@@ -3,13 +3,43 @@ import Navbar from "../navbar/nav";
 import "../../style/dashboard/Report.css";
 import { geteventRecords } from "../../api/record";
 import { useQuery } from "@tanstack/react-query";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
 function Report() {
-  const { data: eventRecords } = useQuery({
+  const { data: eventRecords, isLoading, error, refetch } = useQuery({
     queryKey: ["eventRecords"],
     queryFn: geteventRecords,
+    retry: false,
   });
 
   console.log("Event Records:", eventRecords);
+
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="table" count={4} />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load report data"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />

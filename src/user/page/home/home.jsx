@@ -10,6 +10,8 @@ import StateNetworkX from "../../components/homecomponent/assosiationstate";
 import { useQuery } from "@tanstack/react-query";
 import { get_home } from "../../api/home_api";
 import { useNavigate } from "react-router-dom";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -33,7 +35,9 @@ export default function Home() {
   if (isLoading && !homeData) {
     return (
       <div className="home-page">
-        <div className="mfsaEmptyState">Loading Home...</div>
+        <div className="mfsaPageLoaderShell">
+          <SkeletonLoader variant="card" count={3} />
+        </div>
       </div>
     );
   }
@@ -41,7 +45,10 @@ export default function Home() {
   if (isError) {
     return (
       <div className="home-page">
-        <div className="mfsaEmptyState">Failed to load data</div>
+        <ErrorState
+          title="Unable to load home page"
+          message="Please check your connection and try again."
+        />
       </div>
     );
   }

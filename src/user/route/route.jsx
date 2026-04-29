@@ -22,6 +22,7 @@ import Gallery from "../page/gallery/gallery";
 import Registermembershipsubmission from "../page/register/registermemsubmission";
 import Aboutpreview from "../../admin/previewtemplate/aboutpreview";
 import BestRecords from "../page/bestrecord/bestrecord";
+import Unauthorized from "../components/unauthorize/unauthorized";
 export default function Page() {
   const location = useLocation();
 
@@ -75,6 +76,7 @@ export default function Page() {
 
           <Route path="aboutpreview" element={<PageWrapper><Aboutpreview /></PageWrapper>} />
           <Route path="bestrecords" element={<PageWrapper><BestRecords /></PageWrapper>} />
+          <Route path="unauthorized" element={<PageWrapper><Unauthorized /></PageWrapper>} />
 
         </Routes>
       </AnimatePresence>

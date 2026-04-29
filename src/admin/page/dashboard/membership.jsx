@@ -11,6 +11,8 @@ import {
 import MembershipPopup from "../../components/membershippopup";
 import PendingPopup from "../../components/transfermembership";
 import AcceptedPopup from "../../components/acceptmembership";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
 function ManageUser() {
   const [Filter, setFilter] = useState({
     plan: "",
@@ -121,8 +123,29 @@ function ManageUser() {
       .catch((err) => console.error(err));
   };
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading data</p>;
+  if (isLoading)
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="card" count={3} />
+        </div>
+      </>
+    );
+
+  if (error)
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load memberships"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
 
   return (
     <>
