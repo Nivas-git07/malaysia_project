@@ -10,7 +10,6 @@ import { PiNotePencilBold } from "react-icons/pi";
 import { GrGallery } from "react-icons/gr";
 import { BiCommentDetail } from "react-icons/bi";
 import { TbCreditCardRefund } from "react-icons/tb";
-import { get_check } from "../../../user/api/home_api";
 import {
   Home,
   User,
@@ -22,24 +21,14 @@ import {
   LogOut,
   Menu,
 } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../../../auth/AuthContext";
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
-  const { logout: logoutSession, session } = useAuth();
+  const { logout: logoutSession, role } = useAuth();
 
   const closeSidebar = () => {
     setOpen(false);
   };
-
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["checkSession", session?.userId, session?.role],
-    queryFn: get_check,
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
-
-  const checkdata = data?.data.role;
 
   return (
     <>
@@ -74,7 +63,7 @@ export default function Sidebar() {
             <User size={20} />
             <span>Athlete</span>
           </NavLink>
-          {checkdata === "SUPERADMIN" && (
+          {role === "SUPERADMIN" && (
             <NavLink
               to="/admin/state-management"
               className="menuItem"
@@ -101,7 +90,7 @@ export default function Sidebar() {
             <FaAddressCard size={20} />
             <span>membership Approval</span>
           </NavLink>
-          {checkdata !== "SUPERADMIN" && (
+          {role !== "SUPERADMIN" && (
             <NavLink
               to="/admin/membership/status"
               className="menuItem"
@@ -111,7 +100,7 @@ export default function Sidebar() {
               <span>membership Status</span>
             </NavLink>
           )}
-          {checkdata === "SUPERADMIN" && (
+          {role === "SUPERADMIN" && (
             <NavLink
               to="/admin/tickets"
               className="menuItem"

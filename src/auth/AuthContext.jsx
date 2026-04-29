@@ -13,17 +13,19 @@ import {
   AUTH_EVENTS,
   buildSessionFromAuthPayload,
   clearStoredSession,
-  readStoredSession,
-  writeStoredSession,
 } from "./session";
 
 const AuthContext = createContext(null);
 
-function normalizeSessionPayload(responseData, fallbackToken) {
-  const payload = responseData?.data ?? responseData ?? {};
+function normalizeSessionPayload(responseData) {
+  const payload =
+    responseData?.data?.data ??
+    responseData?.data ??
+    responseData?.user ??
+    responseData ??
+    {};
   return buildSessionFromAuthPayload({
     ...payload,
-    token: payload?.token ?? fallbackToken ?? null,
   });
 }
 
@@ -42,10 +44,14 @@ export function AuthProvider({ children }) {
 
   const loginWithPayload = useCallback(
     async (payload) => {
-      const nextSession = buildSessionFromAuthPayload(payload);
+      const nextSession = normalizeSessionPayload(payload);
+      if (!nextSession?.role) {
+        setSession(null);
+        setIsLoading(false);
+        return;
+      }
       await clearClientSession();
       setSession(nextSession);
-      writeStoredSession(nextSession);
       setIsLoading(false);
       await queryClient.invalidateQueries();
     },
@@ -58,26 +64,22 @@ export function AuthProvider({ children }) {
   }, [clearClientSession]);
 
   const checkSession = useCallback(async () => {
-    const storedSession = readStoredSession();
-    const token = storedSession?.token;
-
-    if (!token) {
-      setSession(null);
-      setIsLoading(false);
-      return;
-    }
-
+    setIsLoading(true);
     try {
       const response = await get_check();
-      const restored = normalizeSessionPayload(response?.data, token);
-      if (!restored?.token || !restored?.role) {
+      const status = response?.data?.status;
+      if (status && status !== "success") {
+        setSession(null);
+        return;
+      }
+      const restored = normalizeSessionPayload(response?.data);
+      if (!restored?.role) {
         await clearClientSession();
         return;
       }
       setSession(restored);
-      writeStoredSession(restored);
     } catch (error) {
-      await clearClientSession();
+      setSession(null);
     } finally {
       setIsLoading(false);
     }
@@ -104,7 +106,6 @@ export function AuthProvider({ children }) {
     () => ({
       user: session?.user ?? null,
       role: session?.role ?? null,
-      token: session?.token ?? null,
       session,
       isLoading,
       isAuthenticated: Boolean(session?.role),

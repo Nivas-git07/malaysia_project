@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import AdminLayout from "../page/AdminLayout/AdminLayout";
-import AdminLogin from "../page/login/AdminLogin";
 import Home from "../page/dashboard/Home";
 import Athlete from "../page/dashboard/Athlete";
 import Calendar from "../page/dashboard/Calendar";
@@ -32,15 +31,6 @@ export default function AdminRoute() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route
-          path="login"
-          element={
-            <PageWrapper>
-              <AdminLogin />
-            </PageWrapper>
-          }
-        />
-
         {/* <Route
         path="/home"
         element={
@@ -288,7 +278,7 @@ export default function AdminRoute() {
             </PageWrapper>
           }
         />
-        {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+        <Route path="*" element={<Navigate to="/admin/home" replace />} />
       </Routes>
     </AnimatePresence>
   );

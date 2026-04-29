@@ -20,20 +20,13 @@ import React from "react";
 import photo from "../../assets/swim.png";
 import { FaCalendarAlt } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
-import { checksession } from "../../../admin/api/home_api";
 import SkeletonLoader from "../common/SkeletonLoader";
 import ErrorState from "../common/ErrorState";
 import { useAuth } from "../../../auth/AuthContext";
 export default function AthleteHome() {
   const navigate = useNavigate();
-  const { session } = useAuth();
-  const { data: sessiondata } = useQuery({
-    queryKey: ["checksession", session?.userId, session?.role],
-    queryFn: checksession,
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
-  const name = sessiondata?.data.full_name || "user";
+  const { user } = useAuth();
+  const name = user?.full_name || user?.name || "user";
   const { data: dashboardData, isLoading, isError } = useQuery({
     queryKey: ["dashboardData"],
     queryFn: get_dashboard_data,

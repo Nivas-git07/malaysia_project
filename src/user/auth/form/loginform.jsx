@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
-import { adminLogin } from "../../../admin/api/auth_api";
+import { Navigate, useNavigate } from "react-router-dom";
+import { login_user } from "../../../user/api/auth";
 import { useAuth } from "../../../auth/AuthContext";
 
 export default function MemberLogin() {
   const { loginWithPayload, isAuthenticated, isLoading, role } = useAuth();
+  const navigate = useNavigate();
+
+  const getRedirectPath = (userRole) =>
+    userRole === "ATHLETE" ? "/athlete/dashboard" : "/admin/home";
 
   const [formdata, setFormdata] = useState({
     email: "",
@@ -36,10 +40,13 @@ export default function MemberLogin() {
     try {
       setLoading(true);
 
-      const response = await adminLogin(formdata.email, formdata.password);
+      const response = await login_user(undefined, formdata.email, formdata.password);
 
       console.log("Login successful:", response.data);
       await loginWithPayload(response.data);
+
+      const userRole = response.data?.role ?? response.data?.data?.role ?? role;
+      navigate(getRedirectPath(userRole), { replace: true });
     } catch (error) {
       console.error("Login failed:", error);
 

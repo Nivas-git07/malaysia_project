@@ -6,7 +6,6 @@ import "./athleteadmin/style/route.css";
 import App from "./App";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "./auth/AuthContext";
-import { getAuthScope } from "./auth/session";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,8 +18,6 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       // Retry once on network/server hiccups
       retry: 1,
-      // Isolate cache by active authenticated identity
-      queryKeyHashFn: (queryKey) => JSON.stringify([getAuthScope(), queryKey]),
     },
   },
 });

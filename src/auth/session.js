@@ -7,48 +7,30 @@ export const AUTH_EVENTS = {
 };
 
 export function readStoredSession() {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  try {
-    const raw = window.localStorage.getItem(AUTH_STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === "object" ? parsed : null;
-  } catch (error) {
-    return null;
-  }
+  return null;
 }
 
 export function writeStoredSession(session) {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  window.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
+  // Backend cookie session is the source of truth.
+  return session;
 }
 
 export function clearStoredSession() {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  AUTH_RELATED_KEYS.forEach((key) => {
-    window.localStorage.removeItem(key);
-    window.sessionStorage.removeItem(key);
-  });
+  // No client-side auth storage to clear.
+  return AUTH_RELATED_KEYS;
 }
 
 export function getAuthScope() {
-  const session = readStoredSession();
-  const role = session?.role || "guest";
-  const userId = session?.userId || "anonymous";
-  return `${role}:${userId}`;
+  return "cookie-session";
 }
 
 export function buildSessionFromAuthPayload(payload = {}) {
-  const role = payload?.role || null;
+  const role =
+    payload?.role ??
+    payload?.user?.role ??
+    payload?.user_data?.role ??
+    payload?.account?.role ??
+    null;
   const userId =
     payload?.userId ??
     payload?.user_id ??
@@ -56,14 +38,10 @@ export function buildSessionFromAuthPayload(payload = {}) {
     payload?.user?.id ??
     payload?.user?.user_id ??
     null;
-  const token =
-    payload?.token ??
-    payload?.accessToken ??
-    payload?.access_token ??
-    payload?.jwt ??
-    null;
   const user =
     payload?.user ??
+    payload?.user_data ??
+    payload?.account ??
     {
       id: userId,
       role,
@@ -75,6 +53,5 @@ export function buildSessionFromAuthPayload(payload = {}) {
     user,
     role,
     userId,
-    token,
   };
 }

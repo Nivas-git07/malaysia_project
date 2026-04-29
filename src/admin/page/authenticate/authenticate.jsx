@@ -1,25 +1,9 @@
-import { checksession } from "../../api/home_api";
-import { useQuery } from "@tanstack/react-query";
 import StateList from "../dashboard/state";
-import { useNavigate } from "react-router-dom";
 import Home from "../dashboard/Home";
 import ClubList from "../dashboard/club";
 import { useAuth } from "../../../auth/AuthContext";
 export default function Authenticate() {
-  const { session } = useAuth();
-  const {
-    data: sessionData,
-    isLoading: sessionLoading,
-    error: sessionError,
-  } = useQuery({
-    queryKey: ["checkSession", session?.userId, session?.role],
-    queryFn: checksession,
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
-  console.log("Session Data:", sessionData?.data, sessionLoading, sessionError);
-  const role = sessionData?.data.role || "Unknown";
-  console.log("User Role:", role);
+  const { role } = useAuth();
   if (role === "SUPERADMIN") {
     return <Home />;
   } else if (role === "STATE") {
