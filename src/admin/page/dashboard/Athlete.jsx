@@ -153,7 +153,7 @@ const filteredData = data.filter((item) => {
           <div className="mfsaTableScroll">
             <div className="athleteTable">
               <div className="athleteHeads">
-                <div>Country</div>
+                <div>state name</div>
                 <div>Athelete</div>
                 <div>Gender</div>
                 <div>DOB</div>
@@ -170,11 +170,11 @@ const filteredData = data.filter((item) => {
                 filteredData.map((item, i) => (
                   <div className="athleteRows" key={i}>
                     <div className="country">
-                      <div className="country">{item.state}</div>
+                      <div className="country">{item.state_name}</div>
                     </div>
 
                     <div className="athleteInfo">
-                      <img src="https://i.pravatar.cc/60" alt="" />
+                      <img src={item.profile_picture} alt="" />
                       <div>
                         <span className="athleteName">{item.full_name}</span>
                         <p>IND</p>

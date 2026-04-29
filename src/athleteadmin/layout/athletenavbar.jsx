@@ -36,14 +36,14 @@ function AthleteNavbar() {
         </div>
 
         <div className="navRight">
-          <div className="bell" onClick={() => navigate("/admin/notification")}>
+          <div className="bell" onClick={() => navigate("/athlete/notification")}>
             <FiBell size={20} color="#666" />
             <span className="bellDot">{countData?.data.count || 0} </span>
           </div>
 
           <img
             onClick={() => {
-              navigate("/admin/settings");
+              navigate("/athlete/profile");
             }}
             className="navAvatar"
             src="https://i.pravatar.cc/80"
