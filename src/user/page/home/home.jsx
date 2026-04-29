@@ -32,15 +32,15 @@ export default function Home() {
 
   // ---------- UI STATES ----------
 
-  if (isLoading && !homeData) {
-    return (
-      <div className="home-page">
-        <div className="mfsaPageLoaderShell">
-          <SkeletonLoader variant="card" count={3} />
-        </div>
-      </div>
-    );
-  }
+  // if (isLoading && !homeData) {
+  //   return (
+  //     <div className="home-page">
+  //       <div className="mfsaPageLoaderShell">
+  //         <SkeletonLoader variant="card" count={3} />
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   if (isError) {
     return (
