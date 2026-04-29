@@ -20,7 +20,14 @@ export default function HomeClubX({ clubs }) {
         {/* HEADER */}
         <div className="mfsaClubX-header">
           <h2 className="mfsaEventX-header">Associate Club</h2>
-          <span className="mfsaClubX-viewAll">View All →</span>
+          <span
+            className="readmore"
+            onClick={() => {
+              navigate(`/state/${stateId}/association`);
+            }}
+          >
+            View All →
+          </span>
         </div>
 
         {/* EMPTY STATE */}

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import RecordCardX from "./recordcard";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 export default function BestRecordsX({ records = [] }) {
   const navigate = useNavigate();
-  const [active,setactive] = ("Surface")
+  const [active, setActive] = useState("Surface");
+  const { stateId, clubId } = useParams();
   console.log(records);
 
   const categories = ["Surface", "Bi-fins", "Apnea", "Immersion"];
@@ -12,6 +14,13 @@ export default function BestRecordsX({ records = [] }) {
   const filteredRecords = records.filter((rec) =>
     rec?.discipline?.toLowerCase().includes(active.toLowerCase()),
   );
+
+  const handleNavigateBestRecords = () => {
+    if (clubId && stateId)
+      navigate(`/state/${stateId}/club/${clubId}/bestrecords`);
+    else if (stateId) navigate(`/state/${stateId}/bestrecords`);
+    else navigate("/bestrecords");
+  };
 
   return (
     <section className="mfsaRecordX-section">
@@ -24,7 +33,7 @@ export default function BestRecordsX({ records = [] }) {
           <div className="header-right">
             <button
               className="mfsaRecordX-viewAllBtn"
-              onClick={() => navigate("/bestrecords")}
+              onClick={handleNavigateBestRecords}
             >
               View All →
             </button>
