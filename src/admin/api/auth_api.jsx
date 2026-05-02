@@ -16,13 +16,15 @@ export const get_staffs = () => {
   return API.get("/super/get-staffs/");
 };
 
-
-
 export const access_permission = (staff_id, payload) => {
   return API.patch(
     `/super/set-staff-permissions/?staff_id=${staff_id}`,
-    payload
+    payload,
   );
+};
+
+export const get_staff_permission = (staff_id) => {
+  return API.get(`/super/get-staff-permissions/?staff_id=${staff_id}`);
 };
 export const logout = () => {
   return API.post("/auth/logout/");

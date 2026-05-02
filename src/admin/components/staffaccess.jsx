@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { access_permission } from "../api/auth_api";
+import { useState, useEffect } from "react";
+import { access_permission, get_staff_permission } from "../api/auth_api";
+
 function PermissionModal({ staff, onClose }) {
-  console.log(staff);
   const [permissions, setPermissions] = useState({
     nc: false,
     cu: false,
@@ -12,6 +12,41 @@ function PermissionModal({ staff, onClose }) {
     arc: false,
   });
 
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  const staffId = staff?.user || staff?.id;
+
+  /* 🔥 FETCH EXISTING PERMISSIONS */
+  useEffect(() => {
+    const fetchPermissions = async () => {
+      try {
+        if (!staffId) return;
+
+        const res = await get_staff_permission(staffId);
+
+        const data = res?.data || {};
+
+        setPermissions({
+          nc: data.nc ?? false,
+          cu: data.cu ?? false,
+          ec: data.ec ?? false,
+          gc: data.gc ?? false,
+          tm: data.tm ?? false,
+          ma: data.ma ?? false,
+          arc: data.arc ?? false,
+        });
+      } catch (err) {
+        console.error("Permission fetch error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPermissions();
+  }, [staffId]);
+
+  /* TOGGLE */
   const handleToggle = (key) => {
     setPermissions((prev) => ({
       ...prev,
@@ -19,26 +54,30 @@ function PermissionModal({ staff, onClose }) {
     }));
   };
 
- const handleSave = async () => {
-  try {
-    const staffId = staff?.user || staff?.id;
+  /* SAVE */
+  const handleSave = async () => {
+    try {
+      if (!staffId) {
+        alert("Invalid staff ID ❌");
+        return;
+      }
 
-    if (!staffId) {
-      alert("Invalid staff ID ❌");
-      return;
+      setSaving(true);
+
+      const res = await access_permission(staffId, permissions);
+
+      if (res.status === 200 || res.status === 201) {
+        alert("Permissions Updated ✅");
+        onClose();
+      }
+    } catch (err) {
+      console.error(err?.response?.data || err);
+      alert("Failed ❌");
+    } finally {
+      setSaving(false);
     }
+  };
 
-    const res = await access_permission(staffId, permissions);
-
-    if (res.status === 200 || res.status === 201) {
-      alert("Permissions Updated ✅");
-      onClose();
-    }
-  } catch (err) {
-    console.error(err?.response?.data || err);
-    alert("Failed ❌");
-  }
-};
   return (
     <div className="mfsaModalOverlay">
       <div className="mfsaModalCard">
@@ -48,124 +87,107 @@ function PermissionModal({ staff, onClose }) {
             <h3>Assign Permissions</h3>
             <p>Control staff access to system features</p>
           </div>
-          <span onClick={onClose} className="closeBtn">
-            ×
-          </span>
+          <span onClick={onClose} className="closeBtn">×</span>
         </div>
 
         {/* USER */}
         <div className="mfsaUserRow">
-          <span>{staff.staff_email_id}</span>
+          <span>{staff?.staff_email_id}</span>
           <span className="statusActive">ACTIVE</span>
         </div>
 
-        {/* CONTENT */}
-        <div className="mfsaPermissionSection">
-          <p className="sectionTitle">CONTENT MANAGEMENT</p>
+        {/* 🔥 LOADING STATE */}
+        {loading ? (
+          <div className="mfsaPermissionLoading">
+            Loading permissions...
+          </div>
+        ) : (
+          <>
+            {/* CONTENT */}
+            <div className="mfsaPermissionSection">
+              <p className="sectionTitle">CONTENT MANAGEMENT</p>
 
-          <div className="permRow">
-            <span>News Creation</span>
-            <label className="switch">
-              <input
-                type="checkbox"
+              <PermissionItem
+                label="News Creation"
                 checked={permissions.nc}
                 onChange={() => handleToggle("nc")}
               />
-              <span className="slider"></span>
-            </label>
-          </div>
 
-          <div className="permRow">
-            <span>Content Update</span>
-            <label className="switch">
-              <input
-                type="checkbox"
+              <PermissionItem
+                label="Content Update"
                 checked={permissions.cu}
                 onChange={() => handleToggle("cu")}
               />
-              <span className="slider"></span>
-            </label>
-          </div>
-        </div>
+            </div>
 
-        <div className="mfsaPermissionSection">
-          <p className="sectionTitle">EVENT & MEDIA</p>
+            <div className="mfsaPermissionSection">
+              <p className="sectionTitle">EVENT & MEDIA</p>
 
-          <div className="permRow">
-            <span>Event Creation</span>
-            <label className="switch">
-              <input
-                type="checkbox"
+              <PermissionItem
+                label="Event Creation"
                 checked={permissions.ec}
                 onChange={() => handleToggle("ec")}
               />
-              <span className="slider"></span>
-            </label>
-          </div>
 
-          <div className="permRow">
-            <span>Gallery Creation</span>
-            <label className="switch">
-              <input
-                type="checkbox"
+              <PermissionItem
+                label="Gallery Creation"
                 checked={permissions.gc}
                 onChange={() => handleToggle("gc")}
               />
-              <span className="slider"></span>
-            </label>
-          </div>
-        </div>
+            </div>
 
-        <div className="mfsaPermissionSection">
-          <p className="sectionTitle">SYSTEM OPERATIONS</p>
+            <div className="mfsaPermissionSection">
+              <p className="sectionTitle">SYSTEM OPERATIONS</p>
 
-          <div className="permRow">
-            <span>Ticket Management</span>
-            <label className="switch">
-              <input
-                type="checkbox"
+              <PermissionItem
+                label="Ticket Management"
                 checked={permissions.tm}
                 onChange={() => handleToggle("tm")}
               />
-              <span className="slider"></span>
-            </label>
-          </div>
 
-          <div className="permRow">
-            <span>Membership Approval</span>
-            <label className="switch">
-              <input
-                type="checkbox"
+              <PermissionItem
+                label="Membership Approval"
                 checked={permissions.ma}
                 onChange={() => handleToggle("ma")}
               />
-              <span className="slider"></span>
-            </label>
-          </div>
 
-          <div className="permRow">
-            <span>Athlete Record Creation</span>
-            <label className="switch">
-              <input
-                type="checkbox"
+              <PermissionItem
+                label="Athlete Record Creation"
                 checked={permissions.arc}
                 onChange={() => handleToggle("arc")}
               />
-              <span className="slider"></span>
-            </label>
-          </div>
-        </div>
+            </div>
+          </>
+        )}
 
         {/* FOOTER */}
         <div className="mfsaModalActions">
           <button className="cancelBtn" onClick={onClose}>
             Cancel
           </button>
-          <button className="savessBtn" onClick={handleSave}>
-            Save Permissions
+
+          <button
+            className="savessBtn"
+            onClick={handleSave}
+            disabled={saving || loading}
+          >
+            {saving ? "Saving..." : "Save Permissions"}
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+
+function PermissionItem({ label, checked, onChange }) {
+  return (
+    <div className="permRow">
+      <span>{label}</span>
+      <label className="switch">
+        <input type="checkbox" checked={checked} onChange={onChange} />
+        <span className="slider"></span>
+      </label>
     </div>
   );
 }
