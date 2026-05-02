@@ -1,11 +1,14 @@
 import React from "react";
 import Navbar from "../navbar/nav";
 import "../../style/dashboard/Tickets.css";
+import { useState } from "react";
 import { getTickets } from "../../api/ticket";
 import { useQuery } from "@tanstack/react-query";
 import SkeletonLoader from "../../components/common/SkeletonLoader";
 import ErrorState from "../../components/common/ErrorState";
 import EmptyState from "../../components/common/EmptyState";
+import Timeage from "../../hook/time/timeage";
+import TicketResponseModal from "../../components/ticketaccessmodal";
 function Tickets() {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["tickets"],
@@ -14,6 +17,9 @@ function Tickets() {
     retry: false,
   });
   console.log(data, isLoading, error);
+
+  const [selectedticket, setSelectedticket] = useState(null);
+  const [showPermissionModal, setShowPermissionModal] = useState(false);
   const ticket_count = data?.data || 0;
   const tickets = data?.data.data || [];
 
@@ -91,10 +97,20 @@ function Tickets() {
               />
             ) : (
               tickets.map((ticket) => (
-                <div className="ticketItem" key={ticket.id}>
+                <div
+                  className="ticketItem"
+                  key={ticket.id}
+                  onClick={() => {
+                    setSelectedticket(ticket);
+                    setShowPermissionModal(true);
+                  }}
+                >
                   <div className="ticketInfo">
-                    <h4>{ticket.message}</h4>
-                    <p>{ticket.email_id} · 06 Aug 2025</p>
+                    <h4>{ticket.problem}</h4>
+                    <p>
+                      {ticket.message} ·{" "}
+                      <Timeage timestamp={ticket.created_at} />
+                    </p>
                   </div>
                   <span
                     className={`status ${
@@ -105,10 +121,20 @@ function Tickets() {
                           : "pendingRed"
                     }`}
                   >
-                    • Pending
+                    • {ticket.status}
                   </span>
                 </div>
               ))
+            )}
+            {showPermissionModal && (
+              <TicketResponseModal
+                ticket={selectedticket}
+                onClose={() => setShowPermissionModal(false)}
+                onSubmit={(payload) => {
+                  console.log("Submit:", payload, selectedticket);
+                  // call your API here
+                }}
+              />
             )}
           </div>
         </div>

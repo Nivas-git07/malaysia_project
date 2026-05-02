@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FiX, FiClock, FiRefreshCw, FiCheckCircle } from "react-icons/fi";
-
+import Timeage from "../hook/time/timeage";
 export default function TicketResponseModal({ ticket, onClose, onSubmit }) {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("PENDING");
@@ -41,7 +41,7 @@ export default function TicketResponseModal({ ticket, onClose, onSubmit }) {
             <div>
               <p className="trTicketId">#{ticket?.id}</p>
               <p className="trEmail">{ticket?.email}</p>
-              <span className="trMeta">Priority: High • Created 2h ago</span>
+              <span className="trMeta">Priority: High • Created <Timeage timestamp={ticket?.created_at} /></span>
             </div>
           </div>
 

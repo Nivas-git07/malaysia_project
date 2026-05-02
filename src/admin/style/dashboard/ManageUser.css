@@ -1743,14 +1743,14 @@ input:checked + .slider::before {
 }
 
 .trOverlay {
-  position: fixed;
+ position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .trModal {
