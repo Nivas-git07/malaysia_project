@@ -17,16 +17,9 @@ import {
 
 const AuthContext = createContext(null);
 
-function normalizeSessionPayload(responseData) {
-  const payload =
-    responseData?.data?.data ??
-    responseData?.data ??
-    responseData?.user ??
-    responseData ??
-    {};
-  return buildSessionFromAuthPayload({
-    ...payload,
-  });
+/* 🔥 CLEAN NORMALIZER */
+function normalizeSessionPayload(data) {
+  return buildSessionFromAuthPayload(data || {});
 }
 
 export function AuthProvider({ children }) {
@@ -35,6 +28,7 @@ export function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const hasBootstrapped = useRef(false);
 
+  /* CLEAR SESSION */
   const clearClientSession = useCallback(async () => {
     setSession(null);
     clearStoredSession();
@@ -42,70 +36,95 @@ export function AuthProvider({ children }) {
     queryClient.clear();
   }, [queryClient]);
 
+  /* LOGIN */
   const loginWithPayload = useCallback(
     async (payload) => {
       const nextSession = normalizeSessionPayload(payload);
+
       if (!nextSession?.role) {
         setSession(null);
         setIsLoading(false);
         return;
       }
+
       await clearClientSession();
       setSession(nextSession);
       setIsLoading(false);
+
       await queryClient.invalidateQueries();
     },
-    [clearClientSession, queryClient],
+    [clearClientSession, queryClient]
   );
 
+  /* LOGOUT */
   const logout = useCallback(async () => {
     await clearClientSession();
     setIsLoading(false);
   }, [clearClientSession]);
 
-  const checkSession = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const response = await get_check();
+  /* 🔥 FIXED SESSION CHECK */
+const checkSession = useCallback(async () => {
+  setIsLoading(true);
+  try {
+    const response = await get_check();
 
-      const status = response?.data?.status;
-      if (status && status !== "success") {
-        setSession(null);
-        return;
-      }
-      const restored = normalizeSessionPayload(response?.data);
-      if (!restored?.role) {
-        await clearClientSession();
-        return;
-      }
-      setSession(restored);
-    } catch (error) {
+    console.log("RAW API:", response?.data);
+
+    const status = response?.data?.status;
+
+    if (status && status !== "success") {
       setSession(null);
-    } finally {
-      setIsLoading(false);
+      return;
     }
-  }, [clearClientSession]);
 
+    
+    const userData = response?.data;
+
+    console.log("EXTRACTED USER:", userData);
+
+    const restored = normalizeSessionPayload(userData);
+
+    if (!restored?.role) {
+      await clearClientSession();
+      return;
+    }
+
+    setSession(restored);
+  } catch (error) {
+    console.error("Session error:", error);
+    setSession(null);
+  } finally {
+    setIsLoading(false);
+  }
+}, [clearClientSession]);
+
+  /* INITIAL LOAD */
   useEffect(() => {
     if (hasBootstrapped.current) return;
     hasBootstrapped.current = true;
     checkSession();
   }, [checkSession]);
 
+  /* FORCE LOGOUT LISTENER */
   useEffect(() => {
     const handleForceLogout = async () => {
       await clearClientSession();
     };
 
     window.addEventListener(AUTH_EVENTS.FORCE_LOGOUT, handleForceLogout);
+
     return () => {
-      window.removeEventListener(AUTH_EVENTS.FORCE_LOGOUT, handleForceLogout);
+      window.removeEventListener(
+        AUTH_EVENTS.FORCE_LOGOUT,
+        handleForceLogout
+      );
     };
   }, [clearClientSession]);
 
+  /* CONTEXT VALUE */
   const value = useMemo(
     () => ({
-      user: session?.user ?? null,
+      user: session?.user ?? session ?? null,   // 🔥 ensures full access
       role: session?.role ?? null,
       session,
       isLoading,
@@ -114,12 +133,13 @@ export function AuthProvider({ children }) {
       loginWithPayload,
       logout,
     }),
-    [session, isLoading, checkSession, loginWithPayload, logout],
+    [session, isLoading, checkSession, loginWithPayload, logout]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
+/* HOOK */
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {

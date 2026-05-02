@@ -11,12 +11,23 @@ function App() {
       <Router>
         <Routes>
           <Route path="/*" element={<Page />} />
-          <Route path="/admin/login" element={<Navigate to="/login" replace />} />
+          <Route
+            path="/admin/login"
+            element={<Navigate to="/login" replace />}
+          />
           <Route
             path="/admin/*"
             element={
               <ProtectedRoute
-                allowedRoles={["SUPERADMIN", "STATE", "CLUB", "ADMIN"]}
+                allowedRoles={[
+                  "SUPERADMIN",
+                  "STATE",
+                  "CLUB",
+                  "ADMIN",
+                  "NATIONAL_STAFF",
+                  "CLUB_STAFF",
+                  "STATE_STAFF",
+                ]}
                 loginPath="/login"
               >
                 <AdminRoute />

@@ -11,6 +11,8 @@ function Navbar() {
   const { role, isAuthenticated, isLoading } = useAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  console.log(role)
+
   useEffect(() => {
     setIsDrawerOpen(false);
   }, [location.pathname]);
@@ -27,7 +29,11 @@ function Navbar() {
                 role === "ADMIN" ||
                 role === "CLUB" ||
                 role === "STATE" ||
-                role === "SUPERADMIN"
+                role === "SUPERADMIN" || 
+                role === "NATIONAL_STAFF" ||
+                role === "CLUB_STAFF" ||
+                role === "STATE_STAFF"
+
               ) {
                 navigate("/admin/home");
               } else if (role === "ATHLETE") {

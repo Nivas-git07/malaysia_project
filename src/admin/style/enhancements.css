@@ -257,3 +257,55 @@ button,
   }
 }
 
+/* ===== SKELETON ===== */
+
+.skeletonInput {
+  width: 160px;
+  height: 36px;
+  border-radius: 8px;
+  background: #eee;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonBtn {
+  width: 120px;
+  height: 36px;
+  border-radius: 8px;
+  background: #ddd;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ddd;
+  margin-right: 10px;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonText {
+  width: 120px;
+  height: 12px;
+  background: #eee;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonText.small {
+  width: 80px;
+}
+
+.skeletonText.short {
+  width: 60px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}

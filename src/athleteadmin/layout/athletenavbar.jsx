@@ -3,9 +3,18 @@ import { FiSearch, FiBell } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { notification_count } from "../../admin/api/notification_api";
+import { get_check } from "../../user/api/home_api";
 // import Settings from "../dashboard/Settings";
 function AthleteNavbar() {
   const navigate = useNavigate();
+  const { data: profileData } = useQuery({
+    queryKey: ["get_check"],
+    queryFn: get_check,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
+  const user = profileData?.data || [];
   const {
     data: countData,
     isLoading: countLoading,
@@ -36,7 +45,10 @@ function AthleteNavbar() {
         </div>
 
         <div className="navRight">
-          <div className="bell" onClick={() => navigate("/athlete/notification")}>
+          <div
+            className="bell"
+            onClick={() => navigate("/athlete/notification")}
+          >
             <FiBell size={20} color="#666" />
             <span className="bellDot">{countData?.data.count || 0} </span>
           </div>
@@ -46,7 +58,11 @@ function AthleteNavbar() {
               navigate("/athlete/profile");
             }}
             className="navAvatar"
-            src="https://i.pravatar.cc/80"
+            src={
+              user?.profile_picture
+                ? user.profile_picture
+                : "https://i.pravatar.cc/80"
+            }
             alt="profile"
           />
         </div>
