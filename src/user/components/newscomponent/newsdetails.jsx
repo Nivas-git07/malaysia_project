@@ -12,9 +12,10 @@ import { useParams } from "react-router-dom";
 import SkeletonLoader from "../common/SkeletonLoader";
 import ErrorState from "../common/ErrorState";
 import EmptyState from "../common/EmptyState";
-
+import { useState } from "react";
 export default function NewsDetailX() {
   const { stateId, clubId } = useParams();
+  const [visibleCount, setVisibleCount] = useState(3);
 
   const {
     data: newsData,
@@ -28,6 +29,10 @@ export default function NewsDetailX() {
       return get_news();
     },
   });
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 3);
+  };
 
   const newsList = newsData?.data || [];
 
@@ -57,31 +62,23 @@ export default function NewsDetailX() {
   return (
     <section className="mfsaNewsDetailX-section">
       <div className="mfsaNewsDetailX-container">
-
         <div className="mfsaNewsDetailX-main">
-
           {/* ✅ LEFT SIDE - ALL NEWS SAME STYLE */}
           <div className="mfsaNewsDetailX-content">
-
-            {newsList.map((item) => (
+            {newsList.slice(0, visibleCount).map((item) => (
               <div key={item.id} className="newsCardFull">
-
-                <h2 className="mfsaNewsDetailX-heading">
-                  {item.title}
-                </h2>
+                <h2 className="mfsaNewsDetailX-heading">{item.title}</h2>
 
                 <div className="mfsaNewsDetailX-hero">
                   <img src={item.image || new2} alt="news" />
                 </div>
 
-                <p className="mfsaNewsDetailX-text">
-                  {item.description}
-                </p>
+                <p className="mfsaNewsDetailX-text">{item.description}</p>
 
                 {(item.content || "")
                   .split("\n")
                   .filter((p) => p.trim() !== "")
-                  .slice(0, 2) // 👈 limit content for listing feel
+                  .slice(0, 2)
                   .map((para, i) => (
                     <p key={i} className="mfsaNewsDetailX-text">
                       {para}
@@ -92,17 +89,16 @@ export default function NewsDetailX() {
               </div>
             ))}
 
-            <div className="mfsaLoadMoreWrapX">
-              <button className="mfsaLoadMoreBtnX">
-                Load More News →
-              </button>
-            </div>
-
+            {visibleCount < newsList.length && (
+              <div className="mfsaLoadMoreWrapX">
+                <button className="mfsaLoadMoreBtnX" onClick={handleLoadMore}>
+                  Load More News →
+                </button>
+              </div>
+            )}
           </div>
 
-      
           <div className="mfsaNewsSidebarX">
-
             <div className="mfsaSidebarBlockX">
               <h5 className="mfsaSidebarTitleX">Related News</h5>
 
@@ -131,14 +127,11 @@ export default function NewsDetailX() {
 
             <div className="mfsaSidebarSubscribeX">
               <h4>Stay Elite.</h4>
-              <p>
-                Get the latest technical analysis and competition updates.
-              </p>
+              <p>Get the latest technical analysis and competition updates.</p>
 
               <input placeholder="Your email address" />
               <button>SUBSCRIBE</button>
             </div>
-
           </div>
         </div>
       </div>

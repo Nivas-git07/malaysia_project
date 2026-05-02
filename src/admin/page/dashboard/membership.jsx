@@ -8,11 +8,13 @@ import {
   get_pending_requests,
   get_accepted_transfers,
 } from "../../api/membership";
+
 import MembershipPopup from "../../components/membershippopup";
 import PendingPopup from "../../components/transfermembership";
 import AcceptedPopup from "../../components/acceptmembership";
 import SkeletonLoader from "../../components/common/SkeletonLoader";
 import ErrorState from "../../components/common/ErrorState";
+
 function ManageUser() {
   const [Filter, setFilter] = useState({
     plan: "",
@@ -52,28 +54,25 @@ function ManageUser() {
     retry: false,
     refetchOnWindowFocus: false,
   });
-  const acceptedTransfers = acceptedRes?.data || [];
-  console.log("Accepted Transfers:", acceptedTransfers);
 
   const membershipData = membershipRes?.data || [];
   const pendingList = pendingRes?.data || [];
-  console.log("Membership Data:", membershipData);
-  console.log("Pending Requests:", pendingList);
+  const acceptedTransfers = acceptedRes?.data || [];
 
+  // 🔹 Format Pending
   const formattedPending = pendingList.map((p) => ({
     membership_id: p.id,
     status: p.status,
-    user_name: "Pending User",
     membership_plan: "STATE SWITCH",
     state_name: p.current_state_name,
     isPending: true,
     raw: p,
   }));
 
+  // 🔹 Format Accepted
   const formattedAccepted = acceptedTransfers.map((a) => ({
     membership_id: a.id,
     status: a.status,
-    user_name: "Accepted User",
     membership_plan: "STATE SWITCH",
     state_name: `${a.current_state_name} → ${a.target_state_name}`,
     isAccepted: true,
@@ -86,6 +85,44 @@ function ManageUser() {
     ...formattedAccepted,
   ];
 
+  // 🔥 NAME LOGIC
+  const getDisplayName = (item) => {
+    return (
+      item.purchaser_athlete_name ??
+      item.purchaser_club_name ??
+      item.purchaser_state_name ??
+      "—"
+    );
+  };
+
+  // 🔥 LOCATION LOGIC (MAIN FIX)
+  const getDisplayLocation = (item) => {
+    if (item.isPending) return "Switching to new state";
+
+    switch (item.membership_plan) {
+      case "INDIVIDUAL_MEMBER":
+        return (
+          item.club_name ??
+          item.state_name ??
+          item.national_name ??
+          "—"
+        );
+
+      case "ALLIED_MEMBER":
+        return item.state_name ?? item.purchaser_club_name ?? "—";
+
+      case "AFFILIATE_MEMBER":
+        return item.national_name ?? item.purchaser_state_name ?? "—";
+
+      case "STATE SWITCH":
+        return item.state_name ?? "—";
+
+      default:
+        return "—";
+    }
+  };
+
+  // 🔥 FILTER
   const handleFilterChange = (e) => {
     setFilter({
       ...Filter,
@@ -94,14 +131,18 @@ function ManageUser() {
   };
 
   const filteredData = combinedData.filter((item) => {
-    return (
-      (Filter.plan === "" ||
-        item.membership_plan?.toLowerCase() === Filter.plan.toLowerCase()) &&
-      (Filter.status === "" ||
-        item.status?.toLowerCase().includes(Filter.status.toLowerCase()))
-    );
+    const planMatch =
+      Filter.plan === "" ||
+      item.membership_plan?.toLowerCase() === Filter.plan.toLowerCase();
+
+    const statusMatch =
+      Filter.status === "" ||
+      item.status?.toLowerCase().includes(Filter.status.toLowerCase());
+
+    return planMatch && statusMatch;
   });
 
+  // 🔥 VIEW HANDLER
   const handleView = (item) => {
     if (item.isPending) {
       setSelectedPending(item.raw);
@@ -123,6 +164,7 @@ function ManageUser() {
       .catch((err) => console.error(err));
   };
 
+  // 🔥 LOADING
   if (isLoading)
     return (
       <>
@@ -133,6 +175,7 @@ function ManageUser() {
       </>
     );
 
+  // 🔥 ERROR
   if (error)
     return (
       <>
@@ -157,17 +200,23 @@ function ManageUser() {
         <div className="athleteProfileCard">
           <div className="athleteCard">
             <div className="athleteFilters">
+
+              {/* 🔥 PLAN FILTER */}
               <select name="plan" onChange={handleFilterChange}>
-                <option value="">Select plan</option>
+                <option value="">All Plans</option>
+                <option value="individual_member">Individual Member</option>
                 <option value="allied_member">Allied Member</option>
+                <option value="affiliate_member">Affiliate Member</option>
                 <option value="state switch">State Switch</option>
               </select>
 
+              {/* 🔥 STATUS FILTER */}
               <select name="status" onChange={handleFilterChange}>
-                <option value="">Select Status</option>
+                <option value="">All Status</option>
                 <option value="active">Active</option>
                 <option value="pending">Pending</option>
               </select>
+
             </div>
           </div>
 
@@ -176,13 +225,14 @@ function ManageUser() {
               <div>Name</div>
               <div>Plan</div>
               <div>Status</div>
-              <div>State</div>
+              <div>State / Club</div>
               <div>View</div>
             </div>
 
             {filteredData.map((item, i) => (
               <div className="athleteprofileRows" key={i}>
-                <div>{item.user_name}</div>
+                
+                <div>{getDisplayName(item)}</div>
 
                 <div>{item.membership_plan}</div>
 
@@ -191,15 +241,14 @@ function ManageUser() {
                     item.isPending
                       ? "pending"
                       : item.status === "PENDING_OLD"
-                        ? "accepted"
-                        : item.status.toLowerCase()
+                      ? "accepted"
+                      : item.status?.toLowerCase()
                   }`}
                 >
                   {item.status}
                 </div>
-                <div>
-                  {item.isPending ? "Switching to new state" : item.state_name}
-                </div>
+
+                <div>{getDisplayLocation(item)}</div>
 
                 <div onClick={() => handleView(item)} className="view-btn">
                   View
@@ -210,6 +259,7 @@ function ManageUser() {
         </div>
       </div>
 
+      {/* 🔥 POPUPS */}
       {open && (
         <MembershipPopup
           data={editData}
