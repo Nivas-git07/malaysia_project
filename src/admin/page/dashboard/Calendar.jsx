@@ -6,6 +6,9 @@ import { getEvents } from "../../api/event_api";
 import { useQuery } from "@tanstack/react-query";
 import DateOnly from "../../hook/time/time";
 import { fetct_one_event } from "../../api/event_api";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
+import EmptyState from "../../components/common/EmptyState";
 const eventData = [
   {
     id: 1,
@@ -31,7 +34,7 @@ const eventData = [
 ];
 
 function Calender() {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["events"],
     queryFn: getEvents,
     refetchOnWindowFocus: false,
@@ -56,61 +59,87 @@ function Calender() {
     });
   };
 
+  if (isLoading)
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="table" count={6} />
+        </div>
+      </>
+    );
+
+  if (error)
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load events"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
+
   return (
     <>
       <Navbar />
 
       <div className="mu-membership-wrapper">
-      
-      <div className="EventReport">EVENTS</div>
+        <div className="EventReport">EVENTS</div>
 
-
-      <div >
-
-        <div className="eventTop">
-          <h2>Events & Announcements</h2>
-          <button className="addEventBtn" onClick={handleAdd}>
-            + Add Event
-          </button>
-        </div>
-
-       
-        <div className="eventHead">
-          <div>Event Title</div>
-          <div>Event Date</div>
-          <div>Status</div>
-          {/* <div>Visibility</div> */}
-          <div>Action</div>
-        </div>
-
-      
-        {eventData.map((item) => (
-          <div className="eventRow" key={item.id}>
-            <div>{item.event_name}</div>
-            <div><DateOnly value={item.date} /></div>
-            <div>{item.status}</div>
-            {/* <div>{item.visibility}</div> */}
-            <div
-              className="editBtn"
-              onClick={() => handleEdit(item.id)}
-            >
-              ✎ Edit
-            </div>
+        <div>
+          <div className="eventTop">
+            <h2>Events & Announcements</h2>
+            <button className="addEventBtn" onClick={handleAdd}>
+              + Add Event
+            </button>
           </div>
-        ))}
 
+          <div className="eventHead">
+            <div>Event Title</div>
+            <div>Event Date</div>
+            <div>Status</div>
+            {/* <div>Visibility</div> */}
+            <div>Action</div>
+          </div>
+
+          {eventData.length === 0 ? (
+            <EmptyState
+              title="No events found"
+              message="Create your first event announcement."
+              actionLabel="Retry"
+              onAction={() => refetch()}
+            />
+          ) : (
+            eventData.map((item) => (
+              <div className="eventRow" key={item.id}>
+                <div>{item.event_name}</div>
+                <div>
+                  <DateOnly value={item.date} />
+                </div>
+                <div>{item.status}</div>
+                {/* <div>{item.visibility}</div> */}
+                <div
+                  className="editBtn"
+                  onClick={() => handleEdit(item.id)}
+                >
+                  ✎ Edit
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {open && (
+          <EventModal
+            close={() => setOpen(false)}
+            data={editData}
+          />
+        )}
       </div>
-
-  
-      {open && (
-        <EventModal
-          close={() => setOpen(false)}
-          data={editData}
-        />
-      )}
-      </div>
-
-      
     </>
   );
 }

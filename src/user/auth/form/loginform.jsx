@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { login_user } from "../../api/auth";
-import { useNavigate } from "react-router-dom";
-import { adminLogin } from "../../../admin/api/auth_api";
+import { Navigate, useNavigate } from "react-router-dom";
+import { login_user } from "../../../user/api/auth";
+import { useAuth } from "../../../auth/AuthContext";
 
 export default function MemberLogin() {
+  const { loginWithPayload, isAuthenticated, isLoading, role } = useAuth();
   const navigate = useNavigate();
+
+  const getRedirectPath = (userRole) =>
+    userRole === "ATHLETE" ? "/athlete/dashboard" : "/admin/home";
 
   const [formdata, setFormdata] = useState({
     email: "",
@@ -36,20 +40,13 @@ export default function MemberLogin() {
     try {
       setLoading(true);
 
-      const response = await adminLogin(formdata.email, formdata.password);
+      const response = await login_user(undefined, formdata.email, formdata.password);
 
       console.log("Login successful:", response.data);
+      await loginWithPayload(response.data);
 
-      if (
-        response.data.role === "ADMIN" ||
-        response.data.role === "STATE" ||
-        response.data.role === "CLUB" ||
-        response.data.role === "SUPERADMIN"
-      ) {
-        navigate("/admin/home");
-      } else if (response.data.role === "ATHLETE") {
-        navigate("/athlete/dashboard");
-      }
+      const userRole = response.data?.role ?? response.data?.data?.role ?? role;
+      navigate(getRedirectPath(userRole), { replace: true });
     } catch (error) {
       console.error("Login failed:", error);
 
@@ -68,6 +65,14 @@ export default function MemberLogin() {
       setLoading(false);
     }
   };
+  if (isLoading) {
+    return <section className="loginSection">Checking session...</section>;
+  }
+  if (isAuthenticated) {
+    const to = role === "ATHLETE" ? "/athlete/dashboard" : "/admin/home";
+    return <Navigate to={to} replace />;
+  }
+
   return (
     <section className="loginSection">
       <div className="loginContainer">

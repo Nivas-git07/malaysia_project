@@ -6,13 +6,16 @@ import { athletedata } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getathleteList } from "../../api/home_api";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
+import EmptyState from "../../components/common/EmptyState";
 
 export default function ClubList() {
     const { id } = useParams();
     console.log("Club ID:", id);
     console.log("Fetching club list for ID:", id);
 
-    const { data, isLoading, error } = useQuery({
+    const { data, isLoading, error, refetch } = useQuery({
         queryKey: ["clubList", id],
         queryFn: () => (id ? athletedata(id) : getathleteList()),
         refetchOnWindowFocus: false,
@@ -23,6 +26,32 @@ export default function ClubList() {
     console.log("Club List Data:", clubs_stats, isLoading, error);
 
     console.log(data, isLoading, error);
+
+    if (isLoading) {
+        return (
+            <>
+                <Navbar />
+                <div className="mu-membership-wrapper">
+                    <SkeletonLoader variant="table" count={6} />
+                </div>
+            </>
+        );
+    }
+
+    if (error) {
+        return (
+            <>
+                <Navbar />
+                <div className="mu-membership-wrapper">
+                    <ErrorState
+                        title="Unable to load athletes"
+                        message="Please check your connection and try again."
+                        onRetry={() => refetch()}
+                    />
+                </div>
+            </>
+        );
+    }
 
     return (
         <>
@@ -57,41 +86,50 @@ export default function ClubList() {
                         <button className="findBtn">Find Club</button>
                     </div>
 
-                    <div className="stateTable">
-                        <div className="stateHead">
-                            <div>Athlete Name</div>
-                            <div>Gender</div>
-                            
-                            <div>DOB</div>
-                            <div>Website</div>
-                        </div>
+                    <div className="mfsaTableScroll">
+                        <div className="stateTable">
+                            <div className="stateHead">
+                                <div>Athlete Name</div>
+                                <div>Gender</div>
 
-                        {clubs_stats.map((club) => (
-                            <div className="stateRow" key={club.id}>
-                                <div className="clubCell">
-                                    <img src={logo} alt="logo" />
-                                    {club.full_name}
-                                </div>
-
-                                <div >
-                                    {/* <img src="https://i.pravatar.cc/40" />
-                                    <img src="https://i.pravatar.cc/41" />
-                                    <img src="https://i.pravatar.cc/42" /> */}
-                                    <span>  {club.gender} </span>
-                                </div>
-
-                                <div>{club.date_of_birth}</div>
-
-                                <a
-                                    href="https://www.georgetown.com"
-                                    className="website"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    www.georgetown.com
-                                </a>
+                                <div>DOB</div>
+                                <div>Website</div>
                             </div>
-                        ))}
+
+                            {clubs_stats.length === 0 ? (
+                                <EmptyState
+                                    title="No athletes found"
+                                    message="Try adjusting your filters."
+                                    actionLabel="Retry"
+                                    onAction={() => refetch()}
+                                />
+                            ) : (
+                                clubs_stats.map((club) => (
+                                    <div className="stateRow" key={club.id}>
+                                        <div className="clubCell">
+                                            <img src={logo} alt="logo" />
+                                            {club.full_name}
+                                        </div>
+
+                                        <div>
+                                            <span>{club.gender}</span>
+                                        </div>
+
+                                        <div>{club.date_of_birth}</div>
+
+                                        <a
+                                            href="https://www.georgetown.com"
+                                            className="website"
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            www.georgetown.com
+                                        </a>
+                                    </div>
+                                ))
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

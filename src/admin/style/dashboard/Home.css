@@ -204,8 +204,8 @@ margin-left:2px;
     left:auto;
     right:auto;
     top:auto;
-    margin-left:80px; /* space for mobile sidebar */
-    margin-right:15px;
+    margin-left:0;
+    margin-right:0;
   }
 
   /* STACK CARDS */

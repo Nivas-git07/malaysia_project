@@ -6,6 +6,9 @@ import { getnews } from "../../api/news_api";
 import { useQuery } from "@tanstack/react-query";
 import DateOnly from "../../hook/time/time";
 import { fetct_one_news } from "../../api/news_api";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
+import EmptyState from "../../components/common/EmptyState";
 
 // const newsData = [
 //   {
@@ -65,6 +68,32 @@ export default function News() {
       });
   };
 
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="table" count={8} />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load news"
+            message="Please check your connection and try again."
+            onRetry={() => window.location.reload()}
+          />
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -90,21 +119,26 @@ export default function News() {
             <div>Action</div>
           </div>
 
-          {newsData.map((item) => (
-            <div className="newsRow" key={item.id}>
-              <div>{item.title}</div>
-              <div><DateOnly value={item.created_at} /></div>
-              <div>{item.status}</div>
-              {/* <div>{item.visibility}</div> */}
-              <div
-                className="editBtn"
-                onClick={() => handleEdit(item.id)}
-               
-              >
-                ✎ Edit
+          {newsData.length === 0 ? (
+            <EmptyState
+              title="No news found"
+              message="Create a news item to get started."
+            />
+          ) : (
+            newsData.map((item) => (
+              <div className="newsRow" key={item.id}>
+                <div>{item.title}</div>
+                <div>
+                  <DateOnly value={item.created_at} />
+                </div>
+                <div>{item.status}</div>
+                {/* <div>{item.visibility}</div> */}
+                <div className="editBtn" onClick={() => handleEdit(item.id)}>
+                  ✎ Edit
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
 
         </div>
 

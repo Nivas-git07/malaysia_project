@@ -1,0 +1,311 @@
+/* Additive-only UX/responsive helpers for admin module */
+
+/* Touch-friendly controls */
+button,
+.mobileToggle,
+.menuItem,
+.logoutBar {
+  min-height: 44px;
+}
+
+/* Backdrop for mobile sidebar */
+.mfsaSidebarBackdrop {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mfsaSidebarBackdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 9998;
+  }
+
+  .mfsaSidebarBackdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Responsive table/row scrolling helpers (div-tables and real tables) */
+.mfsaTableScroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 600px) {
+  table {
+    min-width: 640px;
+  }
+}
+
+/* Shared UI states */
+.mfsaUiState {
+  width: min(100%, 960px);
+  margin: 18px auto;
+  padding: 22px 18px;
+  border-radius: 12px;
+  text-align: center;
+  animation: mfsaFadeIn 0.3s ease-in-out;
+}
+
+.mfsaEmptyUiState {
+  background: #fafafa;
+  color: #666;
+}
+
+.mfsaErrorState {
+  background: #fff4f4;
+  color: #8f1f1f;
+}
+
+.mfsaUiRetryBtn {
+  margin-top: 12px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #c10000;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.mfsaUiRetryBtn:hover {
+  transform: translateY(-1px);
+}
+
+/* Loaders */
+.mfsaSkeletonCards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .mfsaSkeletonCards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mfsaSkeletonCard {
+  padding: 14px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.mfsaSkeleton {
+  position: relative;
+  overflow: hidden;
+  background: #ececec;
+  border-radius: 8px;
+}
+
+.mfsaSkeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: mfsaShimmer 1.25s infinite;
+}
+
+.mfsaSkeletonMedia {
+  height: 150px;
+  margin-bottom: 12px;
+}
+
+.mfsaSkeletonLine {
+  height: 12px;
+  margin-bottom: 10px;
+}
+
+.mfsaSkeletonLine.short {
+  width: 70%;
+}
+
+.mfsaSkeletonButton {
+  width: 42%;
+  height: 34px;
+  margin-top: 8px;
+}
+
+.mfsaSkeletonGroup {
+  display: grid;
+  gap: 10px;
+}
+
+.mfsaSkeletonText {
+  height: 12px;
+}
+
+.mfsaSkeletonTableWrap {
+  display: grid;
+  gap: 10px;
+}
+
+.mfsaSkeletonTableRow {
+  height: 40px;
+}
+
+.mfsaSpinnerWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.mfsaSpinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.18);
+  border-top-color: rgba(0, 0, 0, 0.55);
+  animation: mfsaSpin 0.8s linear infinite;
+}
+
+.mfsaSpinnerText {
+  font-size: 13px;
+}
+
+/* Module footer */
+.mfsaModuleFooter {
+  width: 100%;
+  padding: 16px 22px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  background: transparent;
+  color: #444;
+  margin-top: 22px;
+}
+
+.mfsaModuleFooterInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.mfsaModuleFooterBrand {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.mfsaModuleFooterLinks {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+.mfsaModuleFooterLinks li {
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .mfsaModuleFooterInner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@keyframes mfsaShimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes mfsaSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes mfsaFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== Mobile overflow safety ===== */
+@media (max-width: 480px) {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* ===== SKELETON ===== */
+
+.skeletonInput {
+  width: 160px;
+  height: 36px;
+  border-radius: 8px;
+  background: #eee;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonBtn {
+  width: 120px;
+  height: 36px;
+  border-radius: 8px;
+  background: #ddd;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ddd;
+  margin-right: 10px;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonText {
+  width: 120px;
+  height: 12px;
+  background: #eee;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonText.small {
+  width: 80px;
+}
+
+.skeletonText.short {
+  width: 60px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}

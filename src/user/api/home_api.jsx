@@ -38,3 +38,14 @@ export const get_particular_gallery = ({ clubId, stateId }) => {
     return API.get(`/user/get-gaallery-images/?state_id=${stateId}`);
   }
 };
+
+export const get_bestrecords = ({ clubId, stateId }) => {
+  if (clubId) {
+    return API.get(`/user/get-all-best_records/?club_id=${clubId}`);
+  }
+  if (stateId) {
+    return API.get(`/user/get-all-best_records/?state_id=${stateId}`);
+  }
+
+  return API.get("/user/get-all-best_records/?flag=direct_under_national");
+};

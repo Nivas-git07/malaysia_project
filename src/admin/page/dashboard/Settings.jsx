@@ -4,6 +4,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Navbar from "../navbar/nav";
 import { getProfile, updateProfile } from "../../api/profile";
 import { checksession } from "../../api/home_api";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
 
 export default function Settings() {
   const queryClient = useQueryClient();
@@ -24,7 +26,7 @@ export default function Settings() {
 
   const role = getNormalizedRole(user.role);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
   });
@@ -104,7 +106,7 @@ export default function Settings() {
       onChange: handleChange,
     };
 
-    if (field === "email_id") return <input {...props} readOnly />;
+    if (field === "email_id") return <input {...props} r />;
 
     if (field === "gender") {
       return (
@@ -160,7 +162,29 @@ export default function Settings() {
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="card" count={2} />
+        </div>
+      </>
+    );
+
+  if (isError)
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load profile"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
 
   return (
     <>

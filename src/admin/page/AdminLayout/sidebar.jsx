@@ -10,7 +10,7 @@ import { PiNotePencilBold } from "react-icons/pi";
 import { GrGallery } from "react-icons/gr";
 import { BiCommentDetail } from "react-icons/bi";
 import { TbCreditCardRefund } from "react-icons/tb";
-import { get_check } from "../../../user/api/home_api";
+import { PiChalkboardTeacherBold } from "react-icons/pi";
 import {
   Home,
   User,
@@ -22,29 +22,25 @@ import {
   LogOut,
   Menu,
 } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../../../auth/AuthContext";
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
+  const { logout: logoutSession, role } = useAuth();
 
   const closeSidebar = () => {
     setOpen(false);
   };
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["checkSession"],
-    queryFn: get_check,
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
-
-  const checkdata = data?.data.role;
-
   return (
     <>
-      {/* MOBILE MENU BUTTON */}
       <div className="mobileToggle" onClick={() => setOpen(!open)}>
         <Menu size={22} />
       </div>
+
+      <div
+        className={`mfsaSidebarBackdrop ${open ? "open" : ""}`}
+        onClick={closeSidebar}
+      />
 
       <aside className={`sidebar ${open ? "show" : ""}`}>
         <div className="sidebarTop">
@@ -67,7 +63,7 @@ export default function Sidebar() {
             <User size={20} />
             <span>Athlete</span>
           </NavLink>
-          {checkdata === "SUPERADMIN" && (
+          {role === "SUPERADMIN" && (
             <NavLink
               to="/admin/state-management"
               className="menuItem"
@@ -77,6 +73,14 @@ export default function Sidebar() {
               <span>State Management</span>
             </NavLink>
           )}
+             <NavLink
+              to="/admin/staff-management"
+              className="menuItem"
+              onClick={closeSidebar}
+            >
+              <PiChalkboardTeacherBold size={20} />
+              <span>Staff Management</span>
+            </NavLink>
           <NavLink
             to="/admin/calendar"
             className="menuItem"
@@ -94,7 +98,7 @@ export default function Sidebar() {
             <FaAddressCard size={20} />
             <span>membership Approval</span>
           </NavLink>
-          {checkdata !== "SUPERADMIN" && (
+          {role !== "SUPERADMIN" && (
             <NavLink
               to="/admin/membership/status"
               className="menuItem"
@@ -104,7 +108,7 @@ export default function Sidebar() {
               <span>membership Status</span>
             </NavLink>
           )}
-          {checkdata === "SUPERADMIN" && (
+          {role === "SUPERADMIN" && (
             <NavLink
               to="/admin/tickets"
               className="menuItem"
@@ -169,9 +173,14 @@ export default function Sidebar() {
         <NavLink
           to="/"
           className="logoutBar"
-          onClick={() => {
+          onClick={async () => {
             closeSidebar();
-            logout();
+            try {
+              await logout();
+            } catch (error) {
+              // Session cleanup must continue even if server logout fails
+            }
+            await logoutSession();
           }}
         >
           <LogOut size={18} />

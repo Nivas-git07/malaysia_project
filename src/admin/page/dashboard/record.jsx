@@ -5,14 +5,27 @@ import { get_athlete_records } from "../../api/record";
 import { useQuery } from "@tanstack/react-query";
 import { FiTrash2 } from "react-icons/fi";
 import { post_record } from "../../api/record";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
 export default function Record() {
   const [selectedEvent, setSelectedEvent] = useState("");
   const [selectedEventId, setSelectedEventId] = useState("");
   const [discipline, setdiscipline] = useState("");
   const [date, setdate] = useState("");
-  const { data: athleteRecords } = useQuery({
+  const [rows, setRows] = useState([
+    { distance: "", full_name: "", state: "", medal: "", rank: "", time: "" },
+    { distance: "", full_name: "", state: "", medal: "", rank: "", time: "" },
+    { distance: "", full_name: "", state: "", medal: "", rank: "", time: "" },
+  ]);
+  const {
+    data: athleteRecords,
+    isLoading: isAthleteLoading,
+    error: athleteError,
+    refetch: refetchAthletes,
+  } = useQuery({
     queryKey: ["athleteRecords"],
     queryFn: get_athlete_records,
+    retry: false,
   });
 
   const athleteList = Array.isArray(athleteRecords?.data?.athletes_list)
@@ -22,15 +35,50 @@ export default function Record() {
 
   // const athleteList = athleteRecords?.data?.athletes_list || [];
 
-  const { data: eventRecords } = useQuery({
+  const {
+    data: eventRecords,
+    isLoading: isEventLoading,
+    error: eventError,
+    refetch: refetchEvents,
+  } = useQuery({
     queryKey: ["eventRecords"],
     queryFn: get_event_records,
+    retry: false,
   });
   console.log("event", eventRecords?.data);
   const records = Array.isArray(eventRecords?.data)
     ? eventRecords.data
     : eventRecords?.data?.events || [];
   console.log(records);
+
+  if (isAthleteLoading || isEventLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="card" count={2} />
+        </div>
+      </>
+    );
+  }
+
+  if (athleteError || eventError) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load record form"
+            message="Please check your connection and try again."
+            onRetry={() => {
+              refetchAthletes();
+              refetchEvents();
+            }}
+          />
+        </div>
+      </>
+    );
+  }
   const handleSave = async () => {
     const filteredRows = rows.filter(
       (row) => row.full_name && row.distance && row.time,
@@ -107,12 +155,6 @@ export default function Record() {
   alert(errorMsg);
 }
   };
-
-  const [rows, setRows] = useState([
-    { distance: "", full_name: "", state: "", medal: "", rank: "", time: "" },
-    { distance: "", full_name: "", state: "", medal: "", rank: "", time: "" },
-    { distance: "", full_name: "", state: "", medal: "", rank: "", time: "" },
-  ]);
 
   const handleAddRow = () => {
     setRows((prev) => [

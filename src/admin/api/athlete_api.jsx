@@ -1,6 +1,9 @@
 import API from "../../user/api/axiosmodal";
 
-export const getAthletes = () => {
+export const getAthletes = (type) => {
+  if (type === "ALL") {
+    return API.get("/super/get-athlete-list/?level=all");
+  }
   return API.get("/super/get-athlete-list/");
 };
 

@@ -4,6 +4,7 @@ import { get_state } from "../../../../user/api/auth";
 import { useQuery } from "@tanstack/react-query";
 import { leaveMembership } from "../../../api/membership";
 import AlertPopup from "../../../../user/hooks/popuptemplate";
+import "../../../style/dashboard/ManageUser.css";
 export default function LeaveMembershipModal({ isOpen, onClose, id }) {
   const [selectedState, setSelectedState] = useState("");
   const [alert, setAlert] = useState(null);

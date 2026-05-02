@@ -7,6 +7,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { get_athlete_particular_list } from "../../api/athlete_api";
 import { useParams } from "react-router-dom";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
+import EmptyState from "../../components/common/EmptyState";
 
 function AthleteProfile() {
   const navigate = useNavigate();
@@ -22,6 +25,7 @@ function AthleteProfile() {
     data: athleteData,
     isLoading,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["athletes"],
     queryFn: () => get_athlete_particular_list(id),
@@ -35,6 +39,32 @@ function AthleteProfile() {
   const record_history = athleteData?.data?.total_records?.records_history || [];
   console.log(record_history);
   console.log(data);
+
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="card" count={2} />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load athlete profile"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
+  }
 
   const handleFilterChange = (e) => {
     setFilters({
@@ -65,23 +95,32 @@ function AthleteProfile() {
                   <div>Best Time</div>
                 </div>
 
-                {record_history.map((item, i) => (
-                  <div className="athleteprofileRow" key={i}>
-                    <div className="country">
-                      <div className="country">{item.event_name}</div>
-                    </div>
-
-                    <div className="athleteInfo">
-                      <div>
-                        <span className="athleteName">{item.discipline}</span>
+                {record_history.length === 0 ? (
+                  <EmptyState
+                    title="No records found"
+                    message="This athlete has no performance records yet."
+                    actionLabel="Retry"
+                    onAction={() => refetch()}
+                  />
+                ) : (
+                  record_history.map((item, i) => (
+                    <div className="athleteprofileRow" key={i}>
+                      <div className="country">
+                        <div className="country">{item.event_name}</div>
                       </div>
-                    </div>
 
-                    <div>{item.distance}</div>
-                    <div>{item.medal}</div>
-                    <div>{item.best_time}</div>
-                  </div>
-                ))}
+                      <div className="athleteInfo">
+                        <div>
+                          <span className="athleteName">{item.discipline}</span>
+                        </div>
+                      </div>
+
+                      <div>{item.distance}</div>
+                      <div>{item.medal}</div>
+                      <div>{item.best_time}</div>
+                    </div>
+                  ))
+                )}
 
                 {/* FOOTER */}
                 {/* <div className="tableFooter">

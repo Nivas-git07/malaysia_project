@@ -1,5 +1,5 @@
 import swimmer from "../../assets/swimmer.png";
-
+import { useParams } from "react-router-dom";
 export default function RecordCardX({
   full_name,
   discipline,
@@ -7,6 +7,7 @@ export default function RecordCardX({
   profile_picture,
 }) {
   return (
+    
     <div className="mfsaRecordX-card">
       <div className="mfsaRecordX-imgWrap">
         <img

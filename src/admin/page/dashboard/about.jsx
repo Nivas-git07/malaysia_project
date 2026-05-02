@@ -9,11 +9,14 @@ import { useNavigate } from "react-router-dom";
 import Aboutpreview from "../../previewtemplate/aboutpreview";
 
 import { post_about_preview } from "../../api/preview_api";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
 export default function About() {
   const navigate = useNavigate();
-  const { data: aboutData, isLoading } = useQuery({
+  const { data: aboutData, isLoading, error, refetch } = useQuery({
     queryKey: ["aboutContent"],
     queryFn: getabout,
+    retry: false,
   });
 
   const aboutInfo = aboutData?.data;
@@ -22,6 +25,32 @@ export default function About() {
   const [vision, setVision] = useState("");
   const [missions, setMissions] = useState([]);
   const [initialized, setInitialized] = useState(false);
+
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="card" count={2} />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load about content"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
+  }
 
   if (!initialized && aboutInfo) {
     setAbout(aboutInfo.about || "");

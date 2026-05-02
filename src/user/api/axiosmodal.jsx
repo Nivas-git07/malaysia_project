@@ -1,4 +1,5 @@
 import axios from "axios";
+import { AUTH_EVENTS } from "../../auth/session";
 
 
 
@@ -15,6 +16,16 @@ API.interceptors.request.use(
     return req;
   },
   (error) => Promise.reject(error)
+);
+
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error?.response?.status === 401 && typeof window !== "undefined") {
+      window.dispatchEvent(new Event(AUTH_EVENTS.FORCE_LOGOUT));
+    }
+    return Promise.reject(error);
+  },
 );
 
 

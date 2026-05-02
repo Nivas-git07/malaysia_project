@@ -7,10 +7,12 @@ import LeaveMembershipModal from "./transfermembership/leavemembershipmodal";
 import { useState } from "react";
 import { leaveMembership } from "../../../admin/api/membership";
 import { HandleRenew } from "../../hook/renewcheck";
+import SkeletonLoader from "../common/SkeletonLoader";
+import ErrorState from "../common/ErrorState";
 function AthleteMembershipStatus() {
   const { id } = useParams();
   const [showLeaveModal, setShowLeaveModal] = useState(false);
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["membership-details", id],
     queryFn: () => getmebershipdetails(id),
   });
@@ -69,8 +71,16 @@ function AthleteMembershipStatus() {
 
   /* ================= STATES ================= */
 
-  if (isLoading) return <p style={{ padding: 20 }}>Loading...</p>;
-  if (isError) return <p style={{ padding: 20 }}>Error loading data</p>;
+  if (isLoading) return <SkeletonLoader variant="card" count={2} />;
+
+  if (isError)
+    return (
+      <ErrorState
+        title="Unable to load membership"
+        message="Please check your connection and try again."
+        onRetry={() => refetch()}
+      />
+    );
 
   return (
     <>

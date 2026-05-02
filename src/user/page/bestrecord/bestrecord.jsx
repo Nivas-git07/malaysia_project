@@ -1,57 +1,39 @@
 import { useState } from "react";
 import SwimmerHero from "../../layout/hero";
 import Footer from "../../layout/footer";
-import photo from "../../assets/feature1.png";
-const categories = ["Surface", "Bi-fins", "Apnea", "Immersion"];
+import { get_bestrecords } from "../../api/home_api";
+import { useQuery } from "@tanstack/react-query";
+import { useParams, NavLink } from "react-router-dom";
 
-const recordsData = [
-  {
-    name: "Zheng Wei Han",
-    category: "Surface / 50m",
-    time: "15.02s",
-    date: "June 2024",
-    img: photo,
-    top: true,
-  },
-  {
-    name: "Siti Aminah",
-    category: "Bi-fins / 100m",
-    time: "46.85s",
-    date: "March 2024",
-    img: photo,
-  },
-  {
-    name: "Marcus Tan",
-    category: "Apnea / 50m",
-    time: "13.89s",
-    date: "May 2024",
-    img: photo,
-  },
-  {
-    name: "Lina Rodrigues",
-    category: "Immersion / 100m",
-    time: "39.12s",
-    date: "April 2024",
-    img: photo,
-  },
-  {
-    name: "S. Ravindran",
-    category: "Surface / 200m",
-    time: "1:21.44",
-    date: "Jan 2024",
-    img: photo,
-  },
-  {
-    name: "Ismail Daud",
-    category: "Bi-fins / 50m",
-    time: "19.55s",
-    date: "Aug 2024",
-    img: photo,
-  },
-];
+const categories = ["Surface", "Bi-fins", "Apnea", "Immersion"];
 
 export default function BestRecords() {
   const [active, setActive] = useState("Surface");
+  const { stateId, clubId } = useParams();
+
+  const isClub = !!clubId;
+  const isState = !!stateId && !clubId;
+
+  // 🔥 API CALL (dynamic)
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["best-records", stateId, clubId],
+    queryFn: () => get_bestrecords({ stateId, clubId }),
+    retry: false,
+  });
+
+  const records = data?.data || [];
+
+  // 🔥 FILTER by discipline (match API format)
+  const filteredRecords = records.filter(
+    (rec) =>
+      rec.discipline?.toLowerCase() === active.toLowerCase()
+  );
+
+  const basePath = stateId
+    ? clubId
+      ? `/state/${stateId}/club/${clubId}`
+      : `/state/${stateId}`
+    : "";
 
   return (
     <>
@@ -65,7 +47,61 @@ export default function BestRecords() {
             disciplines.
           </p>
         </div>
+
+        {basePath && (
+          <nav className="heroNav">
+            <ul>
+              {isState && (
+                <li>
+                  <NavLink to={`/state/${stateId}`}>Home</NavLink>
+                </li>
+              )}
+              {isClub && (
+                <li>
+                  <NavLink to={`/state/${stateId}/club/${clubId}`}>
+                    Home
+                  </NavLink>
+                </li>
+              )}
+
+              {isState && (
+                <li>
+                  <NavLink to={`${basePath}/association`}>
+                    CLUBS
+                  </NavLink>
+                </li>
+              )}
+
+              {isClub && (
+                <li>
+                  <NavLink to={`${basePath}/athlete`}>
+                    ATHLETES
+                  </NavLink>
+                </li>
+              )}
+
+              <li>
+                <NavLink to={basePath ? `${basePath}/event` : "/event"}>
+                  EVENTS
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink to={basePath ? `${basePath}/news` : "/news"}>
+                  NEWS
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink to={basePath ? `${basePath}/about` : "/about"}>
+                  ABOUT
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+        )}
       </SwimmerHero>
+
       <section className="br-container">
         {/* HEADER */}
         <div className="br-header">
@@ -96,26 +132,58 @@ export default function BestRecords() {
           </div>
         </div>
 
+        {/* 🔥 LOADING */}
+        {isLoading && (
+          <div className="emptyState">
+            <p>Loading records...</p>
+          </div>
+        )}
+
+        {/* 🔥 ERROR */}
+        {error && (
+          <div className="emptyState">
+            <p>Failed to load records. Try again.</p>
+          </div>
+        )}
+
+        {/* 🔥 EMPTY */}
+        {!isLoading && !error && filteredRecords.length === 0 && (
+          <div className="emptyState">
+            <h3>No Records Found</h3>
+            <p>
+              {isClub
+                ? "No athletes found in this club."
+                : isState
+                ? "No athletes found in this state."
+                : "No national records available."}
+            </p>
+          </div>
+        )}
+
         {/* GRID */}
         <div className="br-grid">
-          {recordsData.map((rec, i) => (
-            <div key={i} className={`br-card ${rec.top ? "top-card" : ""}`}>
-              {rec.top && <div className="top-badge">⭐ TOP RECORD</div>}
+          {filteredRecords.map((rec, i) => (
+            <div key={i} className="br-card">
+              <img
+                src={rec.profile_picture}
+                alt={rec.full_name}
+              />
 
-              <img src={rec.img} alt={rec.name} />
+              <h3>{rec.full_name}</h3>
 
-              <h3>{rec.name}</h3>
-              <p className="category">{rec.category}</p>
+              <p className="category">
+                {rec.discipline} / {rec.distance}m
+              </p>
 
               <div className="divider" />
 
-              <h2 className="time">{rec.time}</h2>
-              <span className="date">Record Set: {rec.date}</span>
+              <h2 className="time">{rec.best_time}</h2>
+              <span className="date">Top Performance</span>
             </div>
           ))}
         </div>
 
-        {/* PAGINATION */}
+        {/* PAGINATION (kept as UI) */}
         <div className="br-pagination">
           <span className="active">1</span>
           <span>2</span>
@@ -123,6 +191,7 @@ export default function BestRecords() {
           <span>›</span>
         </div>
       </section>
+
       <Footer />
     </>
   );

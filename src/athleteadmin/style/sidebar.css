@@ -1,0 +1,33 @@
+/* Mobile-only sidebar drawer behavior for athleteadmin.
+   Desktop styling comes from shared admin layout CSS. */
+
+.mobileToggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobileToggle {
+    display: block;
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    background: #c10000;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10000;
+    border-radius: 6px;
+    color: #fff;
+  }
+
+  /* Slide drawer */
+  .sidebar {
+    left: -260px;
+    width: 260px;
+    transition: left 0.3s ease;
+  }
+
+  .sidebar.show {
+    left: 0;
+  }
+}
+

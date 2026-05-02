@@ -6,7 +6,9 @@ function AthleteLayout({ children }) {
       {/* <AthleteNavbar /> */}
       <div className="layout">
         <AthleteSidebar />
-        <main className="content">{children}</main>
+        <main className="content">
+          {children}
+        </main>
       </div>
     </>
   );

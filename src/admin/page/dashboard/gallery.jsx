@@ -6,6 +6,9 @@ import { postgallery, get_recent_gallery } from "../../api/news_api";
 import Preview from "../../hook/preview/preview";
 import { FiTrash2 } from "react-icons/fi";
 import { deletegallery } from "../../api/news_api";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
+import EmptyState from "../../components/common/EmptyState";
 export default function Gallery() {
   const [uploading, setUploading] = useState(false);
   const [fileType, setFileType] = useState("");
@@ -26,7 +29,7 @@ export default function Gallery() {
       }
     }
   };
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["recentGallery"],
     queryFn: get_recent_gallery,
     refetchOnWindowFocus: false,
@@ -34,6 +37,32 @@ export default function Gallery() {
 
   const galleryItems = data?.data ?? null;
   console.log("Gallery Items:", galleryItems);
+
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="card" count={6} />
+        </div>
+      </>
+    );
+  }
+
+  if (isError) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load gallery"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
+  }
 
   // 🔥 HANDLE FILE CLICK
   const handleClick = () => {
@@ -125,15 +154,6 @@ export default function Gallery() {
             </div>
           </div>
 
-          {/* ===== STATES ===== */}
-          {isLoading && (
-            <div className="mfsaEmptyState">Loading gallery...</div>
-          )}
-
-          {isError && (
-            <div className="mfsaEmptyState">Failed to load gallery</div>
-          )}
-
           <div className="gallery-wrapper">
             <div className="gallery-header">
               <h2>Uploaded Images</h2>
@@ -171,8 +191,13 @@ export default function Gallery() {
                       </div>
                     );
                   })
-                : !isLoading && (
-                    <div className="gallery-empty">No media available</div>
+                : (
+                    <EmptyState
+                      title="No media available"
+                      message="Upload an image or video to see it here."
+                      actionLabel="Retry"
+                      onAction={() => refetch()}
+                    />
                   )}
             </div>
           </div>

@@ -7,12 +7,15 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getClubList } from "../../api/home_api";
 import { useNavigate } from "react-router-dom";
+import SkeletonLoader from "../../components/common/SkeletonLoader";
+import ErrorState from "../../components/common/ErrorState";
+import EmptyState from "../../components/common/EmptyState";
 export default function StateList() {
   const { id } = useParams();
   const navigate = useNavigate();
   console.log("State ID:", id);
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["clubList", id],
     queryFn: () => (id ? statedata(id) : getClubList()),
     refetchOnWindowFocus: false,
@@ -21,9 +24,34 @@ export default function StateList() {
   
 
   const clubs_stats = data?.data || [];
-  const club_count = data?.data.clubs_count || 0;
   console.log(clubs_stats);
   console.log(data, isLoading, error);
+
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <SkeletonLoader variant="table" count={6} />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="mu-membership-wrapper">
+          <ErrorState
+            title="Unable to load clubs"
+            message="Please check your connection and try again."
+            onRetry={() => refetch()}
+          />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -58,46 +86,55 @@ export default function StateList() {
             <button className="findBtn">Find Club</button>
           </div>
 
-          <div className="stateTable">
-            <div className="stateHead">
-              <div>Club Name</div>
-              <div>Members count</div>
-              <div>Club owner</div>
-              <div>Website</div>
-            </div>
-
-            {clubs_stats.clubs_list?.map((club) => (
-              <div
-                className="stateRow"
-                key={club.user}
-                onClick={() => {
-                  navigate(`/admin/home/club/${club.user}`);
-                }}
-              >
-                <div className="clubCell">
-                  <img src={logo} alt="logo" />
-                  {club.club_name}
-                </div>
-
-                <div>
-                  {/* <img src="https://i.pravatar.cc/40" />
-                  <img src="https://i.pravatar.cc/41" />
-                  <img src="https://i.pravatar.cc/42" /> */}
-                  <span> {club.athlete_count} </span>
-                </div>
-
-                <div>{club.owner_name}</div>
-
-                <a
-                  href={`http://localhost:5173/club/${club.user}`}
-                  className="website"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  www.mfsa.com
-                </a>
+          <div className="mfsaTableScroll">
+            <div className="stateTable">
+              <div className="stateHead">
+                <div>Club Name</div>
+                <div>Members count</div>
+                <div>Club owner</div>
+                <div>Website</div>
               </div>
-            ))}
+
+              {clubs_stats.clubs_list?.length === 0 ? (
+                <EmptyState
+                  title="No clubs found"
+                  message="Try adjusting your selection."
+                  actionLabel="Retry"
+                  onAction={() => refetch()}
+                />
+              ) : (
+                clubs_stats.clubs_list?.map((club) => (
+                  <div
+                    className="stateRow"
+                    key={club.user}
+                    onClick={() => {
+                      navigate(`/admin/home/club/${club.user}`);
+                    }}
+                  >
+                    <div className="clubCell">
+                      <img src={logo} alt="logo" />
+                      {club.club_name}
+                    </div>
+
+                    <div>
+                      <span> {club.athlete_count} </span>
+                    </div>
+
+                    <div>{club.owner_name}</div>
+
+                    <a
+                      href={`http://localhost:5173/club/${club.user}`}
+                      className="website"
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      www.mfsa.com
+                    </a>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>
