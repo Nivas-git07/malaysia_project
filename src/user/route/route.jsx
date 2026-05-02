@@ -69,13 +69,16 @@ export default function Page() {
           <Route path="state/:stateId/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
           <Route path="state/:stateId/club/:clubId/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
 
+          <Route path="bestrecords" element={<PageWrapper><BestRecords /></PageWrapper>} />
+          <Route path="state/:stateId/bestrecords" element={<PageWrapper><BestRecords /></PageWrapper>} />
+          <Route path="state/:stateId/club/:clubId/gallery" element={<PageWrapper><BestRecords /></PageWrapper>} />
+
           <Route path="registerabout" element={<PageWrapper><RegistrationAboutForm /></PageWrapper>} />
           <Route path="registermembership" element={<PageWrapper><Registermembership /></PageWrapper>} />
           <Route path="membershipabout" element={<PageWrapper><Membership /></PageWrapper>} />
           <Route path="membershipsubmission" element={<PageWrapper><Registermembershipsubmission /></PageWrapper>} />
 
           <Route path="aboutpreview" element={<PageWrapper><Aboutpreview /></PageWrapper>} />
-          <Route path="bestrecords" element={<PageWrapper><BestRecords /></PageWrapper>} />
           <Route path="unauthorized" element={<PageWrapper><Unauthorized /></PageWrapper>} />
 
         </Routes>

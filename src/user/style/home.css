@@ -46,6 +46,7 @@
   text-transform: uppercase;
   text-align: center;
   letter-spacing: 0.5px;
+  
 }
 
 .hero-container {
@@ -3461,7 +3462,7 @@ background-color: white !important;
 }
 
 .br-container {
-  padding: 40px 60px;
+  padding: 60px 60px;
   background: #f8fafc;
 }
 
@@ -3499,11 +3500,12 @@ background-color: white !important;
 }
 
 .br-tab {
-  padding: 6px 16px;
-  border-radius: 20px;
+  padding: 2px 16px;
+  border-radius: 12px;
   background: #e5e7eb;
   border: none;
   font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
 }
 

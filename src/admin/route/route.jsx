@@ -25,6 +25,7 @@ import MembershipALLStatus from "../page/membership/membershipallstatus";
 import StateManagement from "../page/dashboard/statemanagement";
 import PageWrapper from "../hooks/animateroute";
 import ProtectedRoute from "../../auth/ProtectedRoute";
+import StaffManagement from "../page/dashboard/managestaff";
 export default function AdminRoute() {
   const location = useLocation();
 
@@ -78,6 +79,16 @@ export default function AdminRoute() {
                 </AdminLayout>
               </PageWrapper>
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="staff-management"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <StaffManagement />
+              </AdminLayout>
+            </PageWrapper>
           }
         />
 

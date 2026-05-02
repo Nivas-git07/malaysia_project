@@ -8,6 +8,7 @@ import AthleteMembershipPayment from "../components/membership/memberpayment";
 import AthleteMembersipPurchaseCenter from "../components/membership/membershippurchase";
 import AthleteMembershipALLStatus from "../components/membership/membershipallstatus";
 import AthleteMembershipStatus from "../components/membership/membershipstatus";
+import AthleteNotificationPage from "../page/notification/athletenotification";
 import { AnimatePresence } from "framer-motion";
 import PageWrapper from "../hooks/animateroute";
 
@@ -17,6 +18,16 @@ function AthleteRoute() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        <Route
+          path="/notification"
+          element={
+            <PageWrapper>
+              <AthleteLayout>
+                <AthleteNotificationPage />
+              </AthleteLayout>
+            </PageWrapper>
+          }
+        />
         <Route
           path="/dashboard"
           element={

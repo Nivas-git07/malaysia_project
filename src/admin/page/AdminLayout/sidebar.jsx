@@ -10,6 +10,7 @@ import { PiNotePencilBold } from "react-icons/pi";
 import { GrGallery } from "react-icons/gr";
 import { BiCommentDetail } from "react-icons/bi";
 import { TbCreditCardRefund } from "react-icons/tb";
+import { PiChalkboardTeacherBold } from "react-icons/pi";
 import {
   Home,
   User,
@@ -32,7 +33,6 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* MOBILE MENU BUTTON */}
       <div className="mobileToggle" onClick={() => setOpen(!open)}>
         <Menu size={22} />
       </div>
@@ -73,6 +73,14 @@ export default function Sidebar() {
               <span>State Management</span>
             </NavLink>
           )}
+             <NavLink
+              to="/admin/staff-management"
+              className="menuItem"
+              onClick={closeSidebar}
+            >
+              <PiChalkboardTeacherBold size={20} />
+              <span>Staff Management</span>
+            </NavLink>
           <NavLink
             to="/admin/calendar"
             className="menuItem"

@@ -33,14 +33,10 @@ export default function Gallery() {
   const handleLoadMore = () => setVisibleCount((p) => p + 6);
 
   const handlePrev = () =>
-    setSelectedIndex((p) =>
-      p === 0 ? galleryList.length - 1 : p - 1
-    );
+    setSelectedIndex((p) => (p === 0 ? galleryList.length - 1 : p - 1));
 
   const handleNext = () =>
-    setSelectedIndex((p) =>
-      p === galleryList.length - 1 ? 0 : p + 1
-    );
+    setSelectedIndex((p) => (p === galleryList.length - 1 ? 0 : p + 1));
 
   useEffect(() => {
     const onKey = (e) => {
@@ -59,7 +55,8 @@ export default function Gallery() {
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle">Gallery</h1>
           <p className="homeHeroSub">
-            Explore memorable moments from our events, training sessions, and competitions.
+            Explore memorable moments from our events, training sessions, and
+            competitions.
           </p>
         </div>
 
@@ -76,6 +73,18 @@ export default function Gallery() {
                   <NavLink to={`/state/${stateId}/club/${clubId}`}>
                     Home
                   </NavLink>
+                </li>
+              )}
+
+              {isState && (
+                <li>
+                  <NavLink to={`${basePath}/association`}>CLUBS</NavLink>
+                </li>
+              )}
+
+              {isClub && (
+                <li>
+                  <NavLink to={`${basePath}/athlete`}>ATHLETES</NavLink>
                 </li>
               )}
               <li>
@@ -147,10 +156,7 @@ export default function Gallery() {
       </section>
 
       {selectedIndex !== null && (
-        <div
-          className="lightboxOverlay"
-          onClick={() => setSelectedIndex(null)}
-        >
+        <div className="lightboxOverlay" onClick={() => setSelectedIndex(null)}>
           <div
             className="lightboxArrow left"
             onClick={(e) => {
@@ -172,9 +178,7 @@ export default function Gallery() {
             />
           ) : (
             <motion.img
-              src={
-                galleryList[selectedIndex]?.image || fallbackImg
-              }
+              src={galleryList[selectedIndex]?.image || fallbackImg}
               className="lightboxImage"
               onClick={(e) => e.stopPropagation()}
             />
