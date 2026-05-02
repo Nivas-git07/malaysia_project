@@ -1596,3 +1596,357 @@ border-radius: 12px;
 .statuss.accepted {
   color: #ea7121;
 }
+
+/* OVERLAY */
+.mfsaModalOverlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* CARD */
+.mfsaModalCard {
+  width: 480px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease;
+}
+
+/* HEADER */
+.mfsaModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mfsaModalHeader h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.mfsaModalHeader p {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.closeBtn {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* USER */
+.mfsaUserRow {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  font-size: 14px;
+}
+
+.statusActive {
+  color: green;
+  font-weight: 600;
+}
+
+/* SECTION */
+.mfsaPermissionSection {
+  margin-top: 16px;
+}
+
+.sectionTitle {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+/* ROW */
+.permRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #f9fafb;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+/* SWITCH */
+.switch {
+  position: relative;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #ddd;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  top: 2px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+input:checked + .slider {
+  background: #c10000;
+}
+
+input:checked + .slider::before {
+  transform: translateX(18px);
+}
+
+/* FOOTER */
+.mfsaModalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancelBtn {
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: white;
+}
+
+.savessBtn {
+  background: #c10000;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.trOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.trModal {
+  width: 560px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  font-family: "Inter", sans-serif;
+  animation: fadeScale 0.25s ease;
+}
+
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* HEADER */
+.trHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.trHeader h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.trHeader p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #777;
+}
+
+.trClose {
+  cursor: pointer;
+  font-size: 20px;
+  color: #999;
+}
+
+/* INFO CARD */
+.trInfoCard {
+  margin-top: 18px;
+  background: #f4f6f8;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trInfoLeft {
+  display: flex;
+  gap: 12px;
+}
+
+.trIcon {
+  font-size: 20px;
+}
+
+.trTicketId {
+  font-weight: 600;
+}
+
+.trEmail {
+  font-size: 13px;
+  color: #555;
+}
+
+.trMeta {
+  font-size: 12px;
+  color: #999;
+}
+
+/* BADGE */
+.trBadge {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.trBadge.pending {
+  background: #ffe5e5;
+  color: #d00000;
+}
+
+.trBadge.in_progress {
+  background: #fff4e5;
+  color: #d97706;
+}
+
+.trBadge.resolved {
+  background: #e6f7ed;
+  color: #059669;
+}
+
+/* FIELD */
+.trField {
+  margin-top: 18px;
+}
+
+.trField label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* TEXTAREA */
+.trTextareaWrap {
+  position: relative;
+}
+
+.trTextareaWrap textarea {
+  width: 100%;
+  height: 120px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  font-size: 14px;
+  outline: none;
+  resize: none;
+}
+
+.trTextareaWrap textarea:focus {
+  border-color: #b30000;
+  box-shadow: 0 0 0 2px rgba(179, 0, 0, 0.1);
+}
+
+.trCount {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 11px;
+  color: #aaa;
+}
+
+/* SEGMENT */
+.trSegment {
+  display: flex;
+  background: #f1f3f5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.trSegment button {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  font-size: 13px;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.trSegment button.active {
+  background: #b30000;
+  color: #fff;
+}
+
+/* FOOTER */
+.trFooter {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.trCancel {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: white;
+}
+
+.trSubmit {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  background: #b30000;
+  color: white;
+  cursor: pointer;
+}
+
+.trSubmit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

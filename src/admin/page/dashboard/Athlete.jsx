@@ -29,6 +29,7 @@ function Athlete() {
   });
 
   const data = athleteData?.data?.athletes_list || [];
+  console.log(data)
 
   
   const handleFilterChange = (e) => {

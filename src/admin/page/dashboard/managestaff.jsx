@@ -6,7 +6,7 @@ import { staff_register, get_staffs } from "../../api/auth_api";
 import { useQuery } from "@tanstack/react-query";
 import SkeletonLoader from "../../components/common/SkeletonLoader";
 import ErrorState from "../../components/common/ErrorState";
-
+import PermissionModal from "../../components/staffaccess";
 export default function StaffManagement() {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["getStaffList"],
@@ -15,6 +15,9 @@ export default function StaffManagement() {
     retry: false,
   });
   console.log(data?.data);
+
+  const [selectedStaff, setSelectedStaff] = useState(null);
+  const [showPermissionModal, setShowPermissionModal] = useState(false);
 
   const [form, setForm] = useState({
     staff_email_id: "",
@@ -185,7 +188,7 @@ export default function StaffManagement() {
 
               {displayStaffs.map((item) => (
                 <div className="statetableRow" key={item.id}>
-                    <span>{item.staff_name || "-"}</span>
+                  <span>{item.staff_name || "-"}</span>
                   <span>{item.staff_email_id}</span>
 
                   <span
@@ -197,11 +200,23 @@ export default function StaffManagement() {
                     {item.is_active ? "Active" : "Inactive"}
                   </span>
 
-                  <span className="control">
+                  <span
+                    className="control"
+                    onClick={() => {
+                      setSelectedStaff(item);
+                      setShowPermissionModal(true);
+                    }}
+                  >
                     <FiEdit2 />
                   </span>
                 </div>
               ))}
+              {showPermissionModal && (
+                <PermissionModal
+                  staff={selectedStaff}
+                  onClose={() => setShowPermissionModal(false)}
+                />
+              )}
             </div>
           </div>
         </div>

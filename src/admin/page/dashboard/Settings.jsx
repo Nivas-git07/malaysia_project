@@ -106,7 +106,7 @@ export default function Settings() {
       onChange: handleChange,
     };
 
-    if (field === "email_id") return <input {...props} readOnly />;
+    if (field === "email_id") return <input {...props} r />;
 
     if (field === "gender") {
       return (
