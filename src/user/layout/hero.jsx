@@ -1,6 +1,5 @@
 import Navbar from "./navbar";
 import video from "../assets/animate5.mp4";
-import poster from "../assets/logo.jpg";
 export default function SwimmerHero({ children }) {
     return (
       <>
@@ -16,7 +15,6 @@ export default function SwimmerHero({ children }) {
                 loop
                 playsInline
                 preload="metadata"
-                poster={poster}
             >
                 <source src={video} type="video/mp4" />
             </video>

@@ -67,6 +67,7 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     try {
       const response = await get_check();
+
       const status = response?.data?.status;
       if (status && status !== "success") {
         setSession(null);
