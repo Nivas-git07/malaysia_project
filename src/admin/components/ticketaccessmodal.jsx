@@ -1,26 +1,58 @@
 import { useState } from "react";
 import { FiX, FiClock, FiRefreshCw, FiCheckCircle } from "react-icons/fi";
 import Timeage from "../hook/time/timeage";
-export default function TicketResponseModal({ ticket, onClose, onSubmit }) {
+import { responst_ticket } from "../api/ticket";
+import { useQueryClient } from "@tanstack/react-query";
+export default function TicketResponseModal({ ticket, onClose }) {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("PENDING");
   const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   const maxLength = 2000;
 
   const handleSubmit = async () => {
-    if (!message.trim()) return;
+  if (!message.trim()) {
+    alert("Message cannot be empty ❌");
+    return;
+  }
 
-    try {
-      setLoading(true);
-      await onSubmit({ message, status });
+  if (!ticket?.id) {
+    alert("Invalid ticket ❌");
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const res = await responst_ticket(ticket.id, {
+      message: message.trim(),
+      status,
+    });
+
+    if (res?.status === 200 || res?.status === 201) {
+      queryClient.invalidateQueries(["tickets"]);
+      alert("Response sent successfully ✅");
+
+
       onClose();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
+    } else {
+      throw new Error("Unexpected response");
     }
-  };
+  } catch (err) {
+    console.error("API ERROR:", err);
+
+    const errorMsg =
+      err?.response?.data?.message ||
+      err?.response?.data?.detail ||
+      err?.message ||
+      "Something went wrong";
+
+    alert(errorMsg + " ❌");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="trOverlay">
@@ -41,7 +73,10 @@ export default function TicketResponseModal({ ticket, onClose, onSubmit }) {
             <div>
               <p className="trTicketId">#{ticket?.id}</p>
               <p className="trEmail">{ticket?.email}</p>
-              <span className="trMeta">Priority: High • Created <Timeage timestamp={ticket?.created_at} /></span>
+              <span className="trMeta">
+                Priority: High • Created{" "}
+                <Timeage timestamp={ticket?.created_at} />
+              </span>
             </div>
           </div>
 
@@ -80,8 +115,8 @@ export default function TicketResponseModal({ ticket, onClose, onSubmit }) {
             </button>
 
             <button
-              className={status === "IN_PROGRESS" ? "active" : ""}
-              onClick={() => setStatus("IN_PROGRESS")}
+              className={status === "IN PROGRESS" ? "active" : ""}
+              onClick={() => setStatus("IN PROGRESS")}
             >
               <FiRefreshCw /> In Progress
             </button>

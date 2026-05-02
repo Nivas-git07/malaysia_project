@@ -9,21 +9,29 @@ import ErrorState from "../../components/common/ErrorState";
 import EmptyState from "../../components/common/EmptyState";
 import Timeage from "../../hook/time/timeage";
 import TicketResponseModal from "../../components/ticketaccessmodal";
+
 function Tickets() {
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["tickets"],
-    queryFn: getTickets,
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
-  console.log(data, isLoading, error);
+  const {
+  data,
+  isLoading,
+  isError,
+  error,
+  refetch,
+} = useQuery({
+  queryKey: ["tickets"],
+  queryFn: getTickets,
+  refetchOnWindowFocus: false,
+  retry: 1, 
+  staleTime: 1000 * 60, 
+});
 
   const [selectedticket, setSelectedticket] = useState(null);
   const [showPermissionModal, setShowPermissionModal] = useState(false);
   const ticket_count = data?.data || 0;
+
   const tickets = data?.data.data || [];
 
-  console.log("Tickets:", tickets);
+  console.log("Tickets:", tickets,ticket_count);
   if (isLoading)
     return (
       <>
@@ -73,7 +81,7 @@ function Tickets() {
             </div>
 
             <div className="summaryCard">
-              <h2>{ticket_count.in_progress_count || 0}</h2>
+              <h2>{ticket_count.in_progess_count || 0}</h2>
               <p>In Progress</p>
             </div>
 
@@ -130,10 +138,6 @@ function Tickets() {
               <TicketResponseModal
                 ticket={selectedticket}
                 onClose={() => setShowPermissionModal(false)}
-                onSubmit={(payload) => {
-                  console.log("Submit:", payload, selectedticket);
-                  // call your API here
-                }}
               />
             )}
           </div>
