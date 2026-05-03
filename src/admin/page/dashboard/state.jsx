@@ -80,11 +80,7 @@ export default function StateList() {
         <div className="stateTitle">CLUB LIST</div>
 
         <div className="stateCard">
-          <div className="stateFilters">
-            <input placeholder="e.g., Selangor Finswimming Club" />
-            <input placeholder="--Select State--" />
-            <button className="findBtn">Find Club</button>
-          </div>
+         
 
           <div className="mfsaTableScroll">
             <div className="stateTable">

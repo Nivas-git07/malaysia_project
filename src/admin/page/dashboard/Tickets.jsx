@@ -11,19 +11,13 @@ import Timeage from "../../hook/time/timeage";
 import TicketResponseModal from "../../components/ticketaccessmodal";
 
 function Tickets() {
-  const {
-  data,
-  isLoading,
-  isError,
-  error,
-  refetch,
-} = useQuery({
-  queryKey: ["tickets"],
-  queryFn: getTickets,
-  refetchOnWindowFocus: false,
-  retry: 1, 
-  staleTime: 1000 * 60, 
-});
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ["tickets"],
+    queryFn: getTickets,
+    refetchOnWindowFocus: false,
+    retry: 1,
+    staleTime: 1000 * 60,
+  });
 
   const [selectedticket, setSelectedticket] = useState(null);
   const [showPermissionModal, setShowPermissionModal] = useState(false);
@@ -31,7 +25,7 @@ function Tickets() {
 
   const tickets = data?.data.data || [];
 
-  console.log("Tickets:", tickets,ticket_count);
+  console.log("Tickets:", tickets, ticket_count);
   if (isLoading)
     return (
       <>
@@ -121,15 +115,15 @@ function Tickets() {
                     </p>
                   </div>
                   <span
-                    className={`status ${
-                      ticket.status === "Resolved"
-                        ? "resolvedGreen"
-                        : ticket.status === "In Progress"
-                          ? "inProgressYellow"
-                          : "pendingRed"
+                    className={`mfsaStatusBadgeX ${
+                      ticket.status === "RESOLVED"
+                        ? "mfsaStatusResolvedX"
+                        : ticket.status === "IN_PROGRESS"
+                          ? "mfsaStatusProgressX"
+                          : "mfsaStatusPendingX"
                     }`}
                   >
-                    • {ticket.status}
+                    {ticket.status}
                   </span>
                 </div>
               ))

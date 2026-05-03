@@ -151,14 +151,16 @@ export default function Sidebar() {
             <GrGallery size={20} />
             <span>Gallery</span>
           </NavLink>
-          <NavLink
-            to="/admin/support"
-            className="menuItem"
-            onClick={closeSidebar}
-          >
-            <MdSupportAgent size={20} />
-            <span>Support </span>
-          </NavLink>
+          {role !== "SUPERADMIN" && (
+            <NavLink
+              to="/admin/support"
+              className="menuItem"
+              onClick={closeSidebar}
+            >
+              <MdSupportAgent size={20} />
+              <span>Support </span>
+            </NavLink>
+          )}
 
           <NavLink
             to="/admin/about"

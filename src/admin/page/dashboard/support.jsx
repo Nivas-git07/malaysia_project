@@ -1,48 +1,109 @@
 import { useState } from "react";
-import { FiUploadCloud, FiPlus } from "react-icons/fi";
-import Navbar from "../navbar/nav";
 import { FiSearch, FiFilter } from "react-icons/fi";
-export default function Support() {
-  const [file, setFile] = useState(null);
-  const tickets = [
-    {
-      id: "#MFSA-1025",
-      subject: "Issue with lane booking API",
-      category: "Technical",
-      status: "Open",
-      date: "Oct 24, 2023",
-    },
-    {
-      id: "#MFSA-1021",
-      subject: "New athlete registration error",
-      category: "Membership",
-      status: "In Progress",
-      date: "Oct 22, 2023",
-    },
-    {
-      id: "#MFSA-1018",
-      subject: "Payment verification failed",
-      category: "Technical",
-      status: "Resolved",
-      date: "Oct 18, 2023",
-    },
-    {
-      id: "#MFSA-0998",
-      subject: "Event rule clarification",
-      category: "Event",
-      status: "Closed",
-      date: "Oct 12, 2023",
-    },
-  ];
+import Navbar from "../navbar/nav";
+import { raise_ticket, get_my_ticket } from "../../api/ticket";
+import { useQuery } from "@tanstack/react-query";
 
+export default function Support() {
+  /* ---------------- FETCH DATA ---------------- */
+  const {
+    data,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["get_my_ticket"],
+    queryFn: get_my_ticket,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
+  const tickets = data?.data || [];
+
+  /* ---------------- STATE ---------------- */
+  const [form, setForm] = useState({
+    subject: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  /* ---------------- HELPERS ---------------- */
+  const formatStatus = (status) =>
+    status
+      ?.toLowerCase()
+      .replace(/_/g, " ")
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+
+  const formatDate = (date) =>
+    new Date(date).toLocaleDateString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    });
+
+  /* ---------------- HANDLERS ---------------- */
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    if (!form.subject || !form.message) {
+      alert("Please fill all fields ❌");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const payload = {
+        problem: form.subject,
+        detail: form.message,
+      };
+
+      const res = await raise_ticket(payload);
+
+      if (res.status === 200 || res.status === 201) {
+        alert("Ticket Raised Successfully ✅");
+
+        setForm({
+          subject: "",
+          message: "",
+        });
+
+        refetch(); // 🔥 refresh table
+      }
+    } catch (err) {
+      console.error(err?.response?.data || err);
+      alert("Failed to raise ticket ❌");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* ---------------- EMPTY COMPONENT ---------------- */
+  const EmptyBox = ({ title, subtitle }) => (
+    <div className="mfsaEmptyBoxX">
+      <p>{title}</p>
+      <span>{subtitle}</span>
+    </div>
+  );
+
+  /* ---------------- UI ---------------- */
   return (
     <>
       <Navbar />
+
       <div className="mu-membership-wrapper">
         <div className="mfsaTicketX-wrapper">
+
           {/* HEADER */}
           <div className="mfsaTicketX-header">
-            <div className="mfsaTicketX-headerLeft">
+            <div>
               <h1 className="mfsaTicketX-title">Support & Tickets</h1>
               <p className="mfsaTicketX-sub">
                 Raise issues and track your support requests
@@ -52,66 +113,89 @@ export default function Support() {
 
           {/* GRID */}
           <div className="mfsaTicketX-grid">
-            {/* FORM */}
+
+            {/* LEFT FORM */}
             <div className="mfsaTicketX-card">
-              <h3 className="mfsaTicketX-cardTitle">Submit a New Request</h3>
+              <h3 className="mfsaTicketX-cardTitle">
+                Submit a New Request
+              </h3>
 
-              <div className="mfsaTicketX-row">
-                <div className="mfsaTicketX-group">
-                  <label>Subject</label>
-                  <input placeholder="Brief summary of the issue" />
-                </div>
-
-                <div className="mfsaTicketX-group">
-                  <label>Category</label>
-                  <select>
-                    <option>Technical</option>
-                    <option>Billing</option>
-                    <option>General</option>
-                  </select>
-                </div>
+              <div className="mfsaTicketX-group">
+                <label>Subject</label>
+                <input
+                  name="subject"
+                  value={form.subject}
+                  onChange={handleChange}
+                  placeholder="Brief summary of the issue"
+                />
               </div>
 
               <div className="mfsaTicketX-group">
                 <label>Description</label>
-                <textarea placeholder="Detailed explanation..." />
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  placeholder="Detailed explanation..."
+                />
               </div>
 
-              {/* UPLOAD */}
-
-              <button className="mfsaTicketX-submit">Submit Ticket</button>
+              <button
+                className="mfsaTicketX-submit"
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {loading ? "Submitting..." : "Submit Ticket"}
+              </button>
             </div>
 
-            {/* RIGHT */}
+            {/* RIGHT SIDE */}
             <div className="mfsaTicketX-right">
+
               <div className="mfsaTicketX-priority">
                 <h3>Priority Assistance</h3>
-                <p>Elite members receive support within 2 business hours.</p>
+                <p>
+                  Elite members receive support within 2 business hours.
+                </p>
               </div>
 
               <div className="mfsaTicketX-activity">
                 <h4>Recent Activity</h4>
 
-                <div className="mfsaTicketX-activityItem">
-                  <span className="mfsaTicketX-bar blue"></span>
-                  <div>
-                    <p className="mfsaTicketX-activityItemPara">Ticket #MFSA-992 Closed</p>
-                    <span>2 hours ago</span>
-                  </div>
-                </div>
+                {tickets.length === 0 ? (
+                  <EmptyBox
+                    title="No recent activity"
+                    subtitle="No ticket updates available"
+                  />
+                ) : (
+                  tickets.slice(0, 2).map((t) => (
+                    <div
+                      key={t.id}
+                      className="mfsaTicketX-activityItem"
+                    >
+                      <span
+                        className={`mfsaTicketX-bar ${
+                          t.status === "RESOLVED"
+                            ? "green"
+                            : t.status === "IN_PROGRESS"
+                            ? "yellow"
+                            : "red"
+                        }`}
+                      ></span>
 
-                <div className="mfsaTicketX-activityItem">
-                  <span className="mfsaTicketX-bar red"></span>
-                  <div>
-                    <p className="mfsaTicketX-activityItemPara">Agent replied to #MFSA-104</p>
-                    <span>Yesterday 14:20</span>
-                  </div>
-                </div>
+                      <div>
+                        <p  className="mfsaTicketX-activityItemPara">{t.problem}</p>
+                        <span>{formatDate(t.created_at)}</span>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>
+
+          {/* TABLE */}
           <div className="mfsaSupportX-wrapper">
-        
             <div className="mfsaSupportX-header">
               <h2>Active Support Logs</h2>
 
@@ -121,14 +205,12 @@ export default function Support() {
               </div>
             </div>
 
-         
             <div className="mfsaSupportX-tableWrap">
               <table className="mfsaSupportX-table">
                 <thead>
                   <tr>
                     <th>TICKET ID</th>
                     <th>SUBJECT</th>
-                    <th>CATEGORY</th>
                     <th>STATUS</th>
                     <th>CREATED DATE</th>
                     <th>ACTION</th>
@@ -136,46 +218,69 @@ export default function Support() {
                 </thead>
 
                 <tbody>
-                  {tickets.map((t, i) => (
-                    <tr key={i}>
-                      <td className="mfsaSupportX-id">{t.id}</td>
-
-                      <td className="mfsaSupportX-subject">{t.subject}</td>
-
-                      <td>
-                        <span className="mfsaSupportX-badge">{t.category}</span>
-                      </td>
-
-                      <td>
-                        <span
-                          className={`mfsaSupportX-status ${t.status
-                            .toLowerCase()
-                            .replace(/\s+/g, "_")}`}
-                        >
-                          ● {t.status}
-                        </span>
-                      </td>
-
-                      <td>{t.date}</td>
-
-                      <td>
-                        <span className="mfsaSupportX-link">View Details</span>
+                  {isLoading ? (
+                    <tr>
+                      <td colSpan="5">Loading...</td>
+                    </tr>
+                  ) : error ? (
+                    <tr>
+                      <td colSpan="5">
+                        Failed to load tickets ❌
                       </td>
                     </tr>
-                  ))}
+                  ) : tickets.length === 0 ? (
+                    <tr>
+                      <td colSpan="5">
+                        <EmptyBox
+                          title="No tickets found"
+                          subtitle="There are no support tickets"
+                        />
+                      </td>
+                    </tr>
+                  ) : (
+                    tickets.map((t) => (
+                      <tr key={t.id}>
+                        <td className="mfsaSupportX-id">
+                          #{t.id.slice(0, 6)}
+                        </td>
+
+                        <td className="mfsaSupportX-subject">
+                          {t.problem}
+                        </td>
+
+                        <td>
+                          <span
+                            className={`mfsaSupportX-status ${t.status
+                              .toLowerCase()
+                              .replace(/\s+/g, "_")}`}
+                          >
+                            ● {formatStatus(t.status)}
+                          </span>
+                        </td>
+
+                        <td>
+                          {formatDate(t.created_at)}
+                        </td>
+
+                        <td>
+                          <span className="mfsaSupportX-link">
+                            View Details
+                          </span>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
 
               <div className="mfsaSupportX-footer">
-                <p>Showing 4 of 28 support tickets</p>
-
-                <div className="mfsaSupportX-pagination">
-                  <button>Previous</button>
-                  <button>Next</button>
-                </div>
+                <p>
+                  Showing {tickets.length} tickets
+                </p>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </>

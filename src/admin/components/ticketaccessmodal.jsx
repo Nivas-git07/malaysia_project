@@ -115,8 +115,8 @@ export default function TicketResponseModal({ ticket, onClose }) {
             </button>
 
             <button
-              className={status === "IN PROGRESS" ? "active" : ""}
-              onClick={() => setStatus("IN PROGRESS")}
+              className={status === "IN_PROGRESS" ? "active" : ""}
+              onClick={() => setStatus("IN_PROGRESS")}
             >
               <FiRefreshCw /> In Progress
             </button>
