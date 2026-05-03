@@ -7,7 +7,7 @@ import { HandleRenew } from "../../hook/renewcheck";
 function AthleteMembershipALLStatus({ memberships }) {
   const navigate = useNavigate();
   console.log("Memberships Data:", memberships);
-  
+
   const formatPlan = (plan) => {
     return plan
       ?.replaceAll("_", " ")
@@ -140,7 +140,10 @@ function AthleteMembershipALLStatus({ memberships }) {
                     {isExpired ? (
                       <button className="ms-disabled-btn">Purchase New</button>
                     ) : (
-                      <button className="ms-primary-btn" onClick={() => HandleRenew(item, daysLeft)}>
+                      <button
+                        className="ms-primary-btn"
+                        onClick={() => HandleRenew(item, daysLeft)}
+                      >
                         {isExpiring ? "Renew" : "Renew Now"}
                       </button>
                     )}
@@ -174,11 +177,17 @@ function AthleteMembershipALLStatus({ memberships }) {
                 Our support team is available 24/7 to help with your membership
                 renewal or technical issues.
               </p>
-              <span>Contact Support →</span>
+              <span
+                onClick={() => {
+                  navigate("/athlete/support");
+                }}
+              >
+                Contact Support →
+              </span>
             </div>
           </div>
 
-          {/* FLOAT BUTTON
+          {/* FLOAT BUTTON  
           <div className="ms-float-btn">
             <FaPlus />
           </div> */}
