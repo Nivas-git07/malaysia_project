@@ -29,6 +29,8 @@ export default function Home() {
     retry: false,
   });
   console.log(data, isLoading, error);
+  const datas = data?.data
+  console.log(datas)
   const navigate = useNavigate();
   const data1 = data?.data.states_list || [];
   const [filters, setFilters] = useState({
@@ -49,6 +51,8 @@ export default function Home() {
     return filters.state === "" || itemState === selectedState;
   });
   console.log(data?.data.stats);
+
+  
 
   if (isLoading) {
     return (
@@ -109,31 +113,7 @@ export default function Home() {
 
         <div className="stateCard">
 
-          <div className="stateFilters">
-
-            <input
-              type="text"
-              placeholder="e.g., Selangor Finswimming Club"
-              className="filterInput"
-            />
-
-            <select
-              className="filterSelect"
-              name="state"
-              value={filters.state}
-              onChange={handleFilterChange}
-            >
-              <option value="">Select State</option>
-              <option value="Tamilnadu">Tamil Nadu</option>
-              <option value="Kerala">Kerala</option>
-              <option value="Karnataka">Karnataka</option>
-              <option value="Andra pradesh">Andra Pradesh</option>
-              <option value="Telangana">Telangana</option>
-            </select>
-
-            <button className="findBtn">Find Club</button>
-
-          </div>
+        
 
 
           <div className="mfsaTableScroll">

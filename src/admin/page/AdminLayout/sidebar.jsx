@@ -11,6 +11,7 @@ import { GrGallery } from "react-icons/gr";
 import { BiCommentDetail } from "react-icons/bi";
 import { TbCreditCardRefund } from "react-icons/tb";
 import { PiChalkboardTeacherBold } from "react-icons/pi";
+import { MdSupportAgent } from "react-icons/md";
 import {
   Home,
   User,
@@ -73,14 +74,14 @@ export default function Sidebar() {
               <span>State Management</span>
             </NavLink>
           )}
-             <NavLink
-              to="/admin/staff-management"
-              className="menuItem"
-              onClick={closeSidebar}
-            >
-              <PiChalkboardTeacherBold size={20} />
-              <span>Staff Management</span>
-            </NavLink>
+          <NavLink
+            to="/admin/staff-management"
+            className="menuItem"
+            onClick={closeSidebar}
+          >
+            <PiChalkboardTeacherBold size={20} />
+            <span>Staff Management</span>
+          </NavLink>
           <NavLink
             to="/admin/calendar"
             className="menuItem"
@@ -149,6 +150,14 @@ export default function Sidebar() {
           >
             <GrGallery size={20} />
             <span>Gallery</span>
+          </NavLink>
+          <NavLink
+            to="/admin/support"
+            className="menuItem"
+            onClick={closeSidebar}
+          >
+            <MdSupportAgent size={20} />
+            <span>Support </span>
           </NavLink>
 
           <NavLink

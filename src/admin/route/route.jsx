@@ -26,6 +26,7 @@ import StateManagement from "../page/dashboard/statemanagement";
 import PageWrapper from "../hooks/animateroute";
 import ProtectedRoute from "../../auth/ProtectedRoute";
 import StaffManagement from "../page/dashboard/managestaff";
+import Support from "../page/dashboard/support";
 export default function AdminRoute() {
   const location = useLocation();
 
@@ -147,7 +148,16 @@ export default function AdminRoute() {
             </PageWrapper>
           }
         />
-
+        <Route
+          path="support"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <Support />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
         <Route
           path="news"
           element={
