@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import logo from "../../user/assets/logo.jpg";
 import { logout } from "../../admin/api/auth_api";
 import { useAuth } from "../../auth/AuthContext";
-
+import { MdSupportAgent } from "react-icons/md";
 import { Home, User, Calendar, Ticket, LogOut, Menu } from "lucide-react";
 import "../style/sidebar.css";
 
@@ -52,6 +52,11 @@ export default function AthleteSidebar() {
           <NavLink to="/athlete/membership/status" className="menuItem" onClick={closeSidebar}>
             <Ticket size={20} />
             <span>Membership Status</span>
+          </NavLink>
+
+           <NavLink to="/athlete/support" className="menuItem" onClick={closeSidebar}>
+            <MdSupportAgent size={20} />
+            <span>Support</span>
           </NavLink>
 
           <NavLink to="/athlete/profile" className="menuItem" onClick={closeSidebar}>

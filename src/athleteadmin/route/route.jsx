@@ -11,7 +11,7 @@ import AthleteMembershipStatus from "../components/membership/membershipstatus";
 import AthleteNotificationPage from "../page/notification/athletenotification";
 import { AnimatePresence } from "framer-motion";
 import PageWrapper from "../hooks/animateroute";
-
+import Support from "../../admin/page/dashboard/support";
 function AthleteRoute() {
   const location = useLocation();
 
@@ -104,6 +104,16 @@ function AthleteRoute() {
             <PageWrapper>
               <AthleteLayout>
                 <AthleteMembersipPurchaseCenter />
+              </AthleteLayout>
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/support"
+          element={
+            <PageWrapper>
+              <AthleteLayout>
+                <Support />
               </AthleteLayout>
             </PageWrapper>
           }

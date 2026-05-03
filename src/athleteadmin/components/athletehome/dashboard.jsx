@@ -3,7 +3,7 @@ import { MdEvent } from "react-icons/md";
 import { FaShieldAlt, FaUserAlt } from "react-icons/fa";
 import { GiFinishLine } from "react-icons/gi";
 import { IoTrophy } from "react-icons/io5";
-
+import EmptyState from "../../../admin/components/common/EmptyState";
 // import { FaCrown, FaMapMarkerAlt } from "react-icons/fa";
 import { FaClipboardList } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";

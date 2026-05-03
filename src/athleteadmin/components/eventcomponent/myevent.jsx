@@ -3,8 +3,9 @@ import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { useQuery } from "@tanstack/react-query";
 import { get_all_register_events } from "../../api/event_api";
-
+import { useNavigate } from "react-router-dom";
 export default function MyEvents() {
+  const navigate = useNavigate();
   const { data, isLoading, isError } = useQuery({
     queryKey: ["allevents"],
     queryFn: get_all_register_events,
@@ -24,9 +25,29 @@ export default function MyEvents() {
 
   if (!events.length) {
     return (
-      <div className="myEventsContainer">
-        <h2>My Events</h2>
-        <p>No events found</p>
+      <div className="mfsaMyEventsWrapperX">
+        <div className="mfsaMyEventsHeaderX">
+          <h2>My Events</h2>
+        </div>
+
+        <div className="mfsaMyEventsEmptyX">
+          <div className="mfsaMyEventsEmptyCardX">
+            <div className="mfsaMyEventsIconX">📅</div>
+
+            <h3>No Events Found</h3>
+            <p>
+              You haven’t registered for any events yet. Start exploring and
+              join your first event.
+            </p>
+
+            <button
+              className="mfsaMyEventsBtnX"
+              onClick={() =>{ navigate("/event")}}
+            >
+              Browse Events
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -77,9 +98,7 @@ export default function MyEvents() {
                 )}
 
                 {status === "completed" && (
-                  <span className="successText">
-                    Event completed
-                  </span>
+                  <span className="successText">Event completed</span>
                 )}
               </div>
             </div>
