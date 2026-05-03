@@ -1,4 +1,4 @@
-import SwimmerHero from "../../layout/hero";
+import Swimmer from "../../layout/swimmer";
 import Footer from "../../layout/footer";
 import WhyJoinMFSA from "../../components/membershipcomponent/whyjoin";
 import MembershipBenefits from "../../components/membershipcomponent/membsershipbenefit";
@@ -6,7 +6,7 @@ import { HowJoinMFSA } from "../../components/membershipcomponent/howjoin";
 export default function Membership() {
   return (
     <>
-      <SwimmerHero>
+      <Swimmer>
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle">Membership</h1>
           <p className="homeHeroSub">
@@ -16,7 +16,7 @@ export default function Membership() {
             Take part in events, competitions, and build your journey with us.
           </p>
         </div>
-      </SwimmerHero>
+      </Swimmer>
 
       <WhyJoinMFSA />
       <MembershipBenefits />

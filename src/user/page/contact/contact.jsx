@@ -1,4 +1,4 @@
-import SwimmerHero from "../../layout/hero";
+import Swimmer from "../../layout/swimmer";
 
 import AboutPage from "../../components/aboutcomponent/aboutcontent";
 import Footer from "../../layout/footer";
@@ -7,7 +7,7 @@ import FollowSectionX from "../../components/contactcomponent/followsection";
 export default function Contact() {
   return (
     <>
-      <SwimmerHero>
+      <Swimmer>
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle">Contact US</h1>
           <p className="homeHeroSub">
@@ -16,7 +16,7 @@ export default function Contact() {
             Reach out to us and we’ll get back to you as soon as possible.
           </p>
         </div>
-      </SwimmerHero>
+      </Swimmer>
       <ContactX />
       <FollowSectionX />
 

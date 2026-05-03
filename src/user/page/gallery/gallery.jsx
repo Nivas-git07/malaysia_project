@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, NavLink } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { get_particular_gallery, get_gallery } from "../../api/home_api";
-import SwimmerHero from "../../layout/hero";
+import Swimmer from "../../layout/swimmer";
 import Footer from "../../layout/footer";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion } from "framer-motion";
@@ -51,7 +51,7 @@ export default function Gallery() {
 
   return (
     <div>
-      <SwimmerHero>
+      <Swimmer>
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle">Gallery</h1>
           <p className="homeHeroSub">
@@ -105,7 +105,7 @@ export default function Gallery() {
             </ul>
           </nav>
         )}
-      </SwimmerHero>
+      </Swimmer>
 
       <section className="gallerySection">
         <div className="galleryContainer">

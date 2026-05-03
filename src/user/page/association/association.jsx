@@ -1,5 +1,5 @@
 import Footer from "../../layout/footer";
-import SwimmerHero from "../../layout/hero";
+import Swimmer from "../../layout/swimmer";
 import StateAssociationX from "../../components/associatecomponent/associatedstate";
 // import AssociationCardGrid from "../../components/associatecomponent/AssociationCardGrid";
 import { get_state } from "../../api/auth";
@@ -39,7 +39,7 @@ export default function Association() {
 
   return (
     <div>
-      <SwimmerHero>
+      <Swimmer>
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle">
             {stateId ? "Associated Clubs" : "Associated States"}
@@ -94,7 +94,7 @@ export default function Association() {
             </ul>
           </nav>
         )}
-      </SwimmerHero>
+      </Swimmer>
 
       {!stateId ? (
         <StateAssociationX data={states} type="state" />

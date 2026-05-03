@@ -1,5 +1,5 @@
 import Footer from "../../layout/footer";
-import SwimmerHero from "../../layout/hero";
+import Swimmer from "../../layout/swimmer";
 
 import AthleteProfile from "../../components/profile/profilesection";
 import AthletePerformance from "../../components/profile/performance";
@@ -21,11 +21,11 @@ export default function Athelete() {
   console.log("Athlete Data:", athleteData?.data);
   return (
     <div>
-      <SwimmerHero>
+      <Swimmer>
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle">Cameron Williamson</h1>
         </div>
-      </SwimmerHero>
+      </Swimmer>
 
       <AthleteProfile />
       <AthletePerformance />

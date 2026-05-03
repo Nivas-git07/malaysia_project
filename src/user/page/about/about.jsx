@@ -1,4 +1,4 @@
-import SwimmerHero from "../../layout/hero";
+import Swimmer from "../../layout/swimmer";
 import AboutPageX from "../../components/aboutcomponent/aboutcontent";
 import Footer from "../../layout/footer";
 import { NavLink, useParams } from "react-router-dom";
@@ -24,7 +24,7 @@ export default function About() {
   console.log("the about page content ",aboutInfo)
   return (
     <>
-      <SwimmerHero>
+      <Swimmer>
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle">ABOUT US</h1>
           <p className="homeHeroSub">
@@ -81,7 +81,7 @@ export default function About() {
             </ul>
           </nav>
         )}
-      </SwimmerHero>
+      </Swimmer>
       <AboutPageX aboutInfo={aboutInfo} />
       <Footer />
     </>

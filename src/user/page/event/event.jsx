@@ -1,7 +1,6 @@
 import EventsPage from "../../components/eventcomponent/allevent";
 import Footer from "../../layout/footer";
-import SwimmerHero from "../../layout/hero";
-
+import Swimmer from "../../layout/swimmer";
 import { NavLink } from "react-router-dom";
 import { useParams } from "react-router-dom";
 export default function Event() {
@@ -17,7 +16,7 @@ export default function Event() {
 
   return (
     <div>
-      <SwimmerHero>
+      <Swimmer>
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle"> Event</h1>
           <p className="homeHeroSub">
@@ -71,7 +70,7 @@ export default function Event() {
             </ul>
           </nav>
         )}
-      </SwimmerHero>
+      </Swimmer>
 
       <EventsPage />
       <Footer />

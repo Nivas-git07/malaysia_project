@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SwimmerHero from "../../layout/hero";
+import Swimmer from "../../layout/swimmer";
 import Footer from "../../layout/footer";
 import { get_bestrecords } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
@@ -37,7 +37,7 @@ export default function BestRecords() {
 
   return (
     <>
-      <SwimmerHero>
+      <Swimmer>
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle">Best Records</h1>
           <p className="homeHeroSub">
@@ -100,7 +100,7 @@ export default function BestRecords() {
             </ul>
           </nav>
         )}
-      </SwimmerHero>
+      </Swimmer>
 
       <section className="br-container">
         {/* HEADER */}
