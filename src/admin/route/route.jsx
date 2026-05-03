@@ -107,7 +107,7 @@ export default function AdminRoute() {
         <Route
           path="tickets"
           element={
-            <ProtectedRoute allowedRoles={["SUPERADMIN"]}>
+            <ProtectedRoute allowedRoles={["SUPERADMIN", "STATE"]}>
               <PageWrapper>
                 <AdminLayout>
                   <Tickets />

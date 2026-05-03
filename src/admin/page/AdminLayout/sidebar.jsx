@@ -109,7 +109,7 @@ export default function Sidebar() {
               <span>membership Status</span>
             </NavLink>
           )}
-          {role === "SUPERADMIN" && (
+          {role !== "CLUB" && (
             <NavLink
               to="/admin/tickets"
               className="menuItem"

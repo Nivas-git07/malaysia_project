@@ -6,12 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function Support() {
   /* ---------------- FETCH DATA ---------------- */
-  const {
-    data,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["get_my_ticket"],
     queryFn: get_my_ticket,
     refetchOnWindowFocus: false,
@@ -75,7 +70,7 @@ export default function Support() {
           message: "",
         });
 
-        refetch(); // 🔥 refresh table
+        refetch();
       }
     } catch (err) {
       console.error(err?.response?.data || err);
@@ -85,7 +80,7 @@ export default function Support() {
     }
   };
 
-  /* ---------------- EMPTY COMPONENT ---------------- */
+  /* ---------------- EMPTY COMPONENT (RIGHT SIDE) ---------------- */
   const EmptyBox = ({ title, subtitle }) => (
     <div className="mfsaEmptyBoxX">
       <p>{title}</p>
@@ -100,7 +95,6 @@ export default function Support() {
 
       <div className="mu-membership-wrapper">
         <div className="mfsaTicketX-wrapper">
-
           {/* HEADER */}
           <div className="mfsaTicketX-header">
             <div>
@@ -113,12 +107,9 @@ export default function Support() {
 
           {/* GRID */}
           <div className="mfsaTicketX-grid">
-
             {/* LEFT FORM */}
             <div className="mfsaTicketX-card">
-              <h3 className="mfsaTicketX-cardTitle">
-                Submit a New Request
-              </h3>
+              <h3 className="mfsaTicketX-cardTitle">Submit a New Request</h3>
 
               <div className="mfsaTicketX-group">
                 <label>Subject</label>
@@ -151,12 +142,9 @@ export default function Support() {
 
             {/* RIGHT SIDE */}
             <div className="mfsaTicketX-right">
-
               <div className="mfsaTicketX-priority">
                 <h3>Priority Assistance</h3>
-                <p>
-                  Elite members receive support within 2 business hours.
-                </p>
+                <p>Elite members receive support within 2 business hours.</p>
               </div>
 
               <div className="mfsaTicketX-activity">
@@ -169,22 +157,21 @@ export default function Support() {
                   />
                 ) : (
                   tickets.slice(0, 2).map((t) => (
-                    <div
-                      key={t.id}
-                      className="mfsaTicketX-activityItem"
-                    >
+                    <div key={t.id} className="mfsaTicketX-activityItem">
                       <span
                         className={`mfsaTicketX-bar ${
                           t.status === "RESOLVED"
                             ? "green"
-                            : t.status === "IN_PROGRESS"
-                            ? "yellow"
-                            : "red"
+                            : t.status === "IN PROGRESS"
+                              ? "yellow"
+                              : "red"
                         }`}
                       ></span>
 
                       <div>
-                        <p  className="mfsaTicketX-activityItemPara">{t.problem}</p>
+                        <p className="mfsaTicketX-activityItemPara">
+                          {t.problem}
+                        </p>
                         <span>{formatDate(t.created_at)}</span>
                       </div>
                     </div>
@@ -220,33 +207,40 @@ export default function Support() {
                 <tbody>
                   {isLoading ? (
                     <tr>
-                      <td colSpan="5">Loading...</td>
+                      <td colSpan="5" style={{ padding: "20px" }}>
+                        Loading...
+                      </td>
                     </tr>
-                  ) : error ? (
+                  ) : isError ? (
                     <tr>
                       <td colSpan="5">
-                        Failed to load tickets ❌
+                        <div className="mfsaTableEmptyX">
+                          <h4>Failed to load tickets</h4>
+                          <p>Please try again</p>
+                          <button onClick={refetch} className="mfsaRetryBtnX">
+                            Retry
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ) : tickets.length === 0 ? (
                     <tr>
                       <td colSpan="5">
-                        <EmptyBox
-                          title="No tickets found"
-                          subtitle="There are no support tickets"
-                        />
+                        <div className="mfsaTableEmptyCenterX">
+                          <div className="mfsaEmptyInnerX">
+                            <div className="mfsaEmptyIconX">📭</div>
+                            <h4>No tickets found</h4>
+                            <p>There are no support tickets</p>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                   ) : (
                     tickets.map((t) => (
                       <tr key={t.id}>
-                        <td className="mfsaSupportX-id">
-                          #{t.id.slice(0, 6)}
-                        </td>
+                        <td className="mfsaSupportX-id">#{t.id.slice(0, 6)}</td>
 
-                        <td className="mfsaSupportX-subject">
-                          {t.problem}
-                        </td>
+                        <td className="mfsaSupportX-subject">{t.problem}</td>
 
                         <td>
                           <span
@@ -258,9 +252,7 @@ export default function Support() {
                           </span>
                         </td>
 
-                        <td>
-                          {formatDate(t.created_at)}
-                        </td>
+                        <td>{formatDate(t.created_at)}</td>
 
                         <td>
                           <span className="mfsaSupportX-link">
@@ -274,13 +266,10 @@ export default function Support() {
               </table>
 
               <div className="mfsaSupportX-footer">
-                <p>
-                  Showing {tickets.length} tickets
-                </p>
+                <p>Showing {tickets.length} tickets</p>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </>
