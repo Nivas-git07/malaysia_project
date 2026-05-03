@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Swimmer from "../../layout/swimmer";
 import Footer from "../../layout/footer";
 import { get_bestrecords } from "../../api/home_api";
@@ -9,12 +9,15 @@ const categories = ["Surface", "Bi-fins", "Apnea", "Immersion"];
 
 export default function BestRecords() {
   const [active, setActive] = useState("Surface");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 6;
+
   const { stateId, clubId } = useParams();
 
   const isClub = !!clubId;
   const isState = !!stateId && !clubId;
 
-  // 🔥 API CALL (dynamic)
   const { data, isLoading, error } = useQuery({
     queryKey: ["best-records", stateId, clubId],
     queryFn: () => get_bestrecords({ stateId, clubId }),
@@ -23,11 +26,26 @@ export default function BestRecords() {
 
   const records = data?.data || [];
 
-  // 🔥 FILTER by discipline (match API format)
+  // 🔥 FILTER
   const filteredRecords = records.filter(
     (rec) =>
       rec.discipline?.toLowerCase() === active.toLowerCase()
   );
+
+  // 🔥 PAGINATION LOGIC
+  const totalPages = Math.ceil(filteredRecords.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+
+  const paginatedRecords = filteredRecords.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  // 🔥 RESET PAGE WHEN FILTER CHANGES
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [active]);
 
   const basePath = stateId
     ? clubId
@@ -42,9 +60,6 @@ export default function BestRecords() {
           <h1 className="homeHeroTitle">Best Records</h1>
           <p className="homeHeroSub">
             Explore the fastest times and top performances in finswimming.
-            <br />
-            Discover athletes who have set outstanding records across all
-            disciplines.
           </p>
         </div>
 
@@ -60,22 +75,6 @@ export default function BestRecords() {
                 <li>
                   <NavLink to={`/state/${stateId}/club/${clubId}`}>
                     Home
-                  </NavLink>
-                </li>
-              )}
-
-              {isState && (
-                <li>
-                  <NavLink to={`${basePath}/association`}>
-                    CLUBS
-                  </NavLink>
-                </li>
-              )}
-
-              {isClub && (
-                <li>
-                  <NavLink to={`${basePath}/athlete`}>
-                    ATHLETES
                   </NavLink>
                 </li>
               )}
@@ -109,7 +108,7 @@ export default function BestRecords() {
           <p>Top performances across all finswimming categories</p>
         </div>
 
-        {/* FILTER BAR */}
+        {/* TOOLBAR */}
         <div className="br-toolbar">
           <div className="br-tabs">
             {categories.map((c) => (
@@ -132,64 +131,88 @@ export default function BestRecords() {
           </div>
         </div>
 
-        {/* 🔥 LOADING */}
+        {/* LOADING */}
         {isLoading && (
           <div className="emptyState">
             <p>Loading records...</p>
           </div>
         )}
 
-        {/* 🔥 ERROR */}
+        {/* ERROR */}
         {error && (
           <div className="emptyState">
-            <p>Failed to load records. Try again.</p>
+            <p>Failed to load records.</p>
           </div>
         )}
 
-        {/* 🔥 EMPTY */}
+        {/* EMPTY */}
         {!isLoading && !error && filteredRecords.length === 0 && (
           <div className="emptyState">
             <h3>No Records Found</h3>
-            <p>
-              {isClub
-                ? "No athletes found in this club."
-                : isState
-                ? "No athletes found in this state."
-                : "No national records available."}
-            </p>
+            <p>No athletes available.</p>
           </div>
         )}
 
         {/* GRID */}
-        <div className="br-grid">
-          {filteredRecords.map((rec, i) => (
-            <div key={i} className="br-card">
-              <img
-                src={rec.profile_picture}
-                alt={rec.full_name}
-              />
+        {!isLoading && !error && filteredRecords.length > 0 && (
+          <div className="br-grid">
+            {paginatedRecords.map((rec, i) => (
+              <div key={i} className="br-card">
+                <img
+                  src={rec.profile_picture}
+                  alt={rec.full_name}
+                />
 
-              <h3>{rec.full_name}</h3>
+                <h3>{rec.full_name}</h3>
 
-              <p className="category">
-                {rec.discipline} / {rec.distance}m
-              </p>
+                <p className="category">
+                  {rec.discipline} / {rec.distance}m
+                </p>
 
-              <div className="divider" />
+                <div className="divider" />
 
-              <h2 className="time">{rec.best_time}</h2>
-              <span className="date">Top Performance</span>
-            </div>
-          ))}
-        </div>
+                <h2 className="time">{rec.best_time}</h2>
+                <span className="date">Top Performance</span>
+              </div>
+            ))}
+          </div>
+        )}
 
-        {/* PAGINATION (kept as UI) */}
-        <div className="br-pagination">
-          <span className="active">1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>›</span>
-        </div>
+        {/* PAGINATION */}
+        {totalPages > 1 && (
+          <div className="br-pagination">
+            {/* PREV */}
+            <span
+              onClick={() =>
+                setCurrentPage((prev) => Math.max(prev - 1, 1))
+              }
+            >
+              ‹
+            </span>
+
+            {/* PAGE NUMBERS */}
+            {[...Array(totalPages)].map((_, i) => (
+              <span
+                key={i}
+                className={currentPage === i + 1 ? "active" : ""}
+                onClick={() => setCurrentPage(i + 1)}
+              >
+                {i + 1}
+              </span>
+            ))}
+
+            {/* NEXT */}
+            <span
+              onClick={() =>
+                setCurrentPage((prev) =>
+                  Math.min(prev + 1, totalPages)
+                )
+              }
+            >
+              ›
+            </span>
+          </div>
+        )}
       </section>
 
       <Footer />

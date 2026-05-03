@@ -99,23 +99,29 @@ export default function EventsPage() {
         )}
 
         {/* GRID VIEW */}
-        {viewMode === "grid" && !isLoading && (
-          <div className="eventsGrid">
-            {filteredEvents.length === 0 ? (
+        {viewMode === "grid" &&
+          !isLoading &&
+          (filteredEvents.length === 0 ? (
+            // ✅ OUTSIDE GRID — Perfect Centering
+            <div className="w-full flex justify-center items-center min-h-[400px]">
               <EmptyState
                 title="No Events Available"
                 message="No events found for selected filter."
                 actionLabel="Back to Home"
                 onAction={() => navigate("/")}
               />
-            ) : (
-              filteredEvents.map((event) => (
+            </div>
+          ) : (
+            // ✅ ONLY GRID HERE
+            <div className="eventsGrid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+              {filteredEvents.map((event) => (
                 <div className="mfsaEventCardX" key={event.id}>
                   <div className="mfsaEventImgX">
                     <img
                       src={event.image}
                       alt={event.event_name}
                       loading="lazy"
+                      className="w-full h-full object-cover"
                     />
                   </div>
 
@@ -125,10 +131,10 @@ export default function EventsPage() {
                     <h3 className="mfsaEventTitleX">{event.event_name}</h3>
 
                     <div className="mfsaEventMetaX">
-                      <span>
+                      <span className="flex items-center gap-1">
                         <FiCalendar /> {event.date}
                       </span>
-                      <span>
+                      <span className="flex items-center gap-1">
                         <FiMapPin /> {event.venue}
                       </span>
                     </div>
@@ -141,10 +147,9 @@ export default function EventsPage() {
                     </button>
                   </div>
                 </div>
-              ))
-            )}
-          </div>
-        )}
+              ))}
+            </div>
+          ))}
 
         {/* CALENDAR VIEW */}
         {viewMode === "calendar" && !isLoading && (
