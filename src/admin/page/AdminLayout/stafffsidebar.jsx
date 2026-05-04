@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../../style/dashboard/sidebar.css";
 import logo from "../../assets/logo.jpg";
-import { Menu, LogOut } from "lucide-react";
 
+import { Menu, LogOut } from "lucide-react";
 import { PiNotePencilBold } from "react-icons/pi";
 import { RiGroupFill } from "react-icons/ri";
 import { Newspaper, Calendar } from "lucide-react";
@@ -13,7 +13,6 @@ import { MdSupportAgent } from "react-icons/md";
 
 import { get_permission, logout } from "../../api/auth_api";
 import { useQuery } from "@tanstack/react-query";
-// import { useAuth } from "../../../auth/AuthContext";
 
 export default function StaffSidebar() {
   const [open, setOpen] = useState(false);
@@ -25,8 +24,7 @@ export default function StaffSidebar() {
     retry: false,
   });
 
-  const permissions = data?.data || {}; // ✅ FIXED
-  console.log("permissions", permissions);
+  const permissions = data?.data || {};
 
   const closeSidebar = () => setOpen(false);
 
@@ -69,33 +67,69 @@ export default function StaffSidebar() {
     },
   };
 
+  // ✅ CHECK IF ANY PERMISSION EXISTS
+  const hasAnyPermission = Object.keys(PERMISSION_MENU).some((key) => {
+    return (
+      permissions[key] === true ||
+      permissions[key] === "true" ||
+      permissions[key] === "True"
+    );
+  });
+
   return (
     <>
-      {/* Mobile Toggle */}
+      {/* MOBILE TOGGLE */}
       <div className="mobileToggle" onClick={() => setOpen(!open)}>
         <Menu size={22} />
       </div>
 
+      {/* BACKDROP */}
       <div
         className={`mfsaSidebarBackdrop ${open ? "open" : ""}`}
         onClick={closeSidebar}
       />
 
+      {/* SIDEBAR */}
       <aside className={`sidebar ${open ? "show" : ""}`}>
-        {/* Logo */}
+        {/* LOGO */}
         <div className="sidebarTop">
           <div className="sidebarBanner">
             <img src={logo} alt="logo" className="sidebarLogo" />
           </div>
         </div>
 
-        {/* 🔥 Dynamic Menu */}
+        {/* MENU / NO ACCESS */}
         <nav className="sidebarMenu">
           {isLoading ? (
             <p style={{ padding: "10px" }}>Loading...</p>
+          ) : !hasAnyPermission ? (
+            // 🔥 NO ACCESS UI
+            <div className="noAccessWrapper">
+              <div className="noAccessCard">
+                <MdSupportAgent size={42} className="noAccessIcon" />
+
+                <h3>No Access</h3>
+                <p>
+                  You don’t have permission to access any modules.
+                  <br />
+                  Please contact your administrator.
+                </p>
+
+                <button
+                  className="noAccessBtn"
+                  onClick={async () => {
+                    try {
+                      await logout();
+                      window.location.href = "/";
+                    } catch (e) {}
+                  }}
+                >
+                  Go Back
+                </button>
+              </div>
+            </div>
           ) : (
             Object.keys(PERMISSION_MENU).map((key) => {
-              // ✅ handle both boolean & string "true"
               const isAllowed =
                 permissions[key] === true ||
                 permissions[key] === "true" ||
@@ -120,21 +154,22 @@ export default function StaffSidebar() {
           )}
         </nav>
 
-        {/* Logout */}
-        <NavLink
-          to="/"
-          className="logoutBar"
-          onClick={async () => {
-            closeSidebar();
-            try {
-              await logout();
-            } catch (e) {}
-            // await logoutSession();
-          }}
-        >
-          <LogOut size={18} />
-          <span>Logout</span>
-        </NavLink>
+        {/* LOGOUT (ONLY IF HAS ACCESS) */}
+        {hasAnyPermission && (
+          <NavLink
+            to="/"
+            className="logoutBar"
+            onClick={async () => {
+              closeSidebar();
+              try {
+                await logout();
+              } catch (e) {}
+            }}
+          >
+            <LogOut size={18} />
+            <span>Logout</span>
+          </NavLink>
+        )}
       </aside>
     </>
   );

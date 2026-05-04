@@ -159,47 +159,49 @@ export default function Gallery() {
               <h2>Uploaded Images</h2>
             </div>
 
-            <div className="gallery-grid">
-              {galleryItems && galleryItems.length > 0
-                ? galleryItems.map((item, i) => {
-                    const isVideo = item.video;
+            {galleryItems && galleryItems.length > 0 ? (
+              <div className="gallery-grid">
+                {galleryItems.map((item, i) => {
+                  const isVideo = item.video;
 
-                    return (
-                      <div className="gallery-card" key={item.id || i}>
-                        {isVideo ? (
-                          <video
-                            src={item.video}
-                            className="gallery-img"
-                            controls
-                          />
-                        ) : (
-                          <img
-                            src={item.image}
-                            alt="gallery"
-                            className="gallery-img"
-                          />
-                        )}
+                  return (
+                    <div className="gallery-card" key={item.id || i}>
+                      {isVideo ? (
+                        <video
+                          src={item.video}
+                          className="gallery-img"
+                          controls
+                        />
+                      ) : (
+                        <img
+                          src={item.image}
+                          alt="gallery"
+                          className="gallery-img"
+                        />
+                      )}
 
-                        <div className="gallery-overlay">
-                          <button
-                            className="gallery-delete-btn"
-                            onClick={() => deleteImage(item.media_id)}
-                          >
-                            <FiTrash2 />
-                          </button>
-                        </div>
+                      <div className="gallery-overlay">
+                        <button
+                          className="gallery-delete-btn"
+                          onClick={() => deleteImage(item.media_id)}
+                        >
+                          <FiTrash2 />
+                        </button>
                       </div>
-                    );
-                  })
-                : (
-                    <EmptyState
-                      title="No media available"
-                      message="Upload an image or video to see it here."
-                      actionLabel="Retry"
-                      onAction={() => refetch()}
-                    />
-                  )}
-            </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="gallery-empty-wrapper">
+                <EmptyState
+                  title="No media available"
+                  message="Upload an image or video to see it here."
+                  actionLabel="Retry"
+                  onAction={() => refetch()}
+                />
+              </div>
+            )}
           </div>
         </div>
 

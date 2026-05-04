@@ -1957,3 +1957,55 @@ input:checked + .slider::before {
   font-size: 14px;
   color: #777;
 }
+
+.noAccessWrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.noAccessCard {
+  text-align: center;
+  padding: 30px 20px;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  max-width: 260px;
+  width: 100%;
+}
+
+.noAccessIcon {
+  color: #c10000;
+  margin-bottom: 12px;
+}
+
+.noAccessCard h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+}
+
+.noAccessCard p {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.noAccessBtn {
+  background: #c10000;
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+.noAccessBtn:hover {
+  background: #a00000;
+}

@@ -9,7 +9,9 @@ import GalleryContent from "../../components/content_component/gallerycontent";
 import OtherPagesContent from "../../components/content_component/otherpagecontent";
 import AssociationContent from "../../components/content_component/assosciationcontent";
 import BestRecordsContent from "../../components/content_component/bestrecordcontent";
+import { useNavigate } from "react-router-dom";
 export default function ContentManagement() {
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState("Home");
 
   const renderContent = () => {
@@ -50,7 +52,7 @@ export default function ContentManagement() {
                 <p>Edit and manage website content</p>
               </div>
 
-              <button className="preview-btn">Preview Page</button>
+              <button className="preview-btn" onClick={()=>{navigate("/")}}>Preview Page</button>
             </div>
 
             {/* TABS */}

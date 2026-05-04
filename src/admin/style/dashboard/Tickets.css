@@ -706,13 +706,18 @@ body {
 
 /* BUTTON */
 .preview-btn {
-  border: 1px solid #00308f;
+  border: 2px solid #00308f;
   color: #00308f;
   padding: 8px 16px;
   border-radius: 8px;
   background: white;
   cursor: pointer;
 }
+.preview-btn:hover{
+  color: white;
+   background-color:  #1e3a8a;
+}
+
 /* TAB WRAPPER */
 .mfsa-tabs-nav {
   display: flex;
