@@ -9,10 +9,42 @@ import GalleryContent from "../../components/content_component/gallerycontent";
 import OtherPagesContent from "../../components/content_component/otherpagecontent";
 import AssociationContent from "../../components/content_component/assosciationcontent";
 import BestRecordsContent from "../../components/content_component/bestrecordcontent";
+
 import { useNavigate } from "react-router-dom";
+import { get_check } from "../../../user/api/home_api";
+import { useQuery } from "@tanstack/react-query";
+
 export default function ContentManagement() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Home");
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["checksession"],
+    queryFn: get_check,
+  });
+
+  const role = data?.data?.role || null;
+
+  const TAB_CONFIG = [
+    { name: "Home", roles: ["SUPERADMIN", "STAFF", "STATE", "CLUB"] },
+    { name: "Association", roles: ["SUPERADMIN", "STATE", "CLUB"] },
+    { name: "Membership", roles: ["SUPERADMIN"] }, // 🔥 only SUPERADMIN
+    { name: "Events", roles: ["SUPERADMIN", "STATE", "CLUB"] },
+    { name: "Gallery", roles: ["SUPERADMIN", "STATE", "CLUB"] },
+    { name: "News", roles: ["SUPERADMIN", "STATE", "CLUB"] },
+    { name: "Best_Reocrds", roles: ["SUPERADMIN", "STATE", "CLUB"] },
+    { name: "Footer", roles: ["SUPERADMIN"] }, // 🔥 only SUPERADMIN
+    { name: "Other", roles: ["SUPERADMIN", "STATE", "CLUB"] },
+  ];
+
+  const filteredTabs = TAB_CONFIG.filter((tab) => tab.roles.includes(role));
+
+  /* =========================
+     SAFE CONTENT RENDER
+  ========================== */
+  const isAllowed = TAB_CONFIG.find(
+    (t) => t.name === activeTab && t.roles.includes(role),
+  );
 
   const renderContent = () => {
     switch (activeTab) {
@@ -39,9 +71,17 @@ export default function ContentManagement() {
     }
   };
 
+  /* =========================
+     LOADING STATE
+  ========================== */
+  if (isLoading) {
+    return <p style={{ padding: "20px" }}>Loading...</p>;
+  }
+
   return (
     <>
       <Navbar />
+
       <div className="mu-membership-wrapper">
         <div className="cm-container">
           <div className="cm-wrapper">
@@ -52,36 +92,35 @@ export default function ContentManagement() {
                 <p>Edit and manage website content</p>
               </div>
 
-              <button className="preview-btn" onClick={()=>{navigate("/")}}>Preview Page</button>
+              <button className="preview-btn" onClick={() => navigate("/")}>
+                Preview Page
+              </button>
             </div>
 
             {/* TABS */}
             <div className="mfsa-tabs-nav">
-              {[
-                "Home",
-                "Association",
-                "Membership",
-                "Events",
-                "Gallery",
-                "News",
-                "Best_Reocrds",
-                "Footer",
-                "Other",
-              ].map((tab) => (
+              {filteredTabs.map((tab) => (
                 <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
+                  key={tab.name}
+                  onClick={() => setActiveTab(tab.name)}
                   className={`mfsa-tab-item ${
-                    activeTab === tab ? "mfsa-active-tab" : ""
+                    activeTab === tab.name ? "mfsa-active-tab" : ""
                   }`}
                 >
-                  {tab}
+                  {tab.name}
                 </button>
               ))}
             </div>
 
-            {/* DYNAMIC PAGE */}
-            {renderContent()}
+            {/* 🚫 BLOCK UNAUTHORIZED ACCESS */}
+            {!isAllowed ? (
+              <div className="noAccessPage">
+                <h2>No Access</h2>
+                <p>You are not allowed to view this section.</p>
+              </div>
+            ) : (
+              renderContent()
+            )}
           </div>
         </div>
       </div>
