@@ -23,6 +23,8 @@ import {
   LogOut,
   Menu,
 } from "lucide-react";
+import ContentManagement from "../dashboard/contentmanagement";
+import { MdContentPaste } from "react-icons/md";
 import { useAuth } from "../../../auth/AuthContext";
 import StaffSidebar from "./stafffsidebar";
 export default function Sidebar() {
@@ -144,6 +146,15 @@ export default function Sidebar() {
           >
             <BarChart2 size={20} />
             <span>Report</span>
+          </NavLink>
+
+          <NavLink
+            to="/admin/content"
+            className="menuItem"
+            onClick={closeSidebar}
+          >
+            <MdContentPaste size={20} />
+            <span>Content management</span>
           </NavLink>
 
           <NavLink to="/admin/news" className="menuItem" onClick={closeSidebar}>

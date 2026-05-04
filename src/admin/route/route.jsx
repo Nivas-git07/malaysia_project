@@ -27,6 +27,7 @@ import PageWrapper from "../hooks/animateroute";
 import ProtectedRoute from "../../auth/ProtectedRoute";
 import StaffManagement from "../page/dashboard/managestaff";
 import Support from "../page/dashboard/support";
+import ContentManagement from "../page/dashboard/contentmanagement";
 export default function AdminRoute() {
   const location = useLocation();
 
@@ -162,6 +163,17 @@ export default function AdminRoute() {
             <PageWrapper>
               <AdminLayout>
                 <News />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
+
+         <Route
+          path="content"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <ContentManagement />
               </AdminLayout>
             </PageWrapper>
           }
