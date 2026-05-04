@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaLayerGroup, FaImage, FaStar } from "react-icons/fa";
-
+import { post_content } from "../../api/auth_api";
 const createBlock = (count) => {
   let obj = {};
   for (let i = 1; i <= count; i++) {

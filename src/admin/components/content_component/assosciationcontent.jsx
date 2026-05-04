@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaUsers, FaBuilding, FaTrophy } from "react-icons/fa";
-
+import { post_content } from "../../api/auth_api";
 export default function AssociationContent() {
   const [form, setForm] = useState({
     associations_page_headline: "",
@@ -34,27 +34,42 @@ export default function AssociationContent() {
     setChanged(false);
   };
 
-  const saveChanges = () => {
+  const saveChanges = async () => {
     const formData = new FormData();
 
     Object.keys(form).forEach((key) => {
-      formData.append(key, form[key]);
+      const value = form[key];
+
+      // ✅ Skip null or empty values
+      if (value !== null && value !== "") {
+        formData.append(key, value);
+      }
     });
 
-    console.log("Association Content:", formData);
+    try {
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
+      const res = await post_content(formData);
 
-    // 👉 API CALL
-    // axios.post("/api/association-content", formData)
+      console.log("Success:", res.data);
 
-    setChanged(false);
+      alert("✅ Content updated successfully");
+      setChanged(false);
+    } catch (error) {
+      console.error("Error:", error);
+
+      alert(error?.response?.data?.message || "❌ Failed to update content");
+    }
   };
 
   return (
     <div className="card">
-
       {/* ASSOCIATIONS */}
       <div className="section">
-        <h2><FaUsers /> Associations Page</h2>
+        <h2>
+          <FaUsers /> Associations Page
+        </h2>
 
         <label>Headline</label>
         <input
@@ -78,15 +93,15 @@ export default function AssociationContent() {
 
       {/* CLUBS */}
       <div className="section">
-        <h2><FaBuilding /> Clubs Page</h2>
+        <h2>
+          <FaBuilding /> Clubs Page
+        </h2>
 
         <label>Headline</label>
         <input
           placeholder="Enter clubs headline"
           value={form.clubs_page_headline}
-          onChange={(e) =>
-            handleChange("clubs_page_headline", e.target.value)
-          }
+          onChange={(e) => handleChange("clubs_page_headline", e.target.value)}
         />
 
         <label>Description</label>
@@ -102,7 +117,9 @@ export default function AssociationContent() {
 
       {/* BEST RECORDS */}
       <div className="section">
-        <h2><FaTrophy /> Best Records Page</h2>
+        <h2>
+          <FaTrophy /> Best Records Page
+        </h2>
 
         <label>Headline</label>
         <input
@@ -144,7 +161,6 @@ export default function AssociationContent() {
           </button>
         </div>
       </div>
-
     </div>
   );
 }

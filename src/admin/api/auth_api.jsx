@@ -28,6 +28,14 @@ export const get_permission = () => {
 export const get_staff_permission = (staff_id) => {
   return API.get(`/super/get-staff-permissions/?staff_id=${staff_id}`);
 };
+
+export const post_content = (payload) => {
+  return API.patch("/super/update-content/", payload);
+};
+
+export const get_content = (page) => {
+  return API.get(`/super/get-content/?page=${page}`);
+};
 export const logout = () => {
   return API.post("/auth/logout/");
 };
