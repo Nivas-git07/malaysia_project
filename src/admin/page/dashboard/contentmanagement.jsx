@@ -8,6 +8,7 @@ import NewsContent from "../../components/content_component/newscontent";
 import GalleryContent from "../../components/content_component/gallerycontent";
 import OtherPagesContent from "../../components/content_component/otherpagecontent";
 import AssociationContent from "../../components/content_component/assosciationcontent";
+import BestRecordsContent from "../../components/content_component/bestrecordcontent";
 export default function ContentManagement() {
   const [activeTab, setActiveTab] = useState("Home");
 
@@ -27,8 +28,10 @@ export default function ContentManagement() {
         return <FooterContent />;
       case "News":
         return <NewsContent />;
+      case "Best_Reocrds":
+        return <BestRecordsContent />;
       case "Other":
-          return <OtherPagesContent />;
+        return <OtherPagesContent />;
       default:
         return null;
     }
@@ -59,8 +62,9 @@ export default function ContentManagement() {
                 "Events",
                 "Gallery",
                 "News",
+                "Best_Reocrds",
                 "Footer",
-                "Other"
+                "Other",
               ].map((tab) => (
                 <button
                   key={tab}
