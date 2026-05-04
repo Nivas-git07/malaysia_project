@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import Navbar from "../navbar/nav";
 import HomeContent from "../../components/content_component/homecontent";
+import FooterContent from "../../components/content_component/footercontent";
+import EventContent from "../../components/content_component/eventcontent";
+import MembershipContent from "../../components/content_component/membershipcontent";
+import NewsContent from "../../components/content_component/newscontent";
+import GalleryContent from "../../components/content_component/gallerycontent";
+import OtherPagesContent from "../../components/content_component/otherpagecontent";
+import AssociationContent from "../../components/content_component/assosciationcontent";
 export default function ContentManagement() {
   const [activeTab, setActiveTab] = useState("Home");
 
@@ -8,16 +15,20 @@ export default function ContentManagement() {
     switch (activeTab) {
       case "Home":
         return <HomeContent />;
-      case "About":
-        return <div className="cm-placeholder">About Page Coming</div>;
+      case "Association":
+        return <AssociationContent />;
       case "Membership":
-        return <div className="cm-placeholder">Membership Page Coming</div>;
+        return <MembershipContent />;
       case "Events":
-        return <div className="cm-placeholder">Events Page Coming</div>;
+        return <EventContent />;
       case "Gallery":
-        return <div className="cm-placeholder">Gallery Page Coming</div>;
-      case "Contact":
-        return <div className="cm-placeholder">Contact Page Coming</div>;
+        return <GalleryContent />;
+      case "Footer":
+        return <FooterContent />;
+      case "News":
+        return <NewsContent />;
+      case "Other":
+          return <OtherPagesContent />;
       default:
         return null;
     }
@@ -43,11 +54,13 @@ export default function ContentManagement() {
             <div className="mfsa-tabs-nav">
               {[
                 "Home",
-                "About",
+                "Association",
                 "Membership",
                 "Events",
                 "Gallery",
-                "Contact",
+                "News",
+                "Footer",
+                "Other"
               ].map((tab) => (
                 <button
                   key={tab}

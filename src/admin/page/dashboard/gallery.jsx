@@ -3,7 +3,7 @@ import Navbar from "../navbar/nav";
 import "../../style/dashboard/Athlete.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { postgallery, get_recent_gallery } from "../../api/news_api";
-import Preview from "../../hook/preview/preview";
+// import Preview from "../../hook/preview/preview";
 import { FiTrash2 } from "react-icons/fi";
 import { deletegallery } from "../../api/news_api";
 import SkeletonLoader from "../../components/common/SkeletonLoader";
@@ -203,7 +203,7 @@ export default function Gallery() {
           </div>
         </div>
 
-        <Preview />
+        {/* <Preview /> */}
       </div>
     </>
   );

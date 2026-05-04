@@ -6,7 +6,7 @@ import { getabout } from "../../api/about_api";
 import { useQuery } from "@tanstack/react-query";
 import { editabout } from "../../api/about_api";
 import { useNavigate } from "react-router-dom";
-import Aboutpreview from "../../previewtemplate/aboutpreview";
+// import Aboutpreview from "../../previewtemplate/aboutpreview";
 
 import { post_about_preview } from "../../api/preview_api";
 import SkeletonLoader from "../../components/common/SkeletonLoader";
@@ -184,7 +184,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="mfsaPreviewX-section">
+        {/* <div className="mfsaPreviewX-section">
           <div className="mfsaPreviewX-card">
             <div className="mfsaPreviewX-content">
               <span className="mfsaPreviewX-badge">PREVIEW MODE</span>
@@ -207,7 +207,7 @@ export default function About() {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
