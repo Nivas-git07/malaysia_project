@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../style/dashboard/sidebar.css";
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/logo.jpg";
+import logo from "../../../user/assets/logo.png";
 import { RiGroupFill } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
 import { FaAddressCard } from "react-icons/fa";
@@ -24,9 +24,18 @@ import {
   Menu,
 } from "lucide-react";
 import { useAuth } from "../../../auth/AuthContext";
+import StaffSidebar from "./stafffsidebar";
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
   const { logout: logoutSession, role } = useAuth();
+  console.log("role", role);
+  const STAFF_ROLES = ["NATIONAL_STAFF", "STATE_STAFF", "CLUB_STAFF"];
+
+  const isStaff = STAFF_ROLES.includes(role);
+
+  if (isStaff) {
+    return <StaffSidebar />;
+  }
 
   const closeSidebar = () => {
     setOpen(false);

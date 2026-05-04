@@ -1,4 +1,4 @@
-import avatar from "../../assets/logo.jpg";
+import avatar from "../../assets/logo.png";
 import new1 from "../../assets/event1.png";
 import new2 from "../../assets/event2.png";
 import new3 from "../../assets/event4.png";

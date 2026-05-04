@@ -22,7 +22,9 @@ export const access_permission = (staff_id, payload) => {
     payload,
   );
 };
-
+export const get_permission = () => {
+  return API.get("/auth/check-staff-permissions/");
+};
 export const get_staff_permission = (staff_id) => {
   return API.get(`/super/get-staff-permissions/?staff_id=${staff_id}`);
 };

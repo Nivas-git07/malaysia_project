@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { NavLink } from "react-router-dom";
-import logo from "../../user/assets/logo.jpg";
+import logo from "../../user/assets/logo.png";
 import { logout } from "../../admin/api/auth_api";
 import { useAuth } from "../../auth/AuthContext";
 import { MdSupportAgent } from "react-icons/md";

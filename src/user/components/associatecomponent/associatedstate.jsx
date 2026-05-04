@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.jpg";
+import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { get_state } from "../../api/auth";
 import { useQuery } from "@tanstack/react-query";
