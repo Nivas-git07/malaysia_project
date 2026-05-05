@@ -120,7 +120,7 @@ Discover events, connect with athletes and clubs, and be part of a growing aquat
         </div>
       </Swimmer>
 
-      <HomeAbout name="Malaysia" content={homecontent}/>
+      <HomeAbout name="Malaysia" content={content} />
 
       {homeevents && <UpcomingEvents event={homeevents} />}
       {homeStats && <HomeRecords stats={homeStats} />}

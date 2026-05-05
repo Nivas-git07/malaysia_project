@@ -4,6 +4,7 @@ import aboutImg from "../../assets/event3.png";
 export default function HomeAbout({ name, content }) {
   const sectionRef = useRef(null);
   const [show, setShow] = useState(false);
+  console.log("the state content is", content);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -71,7 +72,7 @@ export default function HomeAbout({ name, content }) {
         {/* IMAGE */}
         <div className="mfsaAboutX-imageWrap fade-left">
           <img
-            src={content?.data?.who_we_are_image || aboutImg}
+            src={content?.who_we_are_image || aboutImg}
             alt="about swimmer"
           />
         </div>
@@ -81,13 +82,13 @@ export default function HomeAbout({ name, content }) {
           <h4 className="mfsaAboutX-subtitle fade-up">WHO WE ARE</h4>
 
           <h2 className="mfsaAboutX-title fade-up delay-1">
-            {content?.data?.who_we_are_title ||
+            {content?.who_we_are_title ||
               `The Governing Body of Finswimming in Malaysia`}
           </h2>
 
           <p className="mfsaAboutX-text fade-up delay-2">
             {(
-              content?.data?.who_we_are ||
+              content?.who_we_are ||
               `Established to foster excellence in the sport, the Malaysia
 Finswimming Association (MFA) is dedicated to discovering and
 nurturing world-class talent. We provide a platform for athletes to
@@ -108,7 +109,7 @@ sport as a healthy lifestyle.`
             <div className="mfsaAboutX-card fade-up delay-3">
               <h5>Our Mission</h5>
               <p>
-                {content?.data?.our_mission ||
+                {content?.our_mission ||
                   `Building a vibrant community of elite finswimmers.`}
               </p>
             </div>
@@ -116,7 +117,7 @@ sport as a healthy lifestyle.`
             <div className="mfsaAboutX-card fade-up delay-4">
               <h5>Our Vision</h5>
               <p>
-                {content?.data.our_vision ||
+                {content?.our_vision ||
                   `Leading the sport to Olympic recognition in Asia.`}
               </p>
             </div>

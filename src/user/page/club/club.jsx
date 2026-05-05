@@ -15,6 +15,8 @@ import { getclubpage } from "../../api/club";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import Unauthorized from "../../components/unauthorize/unauthorized";
+import { get_content } from "../../api/home_api";
+import { useCMSParams } from "../../../utils/cmsparam";
 export default function ClubPage() {
   const location = useLocation();
   const { stateName, stateId, clubName, clubId } = useParams();
@@ -29,6 +31,15 @@ export default function ClubPage() {
     enabled: !!clubId,
     retry: false,
   });
+
+  const params = useCMSParams("home");
+
+  const { data: homecontent } = useQuery({
+    queryKey: ["home", params],
+    queryFn: () => get_content(params),
+  });
+
+  const content = homecontent?.data;
 
   if (!clubData && !isError) {
     return null;
@@ -68,11 +79,18 @@ export default function ClubPage() {
             </h1>
 
             <p className="homeHeroSub">
-              Welcome to the official platform of the{" "}
-              {clubcontent.club_name || "CLUB NAME"} Finswimming Association.
-              <br />
-              Discover events, connect with athletes and clubs, and be part of a
-              growing aquatic sports community.
+              {(
+                homecontent?.data?.home_page_description ||
+                `Welcome to the official platform of the Malaysia Finswimming Association.
+Discover events, connect with athletes and clubs, and be part of a growing aquatic sports community.`
+              )
+                .split("\n")
+                .map((line, i) => (
+                  <span key={i}>
+                    {line}
+                    <br />
+                  </span>
+                ))}
             </p>
           </div>
           <nav className="heroNav">
@@ -103,7 +121,7 @@ export default function ClubPage() {
             </ul>
           </nav>
         </Swimmer>
-        <HomeAbout name={clubcontent.club_name} />
+        <HomeAbout name={clubcontent.club_name} content={content}/>
         <UpcomingEvents events={clubevent} />
         <HomeRecords stats={club_stats} />
         <BestRecords />

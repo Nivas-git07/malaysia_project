@@ -13,6 +13,8 @@ import { get_state_page } from "../../api/state";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import Unauthorized from "../../components/unauthorize/unauthorized";
+import { useCMSParams } from "../../../utils/cmsparam";
+import { get_content } from "../../api/home_api";
 export default function StatePage() {
   const location = useLocation();
   const { stateName, stateId } = useParams();
@@ -24,7 +26,12 @@ export default function StatePage() {
     retry: false,
     staleTime: 1000 * 60 * 5,
   });
+  const params = useCMSParams("home");
 
+  const { data: homecontent } = useQuery({
+    queryKey: ["home", params],
+    queryFn: () => get_content(params),
+  });
 
   if (!stateData && !isError) {
     return null;
@@ -33,6 +40,8 @@ export default function StatePage() {
   if (isError || !stateId) {
     return <Unauthorized />;
   }
+
+  const content = homecontent?.data;
 
   const stateInfo = stateData?.data || {};
   const state_stats = stateInfo.stats || {};
@@ -72,12 +81,18 @@ export default function StatePage() {
               </h1>
 
               <p className="homeHeroSub">
-                Welcome to the official platform of the{" "}
-                {statecontent.state_name || "STATE NAME"} Finswimming
-                Association.
-                <br />
-                Discover events, connect with athletes and clubs, and be part of
-                a growing aquatic sports community.
+                {(
+                  homecontent?.data?.home_page_description ||
+                  `Welcome to the official platform of the Malaysia Finswimming Association.
+Discover events, connect with athletes and clubs, and be part of a growing aquatic sports community.`
+                )
+                  .split("\n")
+                  .map((line, i) => (
+                    <span key={i}>
+                      {line}
+                      <br />
+                    </span>
+                  ))}
               </p>
             </div>
 
@@ -102,7 +117,7 @@ export default function StatePage() {
             </nav>
           </section>
         </Swimmer>
-        <HomeAbout name={statecontent.state_name} />
+        <HomeAbout name={statecontent.state_name} content={content} />
         <UpcomingEvents event={state_events} />
         <HomeRecords stats={state_stats} />
         <BestRecords />
