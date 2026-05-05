@@ -2,7 +2,8 @@ import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { raise_tiket } from "../../api/home_api";
 import { useState } from "react";
 import SpinnerLoader from "../common/SpinnerLoader";
-export default function ContactX() {
+export default function ContactX({ content }) {
+  console.log(content);
   const [formData, setFormData] = useState({
     full_name: "",
     email_id: "",
@@ -20,7 +21,8 @@ export default function ContactX() {
 
   const validate = () => {
     const nextErrors = {};
-    if (!formData.full_name.trim()) nextErrors.full_name = "Full name is required";
+    if (!formData.full_name.trim())
+      nextErrors.full_name = "Full name is required";
     if (!formData.email_id.trim()) nextErrors.email_id = "Email is required";
     if (!formData.message.trim()) nextErrors.message = "Message is required";
     return nextErrors;
@@ -65,11 +67,17 @@ export default function ContactX() {
             </div>
             <h3>Our Headquarters</h3>
             <p>
-              National Aquatics Centre,
-              <br />
-              KL Sports City, Bukit Jalil,
-              <br />
-              57000 Kuala Lumpur, Malaysia
+              {(
+                content?.footer_address ||
+                "National Aquatics Centre,\nKL Sports City, Bukit Jalil,\n57000 Kuala Lumpur, Malaysia"
+              )
+                .split(/\r?\n/) // handles both \n and \r\n
+                .map((line, i) => (
+                  <span key={i}>
+                    {line}
+                    <br />
+                  </span>
+                ))}
             </p>
           </div>
 
@@ -79,7 +87,7 @@ export default function ContactX() {
             </div>
             <h3>Phone</h3>
             <p>
-              +60 3-8994 4660
+              +{content?.footer_phone || "6937927392"}
               <br />
               <span>Mon - Fri, 9am - 5pm</span>
             </p>
@@ -91,7 +99,7 @@ export default function ContactX() {
             </div>
             <h3>Email</h3>
             <p>
-              hello@mfsa.org.my
+              {content?.footer_email || "hello@mfsa.org.my"}
               <br />
               <span>We typically reply within 24h</span>
             </p>
@@ -114,7 +122,9 @@ export default function ContactX() {
                   onChange={handleChange}
                   className={errors.full_name ? "mfsaInputError" : ""}
                 />
-                {errors.full_name && <small className="errorText">{errors.full_name}</small>}
+                {errors.full_name && (
+                  <small className="errorText">{errors.full_name}</small>
+                )}
               </div>
 
               <div className="mfsaContactX-field">
@@ -127,7 +137,9 @@ export default function ContactX() {
                   onChange={handleChange}
                   className={errors.email_id ? "mfsaInputError" : ""}
                 />
-                {errors.email_id && <small className="errorText">{errors.email_id}</small>}
+                {errors.email_id && (
+                  <small className="errorText">{errors.email_id}</small>
+                )}
               </div>
             </div>
 
@@ -151,11 +163,17 @@ export default function ContactX() {
                 onChange={handleChange}
                 className={errors.message ? "mfsaInputError" : ""}
               ></textarea>
-              {errors.message && <small className="errorText">{errors.message}</small>}
+              {errors.message && (
+                <small className="errorText">{errors.message}</small>
+              )}
             </div>
 
             <button className="mfsaContactX-btn" disabled={isSubmitting}>
-              {isSubmitting ? <SpinnerLoader label="Sending..." /> : "Send Message"}
+              {isSubmitting ? (
+                <SpinnerLoader label="Sending..." />
+              ) : (
+                "Send Message"
+              )}
             </button>
             {submitMessage && <div className="noDataBox">{submitMessage}</div>}
           </form>

@@ -6,7 +6,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import UserMap from "../eventcomponent/usemap";
-export default function FollowSectionX() {
+export default function FollowSectionX({ contactcontent }) {
   const location = {
     lat: 3.139,
     lng: 101.6869,
@@ -40,9 +40,8 @@ export default function FollowSectionX() {
           <h2 className="mfsaFollowX-title">Follow our Journey</h2>
 
           <p className="mfsaFollowX-text">
-            Stay updated with the latest national trials, international
-            competition results, and behind-the-scenes athlete training on our
-            social platforms.
+            {contactcontent?.social_description ||
+              "Stay updated with the latest national trials, international competition results, and behind-the-scenes athlete training on our      social platforms."}
           </p>
 
           {/* SOCIAL BUTTONS */}
