@@ -7,12 +7,24 @@ import Footer from "../../layout/footer";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 import fallbackImg from "../../assets/event1.png";
-
+import { get_content } from "../../api/home_api";
+import { useCMSParams } from "../../../utils/cmsparam";
 export default function Gallery() {
   const { stateId, clubId } = useParams();
   const isClub = !!clubId;
   const isState = !!stateId && !clubId;
 
+  const cmsParams = useCMSParams("gallery");
+
+  const { data: cmsData } = useQuery({
+    queryKey: ["gallery-cms", cmsParams],
+    queryFn: () => get_content(cmsParams),
+  });
+
+  const cms = cmsData?.data;
+
+  console.log("The gallery content", cms);
+  
   const params = clubId ? { clubId } : stateId ? { stateId } : null;
   const basePath = stateId
     ? clubId
@@ -55,8 +67,17 @@ export default function Gallery() {
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle">Gallery</h1>
           <p className="homeHeroSub">
-            Explore memorable moments from our events, training sessions, and
-            competitions.
+            {(
+              cms?.gallery_page_description ||
+              "Explore memorable moments from our events, training sessions, and competitions."
+            )
+              .split("\n")
+              .map((line, i) => (
+                <span key={i}>
+                  {line}
+                  <br />
+                </span>
+              ))}
           </p>
         </div>
 
@@ -111,7 +132,10 @@ export default function Gallery() {
         <div className="galleryContainer">
           <div className="galleryHeader">
             <h2>Gallery</h2>
-            <p>Explore moments from events and competitions.</p>
+            <p>
+              {cms?.gallery_page_description ||
+                "Explore moments from events and competitions."}
+            </p>
           </div>
 
           {!isLoading && (isError || galleryList.length === 0) && (
