@@ -5,7 +5,8 @@ import { FaFlag, FaEye } from "react-icons/fa";
 
 export default function AboutPageX({ aboutInfo }) {
   const { clubId, stateId } = useParams();
-  console.log(aboutInfo)
+  console.log(aboutInfo);
+ 
 
   return (
     <section className="mfsaAboutPageX-section">

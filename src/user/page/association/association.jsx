@@ -8,10 +8,26 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { get_content } from "../../api/home_api";
 export default function Association() {
   const location = useLocation();
   // const { stateName, stateId } = useParams();
   const { stateId, clubId } = useParams();
+  const { data } = useQuery({
+    queryKey: ["association"],
+    queryFn: () =>
+      get_content({
+        page: "association",
+        national: "national_page",
+      }),
+  });
+
+  const content = data?.data;
+
+  const stateheadline = content?.associations_page_headline;
+
+  const clubheadline = content?.clubs_page_headline
+
   const isClub = !!clubId;
   const isState = !!stateId && !clubId;
 
@@ -46,7 +62,19 @@ export default function Association() {
           </h1>
 
           <p className="homeHeroSub">
-            Browse verified associations and explore finswimming networks.
+            {(stateId
+              ? content?.clubs_page_description ||
+                "Explore affiliated clubs under this state and discover local finswimming communities."
+              : content?.associations_page_description ||
+                "Browse verified associations and explore finswimming networks."
+            )
+              .split(/\r?\n/)
+              .map((line, i, arr) => (
+                <span key={i}>
+                  {line}
+                  {i !== arr.length - 1 && <br />}
+                </span>
+              ))}
           </p>
         </div>
         {basePath && (
@@ -97,9 +125,9 @@ export default function Association() {
       </Swimmer>
 
       {!stateId ? (
-        <StateAssociationX data={states} type="state" />
+        <StateAssociationX data={states} type="state" headline={stateheadline}/>
       ) : (
-        <StateAssociationX data={clubs} type="club" />
+        <StateAssociationX data={clubs} type="club" headline={clubheadline}/>
       )}
 
       <Footer />

@@ -27,7 +27,7 @@ export default function ContentManagement() {
 
   const TAB_CONFIG = [
     { name: "Home", roles: ["SUPERADMIN", "STAFF", "STATE", "CLUB"] },
-    { name: "Association", roles: ["SUPERADMIN", "STATE", "CLUB"] },
+    { name: "Association", roles: ["SUPERADMIN"] },
     { name: "Membership", roles: ["SUPERADMIN"] }, // 🔥 only SUPERADMIN
     { name: "Events", roles: ["SUPERADMIN", "STATE", "CLUB"] },
     { name: "Gallery", roles: ["SUPERADMIN", "STATE", "CLUB"] },

@@ -4,13 +4,12 @@ import { get_state } from "../../api/auth";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-export default function StateAssociationX({ data, type }) {
+import { get_content } from "../../api/home_api";
+export default function StateAssociationX({ data, type, headline }) {
   const { stateName, stateId } = useParams();
   const navigate = useNavigate();
 
-
   const [visibleCount, setVisibleCount] = useState(8);
-
 
   const visibleData = data.slice(0, visibleCount);
 
@@ -19,7 +18,10 @@ export default function StateAssociationX({ data, type }) {
       <div className="mfsaStateCardX-container">
         <div className="mfsaStateCardX-header">
           <h2>Regional Partners</h2>
-          <p>Browse our verified state associations and their local clubs.</p>
+          <p>
+            {headline ||
+              "Browse our verified state associations and their local clubs."}
+          </p>
         </div>
 
         <div className="mfsaStateCardX-grid">
@@ -69,7 +71,6 @@ export default function StateAssociationX({ data, type }) {
           })}
         </div>
 
-      
         {visibleCount < data.length && (
           <div style={{ textAlign: "center", marginTop: "40px" }}>
             <button

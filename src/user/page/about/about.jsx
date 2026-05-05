@@ -4,6 +4,7 @@ import Footer from "../../layout/footer";
 import { NavLink, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getclubabout } from "../../api/club";
+import { get_content } from "../../api/home_api";
 export default function About() {
   const { stateId, clubId } = useParams();
   const isClub = !!clubId;
@@ -17,22 +18,40 @@ export default function About() {
   const { data: aboutData, isLoading } = useQuery({
     queryKey: ["aboutPage", clubId, stateId],
     queryFn: () => getclubabout({ clubId, stateId }),
-    
   });
 
   const aboutInfo = aboutData?.data;
-  console.log("the about page content ",aboutInfo)
+  console.log("the about page content ", aboutInfo);
+
+  const { data: other } = useQuery({
+    queryKey: ["others"],
+    queryFn: () =>
+      get_content({
+        page: "others",
+        national: "national_page",
+      }),
+  }); 
+
+  const contactcontent = other?.data;
+
+  console.log(contactcontent);
   return (
     <>
       <Swimmer>
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle">ABOUT US</h1>
           <p className="homeHeroSub">
-            Learn more about our mission, vision, and the values that drive our
-            organization.
-            <br />
-            We are committed to building a strong community by supporting
-            athletes, clubs, and regional associations.
+            {(
+              contactcontent?.aboutus_page_description ||
+              "Learn more about our mission, vision, and the values that drive our organization.\nWe are committed to building a strong community by supporting athletes, clubs, and regional associations."
+            )
+              .split(/\r?\n/)
+              .map((line, i, arr) => (
+                <span key={i}>
+                  {line}
+                  {i !== arr.length - 1 && <br />}
+                </span>
+              ))}
           </p>
         </div>
         {basePath && (

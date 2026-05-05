@@ -39,7 +39,7 @@ export default function Contact() {
           <h1 className="homeHeroTitle">Contact US</h1>
           <p className="homeHeroSub">
             {(
-              contactcontent?.contactus_page_description ||
+             contactcontent?.contactus_page_description ||
               "Have questions or need assistance? We’re here to help.\nReach out to us and we’ll get back to you as soon as possible."
             )
               .split(/\r?\n/)
