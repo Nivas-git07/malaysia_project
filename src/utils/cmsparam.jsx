@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
  */
 export const useCMSParams = (page) => {
   const { stateId, clubId } = useParams();
-
+  console.log("content state and club id", stateId, clubId);
 
   if (clubId) {
     return {
@@ -15,14 +15,12 @@ export const useCMSParams = (page) => {
     };
   }
 
-
   if (stateId) {
     return {
       page,
       state_id: stateId,
     };
   }
-
 
   return {
     page,

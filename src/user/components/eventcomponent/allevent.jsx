@@ -11,7 +11,7 @@ import SkeletonLoader from "../common/SkeletonLoader";
 import ErrorState from "../common/ErrorState";
 import EmptyState from "../common/EmptyState";
 
-export default function EventsPage() {
+export default function EventsPage({ content }) {
   const { stateId, clubId } = useParams();
   const navigate = useNavigate();
 
@@ -56,7 +56,8 @@ export default function EventsPage() {
           <div className="mfsaEventsHeaderLeftV2">
             <h2 className="mfsaEventsTitleV2">EVENTS</h2>
             <p className="mfsaEventsSubtitleV2">
-              Discover the latest competitions and community gatherings.
+              {content ||
+                "Discover the latest competitions and community gatherings."}
             </p>
           </div>
 

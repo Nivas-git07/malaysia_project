@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import Swimmer from "../../layout/swimmer";
 import Footer from "../../layout/footer";
-import { get_bestrecords } from "../../api/home_api";
+import { get_bestrecords, get_content } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, NavLink } from "react-router-dom";
+import { useCMSParams } from "../../../utils/cmsparam";
 
 const categories = ["Surface", "Bi-fins", "Apnea", "Immersion"];
 
@@ -18,6 +19,21 @@ export default function BestRecords() {
   const isClub = !!clubId;
   const isState = !!stateId && !clubId;
 
+  /* =========================
+     CMS PARAMS (IMPORTANT)
+  ========================= */
+  const cmsParams = useCMSParams("best_records");
+
+  const { data: cmsData } = useQuery({
+    queryKey: ["best-records-cms", cmsParams],
+    queryFn: () => get_content(cmsParams),
+  });
+
+  const cms = cmsData?.data;
+
+  /* =========================
+     RECORDS API
+  ========================= */
   const { data, isLoading, error } = useQuery({
     queryKey: ["best-records", stateId, clubId],
     queryFn: () => get_bestrecords({ stateId, clubId }),
@@ -26,27 +42,34 @@ export default function BestRecords() {
 
   const records = data?.data || [];
 
-  // 🔥 FILTER
+  console.log(cms);
+
+  /* =========================
+     FILTER
+  ========================= */
   const filteredRecords = records.filter(
-    (rec) =>
-      rec.discipline?.toLowerCase() === active.toLowerCase()
+    (rec) => rec.discipline?.toLowerCase() === active.toLowerCase(),
   );
 
-  // 🔥 PAGINATION LOGIC
+  /* =========================
+     PAGINATION
+  ========================= */
   const totalPages = Math.ceil(filteredRecords.length / itemsPerPage);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
 
   const paginatedRecords = filteredRecords.slice(
     startIndex,
-    startIndex + itemsPerPage
+    startIndex + itemsPerPage,
   );
 
-  // 🔥 RESET PAGE WHEN FILTER CHANGES
   useEffect(() => {
     setCurrentPage(1);
   }, [active]);
 
+  /* =========================
+     BASE PATH (STATE / CLUB)
+  ========================= */
   const basePath = stateId
     ? clubId
       ? `/state/${stateId}/club/${clubId}`
@@ -55,14 +78,27 @@ export default function BestRecords() {
 
   return (
     <>
+      {/* HERO */}
       <Swimmer>
         <div className="homeHeroContents">
           <h1 className="homeHeroTitle">Best Records</h1>
+
           <p className="homeHeroSub">
-            Explore the fastest times and top performances in finswimming.
+            {(
+              cms?.best_records_page_description ||
+              "Explore the fastest times and top performances in finswimming."
+            )
+              .split("\n")
+              .map((line, i) => (
+                <span key={i}>
+                  {line}
+                  <br />
+                </span>
+              ))}
           </p>
         </div>
 
+        {/* NAV */}
         {basePath && (
           <nav className="heroNav">
             <ul>
@@ -71,11 +107,23 @@ export default function BestRecords() {
                   <NavLink to={`/state/${stateId}`}>Home</NavLink>
                 </li>
               )}
+
               {isClub && (
                 <li>
                   <NavLink to={`/state/${stateId}/club/${clubId}`}>
                     Home
                   </NavLink>
+                </li>
+              )}
+              {isState && (
+                <li>
+                  <NavLink to={`${basePath}/association`}>CLUBS</NavLink>
+                </li>
+              )}
+
+              {isClub && (
+                <li>
+                  <NavLink to={`${basePath}/athlete`}>ATHLETES</NavLink>
                 </li>
               )}
 
@@ -101,11 +149,16 @@ export default function BestRecords() {
         )}
       </Swimmer>
 
+      {/* MAIN */}
       <section className="br-container">
         {/* HEADER */}
         <div className="br-header">
           <h1>Best Records</h1>
-          <p>Top performances across all finswimming categories</p>
+
+          <p>
+            {cms?.best_records_page_headline ||
+              "Top performances across all finswimming categories"}
+          </p>
         </div>
 
         {/* TOOLBAR */}
@@ -158,10 +211,7 @@ export default function BestRecords() {
           <div className="br-grid">
             {paginatedRecords.map((rec, i) => (
               <div key={i} className="br-card">
-                <img
-                  src={rec.profile_picture}
-                  alt={rec.full_name}
-                />
+                <img src={rec.profile_picture} alt={rec.full_name} />
 
                 <h3>{rec.full_name}</h3>
 
@@ -181,16 +231,12 @@ export default function BestRecords() {
         {/* PAGINATION */}
         {totalPages > 1 && (
           <div className="br-pagination">
-            {/* PREV */}
             <span
-              onClick={() =>
-                setCurrentPage((prev) => Math.max(prev - 1, 1))
-              }
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             >
               ‹
             </span>
 
-            {/* PAGE NUMBERS */}
             {[...Array(totalPages)].map((_, i) => (
               <span
                 key={i}
@@ -201,12 +247,9 @@ export default function BestRecords() {
               </span>
             ))}
 
-            {/* NEXT */}
             <span
               onClick={() =>
-                setCurrentPage((prev) =>
-                  Math.min(prev + 1, totalPages)
-                )
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
               }
             >
               ›

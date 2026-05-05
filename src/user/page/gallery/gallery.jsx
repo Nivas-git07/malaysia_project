@@ -14,7 +14,7 @@ export default function Gallery() {
   const isClub = !!clubId;
   const isState = !!stateId && !clubId;
 
-  const cmsParams = useCMSParams("gallery");
+  const cmsParams = useCMSParams("media");
 
   const { data: cmsData } = useQuery({
     queryKey: ["gallery-cms", cmsParams],
@@ -24,7 +24,7 @@ export default function Gallery() {
   const cms = cmsData?.data;
 
   console.log("The gallery content", cms);
-  
+
   const params = clubId ? { clubId } : stateId ? { stateId } : null;
   const basePath = stateId
     ? clubId
@@ -133,7 +133,9 @@ export default function Gallery() {
           <div className="galleryHeader">
             <h2>Gallery</h2>
             <p>
-              {cms?.gallery_page_description ||
+              {cms?.
+gallery_headline
+ ||
                 "Explore moments from events and competitions."}
             </p>
           </div>
