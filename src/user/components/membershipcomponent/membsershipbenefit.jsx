@@ -7,9 +7,12 @@ import {
   FaChartBar
 } from "react-icons/fa";
 
-export default function MembershipBenefits() {
+export default function MembershipBenefits({ data }) {
 
-  const benefits = [
+  /* =========================
+     DEFAULT BENEFITS (6)
+  ========================= */
+  const defaultBenefits = [
     {
       icon: <FaTrophy />,
       title: "Competition Access",
@@ -41,6 +44,20 @@ export default function MembershipBenefits() {
       desc: "Eligibility for inclusion in the official Malaysia Finswimming Ranking system and records list."
     }
   ];
+
+  /* =========================
+     MERGE BACKEND + DEFAULT
+  ========================= */
+  const benefits = defaultBenefits.map((item, index) => {
+    const backendTitle = data?.[`benefits_${index + 1}_h3`];
+    const backendDesc = data?.[`benefits_${index + 1}_p`];
+
+    return {
+      icon: item.icon,
+      title: backendTitle && backendTitle.trim() !== "" ? backendTitle : item.title,
+      desc: backendDesc && backendDesc.trim() !== "" ? backendDesc : item.desc,
+    };
+  });
 
   return (
     <section className="mfsaBenefits-section">

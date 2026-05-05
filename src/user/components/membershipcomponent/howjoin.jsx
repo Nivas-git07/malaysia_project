@@ -1,114 +1,73 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function HowJoinMFSA() {
+export function HowJoinMFSA({ data }) {
   const navigate = useNavigate();
   const sectionRef = useRef(null);
 
   const [activeStep, setActiveStep] = useState(0);
-  const [selectedPlan, setSelectedPlan] = useState("default");
+  const [selectedPlan, setSelectedPlan] = useState("state");
 
-  // ✅ ALL PLANS (YOUR + NEW)
+  /* =========================
+     HELPER (fallback)
+  ========================= */
+  const getValue = (val, fallback) => {
+    return val && val.trim() !== "" ? val : fallback;
+  };
+
+  /* =========================
+     DEFAULT BASE STEPS
+  ========================= */
+  const defaultSteps = [
+    {
+      title: "Register Account",
+      desc: "Create your online profile with basic personal details.",
+    },
+    {
+      title: "Submit Details",
+      desc: "Provide necessary documents and information.",
+    },
+    {
+      title: "Verification",
+      desc: "Your application will be reviewed.",
+    },
+    {
+      title: "Get Approved",
+      desc: "Receive confirmation and start your journey.",
+    },
+  ];
+
+  /* =========================
+     BUILD PLAN FROM BACKEND
+  ========================= */
+  const buildPlan = (planIndex) => {
+    return defaultSteps.map((step, i) => ({
+      title: getValue(
+        data?.[`plan_${planIndex}_h3_${i + 1}`],
+        step.title
+      ),
+      desc: getValue(
+        data?.[`plan_${planIndex}_p_${i + 1}`],
+        step.desc
+      ),
+    }));
+  };
+
+  /* =========================
+     PLAN MAPPING
+  ========================= */
   const plans = {
-    default: [
-      {
-        title: "Register Account",
-        desc: "Create your online profile on our secure portal with basic personal details.",
-      },
-      {
-        title: "Complete Club Details",
-        desc: "Provide information about your local finswimming club or register as an independent.",
-      },
-      {
-        title: "Choose Membership Plan",
-        desc: "Select from Athlete, Coach, Technical Official, or Associate memberships.",
-      },
-      {
-        title: "Get Approved",
-        desc: "Receive your digital membership card once your application is reviewed and verified.",
-      },
-    ],
-
-    athlete: [
-      {
-        title: "Register Account",
-        desc: "Create your athlete profile with personal and competition details.",
-      },
-      {
-        title: "Upload Documents",
-        desc: "Submit ID proof, medical certificate, and eligibility documents.",
-      },
-      {
-        title: "Choose Discipline",
-        desc: "Select finswimming category and competition preferences.",
-      },
-      {
-        title: "Get Approved",
-        desc: "Receive confirmation and start participating in events.",
-      },
-    ],
-
-    coach: [
-      {
-        title: "Register Profile",
-        desc: "Create your coaching account with experience details.",
-      },
-      {
-        title: "Submit Certification",
-        desc: "Upload coaching certifications and qualifications.",
-      },
-      {
-        title: "Verify Experience",
-        desc: "Provide proof of coaching history and achievements.",
-      },
-      {
-        title: "Get Approved",
-        desc: "Get verified as an official MFSA coach.",
-      },
-    ],
-
-    club: [
-      {
-        title: "Register Club",
-        desc: "Create your club profile with official details.",
-      },
-      {
-        title: "Add Officials",
-        desc: "Register club staff and coaches.",
-      },
-      {
-        title: "Submit Documents",
-        desc: "Upload registration certificates and approvals.",
-      },
-      {
-        title: "Get Approved",
-        desc: "Get your club officially recognized.",
-      },
-    ],
-
-    state: [
-      {
-        title: "Apply for License",
-        desc: "Submit application as a regional governing body.",
-      },
-      {
-        title: "Submit Details",
-        desc: "Provide governance and operational structure.",
-      },
-      {
-        title: "Verification",
-        desc: "Review by national authority.",
-      },
-      {
-        title: "Get Approved",
-        desc: "Become an official state association.",
-      },
-    ],
+    state: buildPlan(1),
+    club: buildPlan(2),
+    Athlete: buildPlan(3),
+    coach: buildPlan(4),
   };
 
   const steps = plans[selectedPlan];
 
-  // ✅ ANIMATION
+  /* =========================
+     ANIMATION
+  ========================= */
   useEffect(() => {
     setActiveStep(0);
 
@@ -146,9 +105,9 @@ export function HowJoinMFSA() {
           <h2 className="mfsaStepsTitle">How to Become a Member</h2>
           <div className="mfsaStepsUnderline"></div>
 
-          {/* ✅ PLAN BUTTONS (FIXED UI) */}
+          {/* PLAN BUTTONS */}
           <div className="mfsaPlanWrapper">
-            {["default", "athlete", "coach", "club", "state"].map((plan) => (
+            {["state", "club", "Athlete", "coach"].map((plan) => (
               <button
                 key={plan}
                 className={`mfsaPlanBtn ${
@@ -188,6 +147,7 @@ export function HowJoinMFSA() {
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
