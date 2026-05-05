@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "./navbar";
 import videoFallback from "../assets/animate5.mp4";
 import { get_content } from "../api/home_api";
@@ -11,33 +11,58 @@ export default function Swimmer({ children }) {
   const { data: homecontent } = useQuery({
     queryKey: ["home", params],
     queryFn: () => get_content(params),
-    keepPreviousData: true, // ✅ IMPORTANT
+    keepPreviousData: true,
+    staleTime: 1000 * 60 * 5,
   });
 
   const content = homecontent?.data;
 
   /* =========================
-     VIDEO STATE MANAGEMENT
+     VIDEO STATE
   ========================= */
   const [videoSrc, setVideoSrc] = useState(videoFallback);
   const [loading, setLoading] = useState(false);
 
+  const activeRequest = useRef(null); // 🔥 track latest request
+
   useEffect(() => {
     const newVideo = content?.home_page_banner;
 
-    if (!newVideo) return;
+    if (!newVideo) {
+      setVideoSrc(videoFallback);
+      return;
+    }
 
-    // If same video → do nothing
+    // prevent duplicate load
     if (newVideo === videoSrc) return;
 
     setLoading(true);
 
+    const requestId = Date.now();
+    activeRequest.current = requestId;
+
     const video = document.createElement("video");
     video.src = newVideo;
+    video.preload = "auto";
 
-    video.oncanplay = () => {
-      setVideoSrc(newVideo); // switch only when ready
+    video.oncanplaythrough = () => {
+      // 🔥 ignore old requests
+      if (activeRequest.current !== requestId) return;
+
+      setVideoSrc(newVideo);
       setLoading(false);
+    };
+
+    video.onerror = () => {
+      if (activeRequest.current !== requestId) return;
+
+      setVideoSrc(videoFallback);
+      setLoading(false);
+    };
+
+    // cleanup old video loading
+    return () => {
+      video.src = "";
     };
   }, [content?.home_page_banner]);
 
@@ -46,10 +71,8 @@ export default function Swimmer({ children }) {
       <Navbar />
 
       <section className="hero">
-
         {/* VIDEO */}
         <video
-          key={videoSrc}
           className={`heroVideo ${loading ? "blur" : ""}`}
           src={videoSrc}
           autoPlay
@@ -59,12 +82,7 @@ export default function Swimmer({ children }) {
           preload="auto"
         />
 
-        {/* OPTIONAL LOADER OVERLAY */}
-        {loading && (
-          <div className="videoLoader">
-            <span>Loading...</span>
-          </div>
-        )}
+       
 
         {children}
       </section>
