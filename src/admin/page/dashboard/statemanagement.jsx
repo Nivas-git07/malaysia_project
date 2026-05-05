@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import Navbar from "../navbar/nav";
-// import "./StateManagement.css";
 import { state_register } from "../../api/auth_api";
-import { get_state } from "../../../user/api/auth";
 import { get_national_state } from "../../api/home_api";
 import { useQuery } from "@tanstack/react-query";
 import SkeletonLoader from "../../components/common/SkeletonLoader";
 import ErrorState from "../../components/common/ErrorState";
+
 export default function StateManagement() {
+  // 🔥 Fetch states
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["getnationalstate"],
     queryFn: get_national_state,
@@ -16,7 +16,7 @@ export default function StateManagement() {
     retry: false,
   });
 
-  // Move all hooks to the top, before any conditional returns
+  // 🔥 Form state
   const [form, setForm] = useState({
     state_name: "",
     email: "",
@@ -25,7 +25,43 @@ export default function StateManagement() {
 
   const [showAlert, setShowAlert] = useState(false);
 
-  // Conditional returns must happen AFTER all hooks are called
+  // 🔥 Handle input change
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  // 🔥 Submit handler (UPDATED)
+  const handleSubmit = async () => {
+    if (!form.state_name || !form.email || !form.password) {
+      alert("All fields are required");
+      return;
+    }
+
+    try {
+      await state_register(form.state_name, form.email, form.password);
+
+      alert("State registered successfully");
+
+      // 🔥 Refetch latest data
+      refetch();
+
+      // Reset form
+      setForm({
+        state_name: "",
+        email: "",
+        password: "",
+      });
+
+      // Show top alert
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+    } catch (err) {
+      console.log("Error:", err.response?.data || err.message);
+      alert("Failed to register state. Please try again.");
+    }
+  };
+
+  // 🔥 Loading UI
   if (isLoading) {
     return (
       <>
@@ -37,6 +73,7 @@ export default function StateManagement() {
     );
   }
 
+  // 🔥 Error UI
   if (error) {
     return (
       <>
@@ -52,84 +89,15 @@ export default function StateManagement() {
     );
   }
 
+  // 🔥 Data
   const states = data?.data || [];
-  console.log(states);
-  // const { data } = useQuery({
-  //   querykey: ["get-state-data"],
-  //   queryFn: get_state(),
-  //   refetchOnWindowFocus: false,
-  //   retry: false,
-  // });
-  // const states = data?.data || [];
-  // console.log(s)
-
-  // const [states, setStates] = useState([
-  //   {
-  //     id: 1,
-  //     name: "California Finswimming",
-  //     email: "cal@mfsa-admin.gov",
-  //     status: "ACTIVE",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "New South Wales State",
-  //     email: "nsw@finswim-mfsa.au",
-  //     status: "ACTIVE",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Berlin Aquatic Division",
-  //     email: "berlin.rep@mfsa.de",
-  //     status: "INACTIVE",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Tokyo Metropolitan",
-  //     email: "tokyo_fins@mfsa-org.jp",
-  //     status: "ACTIVE",
-  //   },
-  // ]);
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = () => {
-    if (!form.state_name || !form.email || !form.password) return;
-
-    state_register(form.state_name, form.email, form.password)
-      .then((res) => {
-        alert("State registered successfully:", res.data);
-      })
-      .catch((err) => {
-        console.log("Error registering state:", err.data);
-        alert("Failed to register state. Please try again.");
-      });
-
-    const newState = {
-      id: Date.now(),
-      name: form.state_name,
-      email: form.email,
-      status: "ACTIVE",
-    };
-
-    setStates([newState, ...states]);
-
-    setForm({
-      state_name: "",
-      email: "",
-      password: "",
-    });
-
-    setShowAlert(true);
-    setTimeout(() => setShowAlert(false), 3000);
-  };
 
   return (
     <>
       <Navbar />
       <div className="mu-membership-wrapper">
         <div className="statePage">
+          {/* 🔥 Top Alert */}
           {showAlert && (
             <div className="topAlert">
               <div>
@@ -141,6 +109,7 @@ export default function StateManagement() {
             </div>
           )}
 
+          {/* 🔥 Header */}
           <div className="stateheaderRow">
             <div>
               <h1>State Management</h1>
@@ -149,9 +118,9 @@ export default function StateManagement() {
                 federation.
               </p>
             </div>
-            {/* <button className="primaryBtn">+ New State</button> */}
           </div>
 
+          {/* 🔥 Form */}
           <div className="card formCard">
             <h3>New State Configuration</h3>
 
@@ -195,42 +164,43 @@ export default function StateManagement() {
             </div>
           </div>
 
+          {/* 🔥 Table */}
           <div className="card tableCard">
-            {/* <div className="statetableHeader">
-              <h3>Federation Nodes</h3>
-            </div> */}
-
             <div className="statetable">
               <div className="statetableHead">
-                <span>STATE Name</span>
+                <span>STATE NAME</span>
                 <span>EMAIL ADDRESS</span>
                 <span>NODE STATUS</span>
                 <span>CONTROL</span>
               </div>
 
-              {states.map((item) => (
-                <div className="statetableRow" key={item.id}>
-                  <span className="stateName">{item.state_name}</span>
-                  <span>{item.email_id}</span>
-
-                  <span
-                    className={`statusPill ${item.is_active ? "active" : "inactive"}`}
-                  >
-                    <span className="statusDot"></span>
-                    {item.is_active ? "Active" : "Inactive"}
-                  </span>
-
-                  <span className="control">
-                    <FiEdit2 />
-                  </span>
+              {states.length === 0 ? (
+                <div style={{ padding: "20px", textAlign: "center" }}>
+                  No states found
                 </div>
-              ))}
-            </div>
+              ) : (
+                states.map((item) => (
+                  <div className="statetableRow" key={item.id}>
+                    <span className="stateName">{item.state_name}</span>
 
-            {/* <div className="pagination">
-              <button>Previous</button>
-              <button>Next</button>
-            </div> */}
+                    <span>{item.email_id}</span>
+
+                    <span
+                      className={`statusPill ${
+                        item.is_active ? "active" : "inactive"
+                      }`}
+                    >
+                      <span className="statusDot"></span>
+                      {item.is_active ? "Active" : "Inactive"}
+                    </span>
+
+                    <span className="control">
+                      <FiEdit2 style={{ cursor: "pointer" }} />
+                    </span>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>

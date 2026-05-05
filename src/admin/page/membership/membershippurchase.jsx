@@ -14,6 +14,7 @@ import SkeletonLoader from "../../components/common/SkeletonLoader";
 import ErrorState from "../../components/common/ErrorState";
 
 function MembersipPurchaseCenter() {
+   const navigate = useNavigate();
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["checkSession"],
     queryFn: checksession,
@@ -103,7 +104,7 @@ function MembersipPurchaseCenter() {
     },
   ];
 
-  const navigate = useNavigate();
+ 
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerPage = 3;
