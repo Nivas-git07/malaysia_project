@@ -12,7 +12,8 @@ import { get_home } from "../../api/home_api";
 import { useNavigate } from "react-router-dom";
 import SkeletonLoader from "../../components/common/SkeletonLoader";
 import ErrorState from "../../components/common/ErrorState";
-
+import { useCMSParams } from "../../../utils/cmsparam";
+import { get_content } from "../../api/home_api";
 export default function Home() {
   const navigate = useNavigate();
 
@@ -25,10 +26,16 @@ export default function Home() {
     keepPreviousData: true,
   });
 
-
   const homeData = data?.data ?? null;
   console.log("Home Data:", homeData);
-  
+  const params = useCMSParams("home");
+
+  const { data: homecontent } = useQuery({
+    queryKey: ["home", params],
+    queryFn: () => get_content(params),
+  });
+
+  console.log("HOMEPAGE CONTENT",homecontent?.data)
 
   // ---------- UI STATES ----------
 
@@ -106,7 +113,6 @@ export default function Home() {
 
       <HomeAbout name="Malaysia" />
 
-    
       {homeevents && <UpcomingEvents event={homeevents} />}
       {homeStats && <HomeRecords stats={homeStats} />}
 

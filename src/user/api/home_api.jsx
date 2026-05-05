@@ -49,3 +49,10 @@ export const get_bestrecords = ({ clubId, stateId }) => {
 
   return API.get("/user/get-all-best_records/?flag=direct_under_national");
 };
+
+export const get_content = (params) => {
+  console.log("the params is", params);
+  return API.get("/user/get-content/", {
+    params,
+  });
+};
