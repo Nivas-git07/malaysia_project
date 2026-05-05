@@ -1,28 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 import aboutImg from "../../assets/event3.png";
 
-export default function HomeAbout({ name }) {
+export default function HomeAbout({ name, content }) {
   const sectionRef = useRef(null);
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        setShow(true);
-      } else {
-        setShow(false); 
-      }
-    },
-    { threshold: 0.3 }
-  );
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShow(true);
+        } else {
+          setShow(false);
+        }
+      },
+      { threshold: 0.3 },
+    );
 
-  if (sectionRef.current) {
-    observer.observe(sectionRef.current);
-  }
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
 
-  return () => observer.disconnect();
-}, []);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     // <section className="mfsaAboutX-section">
@@ -70,7 +70,10 @@ export default function HomeAbout({ name }) {
       <div className="mfsaAboutX-container">
         {/* IMAGE */}
         <div className="mfsaAboutX-imageWrap fade-left">
-          <img src={aboutImg} alt="about swimmer" />
+          <img
+            src={content?.data?.who_we_are_image || aboutImg}
+            alt="about swimmer"
+          />
         </div>
 
         {/* CONTENT */}
@@ -78,26 +81,44 @@ export default function HomeAbout({ name }) {
           <h4 className="mfsaAboutX-subtitle fade-up">WHO WE ARE</h4>
 
           <h2 className="mfsaAboutX-title fade-up delay-1">
-            The Governing Body of Finswimming in {name || "Malaysia"}
+            {content?.data?.who_we_are_title ||
+              `The Governing Body of Finswimming in Malaysia`}
           </h2>
 
           <p className="mfsaAboutX-text fade-up delay-2">
-            Established to foster excellence in the sport, the Malaysia
-            Finswimming Association (MFA) is dedicated to discovering and
-            nurturing world-class talent. We provide a platform for athletes to
-            compete at national and international levels while promoting the
-            sport as a healthy lifestyle.
+            {(
+              content?.data?.who_we_are ||
+              `Established to foster excellence in the sport, the Malaysia
+Finswimming Association (MFA) is dedicated to discovering and
+nurturing world-class talent. We provide a platform for athletes to
+compete at national and international levels while promoting the
+sport as a healthy lifestyle.`
+            )
+              .replace(/\r/g, "")
+              .split("\n")
+              .map((line, i) => (
+                <span key={i}>
+                  {line}
+                  <br />
+                </span>
+              ))}
           </p>
 
           <div className="mfsaAboutX-cards">
             <div className="mfsaAboutX-card fade-up delay-3">
               <h5>Our Mission</h5>
-              <p>Building a vibrant community of elite finswimmers.</p>
+              <p>
+                {content?.data?.our_mission ||
+                  `Building a vibrant community of elite finswimmers.`}
+              </p>
             </div>
 
             <div className="mfsaAboutX-card fade-up delay-4">
               <h5>Our Vision</h5>
-              <p>Leading the sport to Olympic recognition in Asia.</p>
+              <p>
+                {content?.data.our_vision ||
+                  `Leading the sport to Olympic recognition in Asia.`}
+              </p>
             </div>
           </div>
         </div>

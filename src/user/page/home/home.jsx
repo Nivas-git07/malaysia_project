@@ -35,7 +35,9 @@ export default function Home() {
     queryFn: () => get_content(params),
   });
 
-  console.log("HOMEPAGE CONTENT",homecontent?.data)
+  const content = homecontent?.data;
+
+  console.log("HOMEPAGE CONTENT", homecontent?.data);
 
   // ---------- UI STATES ----------
 
@@ -87,11 +89,18 @@ export default function Home() {
           </h1>
 
           <p className="homeHeroSub">
-            Welcome to the official platform of the Malaysia Finswimming
-            Association.
-            <br />
-            Discover events, connect with athletes and clubs, and be part of a
-            growing aquatic sports community.
+            {(
+              homecontent?.data?.home_page_description ||
+              `Welcome to the official platform of the Malaysia Finswimming Association.
+Discover events, connect with athletes and clubs, and be part of a growing aquatic sports community.`
+            )
+              .split("\n")
+              .map((line, i) => (
+                <span key={i}>
+                  {line}
+                  <br />
+                </span>
+              ))}
           </p>
 
           <div className="heroBtnGroupX">
@@ -111,7 +120,7 @@ export default function Home() {
         </div>
       </Swimmer>
 
-      <HomeAbout name="Malaysia" />
+      <HomeAbout name="Malaysia" content={homecontent}/>
 
       {homeevents && <UpcomingEvents event={homeevents} />}
       {homeStats && <HomeRecords stats={homeStats} />}
