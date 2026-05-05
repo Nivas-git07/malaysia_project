@@ -34,7 +34,7 @@ export default function ContentManagement() {
     { name: "News", roles: ["SUPERADMIN", "STATE", "CLUB"] },
     { name: "Best_Reocrds", roles: ["SUPERADMIN", "STATE", "CLUB"] },
     { name: "Footer", roles: ["SUPERADMIN"] }, // 🔥 only SUPERADMIN
-    { name: "Other", roles: ["SUPERADMIN", "STATE", "CLUB"] },
+    { name: "Other", roles: ["SUPERADMIN"] },
   ];
 
   const filteredTabs = TAB_CONFIG.filter((tab) => tab.roles.includes(role));
