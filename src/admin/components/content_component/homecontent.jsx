@@ -9,8 +9,13 @@ export default function HomeContent() {
   const [form, setForm] = useState({
     home_page_banner: null,
     home_page_description: "",
+
+    // ✅ NEW FIELD
+    who_we_are_title: "",
+
     who_we_are: "",
     who_we_are_image: null,
+
     our_mission: "",
     our_vision: "",
   });
@@ -23,7 +28,7 @@ export default function HomeContent() {
   const [changed, setChanged] = useState(false);
 
   /* =========================
-     GET CONTENT (QUERY)
+     GET CONTENT
   ========================= */
   const { data, isLoading, isError } = useQuery({
     queryKey: ["home-content"],
@@ -31,7 +36,7 @@ export default function HomeContent() {
   });
 
   /* =========================
-     SET DATA INTO FORM
+     SET DATA
   ========================= */
   useEffect(() => {
     if (data?.data) {
@@ -40,8 +45,13 @@ export default function HomeContent() {
       setForm({
         home_page_banner: null,
         home_page_description: d.home_page_description || "",
+
+        // ✅ LOAD TITLE
+        who_we_are_title: d.who_we_are_title || "",
+
         who_we_are: d.who_we_are || "",
         who_we_are_image: null,
+
         our_mission: d.our_mission || "",
         our_vision: d.our_vision || "",
       });
@@ -56,26 +66,19 @@ export default function HomeContent() {
   }, [data]);
 
   /* =========================
-     MUTATION (UPDATE)
+     UPDATE API
   ========================= */
   const mutation = useMutation({
     mutationFn: (formData) => post_content(formData),
 
     onSuccess: () => {
       alert("✅ Content updated successfully");
-
       setChanged(false);
-
-      // 🔥 auto refetch updated data
       queryClient.invalidateQueries(["home-content"]);
     },
 
     onError: (error) => {
-      console.error(error);
-      alert(
-        error?.response?.data?.message ||
-          "❌ Failed to update content"
-      );
+      alert(error?.response?.data?.message || "❌ Failed to update");
     },
   });
 
@@ -116,11 +119,6 @@ export default function HomeContent() {
       }
     });
 
-    // 🔍 Debug
-    for (let pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
-
     mutation.mutate(formData);
   };
 
@@ -131,8 +129,13 @@ export default function HomeContent() {
       setForm({
         home_page_banner: null,
         home_page_description: d.home_page_description || "",
+
+        // ✅ RESET TITLE
+        who_we_are_title: d.who_we_are_title || "",
+
         who_we_are: d.who_we_are || "",
         who_we_are_image: null,
+
         our_mission: d.our_mission || "",
         our_vision: d.our_vision || "",
       });
@@ -159,11 +162,10 @@ export default function HomeContent() {
 
   return (
     <div className="card">
+
       {/* HERO BANNER */}
       <div className="section">
-        <h2>
-          <FaBars /> Home Banner (Video)
-        </h2>
+        <h2><FaBars /> Home Banner</h2>
 
         <input
           type="file"
@@ -180,12 +182,9 @@ export default function HomeContent() {
 
       {/* DESCRIPTION */}
       <div className="section">
-        <h2>
-          <FaInfoCircle /> Home Banner Description
-        </h2>
+        <h2><FaInfoCircle /> Banner Description</h2>
 
         <textarea
-          placeholder="Enter home page description"
           value={form.home_page_description}
           onChange={(e) =>
             handleChange("home_page_description", e.target.value)
@@ -193,24 +192,32 @@ export default function HomeContent() {
         />
       </div>
 
+      {/* ✅ NEW TITLE FIELD */}
+      <div className="section">
+        <h2><FaInfoCircle /> Who We Are Title</h2>
+
+        <input
+          placeholder="Enter who we are title"
+          value={form.who_we_are_title}
+          onChange={(e) =>
+            handleChange("who_we_are_title", e.target.value)
+          }
+        />
+      </div>
+
       {/* WHO WE ARE */}
       <div className="section">
-        <h2>
-          <FaInfoCircle /> Who We Are
-        </h2>
+        <h2><FaInfoCircle /> Who We Are Description</h2>
 
         <textarea
-          placeholder="Enter about content"
           value={form.who_we_are}
           onChange={(e) => handleChange("who_we_are", e.target.value)}
         />
       </div>
 
-      {/* WHO IMAGE */}
+      {/* IMAGE */}
       <div className="section">
-        <h2>
-          <FaImage /> Who We Are Image
-        </h2>
+        <h2><FaImage /> Who We Are Image</h2>
 
         <input
           type="file"
@@ -221,19 +228,13 @@ export default function HomeContent() {
         />
 
         {preview.whoImage && (
-          <img
-            src={preview.whoImage}
-            alt="preview"
-            className="preview-image"
-          />
+          <img src={preview.whoImage} className="preview-image" />
         )}
       </div>
 
       {/* MISSION */}
       <div className="section">
-        <h2>
-          <FaInfoCircle /> Our Mission
-        </h2>
+        <h2><FaInfoCircle /> Mission</h2>
 
         <textarea
           value={form.our_mission}
@@ -243,9 +244,7 @@ export default function HomeContent() {
 
       {/* VISION */}
       <div className="section">
-        <h2>
-          <FaInfoCircle /> Our Vision
-        </h2>
+        <h2><FaInfoCircle /> Vision</h2>
 
         <textarea
           value={form.our_vision}
