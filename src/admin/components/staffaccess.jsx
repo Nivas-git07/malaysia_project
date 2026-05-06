@@ -16,6 +16,7 @@ function PermissionModal({ staff, onClose }) {
   const [saving, setSaving] = useState(false);
 
   const staffId = staff?.user || staff?.id;
+  console.log(staffId)
 
   /* 🔥 FETCH EXISTING PERMISSIONS */
   useEffect(() => {

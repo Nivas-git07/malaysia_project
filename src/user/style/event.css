@@ -661,13 +661,52 @@
   font-size: 13px;
   color: #777;
 }
-
-/* HERO */
-.mfsaNewsDetailX-hero img {
+/* =========================
+   NEWS MEDIA CONTAINER
+========================= */
+.mfsaNewsDetailX-hero {
   width: 100%;
-  border-radius: 20px;
-  margin: 30px 0;
-      height: 500px;
+  overflow: hidden;
+  border-radius: 18px;
+  margin: 22px 0;
+  background: #f2f2f2;
+}
+
+/* =========================
+   IMAGE + VIDEO SAME STYLE
+========================= */
+.mfsaNewsMediaX {
+  width: 100% !important;
+  height: auto !important;
+
+  display: block !important;
+
+  border-radius: 18px !important;
+
+  object-fit: cover !important;
+
+  max-height: 650px !important;
+}
+
+/* =========================
+   VIDEO EXTRA
+========================= */
+video.mfsaNewsMediaX {
+  background: #000 !important;
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+  .mfsaNewsMediaX {
+    max-height: 320px !important;
+    border-radius: 14px !important;
+  }
+
+  .mfsaNewsDetailX-hero {
+    border-radius: 14px !important;
+  }
 }
 
 /* GRID */
@@ -973,16 +1012,8 @@
     flex-direction: column;
     gap: 10px;
   }
-
-  .mfsaNewsDetailX-hero img {
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    margin: 8px 0;
-  }
-
+ 
+  
   .mfsaNewsDetailX-title {
     font-size: 26px;
   }

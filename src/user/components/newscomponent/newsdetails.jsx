@@ -36,6 +36,8 @@ export default function NewsDetailX() {
 
   const newsList = newsData?.data || [];
 
+  console.log(newsList);
+
   if (isLoading) {
     return <SkeletonLoader variant="card" count={4} />;
   }
@@ -70,7 +72,25 @@ export default function NewsDetailX() {
                 <h2 className="mfsaNewsDetailX-heading">{item.title}</h2>
 
                 <div className="mfsaNewsDetailX-hero">
-                  <img src={item.image || new2} alt="news" />
+                  {/* VIDEO */}
+                  {item.video ? (
+                    <video
+                      className="mfsaNewsMediaX"
+                      controls
+                      preload="metadata"
+                      playsInline
+                    >
+                      <source src={item.video} type="video/mp4" />
+                    </video>
+                  ) : (
+                    /* IMAGE */
+                    <img
+                      src={item.image || new5}
+                      alt="news"
+                      className="mfsaNewsMediaX"
+                      loading="lazy"
+                    />
+                  )}
                 </div>
 
                 <p className="mfsaNewsDetailX-text">{item.description}</p>
