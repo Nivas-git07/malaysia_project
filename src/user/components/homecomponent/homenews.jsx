@@ -50,6 +50,7 @@ export default function HomeNews({ news }) {
             <NewsCard
               key={item.id}
               img={item.image}
+              video = {item.video}
               title={item.title}
               category={item.category || "News"}
             />

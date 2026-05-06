@@ -2,7 +2,7 @@ import { FiArrowRight } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-export default function NewsCard({ img, title, category }) {
+export default function NewsCard({ img, video, title, category }) {
   const navigate = useNavigate();
 
   return (
@@ -15,10 +15,30 @@ export default function NewsCard({ img, title, category }) {
       transition={{ duration: 0.5 }}
       whileHover={{ y: -10 }}
     >
-      {/* IMAGE */}
-      <div className="newsImgWrap">
-        <img src={img} alt="news" />
-      </div>
+      {/* MEDIA */}
+      {(img || video) && (
+        <div className="newsImgWrap">
+          {video ? (
+            <video
+              className="newsMedia"
+              muted
+              loop
+              autoPlay
+              playsInline
+              preload="metadata"
+            >
+              <source src={video} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src={img}
+              alt="news"
+              className="newsMedia"
+              loading="lazy"
+            />
+          )}
+        </div>
+      )}
 
       {/* CONTENT */}
       <div className="newsContent">
