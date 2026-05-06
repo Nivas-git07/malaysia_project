@@ -9,7 +9,6 @@ export default function HomeNews({ news }) {
 
   return (
     <section className="homeNewsSection">
-
       {/* HEADER */}
       <motion.div
         className="homeNewsHeader"
@@ -46,15 +45,18 @@ export default function HomeNews({ news }) {
             <p>No News available.</p>
           </div>
         ) : (
-          newsList.slice(0, 3).map((item) => (
-            <NewsCard
-              key={item.id}
-              img={item.image}
-              video = {item.video}
-              title={item.title}
-              category={item.category || "News"}
-            />
-          ))
+          newsList
+            .slice(0, 3)
+            .map((item) => (
+              <NewsCard
+                id={item.id}
+                img={item.image}
+                video={item.video}
+                title={item.title}
+                content={item.description}
+                category={item.category || "News"}
+              />
+            ))
         )}
       </motion.div>
     </section>

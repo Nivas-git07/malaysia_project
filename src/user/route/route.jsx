@@ -23,6 +23,7 @@ import Registermembershipsubmission from "../page/register/registermemsubmission
 import Aboutpreview from "../../admin/previewtemplate/aboutpreview";
 import BestRecords from "../page/bestrecord/bestrecord";
 import Unauthorized from "../components/unauthorize/unauthorized";
+import OneNews from "../page/news/onenews";
 export default function Page() {
   const location = useLocation();
 
@@ -60,6 +61,10 @@ export default function Page() {
 
           <Route path="contact" element={<PageWrapper><Contact /></PageWrapper>} />
           <Route path="state/:stateId/club/:clubId/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+
+          <Route path="news/:id" element={<PageWrapper><OneNews /></PageWrapper>} />
+          <Route path="state/:stateId/news/:id" element={<PageWrapper><OneNews /></PageWrapper>} />
+          <Route path="state/:stateId/club/:clubId/news/:id" element={<PageWrapper><OneNews /></PageWrapper>} />
 
           <Route path="news" element={<PageWrapper><News /></PageWrapper>} />
           <Route path="state/:stateId/news" element={<PageWrapper><News /></PageWrapper>} />

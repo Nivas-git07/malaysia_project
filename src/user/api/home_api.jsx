@@ -56,3 +56,13 @@ export const get_content = (params) => {
     params,
   });
 };
+
+export const fetch_one_news = async (id) => {
+  console.log("the news id is", id);
+
+  const response = await API.get(`/user/get-single-data/?news_id=${id}`);
+
+  console.log("API RESPONSE", response);
+
+  return response;
+};
