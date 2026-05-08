@@ -17,26 +17,25 @@ export default function Swimmer({ children }) {
 
   const content = homecontent?.data;
 
-  /* =========================
-     VIDEO STATE
-  ========================= */
-
   const [videoSrc, setVideoSrc] = useState(videoFallback);
   const [loading, setLoading] = useState(false);
 
-  const activeRequest = useRef(null);
   const videoRef = useRef(null);
+  const activeRequest = useRef(null);
+
+  /* =========================
+     VIDEO PRELOAD
+  ========================= */
 
   useEffect(() => {
     const newVideo = content?.home_page_banner;
 
-    // no video from backend
     if (!newVideo) {
       setVideoSrc(videoFallback);
       return;
     }
 
-    // same video avoid reload
+    // avoid same reload
     if (newVideo === videoSrc) return;
 
     setLoading(true);
@@ -47,20 +46,20 @@ export default function Swimmer({ children }) {
     const preloadVideo = document.createElement("video");
 
     preloadVideo.src = newVideo;
-    preloadVideo.preload = "auto";
+    preloadVideo.preload = "metadata";
     preloadVideo.muted = true;
+    preloadVideo.playsInline = true;
 
-    // timeout protection
     const timeout = setTimeout(() => {
       if (activeRequest.current !== requestId) return;
 
-      console.log("Video loading timeout");
+      console.log("Video timeout");
 
       setVideoSrc(videoFallback);
       setLoading(false);
-    }, 15000);
+    }, 10000);
 
-    preloadVideo.onloadeddata = () => {
+    preloadVideo.oncanplaythrough = () => {
       if (activeRequest.current !== requestId) return;
 
       clearTimeout(timeout);
@@ -83,28 +82,29 @@ export default function Swimmer({ children }) {
     return () => {
       clearTimeout(timeout);
 
-      preloadVideo.pause();
       preloadVideo.removeAttribute("src");
       preloadVideo.load();
     };
   }, [content?.home_page_banner]);
 
   /* =========================
-     FORCE VIDEO RELOAD
+     AUTOPLAY
   ========================= */
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.load();
+    const video = videoRef.current;
 
-      const playPromise = videoRef.current.play();
+    if (!video) return;
 
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => {
-          console.log("Autoplay prevented:", err);
-        });
+    const playVideo = async () => {
+      try {
+        await video.play();
+      } catch (err) {
+        console.log("Autoplay blocked:", err);
       }
-    }
+    };
+
+    playVideo();
   }, [videoSrc]);
 
   return (
@@ -112,21 +112,17 @@ export default function Swimmer({ children }) {
       <Navbar />
 
       <section className="hero">
-        {/* VIDEO */}
         <video
-          key={videoSrc}
           ref={videoRef}
-          className={`heroVideo ${loading ? "blur" : ""}`}
+          className={`heroVideo ${loading ? "opacity-0" : "opacity-100"}`}
+          src={videoSrc}
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
-        >
-          <source src={videoSrc} type="video/mp4" />
-        </video>
+          preload="metadata"
+        />
 
-        {/* OPTIONAL LOADER */}
         {loading && (
           <div className="videoLoader">
             Loading video...
