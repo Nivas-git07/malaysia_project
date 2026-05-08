@@ -6,11 +6,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useQueryClient } from "@tanstack/react-query";
 import { FiX } from "react-icons/fi";
 import { delete_event } from "../../api/event_api";
+
 export default function EventModal({ close, data }) {
   const queryClient = useQueryClient();
   const eventData = Array.isArray(data) ? data[0] : data;
 
   const [highlights, setHighlights] = useState([""]);
+
   const [form, setForm] = useState({
     event_name: "",
     description: "",
@@ -21,6 +23,9 @@ export default function EventModal({ close, data }) {
     image: null,
     status: "DRAFT",
   });
+
+  // IMAGE PREVIEW STATE
+  const [previewImage, setPreviewImage] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -46,11 +51,19 @@ export default function EventModal({ close, data }) {
     });
   };
 
+  // UPDATED IMAGE CHANGE
   const handleFileChange = (e) => {
-    setForm({
-      ...form,
-      image: e.target.files[0],
-    });
+    const file = e.target.files[0];
+
+    if (file) {
+      setForm({
+        ...form,
+        image: file,
+      });
+
+      // PREVIEW IMAGE
+      setPreviewImage(URL.createObjectURL(file));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -60,20 +73,21 @@ export default function EventModal({ close, data }) {
     setLoading(true);
 
     const formData = new FormData();
+
     formData.append("event_name", form.event_name);
     formData.append("description", form.description);
     formData.append("venue", form.location);
     formData.append("event_start", form.event_start);
     formData.append("event_end", form.event_end);
     formData.append("date", form.date);
-    // formData.append("visibility", form.visibility);
     formData.append("status", form.status);
+
     formData.append(
       "highlight",
       JSON.stringify(highlights.filter((h) => h.trim() !== "")),
     );
 
-    if (form.image) {
+    if (form.image instanceof File) {
       formData.append("image", form.image);
     }
 
@@ -88,6 +102,7 @@ export default function EventModal({ close, data }) {
             ? "Event updated successfully!"
             : "Event saved successfully!",
         );
+
         queryClient.invalidateQueries(["events"]);
         close();
       })
@@ -111,8 +126,13 @@ export default function EventModal({ close, data }) {
         event_end: eventData.event_end || "",
         visibility: eventData.visibility || "PUBLIC",
         status: eventData.status || "DRAFT",
-        image: eventData.image || null,
+        image: null,
       });
+
+      // FETCH EXISTING IMAGE
+      if (eventData.image) {
+        setPreviewImage(eventData.image);
+      }
 
       let parsedHighlights = [""];
 
@@ -136,6 +156,7 @@ export default function EventModal({ close, data }) {
       <div className="eventModal">
         <div className="modalHeader">
           <h3>CREATE / EDIT EVENT</h3>
+
           <span onClick={close}>
             <FiX />
           </span>
@@ -166,6 +187,7 @@ export default function EventModal({ close, data }) {
         />
 
         <label>Date</label>
+
         <DatePicker
           selected={form.date ? new Date(form.date) : null}
           onChange={(date) =>
@@ -179,6 +201,7 @@ export default function EventModal({ close, data }) {
         />
 
         <label>Start Time</label>
+
         <input
           type="time"
           name="event_start"
@@ -187,6 +210,7 @@ export default function EventModal({ close, data }) {
         />
 
         <label>End Time</label>
+
         <input
           type="time"
           name="event_end"
@@ -195,9 +219,22 @@ export default function EventModal({ close, data }) {
         />
 
         <label>Upload Banner</label>
-        <input type="file" onChange={handleFileChange} />
+
+        <input type="file" accept="image/*" onChange={handleFileChange} />
+
+        {/* IMAGE PREVIEW */}
+        {previewImage && (
+          <div className="previewContainer">
+            <img
+              src={previewImage}
+              alt="Preview"
+              className="previewImage"
+            />
+          </div>
+        )}
 
         <label>Event Highlights</label>
+
         <div className="highlightContainer">
           {highlights.map((item, index) => (
             <div className="highlightRow" key={index}>
@@ -208,6 +245,7 @@ export default function EventModal({ close, data }) {
                 value={item}
                 onChange={(e) => handleHighlightChange(index, e.target.value)}
               />
+
               {index !== 0 && (
                 <button
                   type="button"
@@ -230,6 +268,7 @@ export default function EventModal({ close, data }) {
         </div>
 
         <label>Status</label>
+
         <select name="status" value={form.status} onChange={handleChange}>
           <option value="DRAFT">Save as Draft</option>
           <option value="PUBLISHED">Publish</option>
@@ -248,7 +287,9 @@ export default function EventModal({ close, data }) {
                     .then((res) => {
                       if (res?.status === 200 || res?.status === 204) {
                         alert("Event deleted successfully!");
+
                         queryClient.invalidateQueries(["events"]);
+
                         close();
                       } else {
                         throw new Error("Delete failed");
@@ -256,6 +297,7 @@ export default function EventModal({ close, data }) {
                     })
                     .catch((e) => {
                       console.error(e?.response?.data || e);
+
                       alert("Failed to delete event. Please try again.");
                     });
                 }
@@ -264,6 +306,7 @@ export default function EventModal({ close, data }) {
               Delete Event
             </button>
           )}
+
           {!data && (
             <button className="cancelBtn" onClick={close}>
               Cancel
