@@ -20,20 +20,23 @@ export default function Swimmer({ children }) {
   /* =========================
      VIDEO STATE
   ========================= */
+
   const [videoSrc, setVideoSrc] = useState(videoFallback);
   const [loading, setLoading] = useState(false);
 
-  const activeRequest = useRef(null); // 🔥 track latest request
+  const activeRequest = useRef(null);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     const newVideo = content?.home_page_banner;
 
+    // no video from backend
     if (!newVideo) {
       setVideoSrc(videoFallback);
       return;
     }
 
-    // prevent duplicate load
+    // same video avoid reload
     if (newVideo === videoSrc) return;
 
     setLoading(true);
@@ -41,30 +44,68 @@ export default function Swimmer({ children }) {
     const requestId = Date.now();
     activeRequest.current = requestId;
 
-    const video = document.createElement("video");
-    video.src = newVideo;
-    video.preload = "auto";
+    const preloadVideo = document.createElement("video");
 
-    video.oncanplaythrough = () => {
-      // 🔥 ignore old requests
+    preloadVideo.src = newVideo;
+    preloadVideo.preload = "auto";
+    preloadVideo.muted = true;
+
+    // timeout protection
+    const timeout = setTimeout(() => {
       if (activeRequest.current !== requestId) return;
+
+      console.log("Video loading timeout");
+
+      setVideoSrc(videoFallback);
+      setLoading(false);
+    }, 15000);
+
+    preloadVideo.onloadeddata = () => {
+      if (activeRequest.current !== requestId) return;
+
+      clearTimeout(timeout);
 
       setVideoSrc(newVideo);
       setLoading(false);
     };
 
-    video.onerror = () => {
+    preloadVideo.onerror = () => {
       if (activeRequest.current !== requestId) return;
+
+      clearTimeout(timeout);
+
+      console.log("Video failed");
 
       setVideoSrc(videoFallback);
       setLoading(false);
     };
 
-    // cleanup old video loading
     return () => {
-      video.src = "";
+      clearTimeout(timeout);
+
+      preloadVideo.pause();
+      preloadVideo.removeAttribute("src");
+      preloadVideo.load();
     };
   }, [content?.home_page_banner]);
+
+  /* =========================
+     FORCE VIDEO RELOAD
+  ========================= */
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+
+      const playPromise = videoRef.current.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.log("Autoplay prevented:", err);
+        });
+      }
+    }
+  }, [videoSrc]);
 
   return (
     <>
@@ -73,16 +114,24 @@ export default function Swimmer({ children }) {
       <section className="hero">
         {/* VIDEO */}
         <video
+          key={videoSrc}
+          ref={videoRef}
           className={`heroVideo ${loading ? "blur" : ""}`}
-          src={videoSrc}
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
-        />
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
 
-       
+        {/* OPTIONAL LOADER */}
+        {loading && (
+          <div className="videoLoader">
+            Loading video...
+          </div>
+        )}
 
         {children}
       </section>
