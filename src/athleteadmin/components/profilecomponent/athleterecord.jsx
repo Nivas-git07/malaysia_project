@@ -1,36 +1,8 @@
 import React from "react";
 import { FiEye } from "react-icons/fi";
 
-export default function AthleteRecords() {
-  // DEMO DATA
-  const records = [
-    {
-      id: 1,
-      event_name: "National Championship",
-      record_time: "00:42:11",
-      prize: "₹25,000",
-      distance: "200m",
-      medal: "Gold",
-    },
+export default function AthleteRecords({ records }) {
 
-    {
-      id: 2,
-      event_name: "State League",
-      record_time: "00:39:05",
-      prize: "₹10,000",
-      distance: "100m",
-      medal: "Silver",
-    },
-
-    {
-      id: 3,
-      event_name: "University Meet",
-      record_time: "00:45:20",
-      prize: "₹5,000",
-      distance: "400m",
-      medal: "Bronze",
-    },
-  ];
 
   return (
     <div className="athleterecordlist">
@@ -42,22 +14,25 @@ export default function AthleteRecords() {
           {/* HEADER */}
           <div className="athletetableHead">
             <span>EVENT NAME</span>
+            <span>Discipline</span>
             <span>RECORD TIME</span>
-            <span>PRIZE</span>
             <span>DISTANCE</span>
+
+            <span>PRIZE</span>
+
             <span>MEDAL</span>
-         
+            <span>Date</span>
           </div>
 
           {/* EMPTY */}
+          {/* EMPTY */}
           {records.length === 0 ? (
-            <div
-              style={{
-                padding: "20px",
-                textAlign: "center",
-              }}
-            >
-              No records found
+            <div className="athleteEmptyState">
+              <div className="athleteEmptyIcon">🏅</div>
+
+              <h3>No Athlete Records Found</h3>
+
+              <p>This athlete has not added any competition records yet.</p>
             </div>
           ) : (
             records.map((item) => (
@@ -65,21 +40,23 @@ export default function AthleteRecords() {
                 {/* EVENT */}
                 <span className="stateName">{item.event_name}</span>
 
+             
+                <span>{item.discipline}</span>
+
                 {/* TIME */}
-                <span>{item.record_time}</span>
+                <span>{item.best_time}</span>
 
-                {/* PRIZE */}
-                <span>{item.prize}</span>
+                <span>{item.distance}m</span>
 
-                {/* DISTANCE */}
-                <span>{item.distance}</span>
+             
+                <span>{item.rank}</span>
 
                 {/* MEDAL */}
                 <span
                   className={`medalPill ${
-                    item.medal === "Gold"
+                    item.medal === "GOLD"
                       ? "gold"
-                      : item.medal === "Silver"
+                      : item.medal === "SILVER"
                         ? "silver"
                         : "bronze"
                   }`}
@@ -87,8 +64,8 @@ export default function AthleteRecords() {
                   {item.medal}
                 </span>
 
-                {/* VIEW */}
-                
+                {/* DATE */}
+                <span>{item.date}</span>
               </div>
             ))
           )}

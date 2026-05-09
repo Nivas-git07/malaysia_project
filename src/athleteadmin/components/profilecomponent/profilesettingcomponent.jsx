@@ -28,6 +28,10 @@ export default function ProfileSettings() {
 
   console.log("Profile data:", data?.data);
 
+  const records = data?.data.total_records.records_history;
+
+  console.log(records)
+
   useEffect(() => {
     if (data?.data) {
       const p = data.data;
@@ -59,36 +63,34 @@ export default function ProfileSettings() {
     }
   };
 
- const handleSubmit = async () => {
-  try {
-    const response = await edit_profile(
-      form.full_name,
-      form.phone_number,
-      form.profile_picture,
-      form.email_id,
-      form.date_of_birth,
-      form.gender,
-      form.primary_discipline
-    );
+  const handleSubmit = async () => {
+    try {
+      const response = await edit_profile(
+        form.full_name,
+        form.phone_number,
+        form.profile_picture,
+        form.email_id,
+        form.date_of_birth,
+        form.gender,
+        form.primary_discipline,
+      );
 
-    console.log("API Response:", response);
+      console.log("API Response:", response);
 
-    // ✅ Check status properly
-    if (response && (response.status === 200 || response.status === 201)) {
-      alert("Profile updated successfully ✅");
-    } else {
-      alert("Update failed ❌");
+      // ✅ Check status properly
+      if (response && (response.status === 200 || response.status === 201)) {
+        alert("Profile updated successfully ✅");
+      } else {
+        alert("Update failed ❌");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+
+      alert(
+        err.response?.data?.message || "Update failed ❌ Please try again.",
+      );
     }
-
-  } catch (err) {
-    console.error("Error:", err);
-
-    alert(
-      err.response?.data?.message ||
-      "Update failed ❌ Please try again."
-    );
-  }
-};
+  };
 
   if (isLoading) return <SkeletonLoader variant="card" count={2} />;
 
@@ -136,8 +138,6 @@ export default function ProfileSettings() {
 
           <h3 className="athleteProfile__name">{form.full_name}</h3>
           <p className="athleteProfile__email">{form.email_id}</p>
-
-         
 
           <div className="athleteProfile__meta">
             <div className="athleteProfile__metaItem">
@@ -228,10 +228,9 @@ export default function ProfileSettings() {
               Save Changes
             </button>
           </div>
-        
         </div>
       </div>
-        <AthleteRecords/>
+      <AthleteRecords records={records}/>
     </div>
   );
 }
