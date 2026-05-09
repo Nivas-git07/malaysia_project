@@ -5,7 +5,9 @@
   min-height: 100vh;
   font-family: "Inter", sans-serif;
 }
-
+.athleterecordlist{
+  margin-top: 25px  ;
+}
 /* HEADER */
 .athleteProfile__smallTitle {
   color: #c10000;
@@ -250,4 +252,27 @@
   background: #d1d5db;
   cursor: not-allowed;
   box-shadow: none;
+}
+
+.athletetableHead {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 80px;
+  background: #b40000;
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+
+}
+
+/* TABLE ROW */
+.athletetableRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 80px;
+  padding: 18px;
+  align-items: center;
+  border-bottom: 1px solid #ececec;
+  transition: 0.2s;
 }

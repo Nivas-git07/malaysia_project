@@ -5,7 +5,7 @@ import { edit_profile } from "../../api/profile_api";
 import { get_profile } from "../../api/profile_api"; // make sure this exists
 import SkeletonLoader from "../common/SkeletonLoader";
 import ErrorState from "../common/ErrorState";
-
+import AthleteRecords from "./athleterecord";
 export default function ProfileSettings() {
   const [previewImage, setPreviewImage] = useState(null);
 
@@ -228,8 +228,10 @@ export default function ProfileSettings() {
               Save Changes
             </button>
           </div>
+        
         </div>
       </div>
+        <AthleteRecords/>
     </div>
   );
 }
