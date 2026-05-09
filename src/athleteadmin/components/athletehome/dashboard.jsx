@@ -26,7 +26,7 @@ import { useAuth } from "../../../auth/AuthContext";
 export default function AthleteHome() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const name = user?.full_name || user?.name || "user";
+  const name = user?.full_name ;
   const { data: dashboardData, isLoading, isError } = useQuery({
     queryKey: ["dashboardData"],
     queryFn: get_dashboard_data,

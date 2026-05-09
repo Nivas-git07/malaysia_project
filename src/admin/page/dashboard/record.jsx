@@ -360,11 +360,11 @@ export default function Record() {
                 }}
               >
                 <option value="">Select Discipline</option>
-                <option value="freestyle">Freestyle</option>
-                <option value="butterfly">Butterfly</option>
-                <option value="backstroke">Backstroke</option>
+                <option value="APNEA">Apnea</option>
+             
+                <option value="BI_FINS">Bi_Fins</option>
                 <option value="SURFACE">Surface</option>
-                <option value="breaststroke">Breaststroke</option>
+                <option value="IMMERSION">Immersion</option>
               </select>
 
               {errors.discipline && (
