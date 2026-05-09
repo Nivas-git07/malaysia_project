@@ -256,7 +256,7 @@
 
 .athletetableHead {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 80px;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr ;
   background: #b40000;
   color: #fff;
   padding: 14px 18px;
@@ -270,7 +270,7 @@
 /* TABLE ROW */
 .athletetableRow {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 80px;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr ;
   padding: 18px;
   align-items: center;
   border-bottom: 1px solid #ececec;

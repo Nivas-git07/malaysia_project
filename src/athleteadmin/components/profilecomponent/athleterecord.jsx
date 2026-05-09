@@ -46,7 +46,7 @@ export default function AthleteRecords() {
             <span>PRIZE</span>
             <span>DISTANCE</span>
             <span>MEDAL</span>
-            <span>VIEW MORE</span>
+         
           </div>
 
           {/* EMPTY */}
@@ -88,14 +88,7 @@ export default function AthleteRecords() {
                 </span>
 
                 {/* VIEW */}
-                <span className="control">
-                  <FiEye
-                    style={{
-                      cursor: "pointer",
-                      fontSize: "18px",
-                    }}
-                  />
-                </span>
+                
               </div>
             ))
           )}
