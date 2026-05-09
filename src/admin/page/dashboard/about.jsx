@@ -13,7 +13,12 @@ import SkeletonLoader from "../../components/common/SkeletonLoader";
 import ErrorState from "../../components/common/ErrorState";
 export default function About() {
   const navigate = useNavigate();
-  const { data: aboutData, isLoading, error, refetch } = useQuery({
+  const {
+    data: aboutData,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["aboutContent"],
     queryFn: getabout,
     retry: false,

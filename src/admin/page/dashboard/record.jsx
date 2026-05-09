@@ -1,22 +1,51 @@
 import React, { useState } from "react";
 import Navbar from "../navbar/nav";
 import { get_event_records } from "../../api/event_api";
-import { get_athlete_records } from "../../api/record";
+import { get_athlete_records, post_record } from "../../api/record";
 import { useQuery } from "@tanstack/react-query";
 import { FiTrash2 } from "react-icons/fi";
-import { post_record } from "../../api/record";
+
 import SkeletonLoader from "../../components/common/SkeletonLoader";
 import ErrorState from "../../components/common/ErrorState";
+
 export default function Record() {
   const [selectedEvent, setSelectedEvent] = useState("");
   const [selectedEventId, setSelectedEventId] = useState("");
   const [discipline, setdiscipline] = useState("");
   const [date, setdate] = useState("");
+
   const [rows, setRows] = useState([
-    { distance: "", full_name: "", state: "", medal: "", rank: "", time: "" },
-    { distance: "", full_name: "", state: "", medal: "", rank: "", time: "" },
-    { distance: "", full_name: "", state: "", medal: "", rank: "", time: "" },
+    {
+      distance: "",
+      full_name: "",
+      state: "",
+      medal: "",
+      rank: "",
+      time: "",
+    },
+    {
+      distance: "",
+      full_name: "",
+      state: "",
+      medal: "",
+      rank: "",
+      time: "",
+    },
+    {
+      distance: "",
+      full_name: "",
+      state: "",
+      medal: "",
+      rank: "",
+      time: "",
+    },
   ]);
+
+  // VALIDATION STATES
+  const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState("");
+
+  // ATHLETES
   const {
     data: athleteRecords,
     isLoading: isAthleteLoading,
@@ -31,10 +60,10 @@ export default function Record() {
   const athleteList = Array.isArray(athleteRecords?.data?.athletes_list)
     ? athleteRecords.data.athletes_list
     : [];
-    console.log(athleteList)
 
-  // const athleteList = athleteRecords?.data?.athletes_list || [];
+    console.log("THe athlete list",athleteRecords?.data)
 
+  // EVENTS
   const {
     data: eventRecords,
     isLoading: isEventLoading,
@@ -45,12 +74,12 @@ export default function Record() {
     queryFn: get_event_records,
     retry: false,
   });
-  console.log("event", eventRecords?.data);
+
   const records = Array.isArray(eventRecords?.data)
     ? eventRecords.data
     : eventRecords?.data?.events || [];
-  console.log(records);
 
+  // LOADING
   if (isAthleteLoading || isEventLoading) {
     return (
       <>
@@ -62,6 +91,7 @@ export default function Record() {
     );
   }
 
+  // ERROR
   if (athleteError || eventError) {
     return (
       <>
@@ -79,12 +109,64 @@ export default function Record() {
       </>
     );
   }
-  const handleSave = async () => {
-    const filteredRows = rows.filter(
-      (row) => row.full_name && row.distance && row.time,
-    );
 
-    const payload = filteredRows.map((row) => ({
+  // VALIDATION
+  const validateForm = () => {
+    let newErrors = {};
+
+    // TOP FIELDS
+    if (!selectedEvent) {
+      newErrors.selectedEvent = "Event is required";
+    }
+
+    if (!discipline) {
+      newErrors.discipline = "Discipline is required";
+    }
+
+    if (!date) {
+      newErrors.date = "Date is required";
+    }
+
+    // ROWS
+    rows.forEach((row, index) => {
+      if (!row.full_name) {
+        newErrors[`full_name_${index}`] = "Athlete required";
+      }
+
+      if (!row.distance) {
+        newErrors[`distance_${index}`] = "Distance required";
+      }
+
+      if (!row.medal) {
+        newErrors[`medal_${index}`] = "Medal required";
+      }
+
+      if (!row.rank) {
+        newErrors[`rank_${index}`] = "Rank required";
+      }
+
+      if (!row.time) {
+        newErrors[`time_${index}`] = "Time required";
+      }
+    });
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // SAVE
+  const handleSave = async () => {
+    setSubmitError("");
+
+    const isValid = validateForm();
+
+    if (!isValid) {
+      setSubmitError("Please fill all required fields properly.");
+      return;
+    }
+
+    const payload = rows.map((row) => ({
       athlete: athleteList.find((a) => a.full_name === row.full_name)?.id,
       event: selectedEventId,
       discipline: discipline,
@@ -102,85 +184,110 @@ export default function Record() {
       date: date,
     }));
 
-   try {
-  const res = await post_record(payload);
+    try {
+      const res = await post_record(payload);
 
-  // ✅ SUCCESS CHECK
-  if (res?.status === 200 || res?.status === 201) {
-    alert("Record saved successfully ✅");
+      if (res?.status === 200 || res?.status === 201) {
+        alert("Record saved successfully ✅");
 
-    setRows([
-      {
-        distance: "",
-        full_name: "",
-        state: "",
-        medal: "",
-        rank: "",
-        time: "",
-      },
-      {
-        distance: "",
-        full_name: "",
-        state: "",
-        medal: "",
-        rank: "",
-        time: "",
-      },
-      {
-        distance: "",
-        full_name: "",
-        state: "",
-        medal: "",
-        rank: "",
-        time: "",
-      },
-    ]);
+        setRows([
+          {
+            distance: "",
+            full_name: "",
+            state: "",
+            medal: "",
+            rank: "",
+            time: "",
+          },
+          {
+            distance: "",
+            full_name: "",
+            state: "",
+            medal: "",
+            rank: "",
+            time: "",
+          },
+          {
+            distance: "",
+            full_name: "",
+            state: "",
+            medal: "",
+            rank: "",
+            time: "",
+          },
+        ]);
 
-    setSelectedEvent("");
-    setSelectedEventId("");
-    setdiscipline("");
-    setdate("");
-  } else {
-  
-    alert("Failed to save record ❌");
-  }
+        setSelectedEvent("");
+        setSelectedEventId("");
+        setdiscipline("");
+        setdate("");
+        setErrors({});
+      } else {
+        alert("Failed to save record ❌");
+      }
+    } catch (err) {
+      console.error(err);
 
-} catch (err) {
-  console.error(err);
-  const errorMsg =
-    err?.response?.data?.message ||
-    err?.response?.data?.detail ||
-    "Something went wrong ❌";
+      const errorMsg =
+        err?.response?.data?.message ||
+        err?.response?.data?.detail ||
+        "Something went wrong ❌";
 
-  alert(errorMsg);
-}
+      alert(errorMsg);
+    }
   };
 
+  // ADD ROW
   const handleAddRow = () => {
     setRows((prev) => [
       ...prev,
-      { full_name: "", state: "", medal: "", rank: "", time: "" },
+      {
+        distance: "",
+        full_name: "",
+        state: "",
+        medal: "",
+        rank: "",
+        time: "",
+      },
     ]);
   };
 
+  // DELETE ROW
   const handleDeleteRow = (index) => {
     if (index < 3) return;
+
     setRows((prev) => prev.filter((_, i) => i !== index));
   };
 
+  // ATHLETE CHANGE
   const handleAthleteChange = (value, index) => {
     const selected = athleteList.find((a) => a.full_name === value);
 
     const updated = [...rows];
+
     updated[index].full_name = value;
     updated[index].state = selected?.state_name || "";
+
     setRows(updated);
+
+    setErrors((prev) => ({
+      ...prev,
+      [`full_name_${index}`]: "",
+    }));
   };
 
+  // FIELD CHANGE
   const handleChange = (value, index, field) => {
     const updated = [...rows];
+
     updated[index][field] = value;
+
     setRows(updated);
+
+    setErrors((prev) => ({
+      ...prev,
+      [`${field}_${index}`]: "",
+    }));
   };
 
   return (
@@ -191,14 +298,21 @@ export default function Record() {
         <div className="newsTitle">Record Entry</div>
 
         <div className="athleteCard">
+          {/* FILTERS */}
           <div className="athleteFilters recordFilters">
+
+            {/* EVENT */}
             <div className="filterGroup">
               <label className="filterLabel">Event Name</label>
+
               <select
-                className="filterSelect"
+                className={`filterSelect ${
+                  errors.selectedEvent ? "inputError" : ""
+                }`}
                 value={selectedEvent}
                 onChange={(e) => {
                   const value = e.target.value;
+
                   setSelectedEvent(value);
 
                   const selected = records.find(
@@ -206,53 +320,92 @@ export default function Record() {
                   );
 
                   setSelectedEventId(selected?.id || "");
+
+                  setErrors((prev) => ({
+                    ...prev,
+                    selectedEvent: "",
+                  }));
                 }}
               >
                 <option value="">Select Event</option>
+
                 {records.map((event) => (
                   <option key={event.id} value={event.event_name}>
                     {event.event_name}
                   </option>
                 ))}
               </select>
+
+              {errors.selectedEvent && (
+                <p className="errorText">{errors.selectedEvent}</p>
+              )}
             </div>
 
+            {/* DISCIPLINE */}
             <div className="filterGroup">
               <label className="filterLabel">Discipline</label>
+
               <select
-                className="filterSelect"
+                className={`filterSelect ${
+                  errors.discipline ? "inputError" : ""
+                }`}
                 value={discipline}
                 onChange={(e) => {
                   setdiscipline(e.target.value);
+
+                  setErrors((prev) => ({
+                    ...prev,
+                    discipline: "",
+                  }));
                 }}
               >
                 <option value="">Select Discipline</option>
                 <option value="freestyle">Freestyle</option>
                 <option value="butterfly">Butterfly</option>
                 <option value="backstroke">Backstroke</option>
-                <option value="SURFACE">surface</option>
+                <option value="SURFACE">Surface</option>
                 <option value="breaststroke">Breaststroke</option>
               </select>
+
+              {errors.discipline && (
+                <p className="errorText">{errors.discipline}</p>
+              )}
             </div>
 
+            {/* DATE */}
             <div className="filterGroup">
               <label className="filterLabel">Date</label>
+
               <input
                 type="date"
-                className="filterSelect"
+                className={`filterSelect ${
+                  errors.date ? "inputError" : ""
+                }`}
                 value={date}
                 onChange={(e) => {
                   setdate(e.target.value);
+
+                  setErrors((prev) => ({
+                    ...prev,
+                    date: "",
+                  }));
                 }}
               />
+
+              {errors.date && (
+                <p className="errorText">{errors.date}</p>
+              )}
             </div>
 
+            {/* ADD ROW */}
             <button className="findBtn addRowBtn" onClick={handleAddRow}>
               Add Row
             </button>
           </div>
 
+          {/* TABLE */}
           <div className="athleteTable">
+
             <div className="athleteHead">
               <div>S.No</div>
               <div>Athlete Name</div>
@@ -265,75 +418,135 @@ export default function Record() {
 
             {rows.map((item, i) => (
               <div className="athleteRow recordRow" key={i}>
+
+                {/* S.NO */}
                 <div>{i + 1}</div>
 
+                {/* ATHLETE */}
                 <div>
                   <select
-                    className="tableSelect"
+                    className={`tableSelect ${
+                      errors[`full_name_${i}`] ? "inputError" : ""
+                    }`}
                     value={item.full_name}
-                    onChange={(e) => handleAthleteChange(e.target.value, i)}
+                    onChange={(e) =>
+                      handleAthleteChange(e.target.value, i)
+                    }
                   >
                     <option value="">Select Athlete</option>
+
                     {athleteList.map((athlete) => (
-                      <option key={athlete.id} value={athlete.full_name}>
+                      <option
+                        key={athlete.id}
+                        value={athlete.full_name}
+                      >
                         {athlete.full_name}
                       </option>
                     ))}
                   </select>
+
+                  {errors[`full_name_${i}`] && (
+                    <p className="errorText">
+                      {errors[`full_name_${i}`]}
+                    </p>
+                  )}
                 </div>
+
+                {/* DISTANCE */}
                 <div>
                   <input
                     type="text"
                     placeholder="Distance"
-                    className="tableInput"
+                    className={`tableInput ${
+                      errors[`distance_${i}`] ? "inputError" : ""
+                    }`}
                     value={item.distance}
                     onChange={(e) =>
                       handleChange(e.target.value, i, "distance")
                     }
                   />
+
+                  {errors[`distance_${i}`] && (
+                    <p className="errorText">
+                      {errors[`distance_${i}`]}
+                    </p>
+                  )}
                 </div>
 
-                {/* Medal */}
+                {/* MEDAL */}
                 <div>
                   <select
-                    className="tableSelect"
+                    className={`tableSelect ${
+                      errors[`medal_${i}`] ? "inputError" : ""
+                    }`}
                     value={item.medal}
-                    onChange={(e) => handleChange(e.target.value, i, "medal")}
+                    onChange={(e) =>
+                      handleChange(e.target.value, i, "medal")
+                    }
                   >
                     <option value="">Select</option>
                     <option value="gold">🥇 Gold</option>
                     <option value="silver">🥈 Silver</option>
                     <option value="bronze">🥉 Bronze</option>
                   </select>
+
+                  {errors[`medal_${i}`] && (
+                    <p className="errorText">
+                      {errors[`medal_${i}`]}
+                    </p>
+                  )}
                 </div>
 
-                {/* Rank */}
+                {/* RANK */}
                 <div>
                   <select
-                    className="tableSelect"
+                    className={`tableSelect ${
+                      errors[`rank_${i}`] ? "inputError" : ""
+                    }`}
                     value={item.rank}
-                    onChange={(e) => handleChange(e.target.value, i, "rank")}
+                    onChange={(e) =>
+                      handleChange(e.target.value, i, "rank")
+                    }
                   >
                     <option value="">Rank</option>
+
                     {[1, 2, 3, 4, 5].map((r) => (
-                      <option key={r}>{r}</option>
+                      <option key={r} value={r}>
+                        {r}
+                      </option>
                     ))}
                   </select>
+
+                  {errors[`rank_${i}`] && (
+                    <p className="errorText">
+                      {errors[`rank_${i}`]}
+                    </p>
+                  )}
                 </div>
 
-                {/* Time */}
+                {/* TIME */}
                 <div>
                   <input
                     type="time"
                     step="1"
                     placeholder="00:00:00"
-                    className="tableInput"
+                    className={`tableInput ${
+                      errors[`time_${i}`] ? "inputError" : ""
+                    }`}
                     value={item.time}
-                    onChange={(e) => handleChange(e.target.value, i, "time")}
+                    onChange={(e) =>
+                      handleChange(e.target.value, i, "time")
+                    }
                   />
+
+                  {errors[`time_${i}`] && (
+                    <p className="errorText">
+                      {errors[`time_${i}`]}
+                    </p>
+                  )}
                 </div>
 
-                {/* Delete */}
+                {/* DELETE */}
                 <div>
                   {i >= 3 && (
                     <button
@@ -346,17 +559,24 @@ export default function Record() {
                 </div>
               </div>
             ))}
+
+            {/* GLOBAL ERROR */}
+            {submitError && (
+              <div className="submitErrorBox">
+                {submitError}
+              </div>
+            )}
+
             {/* FOOTER */}
             <div className="tableFooter recordFooter">
               <button
                 className="saveRecordBtn"
-                onClick={() => {
-                  handleSave();
-                }}
+                onClick={handleSave}
               >
                 Save Record
               </button>
             </div>
+
           </div>
         </div>
       </div>
