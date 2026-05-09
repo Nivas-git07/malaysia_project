@@ -27,23 +27,20 @@ export default function Home() {
     retry: false,
   });
 
-  console.log(
-    "Session Data:",
-    sessionData?.data,
-    sessionLoading,
-    sessionError
-  );
+  console.log("Session Data:", sessionData?.data, sessionLoading, sessionError);
 
   const role = sessionData?.data?.role || "Unknown";
 
   console.log("User Role:", role);
 
-  // HOME DATA
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["homeData"],
     queryFn: homeData,
+    enabled: !!sessionData,
     refetchOnWindowFocus: false,
-    retry: false,
+    retry: 1,
+    staleTime: 1000 * 60 * 5,
   });
 
   console.log(data, isLoading, error);
@@ -66,13 +63,9 @@ export default function Home() {
 
   // FILTERED DATA
   const filteredData = data1.filter((item) => {
-    const itemState = item?.state_name
-      ?.toLowerCase()
-      .replace(/\s/g, "");
+    const itemState = item?.state_name?.toLowerCase().replace(/\s/g, "");
 
-    const selectedState = filters?.state
-      ?.toLowerCase()
-      .replace(/\s/g, "");
+    const selectedState = filters?.state?.toLowerCase().replace(/\s/g, "");
 
     return filters.state === "" || itemState === selectedState;
   });
@@ -80,7 +73,7 @@ export default function Home() {
   console.log(data?.data?.stats);
 
   // LOADING
-  if (isLoading) {
+  if (isLoading || sessionLoading) {
     return (
       <>
         <Navbar />
@@ -118,7 +111,6 @@ export default function Home() {
         <div className="stateTitle">STATE LIST</div>
 
         {/* FILTER */}
-       
 
         {/* TABLE CARD */}
         <div className="stateCard">
@@ -143,9 +135,7 @@ export default function Home() {
                   <div
                     className="stateRow"
                     key={club.id || i}
-                    onClick={() =>
-                      navigate(`/admin/home/state/${club.user}`)
-                    }
+                    onClick={() => navigate(`/admin/home/state/${club.user}`)}
                   >
                     {/* STATE NAME */}
                     <div className="clubCell">
@@ -156,20 +146,11 @@ export default function Home() {
 
                     {/* MEMBERS */}
                     <div className="membersCell">
-                      <img
-                        src="https://i.pravatar.cc/40"
-                        alt="member1"
-                      />
+                      <img src="https://i.pravatar.cc/40" alt="member1" />
 
-                      <img
-                        src="https://i.pravatar.cc/41"
-                        alt="member2"
-                      />
+                      <img src="https://i.pravatar.cc/41" alt="member2" />
 
-                      <img
-                        src="https://i.pravatar.cc/42"
-                        alt="member3"
-                      />
+                      <img src="https://i.pravatar.cc/42" alt="member3" />
 
                       <span> + {club.members_count || 0}</span>
                     </div>

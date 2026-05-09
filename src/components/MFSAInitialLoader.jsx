@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from "../admin/assets/logo.jpg";
+import logo from "../user/assets/logo.png";
 import "./MFSAInitialLoader.css";
 
 export default function MFSAInitialLoader({ children }) {
