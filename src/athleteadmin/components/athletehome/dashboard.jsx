@@ -23,16 +23,30 @@ import { HiDotsVertical } from "react-icons/hi";
 import SkeletonLoader from "../common/SkeletonLoader";
 import ErrorState from "../common/ErrorState";
 import { useAuth } from "../../../auth/AuthContext";
+import { checksession } from "../../../admin/api/home_api";
 export default function AthleteHome() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const name = user?.full_name ;
-  const { data: dashboardData, isLoading, isError } = useQuery({
+  // const name = user?.full_name;
+  const {
+    data: dashboardData,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["dashboardData"],
     queryFn: get_dashboard_data,
     refetchOnWindowFocus: false,
     retry: false,
   });
+
+  const { data } = useQuery({
+    queryKey: ["checksession"],
+    queryFn: checksession,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
+  const name = data?.data.full_name;
   const dashboard = dashboardData?.data || {};
   console.log(dashboard);
 

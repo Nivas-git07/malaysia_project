@@ -8,7 +8,7 @@ export default function BestRecordsX({ records = [] }) {
   const { stateId, clubId } = useParams();
   console.log(records);
 
-  const categories = ["Surface", "Bi-fins", "Apnea", "Immersion"];
+  const categories = ["Surface", "Bi_fins", "Apnea", "Immersion"];
 
   // 🔥 FILTER BASED ON CATEGORY
   const filteredRecords = records.filter((rec) =>

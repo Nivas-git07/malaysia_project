@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, NavLink } from "react-router-dom";
 import { useCMSParams } from "../../../utils/cmsparam";
 
-const categories = ["Surface", "Bi-fins", "Apnea", "Immersion"];
+const categories = ["Surface", "Bi_fins", "Apnea", "Immersion"];
 
 export default function BestRecords() {
   const [active, setActive] = useState("Surface");
