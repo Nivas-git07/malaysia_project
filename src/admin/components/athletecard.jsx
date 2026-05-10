@@ -33,7 +33,7 @@ export default function AthleteCard({ data, records }) {
 
           <div className="athlete-card-info-item">
             <span className="athlete-card-label">State</span>
-            <span className="athlete-card-value">{data.state}</span>
+            <span className="athlete-card-value">{data.state_name}</span>
           </div>
         </div>
 

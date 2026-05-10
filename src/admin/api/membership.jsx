@@ -36,7 +36,7 @@ export const leaveclubMembership = (id, target_club_id) => {
     "Leaving membership with ID:",
     id,
     "Target Club ID:",
-    target_club_id, 
+    target_club_id,
   );
 
   return API.post(`/super/initiate-transfer/?membership_id=${id}`, {
@@ -57,4 +57,8 @@ export const get_accepted_transfers = () => {
 
 export const reject_target_transfer = (id) => {
   return API.post(`/super/release-membership/?transfer_id=${id}`);
+};
+
+export const renew_membership = (id) => {
+  return API.post(`/auth/purchase-membership/?action=renew&membership_id=${id}`)
 };
