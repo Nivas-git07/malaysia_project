@@ -57,7 +57,7 @@ export default function Page() {
           <Route path="association" element={<PageWrapper><Association /></PageWrapper>} />
           <Route path="state/:stateId/association" element={<PageWrapper><Association /></PageWrapper>} />
 
-          <Route path="athelete" element={<PageWrapper><Athelete /></PageWrapper>} />
+          <Route path="atheleteprofile/:id" element={<PageWrapper><Athelete /></PageWrapper>} />
 
           <Route path="contact" element={<PageWrapper><Contact /></PageWrapper>} />
           <Route path="state/:stateId/club/:clubId/contact" element={<PageWrapper><Contact /></PageWrapper>} />

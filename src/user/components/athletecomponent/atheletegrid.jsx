@@ -98,7 +98,7 @@ export default function AthleteGrid({ athletes }) {
             <div
               className="athListCard"
               key={item.id}
-              onClick={() => navigate("/athelete")}
+              onClick={() => navigate(`/atheleteprofile/${item.id}`)}
             >
               {/* AVATAR */}
               <div className="athListImgWrap">
