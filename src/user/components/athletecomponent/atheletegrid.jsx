@@ -129,7 +129,7 @@ export default function AthleteGrid({ athletes }) {
                 <div className="infoRow">
                   <span>State</span>
                   <strong className="country">
-                    <FaGlobe /> {item.country}
+                    <FaGlobe /> {item.state_name}
                   </strong>
                 </div>
               </div>

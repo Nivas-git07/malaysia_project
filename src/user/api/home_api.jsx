@@ -66,3 +66,7 @@ export const fetch_one_news = async (id) => {
 
   return response;
 };
+
+export const get_athlete_profile = (id) => {
+  return API.get(`/user/get-athlete-details/?athlete_id=${id}`);
+};

@@ -210,7 +210,7 @@ margin-top: 15px;
 .perfHead{
   display:grid;
     margin-top: 25px;
-  grid-template-columns:2fr 1fr 1fr 2fr 1fr;
+  grid-template-columns:2fr 1fr 1fr  1fr 1fr 1fr;
   background:#2f2b85;
   color:#fff;
   padding:14px 20px;
@@ -220,7 +220,7 @@ margin-top: 15px;
 
 .perfRow{
   display:grid;
-  grid-template-columns:2fr 1fr 1fr 2fr 1fr;
+  grid-template-columns:2fr 1fr 1fr  1fr 1fr 1fr;
   padding:16px 20px;
   font-size:14px;
 }
@@ -314,4 +314,104 @@ margin-top: 15px;
   .entityPaginationControls{
     flex-wrap:wrap;
   }
+}
+.perfHeader {
+  margin-bottom: 24px;
+}
+
+.perfSubtitle {
+  color: #64748b;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.perfEmptyState {
+  padding: 80px 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.perfEmptyIcon {
+  width: 90px;
+  height: 90px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    135deg,
+    #eff6ff,
+    #dbeafe
+  );
+
+  font-size: 40px;
+
+  margin-bottom: 24px;
+}
+
+.perfEmptyState h3 {
+  font-size: 24px;
+  font-weight: 700;
+
+  color: #111827;
+
+  margin-bottom: 12px;
+}
+
+.perfEmptyState p {
+  color: #64748b;
+
+  max-width: 420px;
+
+  line-height: 1.7;
+}
+
+.perfEvent {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.perfMedal {
+  padding: 6px 14px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  width: fit-content;
+}
+
+.perfMedal.gold {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.perfMedal.silver {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.perfMedal.bronze {
+  background: #fed7aa;
+  color: #9a3412;
+}
+
+.entityPageBtn.active {
+  background: #0f172a;
+  color: white;
+}
+
+.entityPageArrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

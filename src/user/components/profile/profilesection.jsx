@@ -1,75 +1,57 @@
-
 import a1 from "../../assets/image.png";
 
 import { GiTrophyCup } from "react-icons/gi";
 
-export default function AthleteProfile() {
+export default function AthleteProfile({ athlete, records }) {
   return (
     <section className="athProfileSection">
-
       <div className="athProfileContainer">
-
-       
         <div className="athProfileLeft">
           <div className="athProfileImgWrap">
-            <img src={a1} alt="athlete" />
+            <img src={athlete?.profile_picture} alt="athlete" />
           </div>
         </div>
 
-       
         <div className="athProfileRight">
+          <div className="athProfileNameBar">{athlete?.full_name}</div>
 
-        
-          <div className="athProfileNameBar">
-           Cameron Williamson
-          </div>
-
-          
           <div className="athProfileInfoGrid">
-
             <div>
               <p className="athLabel">Date Of Birth</p>
-              <p className="athValue">09/05/2000</p>
+              <p className="athValue">{athlete?.date_of_birth}</p>
             </div>
 
             <div>
-              <p className="athLabel">Country</p>
-              <p className="athValue">Sweden</p>
+              <p className="athLabel">State</p>
+              <p className="athValue">{athlete?.state_name}</p>
             </div>
 
             <div>
               <p className="athLabel">Discipline</p>
-              <p className="athValue">500m, Bi-fins</p>
+              <p className="athValue">{records?.primary_discipline}</p>
             </div>
-
           </div>
 
-          
           <div className="athMedalRow">
-
             <div className="athMedalMain">
               <GiTrophyCup />
-              12 Metals
+              {records?.total_medals} medal
             </div>
 
             <div className="athMedalItem">
-              <GiTrophyCup /> 1 Gold
+              <GiTrophyCup /> {records?.total_gold} Gold
             </div>
 
             <div className="athMedalItem">
-              <GiTrophyCup /> 5 Silver
+              <GiTrophyCup /> {records?.total_silver} Silver
             </div>
 
             <div className="athMedalItem">
-              <GiTrophyCup /> 6 Bronze
+              <GiTrophyCup /> {records?.total_bronze} Bronze
             </div>
-
           </div>
-
         </div>
-
       </div>
-
     </section>
   );
 }
