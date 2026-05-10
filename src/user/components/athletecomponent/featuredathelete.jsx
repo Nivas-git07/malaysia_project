@@ -5,26 +5,28 @@ import a3 from "../../assets/feature3.png";
 
 export default function FeaturedAthletes({ data }) {
 
-  const athletes = [
-    {
-      img: a1,
-      name: "Ahmad Zaki",
-      record: "500m, Bi-fins • Johor Bahru Club",
-      tag: "Record Holder"
-    },
-    {
-      img: a2,
-      name: "Sarah Chen",
-      record: "100m, Surface • Southern Sharks",
-      tag: "National Champ"
-    },
-    {
-      img: a3,
-      name: "Marcus Lim",
-      record: "4×100m Relay • Kulai Dolphins",
-      tag: "Rising Star"
-    },
-  ];
+  // const athletes = [
+  //   {
+  //     img: a1,
+  //     name: "Ahmad Zaki",
+  //     record: "500m, Bi-fins • Johor Bahru Club",
+  //     tag: "Record Holder"
+  //   },
+  //   {
+  //     img: a2,
+  //     name: "Sarah Chen",
+  //     record: "100m, Surface • Southern Sharks",
+  //     tag: "National Champ"
+  //   },
+  //   {
+  //     img: a3,
+  //     name: "Marcus Lim",
+  //     record: "4×100m Relay • Kulai Dolphins",
+  //     tag: "Rising Star"
+  //   },
+  // ];
+
+  console.log(data)
 
   return (
     <section className="featuredSection">
@@ -41,11 +43,11 @@ export default function FeaturedAthletes({ data }) {
 
       
       <div className="featuredGrid">
-        {athletes.map((item, index) => (
+        {data.map((item, index) => (
           <div className="featureCard" key={index}>
 
       
-            <img src={item.img} alt="" />
+            <img src={item.profile_picture} alt="" />
 
           
             <div className="overlay"></div>
@@ -53,9 +55,9 @@ export default function FeaturedAthletes({ data }) {
             
             <div className="contentBox">
 
-              <span className="tag">{item.tag}</span>
+              <span className="tag">{item.discipline}</span>
 
-              <h3>{item.name}</h3>
+              <h3>{item.full_name}</h3>
 
               <p>{item.record}</p>
 

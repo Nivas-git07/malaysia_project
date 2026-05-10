@@ -101,7 +101,7 @@ export default function ALLAthelete() {
       {athletes.length > 0 ? (
         <>
           <FeaturedAthletes data={athletes} />
-          <FindAthlete data={athletes} />
+          <FindAthlete athletes={athletes} />
         </>
       ) : (
         <div className="emptyState">

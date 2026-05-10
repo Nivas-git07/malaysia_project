@@ -8,66 +8,66 @@ import { useNavigate } from "react-router-dom";
 
 import { FaGlobe, FaMedal } from "react-icons/fa";
 
-export default function AthleteGrid({ data }) {
+export default function AthleteGrid({ athletes }) {
   const navigate = useNavigate();
- const athletes = [
-  {
-    id: 1,
-    name: "Cameron Williamson",
-    dob: "09/05/2000",
-    country: "Sweden",
-    img: a1,
-  },
-  {
-    id: 2,
-    name: "Daniel Tan",
-    dob: "12/05/2004",
-    country: "Malaysia",
-    img: a2,
-  },
-  {
-    id: 3,
-    name: "Sarah Chen",
-    dob: "05/01/2005",
-    country: "Singapore",
-    img: a3,
-  },
-  {
-    id: 4,
-    name: "Marcus Lim",
-    dob: "18/11/2006",
-    country: "Malaysia",
-    img: a4,
-  },
-  {
-    id: 5,
-    name: "Jason Low",
-    dob: "22/09/2003",
-    country: "Malaysia",
-    img: a1,
-  },
-  {
-    id: 6,
-    name: "Michelle Lee",
-    dob: "18/11/2006",
-    country: "Malaysia",
-    img: a2,
-  },
-  {
-    id: 7,
-    name: "Ahmad Zaki",
-    dob: "03/03/2002",
-    country: "Indonesia",
-    img: a3,
-  },
-  {
-    id: 8,
-    name: "Siti Nurhaliza",
-    dob: "14/07/2001",
-    country: "Malaysia",
-    img: a4,
-  },
-];
+//  
+//   {
+//     id: 1,
+//     name: "Cameron Williamson",
+//     dob: "09/05/2000",
+//     country: "Sweden",
+//     img: a1,
+//   },
+//   {
+//     id: 2,
+//     name: "Daniel Tan",
+//     dob: "12/05/2004",
+//     country: "Malaysia",
+//     img: a2,
+//   },
+//   {
+//     id: 3,
+//     name: "Sarah Chen",
+//     dob: "05/01/2005",
+//     country: "Singapore",
+//     img: a3,
+//   },
+//   {
+//     id: 4,
+//     name: "Marcus Lim",
+//     dob: "18/11/2006",
+//     country: "Malaysia",
+//     img: a4,
+//   },
+//   {
+//     id: 5,
+//     name: "Jason Low",
+//     dob: "22/09/2003",
+//     country: "Malaysia",
+//     img: a1,
+//   },
+//   {
+//     id: 6,
+//     name: "Michelle Lee",
+//     dob: "18/11/2006",
+//     country: "Malaysia",
+//     img: a2,
+//   },
+//   {
+//     id: 7,
+//     name: "Ahmad Zaki",
+//     dob: "03/03/2002",
+//     country: "Indonesia",
+//     img: a3,
+//   },
+//   {
+//     id: 8,
+//     name: "Siti Nurhaliza",
+//     dob: "14/07/2001",
+//     country: "Malaysia",
+//     img: a4,
+//   },
+// ];
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -102,7 +102,7 @@ export default function AthleteGrid({ data }) {
             >
               {/* AVATAR */}
               <div className="athListImgWrap">
-                <img src={item.img} alt={item.name} />
+                <img src={item.profile_picture} alt={item.full_name} />
 
                 {/* BADGE */}
                 <div className="athBadge">
@@ -111,10 +111,10 @@ export default function AthleteGrid({ data }) {
               </div>
 
               {/* NAME */}
-              <h3 className="athListName">{item.name}</h3>
+              <h3 className="athListName">{item.full_name}</h3>
 
               {/* CLUB */}
-              <p className="athListClub">JOHOR BAHRU CLUB</p>
+              <p className="athListClub">{item.discipline}</p>
 
               {/* DIVIDER */}
               <div className="athListDivider"></div>
@@ -123,11 +123,11 @@ export default function AthleteGrid({ data }) {
               <div className="athListInfo">
                 <div className="infoRow">
                   <span>Birth Date</span>
-                  <strong>{item.dob}</strong>
+                  <strong>{item.date_of_birth}</strong>
                 </div>
 
                 <div className="infoRow">
-                  <span>Nationality</span>
+                  <span>State</span>
                   <strong className="country">
                     <FaGlobe /> {item.country}
                   </strong>
