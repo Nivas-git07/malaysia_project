@@ -583,28 +583,109 @@ grid-template-columns: repeat(5,1fr);
 
 }
 
-.recordFilters{
-  display: flex;
-  align-items: flex-end;
-  gap: 20px;
+.recordTopFilters {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1fr
+    150px;
+
+  gap: 36px;
+
+  align-items: start;
+
+  margin-bottom: 30px;
 }
 
-.filterGroup{
+.recordField,
+.recordButtonWrap {
   display: flex;
   flex-direction: column;
-  flex: 1;
 }
 
-.filterLabel{
+.recordLabel {
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #111827;
+
+  margin-bottom: 14px;
+
+  line-height: 1;
+}
+
+.recordInput {
+  width: 100%;
+  height: 52px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 18px;
+
+  padding: 0 22px;
+
+  font-size: 16px;
+
+  background: #ffffff;
+
+  transition: 0.2s ease;
+}
+
+.recordInput:focus {
+  outline: none;
+
+  border-color: #b80000;
+
+  box-shadow: 0 0 0 4px
+    rgba(184, 0, 0, 0.08);
+}
+
+.recordInputError {
+  border-color: #ef4444;
+}
+
+.recordError {
+  margin-top: 8px;
+
+  color: #ef4444;
+
   font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #444;
+
+  font-weight: 500;
 }
 
-.addRowBtn{
-  height: 40px;
+.recordAddBtn {
+  width: 100%;
+  height: 52px;
+
+  border: none;
+
+  border-radius: 18px;
+
+  background: #b80000;
+
+  color: white;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
 }
+
+.recordAddBtn:hover {
+  background: #970000;
+
+  transform: translateY(-2px);
+}
+
+.invisibleText {
+  visibility: hidden;
+}
+
 
 .recordRow{
   align-items: center;

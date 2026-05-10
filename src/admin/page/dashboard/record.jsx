@@ -61,7 +61,7 @@ export default function Record() {
     ? athleteRecords.data.athletes_list
     : [];
 
-    console.log("THe athlete list",athleteRecords?.data)
+  console.log("THe athlete list", athleteRecords?.data);
 
   // EVENTS
   const {
@@ -299,15 +299,15 @@ export default function Record() {
 
         <div className="athleteCard">
           {/* FILTERS */}
-          <div className="athleteFilters recordFilters">
-
+          {/* FILTER SECTION */}
+          <div className="recordTopFilters">
             {/* EVENT */}
-            <div className="filterGroup">
-              <label className="filterLabel">Event Name</label>
+            <div className="recordField">
+              <label className="recordLabel">Event Name</label>
 
               <select
-                className={`filterSelect ${
-                  errors.selectedEvent ? "inputError" : ""
+                className={`recordInput ${
+                  errors.selectedEvent ? "recordInputError" : ""
                 }`}
                 value={selectedEvent}
                 onChange={(e) => {
@@ -337,17 +337,17 @@ export default function Record() {
               </select>
 
               {errors.selectedEvent && (
-                <p className="errorText">{errors.selectedEvent}</p>
+                <p className="recordError">{errors.selectedEvent}</p>
               )}
             </div>
 
             {/* DISCIPLINE */}
-            <div className="filterGroup">
-              <label className="filterLabel">Discipline</label>
+            <div className="recordField">
+              <label className="recordLabel">Discipline</label>
 
               <select
-                className={`filterSelect ${
-                  errors.discipline ? "inputError" : ""
+                className={`recordInput ${
+                  errors.discipline ? "recordInputError" : ""
                 }`}
                 value={discipline}
                 onChange={(e) => {
@@ -360,26 +360,29 @@ export default function Record() {
                 }}
               >
                 <option value="">Select Discipline</option>
+
                 <option value="APNEA">Apnea</option>
-             
-                <option value="BI_FINS">Bi_Fins</option>
+
+                <option value="BI_FINS">Bi-Fins</option>
+
                 <option value="SURFACE">Surface</option>
+
                 <option value="IMMERSION">Immersion</option>
               </select>
 
               {errors.discipline && (
-                <p className="errorText">{errors.discipline}</p>
+                <p className="recordError">{errors.discipline}</p>
               )}
             </div>
 
             {/* DATE */}
-            <div className="filterGroup">
-              <label className="filterLabel">Date</label>
+            <div className="recordField">
+              <label className="recordLabel">Date</label>
 
               <input
                 type="date"
-                className={`filterSelect ${
-                  errors.date ? "inputError" : ""
+                className={`recordInput ${
+                  errors.date ? "recordInputError" : ""
                 }`}
                 value={date}
                 onChange={(e) => {
@@ -392,20 +395,23 @@ export default function Record() {
                 }}
               />
 
-              {errors.date && (
-                <p className="errorText">{errors.date}</p>
-              )}
+              {errors.date && <p className="recordError">{errors.date}</p>}
             </div>
 
-            {/* ADD ROW */}
-            <button className="findBtn addRowBtn" onClick={handleAddRow}>
-              Add Row
-            </button>
+            {/* BUTTON */}
+            <div className="recordButtonWrap">
+              <label className="recordLabel invisibleText">Action</label>
+
+              <button className="recordAddBtn" onClick={handleAddRow}>
+                Add Row
+              </button>
+            </div>
           </div>
+
+          {/* TABLE WRAPPER */}
 
           {/* TABLE */}
           <div className="athleteTable">
-
             <div className="athleteHead">
               <div>S.No</div>
               <div>Athlete Name</div>
@@ -418,7 +424,6 @@ export default function Record() {
 
             {rows.map((item, i) => (
               <div className="athleteRow recordRow" key={i}>
-
                 {/* S.NO */}
                 <div>{i + 1}</div>
 
@@ -429,26 +434,19 @@ export default function Record() {
                       errors[`full_name_${i}`] ? "inputError" : ""
                     }`}
                     value={item.full_name}
-                    onChange={(e) =>
-                      handleAthleteChange(e.target.value, i)
-                    }
+                    onChange={(e) => handleAthleteChange(e.target.value, i)}
                   >
                     <option value="">Select Athlete</option>
 
                     {athleteList.map((athlete) => (
-                      <option
-                        key={athlete.id}
-                        value={athlete.full_name}
-                      >
+                      <option key={athlete.id} value={athlete.full_name}>
                         {athlete.full_name}
                       </option>
                     ))}
                   </select>
 
                   {errors[`full_name_${i}`] && (
-                    <p className="errorText">
-                      {errors[`full_name_${i}`]}
-                    </p>
+                    <p className="errorText">{errors[`full_name_${i}`]}</p>
                   )}
                 </div>
 
@@ -467,9 +465,7 @@ export default function Record() {
                   />
 
                   {errors[`distance_${i}`] && (
-                    <p className="errorText">
-                      {errors[`distance_${i}`]}
-                    </p>
+                    <p className="errorText">{errors[`distance_${i}`]}</p>
                   )}
                 </div>
 
@@ -480,9 +476,7 @@ export default function Record() {
                       errors[`medal_${i}`] ? "inputError" : ""
                     }`}
                     value={item.medal}
-                    onChange={(e) =>
-                      handleChange(e.target.value, i, "medal")
-                    }
+                    onChange={(e) => handleChange(e.target.value, i, "medal")}
                   >
                     <option value="">Select</option>
                     <option value="gold">🥇 Gold</option>
@@ -491,9 +485,7 @@ export default function Record() {
                   </select>
 
                   {errors[`medal_${i}`] && (
-                    <p className="errorText">
-                      {errors[`medal_${i}`]}
-                    </p>
+                    <p className="errorText">{errors[`medal_${i}`]}</p>
                   )}
                 </div>
 
@@ -504,9 +496,7 @@ export default function Record() {
                       errors[`rank_${i}`] ? "inputError" : ""
                     }`}
                     value={item.rank}
-                    onChange={(e) =>
-                      handleChange(e.target.value, i, "rank")
-                    }
+                    onChange={(e) => handleChange(e.target.value, i, "rank")}
                   >
                     <option value="">Rank</option>
 
@@ -518,9 +508,7 @@ export default function Record() {
                   </select>
 
                   {errors[`rank_${i}`] && (
-                    <p className="errorText">
-                      {errors[`rank_${i}`]}
-                    </p>
+                    <p className="errorText">{errors[`rank_${i}`]}</p>
                   )}
                 </div>
 
@@ -534,15 +522,11 @@ export default function Record() {
                       errors[`time_${i}`] ? "inputError" : ""
                     }`}
                     value={item.time}
-                    onChange={(e) =>
-                      handleChange(e.target.value, i, "time")
-                    }
+                    onChange={(e) => handleChange(e.target.value, i, "time")}
                   />
 
                   {errors[`time_${i}`] && (
-                    <p className="errorText">
-                      {errors[`time_${i}`]}
-                    </p>
+                    <p className="errorText">{errors[`time_${i}`]}</p>
                   )}
                 </div>
 
@@ -561,22 +545,14 @@ export default function Record() {
             ))}
 
             {/* GLOBAL ERROR */}
-            {submitError && (
-              <div className="submitErrorBox">
-                {submitError}
-              </div>
-            )}
+            {submitError && <div className="submitErrorBox">{submitError}</div>}
 
             {/* FOOTER */}
             <div className="tableFooter recordFooter">
-              <button
-                className="saveRecordBtn"
-                onClick={handleSave}
-              >
+              <button className="saveRecordBtn" onClick={handleSave}>
                 Save Record
               </button>
             </div>
-
           </div>
         </div>
       </div>
