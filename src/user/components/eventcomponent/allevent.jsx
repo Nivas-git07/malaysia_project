@@ -26,6 +26,7 @@ export default function EventsPage({ content }) {
   });
 
   const events = data?.data || [];
+  console.log(events);
   const today = new Date();
 
   const filteredEvents = events.filter((event) => {
@@ -100,10 +101,11 @@ export default function EventsPage({ content }) {
         )}
 
         {/* GRID VIEW */}
+        {/* GRID VIEW */}
         {viewMode === "grid" &&
           !isLoading &&
+          !isError &&
           (filteredEvents.length === 0 ? (
-            // ✅ OUTSIDE GRID — Perfect Centering
             <div className="w-full flex justify-center items-center min-h-[400px]">
               <EmptyState
                 title="No Events Available"
@@ -113,7 +115,6 @@ export default function EventsPage({ content }) {
               />
             </div>
           ) : (
-            // ✅ ONLY GRID HERE
             <div className="eventsGrid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
               {filteredEvents.map((event) => (
                 <div className="mfsaEventCardX" key={event.id}>
@@ -133,10 +134,13 @@ export default function EventsPage({ content }) {
 
                     <div className="mfsaEventMetaX">
                       <span className="flex items-center gap-1">
-                        <FiCalendar /> {event.date}
+                        <FiCalendar />
+                        {event.date}
                       </span>
+
                       <span className="flex items-center gap-1">
-                        <FiMapPin /> {event.venue}
+                        <FiMapPin />
+                        {event.venue}
                       </span>
                     </div>
 

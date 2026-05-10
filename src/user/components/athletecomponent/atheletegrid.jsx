@@ -5,70 +5,12 @@ import a2 from "../../assets/athlete2.jpg";
 import a3 from "../../assets/athlete3.jpg";
 import a4 from "../../assets/athlete4.jpg";
 import { useNavigate } from "react-router-dom";
-
+import { useParams } from "react-router-dom";
 import { FaGlobe, FaMedal } from "react-icons/fa";
 
 export default function AthleteGrid({ athletes }) {
   const navigate = useNavigate();
-//  
-//   {
-//     id: 1,
-//     name: "Cameron Williamson",
-//     dob: "09/05/2000",
-//     country: "Sweden",
-//     img: a1,
-//   },
-//   {
-//     id: 2,
-//     name: "Daniel Tan",
-//     dob: "12/05/2004",
-//     country: "Malaysia",
-//     img: a2,
-//   },
-//   {
-//     id: 3,
-//     name: "Sarah Chen",
-//     dob: "05/01/2005",
-//     country: "Singapore",
-//     img: a3,
-//   },
-//   {
-//     id: 4,
-//     name: "Marcus Lim",
-//     dob: "18/11/2006",
-//     country: "Malaysia",
-//     img: a4,
-//   },
-//   {
-//     id: 5,
-//     name: "Jason Low",
-//     dob: "22/09/2003",
-//     country: "Malaysia",
-//     img: a1,
-//   },
-//   {
-//     id: 6,
-//     name: "Michelle Lee",
-//     dob: "18/11/2006",
-//     country: "Malaysia",
-//     img: a2,
-//   },
-//   {
-//     id: 7,
-//     name: "Ahmad Zaki",
-//     dob: "03/03/2002",
-//     country: "Indonesia",
-//     img: a3,
-//   },
-//   {
-//     id: 8,
-//     name: "Siti Nurhaliza",
-//     dob: "14/07/2001",
-//     country: "Malaysia",
-//     img: a4,
-//   },
-// ];
-
+  const { stateId, clubId } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 8;
@@ -98,7 +40,11 @@ export default function AthleteGrid({ athletes }) {
             <div
               className="athListCard"
               key={item.id}
-              onClick={() => navigate(`/atheleteprofile/${item.id}`)}
+              onClick={() =>
+                navigate(
+                  `/state/${stateId}/club/${clubId}/atheleteprofile/${item.id}`,
+                )
+              }
             >
               {/* AVATAR */}
               <div className="athListImgWrap">
