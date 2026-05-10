@@ -6,7 +6,7 @@ export default function AthleteCard({ data, records }) {
     <div className="athlete-card">
       {/* Image */}
       <div className="athlete-card-image">
-        <img src={profile} alt="athlete" />
+        <img src={data.profile_picture} alt="athlete" />
       </div>
 
       {/* Content */}

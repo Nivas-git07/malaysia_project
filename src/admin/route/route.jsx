@@ -309,7 +309,7 @@ export default function AdminRoute() {
             </PageWrapper>
           }
         />
-        <Route path="*" element={<Navigate to="/admin/home" replace />} />
+        {/* <Route path="*" element={<Navigate to="/admin/home" replace />} /> */}
       </Routes>
     </AnimatePresence>
   );

@@ -33,8 +33,8 @@ function AthleteProfile() {
     retry: false,
   });
   console.log(athleteData, isLoading, error);
-  const data = athleteData?.data || [];
-  const records = athleteData?.data.total_records || [];
+ const data = athleteData?.data || {};
+  const records = athleteData?.data?.total_records || [];
   console.log(data)
   const record_history = athleteData?.data?.total_records?.records_history || [];
   console.log(record_history);

@@ -213,7 +213,7 @@ function Athlete() {
 
                     <div
                       className="viewProfile"
-                      onClick={() => navigate(`/athlete/${item.id}`)}
+                      onClick={() => navigate(`/admin/athlete/${item.id}`)}
                     >
                       View Profile
                     </div>
