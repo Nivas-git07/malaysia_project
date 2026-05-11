@@ -221,3 +221,98 @@ letter-spacing:1px;
     font-size:13px;
   }
 }
+
+.sanctionWrapper {
+  margin-top: 24px;
+}
+
+.sanctionHeader {
+  margin-bottom: 16px;
+}
+
+.sanctionHeader h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.sanctionHeader p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.sanctionCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sanctionField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sanctionField label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.modernSelect {
+  height: 52px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  padding: 0 14px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.modernSelect:focus {
+  border-color: #dc2626;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.selectedAuthorityCard {
+  background: linear-gradient(
+    135deg,
+    #991b1b,
+    #dc2626
+  );
+
+  border-radius: 16px;
+  padding: 20px;
+  color: white;
+  margin-top: 10px;
+}
+
+.authorityBadge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.selectedAuthorityCard h5 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.selectedAuthorityCard p {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.92;
+}

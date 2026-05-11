@@ -28,6 +28,7 @@ import ProtectedRoute from "../../auth/ProtectedRoute";
 import StaffManagement from "../page/dashboard/managestaff";
 import Support from "../page/dashboard/support";
 import ContentManagement from "../page/dashboard/contentmanagement";
+import { Event_Approval } from "../page/dashboard/eventapproval";
 export default function AdminRoute() {
   const location = useLocation();
 
@@ -95,11 +96,22 @@ export default function AdminRoute() {
         />
 
         <Route
-          path="calendar"
+          path="events"
           element={
             <PageWrapper>
               <AdminLayout>
                 <Calendar />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
+
+        <Route
+          path="eventapproval"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <Event_Approval />
               </AdminLayout>
             </PageWrapper>
           }
@@ -168,7 +180,7 @@ export default function AdminRoute() {
           }
         />
 
-         <Route
+        <Route
           path="content"
           element={
             <PageWrapper>

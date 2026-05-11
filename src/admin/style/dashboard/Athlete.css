@@ -186,7 +186,21 @@ grid-template-columns: repeat(5,1fr);
     border-bottom: 1px solid #eee;
 }
 /* ================= COUNTRY ================= */
-
+.eventapprovalRows {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr 0.5fr;
+    align-items: center;
+    padding: 18px;
+    border-bottom: 1px solid #eee;
+}
+.eventapprovalHeads{
+  background:#c10000;
+  color:white;
+  display:grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr 0.5fr;
+  padding:14px 18px;
+  font-size:14px;
+}
 .country{
   display:flex;
   align-items:center;

@@ -1,15 +1,38 @@
 import React, { useState, useEffect } from "react";
 import "../../style/dashboard/EventModel.css";
-import { postevent, editevent } from "../../api/event_api";
+
+import { postevent, editevent, delete_event } from "../../api/event_api";
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useQueryClient } from "@tanstack/react-query";
+
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
 import { FiX } from "react-icons/fi";
-import { delete_event } from "../../api/event_api";
+
+import { get_state } from "../../../user/api/auth";
+import { get_check } from "../../../user/api/home_api";
 
 export default function EventModal({ close, data }) {
   const queryClient = useQueryClient();
+
   const eventData = Array.isArray(data) ? data[0] : data;
+
+  const { data: state } = useQuery({
+    queryKey: ["get_state"],
+    queryFn: get_state,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
+  const states = state?.data || [];
+
+  const { data: sessiondata } = useQuery({
+    queryKey: ["get_session"],
+    queryFn: get_check,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 
   const [highlights, setHighlights] = useState([""]);
 
@@ -22,16 +45,22 @@ export default function EventModal({ close, data }) {
     event_end: "",
     image: null,
     status: "DRAFT",
+
+    sanction_type: "",
+
+    national: "",
+    state: "",
   });
 
-  // IMAGE PREVIEW STATE
   const [previewImage, setPreviewImage] = useState("");
 
   const [loading, setLoading] = useState(false);
 
   const handleHighlightChange = (index, value) => {
     const updated = [...highlights];
+
     updated[index] = value;
+
     setHighlights(updated);
   };
 
@@ -41,6 +70,7 @@ export default function EventModal({ close, data }) {
 
   const removeHighlight = (index) => {
     const updated = highlights.filter((_, i) => i !== index);
+
     setHighlights(updated.length ? updated : [""]);
   };
 
@@ -51,7 +81,6 @@ export default function EventModal({ close, data }) {
     });
   };
 
-  // UPDATED IMAGE CHANGE
   const handleFileChange = (e) => {
     const file = e.target.files[0];
 
@@ -61,13 +90,13 @@ export default function EventModal({ close, data }) {
         image: file,
       });
 
-      // PREVIEW IMAGE
       setPreviewImage(URL.createObjectURL(file));
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (loading) return;
 
     setLoading(true);
@@ -75,11 +104,17 @@ export default function EventModal({ close, data }) {
     const formData = new FormData();
 
     formData.append("event_name", form.event_name);
+
     formData.append("description", form.description);
+
     formData.append("venue", form.location);
+
     formData.append("event_start", form.event_start);
+
     formData.append("event_end", form.event_end);
+
     formData.append("date", form.date);
+
     formData.append("status", form.status);
 
     formData.append(
@@ -89,6 +124,22 @@ export default function EventModal({ close, data }) {
 
     if (form.image instanceof File) {
       formData.append("image", form.image);
+    }
+
+    // CLUB USER
+    if (sessiondata?.data?.role === "CLUB") {
+      if (form.sanction_type === "NATIONAL") {
+        formData.append("national", sessiondata?.data?.national_id);
+      }
+
+      if (form.sanction_type === "STATE") {
+        formData.append("state", form.state);
+      }
+    }
+
+    // STATE USER
+    if (sessiondata?.data?.role === "STATE") {
+      formData.append("national", sessiondata?.data?.national_id);
     }
 
     const request = eventData?.id
@@ -104,10 +155,12 @@ export default function EventModal({ close, data }) {
         );
 
         queryClient.invalidateQueries(["events"]);
+
         close();
       })
       .catch((e) => {
         console.error(e?.response?.data || e);
+
         alert("Something went wrong.");
       })
       .finally(() => {
@@ -119,17 +172,28 @@ export default function EventModal({ close, data }) {
     if (eventData) {
       setForm({
         event_name: eventData.event_name || "",
+
         description: eventData.description || "",
+
         location: eventData.venue || "",
+
         date: eventData.date || "",
+
         event_start: eventData.event_start || "",
+
         event_end: eventData.event_end || "",
-        visibility: eventData.visibility || "PUBLIC",
+
         status: eventData.status || "DRAFT",
+
         image: null,
+
+        sanction_type: "",
+
+        national: "",
+
+        state: "",
       });
 
-      // FETCH EXISTING IMAGE
       if (eventData.image) {
         setPreviewImage(eventData.image);
       }
@@ -163,6 +227,7 @@ export default function EventModal({ close, data }) {
         </div>
 
         <label>Event Title</label>
+
         <input
           name="event_name"
           value={form.event_name}
@@ -171,6 +236,7 @@ export default function EventModal({ close, data }) {
         />
 
         <label>Short Description</label>
+
         <textarea
           name="description"
           value={form.description}
@@ -179,6 +245,7 @@ export default function EventModal({ close, data }) {
         />
 
         <label>Event Location</label>
+
         <input
           name="location"
           value={form.location}
@@ -193,6 +260,7 @@ export default function EventModal({ close, data }) {
           onChange={(date) =>
             setForm({
               ...form,
+
               date: date.toISOString().split("T")[0],
             })
           }
@@ -222,14 +290,9 @@ export default function EventModal({ close, data }) {
 
         <input type="file" accept="image/*" onChange={handleFileChange} />
 
-        {/* IMAGE PREVIEW */}
         {previewImage && (
           <div className="previewContainer">
-            <img
-              src={previewImage}
-              alt="Preview"
-              className="previewImage"
-            />
+            <img src={previewImage} alt="Preview" className="previewImage" />
           </div>
         )}
 
@@ -271,39 +334,141 @@ export default function EventModal({ close, data }) {
 
         <select name="status" value={form.status} onChange={handleChange}>
           <option value="DRAFT">Save as Draft</option>
+
           <option value="PUBLISHED">Publish</option>
         </select>
+
+        {!eventData && (
+          <div className="sanctionWrapper">
+            <div className="sanctionHeader">
+              <h4>Sanction Authority</h4>
+
+              <p>Choose the governing authority responsible for this event.</p>
+            </div>
+
+            {/* CLUB */}
+            {sessiondata?.data?.role === "CLUB" && (
+              <div className="sanctionCard">
+                <div className="sanctionField">
+                  <label>Authority Type</label>
+
+                  <select
+                    className="modernSelect"
+                    value={form.sanction_type}
+                    onChange={(e) =>
+                      setForm({
+                        ...form,
+
+                        sanction_type: e.target.value,
+
+                        national: "",
+
+                        state: "",
+                      })
+                    }
+                  >
+                    <option value="">Select Authority</option>
+
+                    <option value="STATE">State Sanction</option>
+
+                    <option value="NATIONAL">National Sanction</option>
+                  </select>
+                </div>
+
+                {form.sanction_type === "STATE" && (
+                  <div className="sanctionField">
+                    <label>Select State</label>
+
+                    <select
+                      className="modernSelect"
+                      value={form.state}
+                      onChange={(e) =>
+                        setForm({
+                          ...form,
+
+                          state: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="">Choose State</option>
+
+                      {states?.map((s) => (
+                        <option key={s.user} value={s.user}>
+                          {s.state_name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                {form.sanction_type === "NATIONAL" && (
+                  <div className="selectedAuthorityCard">
+                    <span className="authorityBadge">NATIONAL</span>
+
+                    <h5>National Federation</h5>
+
+                    <p>
+                      Event will be submitted under national sanction approval.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* STATE */}
+            {sessiondata?.data?.role === "STATE" && (
+              <div className="selectedAuthorityCard">
+                <span className="authorityBadge">NATIONAL</span>
+
+                <h5>National Federation</h5>
+
+                <p>
+                  State events are directly submitted to national sanction
+                  authority.
+                </p>
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="modalActions">
           {data && (
             <button
               type="button"
-              className="cancelBtn"
-              onClick={() => {
-                if (
-                  window.confirm("Are you sure you want to delete this event?")
-                ) {
-                  delete_event(eventData.id)
-                    .then((res) => {
-                      if (res?.status === 200 || res?.status === 204) {
-                        alert("Event deleted successfully!");
+              className="membership-reject-btn"
+              onClick={async () => {
+                try {
+                  const confirmDelete = window.confirm(
+                    "Are you sure you want to delete this event?",
+                  );
 
-                        queryClient.invalidateQueries(["events"]);
+                  if (!confirmDelete) return;
 
-                        close();
-                      } else {
-                        throw new Error("Delete failed");
-                      }
-                    })
-                    .catch((e) => {
-                      console.error(e?.response?.data || e);
+                  setLoading(true);
 
-                      alert("Failed to delete event. Please try again.");
-                    });
+                  const response = await delete_event(eventData.id);
+
+                  if (response?.status === 200 || response?.status === 204) {
+                    alert("Event deleted successfully!");
+
+                    await queryClient.invalidateQueries(["events"]);
+
+                    close();
+                  } else {
+                    alert("Delete failed.");
+                  }
+                } catch (e) {
+                  console.error(e?.response?.data || e);
+
+                  alert(
+                    e?.response?.data?.message || "Failed to delete event.",
+                  );
+                } finally {
+                  setLoading(false);
                 }
               }}
             >
-              Delete Event
+              {loading ? "Deleting..." : "Delete Event"}
             </button>
           )}
 

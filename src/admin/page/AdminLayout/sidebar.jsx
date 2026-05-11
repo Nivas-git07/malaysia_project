@@ -12,6 +12,7 @@ import { BiCommentDetail } from "react-icons/bi";
 import { TbCreditCardRefund } from "react-icons/tb";
 import { PiChalkboardTeacherBold } from "react-icons/pi";
 import { MdSupportAgent } from "react-icons/md";
+import { MdEventAvailable } from "react-icons/md";
 import {
   Home,
   User,
@@ -94,14 +95,23 @@ export default function Sidebar() {
             <span>Staff Management</span>
           </NavLink>
           <NavLink
-            to="/admin/calendar"
+            to="/admin/events"
             className="menuItem"
             onClick={closeSidebar}
           >
             <Calendar size={20} />
             <span>Events</span>
           </NavLink>
-
+          {(role === "SUPERADMIN" || role === "STATE") && (
+            <NavLink
+              to="/admin/eventapproval"
+              className="menuItem"
+              onClick={closeSidebar}
+            >
+              <MdEventAvailable size={20} />
+              <span>Events Approval</span>
+            </NavLink>
+          )}
           <NavLink
             to="/admin/membershipapproval"
             className="menuItem"
