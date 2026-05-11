@@ -35,3 +35,7 @@ export const delete_event = (id) => {
 export const get_sanction_event = () => {
   return API.get("/super/get-sanction-events/");
 };
+
+export const post_sanction_event = (id) => {
+  return API.post(`/super/sanction-event/?event_id=${id}`);
+};
