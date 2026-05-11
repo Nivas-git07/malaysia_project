@@ -1,25 +1,42 @@
 import { useState } from "react";
 import ClubRegisterFlow from "./form/clubregisterform";
 import AthleteRegisterFlow from "./form/athleteregisterflow";
-// import CoachRegisterFlow from "./form/coachregisterflow";
+import CoachForm from "./form/coachform";
+
+import { coach_register } from "../api/auth";
 
 export default function RegistrationForm() {
   const [activeTab, setActiveTab] = useState("individual");
 
-  // Club flow step
   const [clubStep, setClubStep] = useState(1);
-
-  // Athlete flow step
   const [athleteStep, setAthleteStep] = useState(1);
 
-  // Coach flow step
-  const [coachStep, setCoachStep] = useState(1);
+  // =========================
+  // COACH REGISTER API
+  // =========================
+  const handleCoachSubmit = async (data) => {
+    try {
+      const response = await coach_register(
+        data.full_name,
+        data.state,
+        data.email_id,
+        data.password,
+        data.expert_discipline
+      );
 
-  // Full width logic
+      console.log(response.data);
+
+      alert("Coach Registered Successfully ✅");
+    } catch (e) {
+      console.log(e.response?.data);
+
+      alert("Coach Registration Failed ❌");
+    }
+  };
+
   const isFullWidth =
     (activeTab === "clubFlow" && clubStep >= 3) ||
-    (activeTab === "individual" && athleteStep >= 2) ||
-    (activeTab === "coach" && coachStep >= 2);
+    (activeTab === "individual" && athleteStep >= 2);
 
   return (
     <section className="regSection">
@@ -27,13 +44,17 @@ export default function RegistrationForm() {
         <div className="regContainer">
           {activeTab !== "clubFlow" && (
             <>
-              <h2 className="regTitle">REGISTRATION</h2>
+              <h2 className="regTitle">
+                REGISTRATION
+              </h2>
 
               <div className="regTabs">
                 {/* CLUB */}
                 <button
                   className={`regTab ${
-                    activeTab === "state" ? "active" : ""
+                    activeTab === "state"
+                      ? "active"
+                      : ""
                   }`}
                   onClick={() => {
                     setActiveTab("state");
@@ -46,7 +67,9 @@ export default function RegistrationForm() {
                 {/* ATHLETE */}
                 <button
                   className={`regTab ${
-                    activeTab === "individual" ? "active" : ""
+                    activeTab === "individual"
+                      ? "active"
+                      : ""
                   }`}
                   onClick={() => {
                     setActiveTab("individual");
@@ -59,11 +82,12 @@ export default function RegistrationForm() {
                 {/* COACH */}
                 <button
                   className={`regTab ${
-                    activeTab === "coach" ? "active" : ""
+                    activeTab === "coach"
+                      ? "active"
+                      : ""
                   }`}
                   onClick={() => {
                     setActiveTab("coach");
-                    setCoachStep(1);
                   }}
                 >
                   Coach
@@ -74,9 +98,16 @@ export default function RegistrationForm() {
         </div>
       )}
 
-      <div className={isFullWidth ? "fullWidthContainer" : "regContainer"}>
-        {/* CLUB FLOW */}
-        {(activeTab === "state" || activeTab === "clubFlow") && (
+      <div
+        className={
+          isFullWidth
+            ? "fullWidthContainer"
+            : "regContainer"
+        }
+      >
+        {/* CLUB */}
+        {(activeTab === "state" ||
+          activeTab === "clubFlow") && (
           <ClubRegisterFlow
             onStepChange={setActiveTab}
             step={clubStep}
@@ -84,7 +115,7 @@ export default function RegistrationForm() {
           />
         )}
 
-        {/* ATHLETE FLOW */}
+        {/* ATHLETE */}
         {activeTab === "individual" && (
           <AthleteRegisterFlow
             step={athleteStep}
@@ -93,17 +124,10 @@ export default function RegistrationForm() {
           />
         )}
 
-        {/* COACH FLOW */}
+        {/* COACH */}
         {activeTab === "coach" && (
-          // <CoachRegisterFlow
-          //   step={coachStep}
-          //   setStep={setCoachStep}
-          //   onStepChange={setActiveTab}
-          // />
-           <AthleteRegisterFlow
-            step={athleteStep}
-            setStep={setAthleteStep}
-            onStepChange={setActiveTab}
+          <CoachForm
+            onSubmit={handleCoachSubmit}
           />
         )}
       </div>

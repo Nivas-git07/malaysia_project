@@ -39,7 +39,38 @@ export const athelete_register = (
   });
 };
 
-  export const club_register = (
+export const club_register = (
+  email_id,
+  password,
+  full_name,
+  phone_number,
+  state,
+  club_name,
+  club_code,
+  club_address,
+  about,
+  vision,
+  mission,
+  date_of_birth,
+  gender,
+) => {
+  console.log(
+    "email_id: " + email_id,
+    "password: " + password,
+    "full_name: " + full_name,
+    "phone_number: " + phone_number,
+    "state: " + state,
+    "club_name: " + club_name,
+    "club_code: " + club_code,
+    "club_address: " + club_address,
+    "about: " + about,
+    "vision: " + vision,
+    "mission: " + mission,
+    "date_of_birth: " + date_of_birth,
+    "gender: " + gender,
+  );
+
+  return API.post("/auth/club-register/", {
     email_id,
     password,
     full_name,
@@ -53,39 +84,8 @@ export const athelete_register = (
     mission,
     date_of_birth,
     gender,
-  ) => {
-    console.log(
-      "email_id: " + email_id,
-      "password: " + password,
-      "full_name: " + full_name,
-      "phone_number: " + phone_number,
-      "state: " + state,
-      "club_name: " + club_name,
-      "club_code: " + club_code,
-      "club_address: " + club_address,
-      "about: " + about,
-      "vision: " + vision,
-      "mission: " + mission,
-      "date_of_birth: " + date_of_birth,
-      "gender: " + gender,
-    );
-
-    return API.post("/auth/club-register/", {
-      email_id,
-      password,
-      full_name,
-      phone_number,
-      state,
-      club_name,
-      club_code,
-      club_address,
-      about,
-      vision,
-      mission,
-      date_of_birth,
-      gender,
-    });
-  };
+  });
+};
 
 export const get_state = () => {
   return API.get("/user/get-all-states/");
@@ -124,4 +124,20 @@ export const clubmembership_purchase = (formdata) => {
 export const login_user = (gov_id, email_id, password) => {
   console.log(gov_id, email_id, password);
   return API.post("/auth/login/", { gov_id, email_id, password });
+};
+
+export const coach_register = (
+  full_name,
+  state,
+  email_id,
+  password,
+  expert_discipline,
+) => {
+  return API.post("/auth/coach-register/", {
+    full_name,
+    state,
+    email_id,
+    password,
+    expert_discipline,
+  });
 };
