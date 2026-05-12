@@ -1,6 +1,6 @@
 import CoachNavbar from "../../layout/coachnavbar";
 
-export const Coachsupport = () => {
+export const Coachprofile = () => {
   return (
     <>
       <CoachNavbar />

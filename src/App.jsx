@@ -5,6 +5,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import AthleteRoute from "./athleteadmin/route/route";
 import MFSAInitialLoader from "./components/MFSAInitialLoader";
 import ProtectedRoute from "./auth/ProtectedRoute";
+import Coachroute from "./coach/route/route";
 function App() {
   return (
     <MFSAInitialLoader>
@@ -42,6 +43,15 @@ function App() {
               </ProtectedRoute>
             }
           />
+           <Route
+            path="/coach/*"
+            element={
+              <ProtectedRoute allowedRoles={["COACH"]}>
+                <Coachroute />
+              </ProtectedRoute>
+            }
+          />
+
         </Routes>
       </Router>
     </MFSAInitialLoader>
