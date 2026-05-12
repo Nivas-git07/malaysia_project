@@ -28,6 +28,7 @@ import ProtectedRoute from "../../auth/ProtectedRoute";
 import StaffManagement from "../page/dashboard/managestaff";
 import Support from "../page/dashboard/support";
 import ContentManagement from "../page/dashboard/contentmanagement";
+import SystemLog from "../page/dashboard/systemlog";
 import { Event_Approval } from "../page/dashboard/eventapproval";
 export default function AdminRoute() {
   const location = useLocation();
@@ -307,6 +308,16 @@ export default function AdminRoute() {
             <PageWrapper>
               <AdminLayout>
                 <About />
+              </AdminLayout>
+            </PageWrapper>
+          }
+        />
+          <Route
+          path="systemlog"
+          element={
+            <PageWrapper>
+              <AdminLayout>
+                <SystemLog />
               </AdminLayout>
             </PageWrapper>
           }

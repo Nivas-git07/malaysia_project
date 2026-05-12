@@ -27,6 +27,7 @@ import {
 import ContentManagement from "../dashboard/contentmanagement";
 import { MdContentPaste } from "react-icons/md";
 import { useAuth } from "../../../auth/AuthContext";
+import { GrSystem } from "react-icons/gr";
 import StaffSidebar from "./stafffsidebar";
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
@@ -199,6 +200,14 @@ export default function Sidebar() {
             <BiCommentDetail size={20} />
             <span>About</span>
           </NavLink>
+           <NavLink
+            to="/admin/systemlog"
+            className="menuItem"
+            onClick={closeSidebar}
+          >
+            <GrSystem size={20} />
+            <span>System Log</span>
+          </NavLink>
 
           <NavLink
             to="/admin/settings"
@@ -208,6 +217,7 @@ export default function Sidebar() {
             <FaUserCircle size={20} />
             <span>Profile</span>
           </NavLink>
+         
         </nav>
 
         <NavLink
