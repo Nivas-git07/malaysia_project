@@ -1,9 +1,8 @@
 import Navbar from "../navbar/nav";
 import { get_sanction_event, post_sanction_event } from "../../api/event_api";
-import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { FiX } from "react-icons/fi";
-
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 export const Event_Approval = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["event_sanction"],
@@ -11,8 +10,10 @@ export const Event_Approval = () => {
     retry: false,
     refetchOnWindowFocus: false,
   });
+  const queryClient = useQueryClient();
 
   const event = data?.data || [];
+  console.log(event);
 
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -35,6 +36,8 @@ export const Event_Approval = () => {
       console.log("accept response", response.data);
 
       if (response.status === 200 || response.status === 201) {
+        await queryClient.invalidateQueries(["event_sanction"]);
+
         alert("Event Accepted Successfully ✅");
 
         closeModal();
@@ -111,10 +114,10 @@ export const Event_Approval = () => {
                   <div>
                     <span
                       className={`statuss ${
-                        item.status === "PUBLISHED" ? "accepted" : "pending"
+                        item.is_sanctioned ? "accepted" : "pending"
                       }`}
                     >
-                      {item.status}
+                      {item.is_sanctioned ? "ACTIVE" : "INACTIVE"}
                     </span>
                   </div>
 
@@ -190,7 +193,7 @@ export const Event_Approval = () => {
                 <div className="eventDetailCard">
                   <span>Status</span>
 
-                  <h4>{selectedEvent.status}</h4>
+                  <h4>{selectedEvent.is_sanctioned ? "Active" : "Inactive"}</h4>
                 </div>
               </div>
 
