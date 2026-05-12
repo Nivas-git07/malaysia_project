@@ -6,6 +6,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import CoachLayout from "../layout/coachlayout";
 import PageWrapper from "../../athleteadmin/hooks/animateroute";
 import CoachNotificationPage from "../page/notification/notification";
+import Support from "../../admin/page/dashboard/support";
 function Coachroute() {
   const location = useLocation();
   return (
@@ -48,7 +49,7 @@ function Coachroute() {
           element={
             <PageWrapper>
               <CoachLayout>
-                <Coachsupport />
+                <Support />
               </CoachLayout>
             </PageWrapper>
           }
