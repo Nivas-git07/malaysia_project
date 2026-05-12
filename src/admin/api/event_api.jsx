@@ -29,7 +29,8 @@ export const get_event_records = () => {
 };
 
 export const delete_event = (id) => {
-  return API.delete(`/super/delete-event-or-news/?event_id${id}`);
+  console.log("the delete event id is",id)
+  return API.delete(`/super/delete-event-or-news/?event_id=${id}`);
 };
 
 export const get_sanction_event = () => {
