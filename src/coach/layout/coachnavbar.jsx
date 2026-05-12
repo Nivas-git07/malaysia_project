@@ -47,7 +47,7 @@ function CoachNavbar() {
         <div className="navRight">
           <div
             className="bell"
-            onClick={() => navigate("/athlete/notification")}
+            onClick={() => navigate("/coach/notification")}
           >
             <FiBell size={20} color="#666" />
             <span className="bellDot">{countData?.data.count || 0} </span>
@@ -55,7 +55,7 @@ function CoachNavbar() {
 
           <img
             onClick={() => {
-              navigate("/athlete/profile");
+              navigate("/coach/profile");
             }}
             className="navAvatar"
             src={

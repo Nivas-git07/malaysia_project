@@ -1,26 +1,40 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+
 import { login_user } from "../../../user/api/auth";
+
 import { useAuth } from "../../../auth/AuthContext";
 
 export default function MemberLogin() {
   const { loginWithPayload, isAuthenticated, isLoading, role } = useAuth();
+
   const navigate = useNavigate();
 
-  const getRedirectPath = (userRole) =>
-    userRole === "ATHLETE" ? "/athlete/dashboard" : "/admin/home";
+  const getRedirectPath = (userRole) => {
+    switch (userRole) {
+      case "ATHLETE":
+        return "/athlete/dashboard";
+
+      case "COACH":
+        return "/coach/dashboard";
+
+      default:
+        return "/admin/home";
+    }
+  };
 
   const [formdata, setFormdata] = useState({
     email: "",
-    // govt_id: "",
     password: "",
   });
 
   const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState("");
 
   const handlechange = (e) => {
     const { name, value } = e.target;
+
     setFormdata((prev) => ({
       ...prev,
       [name]: value,
@@ -34,19 +48,28 @@ export default function MemberLogin() {
 
     if (!formdata.email || !formdata.password) {
       setError("Email and password are required");
+
       return;
     }
 
     try {
       setLoading(true);
 
-      const response = await login_user(undefined, formdata.email, formdata.password);
+      const response = await login_user(
+        undefined,
+        formdata.email,
+        formdata.password,
+      );
 
       console.log("Login successful:", response.data);
+
       await loginWithPayload(response.data);
 
       const userRole = response.data?.role ?? response.data?.data?.role ?? role;
-      navigate(getRedirectPath(userRole), { replace: true });
+
+      navigate(getRedirectPath(userRole), {
+        replace: true,
+      });
     } catch (error) {
       console.error("Login failed:", error);
 
@@ -65,11 +88,19 @@ export default function MemberLogin() {
       setLoading(false);
     }
   };
+
   if (isLoading) {
     return <section className="loginSection">Checking session...</section>;
   }
+
   if (isAuthenticated) {
-    const to = role === "ATHLETE" ? "/athlete/dashboard" : "/admin/home";
+    const to =
+      role === "ATHLETE"
+        ? "/athlete/dashboard"
+        : role === "COACH"
+          ? "/coach/dashboard"
+          : "/admin/home";
+
     return <Navigate to={to} replace />;
   }
 
@@ -77,24 +108,15 @@ export default function MemberLogin() {
     <section className="loginSection">
       <div className="loginContainer">
         <h2 className="loginTitle">MEMBER LOGIN</h2>
+
         <p className="loginSub">
-          Access your athlete dashboard and performance metrics
+          Access your dashboard and performance metrics
         </p>
 
         <form className="loginForm" onSubmit={handleLogin}>
-          {/* <div className="loginField">
-            <label>Govt ID</label>
-            <input
-              type="text"
-              name="govt_id"
-              value={formdata.govt_id}
-              onChange={handlechange}
-              placeholder="Enter your govt-id"
-            />
-          </div> */}
-
           <div className="loginField">
             <label>Email</label>
+
             <input
               type="email"
               name="email"
@@ -106,6 +128,7 @@ export default function MemberLogin() {
 
           <div className="loginField">
             <label>Password</label>
+
             <input
               type="password"
               name="password"

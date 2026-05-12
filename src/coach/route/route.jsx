@@ -2,23 +2,25 @@ import { AnimatePresence } from "framer-motion";
 import { CoachHome } from "../page/home/coachhome";
 import { Coachsupport } from "../page/support/coachsupport";
 import { Coachprofile } from "../page/profile/coachprofile";
-import { useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import CoachLayout from "../layout/coachlayout";
+import PageWrapper from "../../athleteadmin/hooks/animateroute";
+import CoachNotificationPage from "../page/notification/notification";
 function Coachroute() {
   const location = useLocation();
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        {/* <Route
+        <Route
           path="/notification"
           element={
             <PageWrapper>
-              <AthleteLayout>
-                <AthleteNotificationPage />
-              </AthleteLayout>
+              <CoachLayout>
+                <CoachNotificationPage />
+              </CoachLayout>
             </PageWrapper>
           }
-        /> */}
+        />
         <Route
           path="/dashboard"
           element={
