@@ -1767,81 +1767,8 @@
   letter-spacing: 3px;
 }
 
-/* TITLE */
-.mfsaStateX-title {
-  font-size: 36px;
-  font-weight: 800;
-  margin: 10px 0 15px;
-}
 
-/* TEXT */
-.mfsaStateX-text {
-  font-size: 15px;
-  color: #555;
-  line-height: 1.7;
-  margin-bottom: 25px;
-}
 
-/* ===== LIST ===== */
-.mfsaStateX-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* ITEM */
-.mfsaStateX-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  color: #555;
-  transition: 0.3s;
-}
-
-/* RADIO */
-.mfsaStateX-radio {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 2px solid #bbb;
-  position: relative;
-}
-
-/* ACTIVE */
-.mfsaStateX-item.active {
-  color: #c8102e;
-  font-weight: 600;
-}
-
-.mfsaStateX-item.active .mfsaStateX-radio {
-  border-color: #c8102e;
-}
-
-.mfsaStateX-item.active .mfsaStateX-radio::after {
-  content: "";
-  width: 6px;
-  height: 6px;
-  background: #c8102e;
-  border-radius: 50%;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-}
-
-/* ===== RIGHT ===== */
-.mfsaStateX-right {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;   /* 🔥 BIG MAP */
-  margin: auto;
-  right: -20px; /* 🔥 slight right shift for better centering */
-}
-
-.mfsaStateX-right img {
-  width: 100%;
-  display: block;
-}
 
 /* TABLET */
 @media (max-width: 1024px) {
@@ -2482,7 +2409,7 @@ background-color: white !important;
 }
 
 .mfsaStateX-title {
-  font-size: 36px;
+  font-size: 32px;
   margin: 10px 0;
 }
 
@@ -3312,7 +3239,8 @@ background-color: white !important;
 }
 
 .mfsaStateX-title {
-  font-size: 36px;
+  font-size: 22px;
+  font-weight: 800;
   margin: 10px 0;
 }
 
