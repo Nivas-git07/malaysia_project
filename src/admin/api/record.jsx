@@ -16,3 +16,7 @@ export const post_record = (payload) => {
 export const get_logs = () => {
   return API.get("/super/get-logs/");
 };
+
+export const get_particuler_logs = (category) => {
+  return API.get(`/super/get-logs/?category=${category}`)
+}

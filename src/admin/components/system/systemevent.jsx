@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   FaClipboardCheck,
@@ -8,20 +8,59 @@ import {
   FaUsers,
   FaCog,
   FaFilter,
-  FaCalendarAlt,
   FaDownload,
 } from "react-icons/fa";
 
-export default function SystemEvents({ data = [] }) {
-  // SAFE ARRAY
-  const safeData = Array.isArray(data) ? data : [];
+import { get_particuler_logs } from "../../api/record";
 
-  // FILTER STATES
+export default function SystemEvents({ data = [] }) {
+  // ---------------- STATES ----------------
+  const [logs, setLogs] = useState(Array.isArray(data) ? data : []);
+
+  const [loading, setLoading] = useState(false);
+
+  const [error, setError] = useState("");
+
   const [categoryFilter, setCategoryFilter] = useState("ALL");
 
   const [selectedDate, setSelectedDate] = useState("");
 
-  // ICON MAPPING
+  // ---------------- FETCH CATEGORY LOGS ----------------
+  useEffect(() => {
+    const fetchLogs = async () => {
+      try {
+        setLoading(true);
+
+        setError("");
+
+        // ALL CATEGORY
+        if (categoryFilter === "ALL") {
+          setLogs(Array.isArray(data) ? data : []);
+
+          return;
+        }
+
+        // API CALL
+        const response = await get_particuler_logs(categoryFilter);
+
+        const responseData = response?.data?.results;
+
+        setLogs(Array.isArray(responseData) ? responseData : []);
+      } catch (err) {
+        console.error(err);
+
+        setError("Failed to fetch logs");
+
+        setLogs([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLogs();
+  }, [categoryFilter, data]);
+
+  // ---------------- ICONS ----------------
   const getIcon = (category) => {
     switch (category) {
       case "AUTH":
@@ -44,7 +83,7 @@ export default function SystemEvents({ data = [] }) {
     }
   };
 
-  // COLOR MAPPING
+  // ---------------- COLORS ----------------
   const getColor = (category) => {
     switch (category) {
       case "AUTH":
@@ -67,7 +106,7 @@ export default function SystemEvents({ data = [] }) {
     }
   };
 
-  // FORMAT DATE
+  // ---------------- DATE FORMAT ----------------
   const formatDate = (date) => {
     return new Date(date).toLocaleString("en-IN", {
       day: "2-digit",
@@ -78,21 +117,18 @@ export default function SystemEvents({ data = [] }) {
     });
   };
 
-  // FILTER DATA
+  // ---------------- DATE FILTER ----------------
   const filteredData = useMemo(() => {
-    return safeData.filter((item) => {
-      const categoryMatch =
-        categoryFilter === "ALL" || item.category === categoryFilter;
-
+    return logs.filter((item) => {
       const dateMatch = selectedDate
         ? item.timestamp.startsWith(selectedDate)
         : true;
 
-      return categoryMatch && dateMatch;
+      return dateMatch;
     });
-  }, [safeData, categoryFilter, selectedDate]);
+  }, [logs, selectedDate]);
 
-  // EXPORT CSV
+  // ---------------- EXPORT ----------------
   const exportCSV = () => {
     const headers = [
       "Timestamp",
@@ -131,16 +167,39 @@ export default function SystemEvents({ data = [] }) {
     link.click();
   };
 
+  // ---------------- LOADING SKELETON ----------------
+  const Skeleton = () => {
+    return (
+      <div
+        style={{
+          padding: "20px",
+        }}
+      >
+        {[1, 2, 3].map((item) => (
+          <div
+            key={item}
+            style={{
+              height: "120px",
+              background: "#f1f5f9",
+              borderRadius: "14px",
+              marginBottom: "18px",
+              animation: "pulse 1.5s infinite",
+            }}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="systemEvents">
       {/* HEADER */}
-      {/* HEADER */}
       <div
-        className="systemEvents__header"
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          marginBottom: "30px",
           gap: "20px",
           flexWrap: "wrap",
         }}
@@ -157,7 +216,6 @@ export default function SystemEvents({ data = [] }) {
 
           <p
             style={{
-              fontSize: "15px",
               color: "#64748b",
             }}
           >
@@ -166,14 +224,13 @@ export default function SystemEvents({ data = [] }) {
           </p>
         </div>
 
-        {/* RIGHT CONTROLS */}
+        {/* RIGHT */}
         <div
-          className="systemEvents__header"
           style={{
             display: "flex",
-            justifyContent: "space-between",
-        
-            gap: "20px",
+            gap: "12px",
+            // alignItems: "center",
+            flexWrap: "nowrap",
           }}
         >
           {/* CATEGORY */}
@@ -200,7 +257,6 @@ export default function SystemEvents({ data = [] }) {
                 background: "transparent",
                 fontSize: "14px",
                 fontWeight: "600",
-                height: "100%",
                 cursor: "pointer",
               }}
             >
@@ -218,6 +274,7 @@ export default function SystemEvents({ data = [] }) {
             </select>
           </div>
 
+          {/* DATE */}
           <input
             type="date"
             value={selectedDate}
@@ -233,12 +290,9 @@ export default function SystemEvents({ data = [] }) {
               outline: "none",
               color: "#1e293b",
               minWidth: "180px",
-              boxSizing: "border-box",
-              display: "flex",
-              alignItems: "center",
-              lineHeight: "48px",
             }}
           />
+
           {/* EXPORT */}
           <button
             onClick={exportCSV}
@@ -263,71 +317,94 @@ export default function SystemEvents({ data = [] }) {
         </div>
       </div>
 
-      {/* TIMELINE */}
-      <div className="timeline">
-        {filteredData.length > 0 ? (
-          filteredData.map((item, index) => (
-            <div className="timeline__item" key={index}>
-              {/* ICON */}
-              <div className={`timeline__icon ${getColor(item.category)}`}>
-                {getIcon(item.category)}
-              </div>
+      {/* ERROR */}
+      {error && (
+        <div
+          style={{
+            color: "red",
+            marginBottom: "20px",
+            fontWeight: "600",
+          }}
+        >
+          {error}
+        </div>
+      )}
 
-              {/* LINE */}
-              <div className="timeline__line"></div>
-
-              {/* CONTENT */}
-              <div className="timeline__content">
-                <div className="timeline__top">
-                  <h3>{item.action_type}</h3>
-
-                  <span>{formatDate(item.timestamp)}</span>
+      {/* LOADING */}
+      {loading ? (
+        <Skeleton />
+      ) : (
+        <div className="timeline">
+          {filteredData.length > 0 ? (
+            filteredData.map((item, index) => (
+              <div className="timeline__item" key={index}>
+                {/* ICON */}
+                <div className={`timeline__icon ${getColor(item.category)}`}>
+                  {getIcon(item.category)}
                 </div>
 
-                <p>{item.description}</p>
+                {/* LINE */}
+                <div className="timeline__line"></div>
 
-                {/* TAGS */}
-                <div className="timeline__tags">
-                  <span className="tag">{item.actor_role}</span>
+                {/* CONTENT */}
+                <div className="timeline__content">
+                  <div className="timeline__top">
+                    <h3>{item.action_type}</h3>
 
-                  <span className="tag">{item.category}</span>
+                    <span>{formatDate(item.timestamp)}</span>
+                  </div>
 
-                  <span className="tag">{item.ip_address}</span>
-                </div>
+                  <p>{item.description}</p>
 
-                {/* ACTOR */}
-                <div
-                  style={{
-                    marginTop: "10px",
-                    fontSize: "13px",
-                  }}
-                >
-                  <strong
+                  {/* TAGS */}
+                  <div className="timeline__tags">
+                    <span className="tag">{item.actor_role}</span>
+
+                    <span className="tag">{item.category}</span>
+
+                    <span className="tag">{item.ip_address}</span>
+                  </div>
+
+                  {/* ACTOR */}
+                  <div
                     style={{
-                      color: "#2563eb",
+                      marginTop: "10px",
+                      fontSize: "13px",
                     }}
                   >
-                    Actor:
-                  </strong>{" "}
-                  <span
-                    style={{
-                      fontWeight: "600",
-                      color: "#1e293b",
-                    }}
-                  >
-                    {item.actor_name}
-                  </span>
+                    <strong
+                      style={{
+                        color: "#2563eb",
+                      }}
+                    >
+                      Actor:
+                    </strong>{" "}
+                    <span
+                      style={{
+                        fontWeight: "600",
+                        color: "#1e293b",
+                      }}
+                    >
+                      {item.actor_name}
+                    </span>
+                  </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div
+              style={{
+                padding: "40px 0",
+                textAlign: "center",
+                color: "#64748b",
+                fontWeight: "500",
+              }}
+            >
+              No system events found
             </div>
-          ))
-        ) : (
-          <div className="emptyLogs">No system events found</div>
-        )}
-      </div>
-
-      {/* FOOTER */}
-      <div className="archiveBtn">Load Archive Activities →</div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
