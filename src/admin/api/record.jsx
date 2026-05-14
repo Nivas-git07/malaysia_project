@@ -9,6 +9,10 @@ export const get_athlete_records = () => {
 };
 
 export const post_record = (payload) => {
-  console.log("API paload",payload)
-  return API.post("/super/create-record/",  payload );
+  console.log("API paload", payload);
+  return API.post("/super/create-record/", payload);
+};
+
+export const get_logs = () => {
+  return API.get("/super/get-logs/");
 };

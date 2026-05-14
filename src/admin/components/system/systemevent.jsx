@@ -4,64 +4,68 @@ import {
   FaBuilding,
   FaProjectDiagram,
   FaCloudUploadAlt,
+  FaSignInAlt,
+  FaUsers,
+  FaCog,
 } from "react-icons/fa";
 
+export default function SystemEvents({ data = [] }) {
+  // Icon mapping based on category/action
+  const getIcon = (category, action) => {
+    if (category === "AUTH")
+      return <FaSignInAlt />;
 
-export default function SystemEvents() {
-  const events = [
-    {
-      icon: <FaUserPlus />,
-      title: "Teacher added",
-      description:
-        "Dr. Anjali Sharma was successfully onboarded to the Department of Information Technology as a Senior Professor.",
-      tags: ["IT DEPT", "ID: 4022"],
-      time: "OCT 24, 10:45 AM",
-      color: "blue",
-    },
+    if (category === "MEMB")
+      return <FaUsers />;
 
-    {
-      icon: <FaClipboardCheck />,
-      title: "Marks updated",
-      description:
-        "Continuous Internal Evaluation (CIE-2) marks for 'Advanced Algorithms' have been finalized and published to the student portal.",
-      tags: ["SEMESTER 7", "BATCH 2024"],
-      time: "OCT 24, 09:12 AM",
-      color: "gold",
-    },
+    if (category === "CONT")
+      return <FaClipboardCheck />;
 
-    {
-      icon: <FaBuilding />,
-      title: "New department created",
-      description:
-        "Artificial Intelligence & Machine Learning (AI-ML) department has been initialized with the standard CO-PO framework template.",
-      tags: ["SYSTEM CONFIG"],
-      time: "OCT 23, 04:30 PM",
-      color: "blue",
-    },
+    if (category === "RECO")
+      return <FaProjectDiagram />;
 
-    {
-      icon: <FaProjectDiagram />,
-      title: "PO Mapping Revised",
-      description:
-        "The Program Outcome mapping for 'Microprocessors Lab' was updated to better align with NAAC accreditation standards for Criterion 2.",
-      tags: [
-        "ACCREDITATION",
-        "CRITICAL UPDATE",
-      ],
-      time: "OCT 23, 11:00 AM",
-      color: "blue",
-    },
+    if (category === "SYST")
+      return <FaCog />;
 
-    {
-      icon: <FaCloudUploadAlt />,
-      title: "System Backup Complete",
-      description:
-        "A full differential backup of the CO-PO database was successfully pushed to the secure secondary storage cluster.",
-      tags: ["AUTOMATED", "V2.4.1"],
-      time: "OCT 22, 11:59 PM",
-      color: "gray",
-    },
-  ];
+    return <FaCloudUploadAlt />;
+  };
+
+  // Color mapping
+  const getColor = (category) => {
+    switch (category) {
+      case "AUTH":
+        return "blue";
+
+      case "MEMB":
+        return "gold";
+
+      case "CONT":
+        return "green";
+
+      case "RECO":
+        return "purple";
+
+      case "SYST":
+        return "gray";
+
+      default:
+        return "blue";
+    }
+  };
+
+  // Format time
+  const formatDate = (date) => {
+    return new Date(date).toLocaleString(
+      "en-IN",
+      {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }
+    );
+  };
 
   return (
     <div className="systemEvents">
@@ -76,50 +80,76 @@ export default function SystemEvents() {
       </div>
 
       <div className="timeline">
-        {events.map((item, index) => (
-          <div
-            className="timeline__item"
-            key={index}
-          >
+        {data.length > 0 ? (
+          data.map((item, index) => (
             <div
-              className={`timeline__icon ${item.color}`}
+              className="timeline__item"
+              key={index}
             >
-              {item.icon}
-            </div>
-
-            <div className="timeline__line"></div>
-
-            <div className="timeline__content">
-              <div className="timeline__top">
-                <h3>{item.title}</h3>
-
-                <span>{item.time}</span>
-              </div>
-
-              <p>
-                {item.description}
-              </p>
-
-              <div className="timeline__tags">
-                {item.tags.map(
-                  (tag, i) => (
-                    <span
-                      key={i}
-                      className={`tag ${
-                        tag ===
-                        "CRITICAL UPDATE"
-                          ? "danger"
-                          : ""
-                      }`}
-                    >
-                      {tag}
-                    </span>
-                  )
+              {/* ICON */}
+              <div
+                className={`timeline__icon ${getColor(
+                  item.category
+                )}`}
+              >
+                {getIcon(
+                  item.category,
+                  item.action_type
                 )}
               </div>
+
+              <div className="timeline__line"></div>
+
+              {/* CONTENT */}
+              <div className="timeline__content">
+                <div className="timeline__top">
+                  <h3>
+                    {item.action_type}
+                  </h3>
+
+                  <span>
+                    {formatDate(
+                      item.timestamp
+                    )}
+                  </span>
+                </div>
+
+                <p>{item.description}</p>
+
+                {/* TAGS */}
+                <div className="timeline__tags">
+                  <span className="tag">
+                    {item.actor_role}
+                  </span>
+
+                  <span className="tag">
+                    {item.category}
+                  </span>
+
+                  <span className="tag">
+                    {item.ip_address}
+                  </span>
+                </div>
+
+                {/* EXTRA */}
+                <div
+                  style={{
+                    marginTop: "10px",
+                    fontSize: "13px",
+                    opacity: 0.7,
+                  }}
+                >
+                  <strong>Actor:</strong>{" "}
+                  {item.actor_name}
+                </div>
+              </div>
             </div>
+          ))
+        ) : (
+          <div className="emptyLogs">
+            No system events found
           </div>
-        ))}
+        )}
       </div>
 
       <div className="archiveBtn">
