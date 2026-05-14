@@ -11,7 +11,7 @@ export default function SystemLog() {
   });
   console.log(data?.data);
 
-  const datas = data?.data;
+  const datas = data?.data?.results;
   return (
     <>
       <Navbar />
