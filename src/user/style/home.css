@@ -997,6 +997,7 @@
   color:black;
   font-family:'Montserrat';
   margin-bottom: 10px;
+      font-size: 22px;
 }
 
 .homeGalleryView{
@@ -1158,6 +1159,7 @@
 
 .homeNewsTitle{
   color:black;
+  font-size: 22px;
   font-family:'Montserrat';
 }
 
