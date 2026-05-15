@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   FaClipboardCheck,
@@ -17,9 +17,10 @@ import {
   get_full_logs,
   get_full_date_logs,
   get_log_page,
+  get_date_logs,
 } from "../../api/record";
 
-export default function SystemEvents({ data = [] }) {
+export default function SystemEvents() {
   // ---------------- STATES ----------------
   const [logs, setLogs] = useState([]);
 
@@ -35,8 +36,12 @@ export default function SystemEvents({ data = [] }) {
 
   const [categoryFilter, setCategoryFilter] = useState("ALL");
 
-  const [selectedDate, setSelectedDate] = useState("");
+  // DATE STATES
+  const [startDate, setStartDate] = useState("");
 
+  const [endDate, setEndDate] = useState("");
+
+  // EXPORT STATES
   const [showExportModal, setShowExportModal] = useState(false);
 
   const [exportType, setExportType] = useState("ALL");
@@ -57,25 +62,27 @@ export default function SystemEvents({ data = [] }) {
 
         setError("");
 
-        // CATEGORY FILTER
-        if (categoryFilter !== "ALL") {
-          const response = await get_particuler_logs(categoryFilter);
+        let response;
 
-          const responseData = response?.data;
-
-          setLogs(
-            Array.isArray(responseData?.results) ? responseData.results : [],
-          );
-
-          setNextPage(responseData?.next);
-
-          setPage(1);
-
-          return;
+        // CATEGORY + DATE
+        if (categoryFilter !== "ALL" && startDate && endDate) {
+          response = await get_date_logs(startDate, endDate, 1, categoryFilter);
         }
 
-        // DEFAULT PAGINATION
-        const response = await get_log_page(1);
+        // DATE ONLY
+        else if (startDate && endDate) {
+          response = await get_date_logs(startDate, endDate, 1);
+        }
+
+        // CATEGORY ONLY
+        else if (categoryFilter !== "ALL") {
+          response = await get_particuler_logs(categoryFilter);
+        }
+
+        // DEFAULT
+        else {
+          response = await get_log_page(1);
+        }
 
         const responseData = response?.data;
 
@@ -98,7 +105,7 @@ export default function SystemEvents({ data = [] }) {
     };
 
     fetchLogs();
-  }, [categoryFilter]);
+  }, [categoryFilter, startDate, endDate]);
 
   // ---------------- LOAD MORE ----------------
   const loadMoreActivities = async () => {
@@ -111,12 +118,22 @@ export default function SystemEvents({ data = [] }) {
 
       let response;
 
-      // CATEGORY PAGINATION
-      if (categoryFilter !== "ALL") {
+      // DATE FILTER
+      if (startDate && endDate) {
+        response = await get_date_logs(
+          startDate,
+          endDate,
+          nextPageNumber,
+          categoryFilter !== "ALL" ? categoryFilter : null,
+        );
+      }
+
+      // CATEGORY FILTER
+      else if (categoryFilter !== "ALL") {
         response = await get_log_page(nextPageNumber, categoryFilter);
       }
 
-      // NORMAL PAGINATION
+      // DEFAULT
       else {
         response = await get_log_page(nextPageNumber);
       }
@@ -183,7 +200,7 @@ export default function SystemEvents({ data = [] }) {
     }
   };
 
-  // ---------------- DATE FORMAT ----------------
+  // ---------------- FORMAT DATE ----------------
   const formatDate = (date) => {
     return new Date(date).toLocaleString("en-IN", {
       day: "2-digit",
@@ -194,17 +211,6 @@ export default function SystemEvents({ data = [] }) {
     });
   };
 
-  // ---------------- DATE FILTER ----------------
-  const filteredData = useMemo(() => {
-    return logs.filter((item) => {
-      const dateMatch = selectedDate
-        ? item.timestamp.startsWith(selectedDate)
-        : true;
-
-      return dateMatch;
-    });
-  }, [logs, selectedDate]);
-
   // ---------------- EXPORT ----------------
   const handleExport = async () => {
     try {
@@ -212,17 +218,17 @@ export default function SystemEvents({ data = [] }) {
 
       let response;
 
-      // ALL LOGS
+      // ALL
       if (exportType === "ALL") {
         response = await get_full_logs();
       }
 
-      // CATEGORY LOGS
+      // CATEGORY
       else if (exportType === "CATEGORY") {
         response = await get_full_category_logs(exportCategory);
       }
 
-      // DATE LOGS
+      // DATE
       else if (exportType === "DATE") {
         if (!exportFromDate || !exportToDate) {
           alert("Please select dates");
@@ -321,8 +327,8 @@ export default function SystemEvents({ data = [] }) {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "30px",
+          // alignItems: "center",
+          marginBottom: "34px",
           gap: "20px",
           flexWrap: "wrap",
         }}
@@ -331,8 +337,11 @@ export default function SystemEvents({ data = [] }) {
         <div>
           <h1
             style={{
-              marginBottom: "8px",
-              color: "#00008b"
+              margin: 0,
+              fontSize: "44px",
+              fontWeight: "700",
+              color: "#00008b",
+              letterSpacing: "-1px",
             }}
           >
             System Events
@@ -340,11 +349,14 @@ export default function SystemEvents({ data = [] }) {
 
           <p
             style={{
+              marginTop: "10px",
               color: "#64748b",
+              fontSize: "15px",
+              lineHeight: "1.6",
             }}
           >
-            A curated log of all administrative actions within the VCET CO-PO
-            ecosystem.
+            Monitor and track all MFSA administrative activities, authentication
+            events, membership actions, and system operations in real time.
           </p>
         </div>
 
@@ -352,34 +364,40 @@ export default function SystemEvents({ data = [] }) {
         <div
           style={{
             display: "flex",
-            gap: "12px",
+
+            gap: "14px",
+            marginLeft: "auto",
             flexWrap: "nowrap",
           }}
         >
           {/* CATEGORY */}
           <div
             style={{
-              height: "48px",
-              border: "1px solid #dbe3ee",
-              borderRadius: "12px",
-              background: "#f8fafc",
+              height: "50px",
+              minWidth: "220px",
+              border: "1px solid #e2e8f0",
+              borderRadius: "16px",
+              background: "#ffffff",
               display: "flex",
               alignItems: "center",
-              padding: "0 14px",
-              gap: "10px",
+              padding: "0 16px",
+              gap: "12px",
+              boxShadow: "0 2px 10px rgba(15,23,42,0.04)",
             }}
           >
-            <FaFilter color="#00008b" size={15} />
+            <FaFilter color="#2563eb" size={15} />
 
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
               style={{
+                width: "100%",
                 border: "none",
                 outline: "none",
                 background: "transparent",
                 fontSize: "14px",
                 fontWeight: "600",
+                color: "#0f172a",
                 cursor: "pointer",
               }}
             >
@@ -397,42 +415,78 @@ export default function SystemEvents({ data = [] }) {
             </select>
           </div>
 
-          {/* DATE */}
-          <input
-            type="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
+          {/* START DATE */}
+          {/* START DATE */}
+          <div
             style={{
-              height: "48px",
-              padding: "0 14px",
-              borderRadius: "12px",
-              border: "1px solid #dbe3ee",
-              background: "#f8fafc",
-              fontSize: "14px",
-              fontWeight: "600",
-              outline: "none",
-              color: "#1e293b",
-              minWidth: "180px",
+              position: "relative",
             }}
-          />
+          >
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              style={{
+                width: "170px",
+                height: "48px",
+                padding: "0 14px",
+                borderRadius: "14px",
+                border: "1px solid #dbe3ee",
+                background: "#ffffff",
+                fontSize: "14px",
+                fontWeight: "600",
+                color: "#0f172a",
+                outline: "none",
+                boxShadow: "0 2px 10px rgba(15,23,42,0.04)",
+                cursor: "pointer",
+              }}
+            />
+          </div>
+
+          {/* END DATE */}
+          <div
+            style={{
+              position: "relative",
+            }}
+          >
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              style={{
+                width: "170px",
+                height: "48px",
+                padding: "0 14px",
+                borderRadius: "14px",
+                border: "1px solid #dbe3ee",
+                background: "#ffffff",
+                fontSize: "14px",
+                fontWeight: "600",
+                color: "#0f172a",
+                outline: "none",
+                boxShadow: "0 2px 10px rgba(15,23,42,0.04)",
+                cursor: "pointer",
+              }}
+            />
+          </div>
 
           {/* EXPORT */}
           <button
             onClick={() => setShowExportModal(true)}
             style={{
-              height: "48px",
-              padding: "0 18px",
-              borderRadius: "12px",
+              height: "50px",
+              padding: "0 22px",
+              borderRadius: "16px",
               border: "none",
-              background: "#00008b",
+              background: "linear-gradient(135deg,#1d4ed8,#2563eb)",
               color: "#fff",
               fontSize: "14px",
               fontWeight: "600",
               display: "flex",
               alignItems: "center",
-              gap: "8px",
+              gap: "10px",
               cursor: "pointer",
-              boxShadow: "0 4px 14px rgba(37,99,235,0.25)",
+              boxShadow: "0 10px 24px rgba(37,99,235,0.22)",
             }}
           >
             <FaDownload size={14} />
@@ -460,8 +514,8 @@ export default function SystemEvents({ data = [] }) {
       ) : (
         <>
           <div className="timeline">
-            {filteredData.length > 0 ? (
-              filteredData.map((item, index) => (
+            {logs.length > 0 ? (
+              logs.map((item, index) => (
                 <div className="timeline__item" key={index}>
                   {/* ICON */}
                   <div className={`timeline__icon ${getColor(item.category)}`}>
@@ -563,243 +617,6 @@ export default function SystemEvents({ data = [] }) {
             </div>
           )}
         </>
-      )}
-
-      {/* EXPORT MODAL */}
-      {showExportModal && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(15,23,42,0.55)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 9999,
-            backdropFilter: "blur(4px)",
-          }}
-        >
-          <div
-            style={{
-              width: "420px",
-              background: "#fff",
-              borderRadius: "20px",
-              padding: "28px",
-              boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
-            }}
-          >
-            {/* HEADER */}
-            <div
-              style={{
-                marginBottom: "24px",
-              }}
-            >
-              <h2
-                style={{
-                  marginBottom: "6px",
-                  fontSize: "24px",
-                }}
-              >
-                Export Logs
-              </h2>
-
-              <p
-                style={{
-                  color: "#64748b",
-                  fontSize: "14px",
-                }}
-              >
-                Download logs based on filters
-              </p>
-            </div>
-
-            {/* EXPORT TYPE */}
-            <div
-              style={{
-                marginBottom: "18px",
-              }}
-            >
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: "8px",
-                  fontWeight: "600",
-                }}
-              >
-                Export Type
-              </label>
-
-              <select
-                value={exportType}
-                onChange={(e) => setExportType(e.target.value)}
-                style={{
-                  width: "100%",
-                  height: "48px",
-                  borderRadius: "12px",
-                  border: "1px solid #dbe3ee",
-                  padding: "0 14px",
-                  fontWeight: "600",
-                  outline: "none",
-                }}
-              >
-                <option value="ALL">All Logs</option>
-
-                <option value="CATEGORY">By Category</option>
-
-                <option value="DATE">By Date Range</option>
-              </select>
-            </div>
-
-            {/* CATEGORY */}
-            {exportType === "CATEGORY" && (
-              <div
-                style={{
-                  marginBottom: "18px",
-                }}
-              >
-                <label
-                  style={{
-                    display: "block",
-                    marginBottom: "8px",
-                    fontWeight: "600",
-                  }}
-                >
-                  Category
-                </label>
-
-                <select
-                  value={exportCategory}
-                  onChange={(e) => setExportCategory(e.target.value)}
-                  style={{
-                    width: "100%",
-                    height: "48px",
-                    borderRadius: "12px",
-                    border: "1px solid #dbe3ee",
-                    padding: "0 14px",
-                    fontWeight: "600",
-                    outline: "none",
-                  }}
-                >
-                  <option value="AUTH">AUTH</option>
-
-                  <option value="MEMB">MEMB</option>
-
-                  <option value="CONT">CONT</option>
-
-                  <option value="RECO">RECO</option>
-
-                  <option value="SYST">SYST</option>
-                </select>
-              </div>
-            )}
-
-            {/* DATE RANGE */}
-            {exportType === "DATE" && (
-              <div
-                style={{
-                  display: "grid",
-                  gap: "14px",
-                  marginBottom: "20px",
-                }}
-              >
-                <div>
-                  <label
-                    style={{
-                      display: "block",
-                      marginBottom: "8px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    From Date
-                  </label>
-
-                  <input
-                    type="date"
-                    value={exportFromDate}
-                    onChange={(e) => setExportFromDate(e.target.value)}
-                    style={{
-                      width: "100%",
-                      height: "48px",
-                      borderRadius: "12px",
-                      border: "1px solid #dbe3ee",
-                      padding: "0 14px",
-                      outline: "none",
-                    }}
-                  />
-                </div>
-
-                <div>
-                  <label
-                    style={{
-                      display: "block",
-                      marginBottom: "8px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    To Date
-                  </label>
-
-                  <input
-                    type="date"
-                    value={exportToDate}
-                    onChange={(e) => setExportToDate(e.target.value)}
-                    style={{
-                      width: "100%",
-                      height: "48px",
-                      borderRadius: "12px",
-                      border: "1px solid #dbe3ee",
-                      padding: "0 14px",
-                      outline: "none",
-                    }}
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* FOOTER */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                gap: "12px",
-                marginTop: "24px",
-              }}
-            >
-              <button
-                onClick={() => setShowExportModal(false)}
-                style={{
-                  height: "46px",
-                  padding: "0 18px",
-                  borderRadius: "12px",
-                  border: "1px solid #dbe3ee",
-                  background: "#fff",
-                  cursor: "pointer",
-                  fontWeight: "600",
-                }}
-              >
-                Cancel
-              </button>
-
-              <button
-                onClick={handleExport}
-                disabled={exportLoading}
-                style={{
-                  height: "46px",
-                  padding: "0 20px",
-                  borderRadius: "12px",
-                  border: "none",
-                  background: "#00008b",
-                  color: "#fff",
-                  fontWeight: "600",
-                  cursor: "pointer",
-                  opacity: exportLoading ? 0.7 : 1,
-                }}
-              >
-                {exportLoading ? "Exporting..." : "Download CSV"}
-              </button>
-            </div>
-          </div>
-        </div>
       )}
     </div>
   );
