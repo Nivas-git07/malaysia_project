@@ -38,7 +38,10 @@ function Navbar() {
                 navigate("/admin/home");
               } else if (role === "ATHLETE") {
                 navigate("/athlete/dashboard");
-              } else {
+              } else if (role === "COACH"){
+                navigate("/coach/dashboard")
+              }
+              else {
                 navigate("/");
               }
             }}
