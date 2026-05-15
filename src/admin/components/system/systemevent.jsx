@@ -10,14 +10,12 @@ import {
   FaFilter,
   FaDownload,
 } from "react-icons/fa";
-
+import { FaTimes } from "react-icons/fa";
 import {
-  get_particuler_logs,
+  get_logs,
   get_full_category_logs,
   get_full_logs,
   get_full_date_logs,
-  get_log_page,
-  get_date_logs,
 } from "../../api/record";
 
 export default function SystemEvents() {
@@ -62,27 +60,15 @@ export default function SystemEvents() {
 
         setError("");
 
-        let response;
+        const response = await get_logs({
+          page: 1,
 
-        // CATEGORY + DATE
-        if (categoryFilter !== "ALL" && startDate && endDate) {
-          response = await get_date_logs(startDate, endDate, 1, categoryFilter);
-        }
+          category: categoryFilter,
 
-        // DATE ONLY
-        else if (startDate && endDate) {
-          response = await get_date_logs(startDate, endDate, 1);
-        }
+          from_date: startDate || null,
 
-        // CATEGORY ONLY
-        else if (categoryFilter !== "ALL") {
-          response = await get_particuler_logs(categoryFilter);
-        }
-
-        // DEFAULT
-        else {
-          response = await get_log_page(1);
-        }
+          to_date: endDate || null,
+        });
 
         const responseData = response?.data;
 
@@ -116,27 +102,15 @@ export default function SystemEvents() {
 
       const nextPageNumber = page + 1;
 
-      let response;
+      const response = await get_logs({
+        page: nextPageNumber,
 
-      // DATE FILTER
-      if (startDate && endDate) {
-        response = await get_date_logs(
-          startDate,
-          endDate,
-          nextPageNumber,
-          categoryFilter !== "ALL" ? categoryFilter : null,
-        );
-      }
+        category: categoryFilter,
 
-      // CATEGORY FILTER
-      else if (categoryFilter !== "ALL") {
-        response = await get_log_page(nextPageNumber, categoryFilter);
-      }
+        from_date: startDate || null,
 
-      // DEFAULT
-      else {
-        response = await get_log_page(nextPageNumber);
-      }
+        to_date: endDate || null,
+      });
 
       const responseData = response?.data;
 
@@ -327,7 +301,6 @@ export default function SystemEvents() {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          // alignItems: "center",
           marginBottom: "34px",
           gap: "20px",
           flexWrap: "wrap",
@@ -364,7 +337,6 @@ export default function SystemEvents() {
         <div
           style={{
             display: "flex",
-
             gap: "14px",
             marginLeft: "auto",
             flexWrap: "nowrap",
@@ -415,7 +387,6 @@ export default function SystemEvents() {
             </select>
           </div>
 
-          {/* START DATE */}
           {/* START DATE */}
           <div
             style={{
@@ -617,6 +588,323 @@ export default function SystemEvents() {
             </div>
           )}
         </>
+      )}
+      {/* EXPORT MODAL */}
+      {showExportModal && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(15,23,42,0.45)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          <div
+            style={{
+              width: "420px",
+              background: "#fff",
+              borderRadius: "24px",
+              padding: "28px",
+              boxShadow: "0 25px 60px rgba(15,23,42,0.2)",
+              animation: "fadeIn 0.2s ease",
+            }}
+          >
+            {/* TOP */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "24px",
+              }}
+            >
+              <div>
+                <h2
+                  style={{
+                    margin: 0,
+                    fontSize: "24px",
+                    fontWeight: "700",
+                    color: "#0f172a",
+                  }}
+                >
+                  Export Logs
+                </h2>
+
+                <p
+                  style={{
+                    marginTop: "6px",
+                    color: "#64748b",
+                    fontSize: "14px",
+                  }}
+                >
+                  Download activity logs with custom filters.
+                </p>
+              </div>
+
+            <button
+  onClick={() =>
+    setShowExportModal(
+      false
+    )
+  }
+  style={{
+    width: "32px",
+    height: "32px",
+    borderRadius: "8px",
+    border:
+      "1px solid #e2e8f0",
+    background: "#ffffff",
+    cursor: "pointer",
+    color: "#475569",
+    display: "flex",
+    alignItems: "center",
+    justifyContent:
+      "center",
+    transition:
+      "0.2s ease",
+    boxShadow:
+      "0 2px 6px rgba(15,23,42,0.05)",
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.background =
+      "#f8fafc";
+
+    e.currentTarget.style.color =
+      "#ef4444";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.background =
+      "#ffffff";
+
+    e.currentTarget.style.color =
+      "#475569";
+  }}
+>
+  <FaTimes size={13} />
+</button>
+            </div>
+
+            {/* EXPORT TYPE */}
+            <div
+              style={{
+                marginBottom: "18px",
+              }}
+            >
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "8px",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                  color: "#475569",
+                }}
+              >
+                Export Type
+              </label>
+
+              <select
+                value={exportType}
+                onChange={(e) => setExportType(e.target.value)}
+                style={{
+                  width: "100%",
+                  height: "48px",
+                  borderRadius: "14px",
+                  border: "1px solid #dbe3ee",
+                  padding: "0 14px",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  outline: "none",
+                  background: "#fff",
+                }}
+              >
+                <option value="ALL">Export All Logs</option>
+
+                <option value="CATEGORY">Export by Category</option>
+
+                <option value="DATE">Export by Date</option>
+              </select>
+            </div>
+
+            {/* CATEGORY */}
+            {exportType === "CATEGORY" && (
+              <div
+                style={{
+                  marginBottom: "18px",
+                }}
+              >
+                <label
+                  style={{
+                    display: "block",
+                    marginBottom: "8px",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    color: "#475569",
+                  }}
+                >
+                  Select Category
+                </label>
+
+                <select
+                  value={exportCategory}
+                  onChange={(e) => setExportCategory(e.target.value)}
+                  style={{
+                    width: "100%",
+                    height: "48px",
+                    borderRadius: "14px",
+                    border: "1px solid #dbe3ee",
+                    padding: "0 14px",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    outline: "none",
+                  }}
+                >
+                  <option value="AUTH">AUTH</option>
+
+                  <option value="MEMB">MEMB</option>
+
+                  <option value="CONT">CONT</option>
+
+                  <option value="RECO">RECO</option>
+
+                  <option value="SYST">SYST</option>
+                </select>
+              </div>
+            )}
+
+            {/* DATE */}
+            {exportType === "DATE" && (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  marginBottom: "18px",
+                }}
+              >
+                <div
+                  style={{
+                    flex: 1,
+                  }}
+                >
+                  <label
+                    style={{
+                      display: "block",
+                      marginBottom: "8px",
+                      fontSize: "13px",
+                      fontWeight: "600",
+                      color: "#475569",
+                    }}
+                  >
+                    From Date
+                  </label>
+
+                  <input
+                    type="date"
+                    value={exportFromDate}
+                    onChange={(e) => setExportFromDate(e.target.value)}
+                    style={{
+                      width: "100%",
+                      height: "48px",
+                      borderRadius: "14px",
+                      border: "1px solid #dbe3ee",
+                      padding: "0 14px",
+                      fontSize: "14px",
+                      fontWeight: "600",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+
+                <div
+                  style={{
+                    flex: 1,
+                  }}
+                >
+                  <label
+                    style={{
+                      display: "block",
+                      marginBottom: "8px",
+                      fontSize: "13px",
+                      fontWeight: "600",
+                      color: "#475569",
+                    }}
+                  >
+                    To Date
+                  </label>
+
+                  <input
+                    type="date"
+                    value={exportToDate}
+                    onChange={(e) => setExportToDate(e.target.value)}
+                    style={{
+                      width: "100%",
+                      height: "48px",
+                      borderRadius: "14px",
+                      border: "1px solid #dbe3ee",
+                      padding: "0 14px",
+                      fontSize: "14px",
+                      fontWeight: "600",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* ACTIONS */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: "12px",
+                marginTop: "24px",
+              }}
+            >
+              <button
+                onClick={() => setShowExportModal(false)}
+                style={{
+                  height: "46px",
+                  padding: "0 18px",
+                  borderRadius: "14px",
+                  border: "1px solid #dbe3ee",
+                  background: "#fff",
+                  color: "#0f172a",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                }}
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={handleExport}
+                disabled={exportLoading}
+                style={{
+                  height: "46px",
+                  padding: "0 20px",
+                  borderRadius: "14px",
+                  border: "none",
+                  background: "linear-gradient(135deg,#1d4ed8,#2563eb)",
+                  color: "#fff",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  opacity: exportLoading ? 0.7 : 1,
+                  boxShadow: "0 10px 24px rgba(37,99,235,0.2)",
+                }}
+              >
+                <FaDownload />
+
+                {exportLoading ? "Exporting..." : "Export CSV"}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

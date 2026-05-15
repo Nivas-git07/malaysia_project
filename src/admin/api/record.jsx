@@ -13,18 +13,34 @@ export const post_record = (payload) => {
   return API.post("/super/create-record/", payload);
 };
 
-export const get_logs = () => {
-  return API.get("/super/get-logs/");
-};
+export const get_logs = async ({
+  page = 1,
+  category = null,
+  from_date = null,
+  to_date = null,
+  time_range = null,
+} = {}) => {
+  const params = new URLSearchParams();
 
-export const get_particuler_logs = (category) => {
-  return API.get(`/super/get-logs/?category=${category}`);
-};
+  params.append("page", page);
 
-export const get_date_logs = (from, to, page = 1) => {
-  return API.get(
-    `/super/get-logs/?from_date=${from}&to_date=${to}&page=${page}`,
-  );
+  if (category && category !== "ALL") {
+    params.append("category", category);
+  }
+
+  if (from_date) {
+    params.append("from_date", from_date);
+  }
+
+  if (to_date) {
+    params.append("to_date", to_date);
+  }
+
+  if (time_range) {
+    params.append("time_range", time_range);
+  }
+
+  return API.get(`/super/get-logs/?${params.toString()}`);
 };
 
 export const get_full_logs = () => {
