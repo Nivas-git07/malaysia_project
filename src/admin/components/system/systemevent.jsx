@@ -11,7 +11,12 @@ import {
   FaDownload,
 } from "react-icons/fa";
 
-import { get_particuler_logs } from "../../api/record";
+import {
+  get_particuler_logs,
+  get_full_category_logs,
+  get_full_logs,
+  get_full_date_logs,
+} from "../../api/record";
 
 export default function SystemEvents({ data = [] }) {
   // ---------------- STATES ----------------
@@ -24,6 +29,18 @@ export default function SystemEvents({ data = [] }) {
   const [categoryFilter, setCategoryFilter] = useState("ALL");
 
   const [selectedDate, setSelectedDate] = useState("");
+
+  const [showExportModal, setShowExportModal] = useState(false);
+
+  const [exportType, setExportType] = useState("ALL");
+
+  const [exportCategory, setExportCategory] = useState("AUTH");
+
+  const [exportFromDate, setExportFromDate] = useState("");
+
+  const [exportToDate, setExportToDate] = useState("");
+
+  const [exportLoading, setExportLoading] = useState(false);
 
   // ---------------- FETCH CATEGORY LOGS ----------------
   useEffect(() => {
@@ -129,44 +146,126 @@ export default function SystemEvents({ data = [] }) {
   }, [logs, selectedDate]);
 
   // ---------------- EXPORT ----------------
-  const exportCSV = () => {
-    const headers = [
-      "Timestamp",
-      "Actor",
-      "Role",
-      "Action",
-      "Description",
-      "IP Address",
-      "Category",
-    ];
+  // const exportCSV = () => {
+  //   const headers = [
+  //     "Timestamp",
+  //     "Actor",
+  //     "Role",
+  //     "Action",
+  //     "Description",
+  //     "IP Address",
+  //     "Category",
+  //   ];
 
-    const rows = filteredData.map((item) => [
-      item.timestamp,
-      item.actor_name,
-      item.actor_role,
-      item.action_type,
-      item.description,
-      item.ip_address,
-      item.category,
-    ]);
+  //   const rows = filteredData.map((item) => [
+  //     item.timestamp,
+  //     item.actor_name,
+  //     item.actor_role,
+  //     item.action_type,
+  //     item.description,
+  //     item.ip_address,
+  //     item.category,
+  //   ]);
 
-    const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
+  //   const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
 
-    const blob = new Blob([csvContent], {
-      type: "text/csv",
-    });
+  //   const blob = new Blob([csvContent], {
+  //     type: "text/csv",
+  //   });
 
-    const url = window.URL.createObjectURL(blob);
+  //   const url = window.URL.createObjectURL(blob);
 
-    const link = document.createElement("a");
+  //   const link = document.createElement("a");
 
-    link.href = url;
+  //   link.href = url;
 
-    link.download = "system-events.csv";
+  //   link.download = "system-events.csv";
 
-    link.click();
+  //   link.click();
+  // };
+  const handleExport = async () => {
+    try {
+      setExportLoading(true);
+
+      let response;
+
+      // ALL LOGS
+      if (exportType === "ALL") {
+        response = await get_full_logs();
+      }
+
+      // CATEGORY LOGS
+      else if (exportType === "CATEGORY") {
+        response = await get_full_category_logs(exportCategory);
+      }
+
+      // DATE LOGS
+      else if (exportType === "DATE") {
+        if (!exportFromDate || !exportToDate) {
+          alert("Please select dates");
+
+          return;
+        }
+
+        response = await get_full_date_logs(exportFromDate, exportToDate);
+      }
+
+      const responseData = response?.data;
+
+      const logs = responseData?.results || responseData || [];
+
+      if (!Array.isArray(logs) || logs.length === 0) {
+        alert("No logs available");
+
+        return;
+      }
+
+      // CSV EXPORT
+      const headers = [
+        "Timestamp",
+        "Actor",
+        "Role",
+        "Action",
+        "Description",
+        "IP Address",
+        "Category",
+      ];
+
+      const rows = logs.map((item) => [
+        item.timestamp,
+        item.actor_name,
+        item.actor_role,
+        item.action_type,
+        item.description,
+        item.ip_address,
+        item.category,
+      ]);
+
+      const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
+
+      const blob = new Blob([csvContent], {
+        type: "text/csv",
+      });
+
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+
+      link.href = url;
+
+      link.download = `logs-${Date.now()}.csv`;
+
+      link.click();
+
+      setShowExportModal(false);
+    } catch (err) {
+      console.error(err);
+
+      alert("Export failed");
+    } finally {
+      setExportLoading(false);
+    }
   };
-
   // ---------------- LOADING SKELETON ----------------
   const Skeleton = () => {
     return (
@@ -294,8 +393,9 @@ export default function SystemEvents({ data = [] }) {
           />
 
           {/* EXPORT */}
+          {/* EXPORT */}
           <button
-            onClick={exportCSV}
+            onClick={() => setShowExportModal(true)}
             style={{
               height: "48px",
               padding: "0 18px",
@@ -309,6 +409,7 @@ export default function SystemEvents({ data = [] }) {
               alignItems: "center",
               gap: "8px",
               cursor: "pointer",
+              boxShadow: "0 4px 14px rgba(37,99,235,0.25)",
             }}
           >
             <FaDownload size={14} />
@@ -403,6 +504,242 @@ export default function SystemEvents({ data = [] }) {
               No system events found
             </div>
           )}
+        </div>
+      )}
+      {/* EXPORT MODAL */}
+      {showExportModal && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(15,23,42,0.55)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          <div
+            style={{
+              width: "420px",
+              background: "#fff",
+              borderRadius: "20px",
+              padding: "28px",
+              boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
+            }}
+          >
+            {/* HEADER */}
+            <div
+              style={{
+                marginBottom: "24px",
+              }}
+            >
+              <h2
+                style={{
+                  marginBottom: "6px",
+                  fontSize: "24px",
+                }}
+              >
+                Export Logs
+              </h2>
+
+              <p
+                style={{
+                  color: "#64748b",
+                  fontSize: "14px",
+                }}
+              >
+                Download logs based on filters
+              </p>
+            </div>
+
+            {/* EXPORT TYPE */}
+            <div
+              style={{
+                marginBottom: "18px",
+              }}
+            >
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "8px",
+                  fontWeight: "600",
+                }}
+              >
+                Export Type
+              </label>
+
+              <select
+                value={exportType}
+                onChange={(e) => setExportType(e.target.value)}
+                style={{
+                  width: "100%",
+                  height: "48px",
+                  borderRadius: "12px",
+                  border: "1px solid #dbe3ee",
+                  padding: "0 14px",
+                  fontWeight: "600",
+                  outline: "none",
+                }}
+              >
+                <option value="ALL">All Logs</option>
+
+                <option value="CATEGORY">By Category</option>
+
+                <option value="DATE">By Date Range</option>
+              </select>
+            </div>
+
+            {/* CATEGORY */}
+            {exportType === "CATEGORY" && (
+              <div
+                style={{
+                  marginBottom: "18px",
+                }}
+              >
+                <label
+                  style={{
+                    display: "block",
+                    marginBottom: "8px",
+                    fontWeight: "600",
+                  }}
+                >
+                  Category
+                </label>
+
+                <select
+                  value={exportCategory}
+                  onChange={(e) => setExportCategory(e.target.value)}
+                  style={{
+                    width: "100%",
+                    height: "48px",
+                    borderRadius: "12px",
+                    border: "1px solid #dbe3ee",
+                    padding: "0 14px",
+                    fontWeight: "600",
+                    outline: "none",
+                  }}
+                >
+                  <option value="AUTH">AUTH</option>
+
+                  <option value="MEMB">MEMB</option>
+
+                  <option value="CONT">CONT</option>
+
+                  <option value="RECO">RECO</option>
+
+                  <option value="SYST">SYST</option>
+                </select>
+              </div>
+            )}
+
+            {/* DATE RANGE */}
+            {exportType === "DATE" && (
+              <div
+                style={{
+                  display: "grid",
+                  gap: "14px",
+                  marginBottom: "20px",
+                }}
+              >
+                <div>
+                  <label
+                    style={{
+                      display: "block",
+                      marginBottom: "8px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    From Date
+                  </label>
+
+                  <input
+                    type="date"
+                    value={exportFromDate}
+                    onChange={(e) => setExportFromDate(e.target.value)}
+                    style={{
+                      width: "100%",
+                      height: "48px",
+                      borderRadius: "12px",
+                      border: "1px solid #dbe3ee",
+                      padding: "0 14px",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label
+                    style={{
+                      display: "block",
+                      marginBottom: "8px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    To Date
+                  </label>
+
+                  <input
+                    type="date"
+                    value={exportToDate}
+                    onChange={(e) => setExportToDate(e.target.value)}
+                    style={{
+                      width: "100%",
+                      height: "48px",
+                      borderRadius: "12px",
+                      border: "1px solid #dbe3ee",
+                      padding: "0 14px",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* FOOTER */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: "12px",
+                marginTop: "24px",
+              }}
+            >
+              <button
+                onClick={() => setShowExportModal(false)}
+                style={{
+                  height: "46px",
+                  padding: "0 18px",
+                  borderRadius: "12px",
+                  border: "1px solid #dbe3ee",
+                  background: "#fff",
+                  cursor: "pointer",
+                  fontWeight: "600",
+                }}
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={handleExport}
+                disabled={exportLoading}
+                style={{
+                  height: "46px",
+                  padding: "0 20px",
+                  borderRadius: "12px",
+                  border: "none",
+                  background: "#2563eb",
+                  color: "#fff",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                  opacity: exportLoading ? 0.7 : 1,
+                }}
+              >
+                {exportLoading ? "Exporting..." : "Download CSV"}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
