@@ -200,14 +200,16 @@ export default function Sidebar() {
             <BiCommentDetail size={20} />
             <span>About</span>
           </NavLink>
-           <NavLink
-            to="/admin/systemlog"
-            className="menuItem"
-            onClick={closeSidebar}
-          >
-            <GrSystem size={20} />
-            <span>System Log</span>
-          </NavLink>
+          {role === "SUPERADMIN" && (
+            <NavLink
+              to="/admin/systemlog"
+              className="menuItem"
+              onClick={closeSidebar}
+            >
+              <GrSystem size={20} />
+              <span>System Log</span>
+            </NavLink>
+          )}
 
           <NavLink
             to="/admin/settings"
@@ -217,7 +219,6 @@ export default function Sidebar() {
             <FaUserCircle size={20} />
             <span>Profile</span>
           </NavLink>
-         
         </nav>
 
         <NavLink

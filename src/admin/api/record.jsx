@@ -32,3 +32,7 @@ export const get_full_category_logs = (category) => {
 export const get_full_date_logs = (from,to)=>{
   return API.get(`/super/get-full-logs/?from_date=${from}&to_date=${end}`)
 }
+
+export const get_log_page = (page) => {
+  return API.get(`/super/get-logs/?page=${page}`)
+}

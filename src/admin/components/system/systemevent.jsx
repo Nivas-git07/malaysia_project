@@ -16,15 +16,22 @@ import {
   get_full_category_logs,
   get_full_logs,
   get_full_date_logs,
+  get_log_page,
 } from "../../api/record";
 
 export default function SystemEvents({ data = [] }) {
   // ---------------- STATES ----------------
-  const [logs, setLogs] = useState(Array.isArray(data) ? data : []);
+  const [logs, setLogs] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
+  const [loadingMore, setLoadingMore] = useState(false);
+
   const [error, setError] = useState("");
+
+  const [page, setPage] = useState(1);
+
+  const [nextPage, setNextPage] = useState(null);
 
   const [categoryFilter, setCategoryFilter] = useState("ALL");
 
@@ -42,7 +49,7 @@ export default function SystemEvents({ data = [] }) {
 
   const [exportLoading, setExportLoading] = useState(false);
 
-  // ---------------- FETCH CATEGORY LOGS ----------------
+  // ---------------- FETCH LOGS ----------------
   useEffect(() => {
     const fetchLogs = async () => {
       try {
@@ -50,19 +57,35 @@ export default function SystemEvents({ data = [] }) {
 
         setError("");
 
-        // ALL CATEGORY
-        if (categoryFilter === "ALL") {
-          setLogs(Array.isArray(data) ? data : []);
+        // CATEGORY FILTER
+        if (categoryFilter !== "ALL") {
+          const response = await get_particuler_logs(categoryFilter);
+
+          const responseData = response?.data;
+
+          setLogs(
+            Array.isArray(responseData?.results) ? responseData.results : [],
+          );
+
+          setNextPage(responseData?.next);
+
+          setPage(1);
 
           return;
         }
 
-        // API CALL
-        const response = await get_particuler_logs(categoryFilter);
+        // DEFAULT PAGINATION
+        const response = await get_log_page(1);
 
-        const responseData = response?.data?.results;
+        const responseData = response?.data;
 
-        setLogs(Array.isArray(responseData) ? responseData : []);
+        setLogs(
+          Array.isArray(responseData?.results) ? responseData.results : [],
+        );
+
+        setNextPage(responseData?.next);
+
+        setPage(1);
       } catch (err) {
         console.error(err);
 
@@ -75,7 +98,44 @@ export default function SystemEvents({ data = [] }) {
     };
 
     fetchLogs();
-  }, [categoryFilter, data]);
+  }, [categoryFilter]);
+
+  // ---------------- LOAD MORE ----------------
+  const loadMoreActivities = async () => {
+    try {
+      if (!nextPage) return;
+
+      setLoadingMore(true);
+
+      const nextPageNumber = page + 1;
+
+      let response;
+
+      // CATEGORY PAGINATION
+      if (categoryFilter !== "ALL") {
+        response = await get_log_page(nextPageNumber, categoryFilter);
+      }
+
+      // NORMAL PAGINATION
+      else {
+        response = await get_log_page(nextPageNumber);
+      }
+
+      const responseData = response?.data;
+
+      const newLogs = responseData?.results || [];
+
+      setLogs((prev) => [...prev, ...newLogs]);
+
+      setNextPage(responseData?.next);
+
+      setPage(nextPageNumber);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingMore(false);
+    }
+  };
 
   // ---------------- ICONS ----------------
   const getIcon = (category) => {
@@ -146,43 +206,6 @@ export default function SystemEvents({ data = [] }) {
   }, [logs, selectedDate]);
 
   // ---------------- EXPORT ----------------
-  // const exportCSV = () => {
-  //   const headers = [
-  //     "Timestamp",
-  //     "Actor",
-  //     "Role",
-  //     "Action",
-  //     "Description",
-  //     "IP Address",
-  //     "Category",
-  //   ];
-
-  //   const rows = filteredData.map((item) => [
-  //     item.timestamp,
-  //     item.actor_name,
-  //     item.actor_role,
-  //     item.action_type,
-  //     item.description,
-  //     item.ip_address,
-  //     item.category,
-  //   ]);
-
-  //   const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
-
-  //   const blob = new Blob([csvContent], {
-  //     type: "text/csv",
-  //   });
-
-  //   const url = window.URL.createObjectURL(blob);
-
-  //   const link = document.createElement("a");
-
-  //   link.href = url;
-
-  //   link.download = "system-events.csv";
-
-  //   link.click();
-  // };
   const handleExport = async () => {
     try {
       setExportLoading(true);
@@ -212,9 +235,9 @@ export default function SystemEvents({ data = [] }) {
 
       const responseData = response?.data;
 
-      const logs = responseData?.results || responseData || [];
+      const exportLogs = responseData?.results || responseData || [];
 
-      if (!Array.isArray(logs) || logs.length === 0) {
+      if (!Array.isArray(exportLogs) || exportLogs.length === 0) {
         alert("No logs available");
 
         return;
@@ -231,7 +254,7 @@ export default function SystemEvents({ data = [] }) {
         "Category",
       ];
 
-      const rows = logs.map((item) => [
+      const rows = exportLogs.map((item) => [
         item.timestamp,
         item.actor_name,
         item.actor_role,
@@ -266,7 +289,8 @@ export default function SystemEvents({ data = [] }) {
       setExportLoading(false);
     }
   };
-  // ---------------- LOADING SKELETON ----------------
+
+  // ---------------- SKELETON ----------------
   const Skeleton = () => {
     return (
       <div
@@ -308,6 +332,7 @@ export default function SystemEvents({ data = [] }) {
           <h1
             style={{
               marginBottom: "8px",
+              color: "#00008b"
             }}
           >
             System Events
@@ -328,7 +353,6 @@ export default function SystemEvents({ data = [] }) {
           style={{
             display: "flex",
             gap: "12px",
-            // alignItems: "center",
             flexWrap: "nowrap",
           }}
         >
@@ -345,7 +369,7 @@ export default function SystemEvents({ data = [] }) {
               gap: "10px",
             }}
           >
-            <FaFilter color="#2563eb" size={15} />
+            <FaFilter color="#00008b" size={15} />
 
             <select
               value={categoryFilter}
@@ -393,7 +417,6 @@ export default function SystemEvents({ data = [] }) {
           />
 
           {/* EXPORT */}
-          {/* EXPORT */}
           <button
             onClick={() => setShowExportModal(true)}
             style={{
@@ -401,7 +424,7 @@ export default function SystemEvents({ data = [] }) {
               padding: "0 18px",
               borderRadius: "12px",
               border: "none",
-              background: "#2563eb",
+              background: "#00008b",
               color: "#fff",
               fontSize: "14px",
               fontWeight: "600",
@@ -435,77 +458,113 @@ export default function SystemEvents({ data = [] }) {
       {loading ? (
         <Skeleton />
       ) : (
-        <div className="timeline">
-          {filteredData.length > 0 ? (
-            filteredData.map((item, index) => (
-              <div className="timeline__item" key={index}>
-                {/* ICON */}
-                <div className={`timeline__icon ${getColor(item.category)}`}>
-                  {getIcon(item.category)}
-                </div>
-
-                {/* LINE */}
-                <div className="timeline__line"></div>
-
-                {/* CONTENT */}
-                <div className="timeline__content">
-                  <div className="timeline__top">
-                    <h3>{item.action_type}</h3>
-
-                    <span>{formatDate(item.timestamp)}</span>
+        <>
+          <div className="timeline">
+            {filteredData.length > 0 ? (
+              filteredData.map((item, index) => (
+                <div className="timeline__item" key={index}>
+                  {/* ICON */}
+                  <div className={`timeline__icon ${getColor(item.category)}`}>
+                    {getIcon(item.category)}
                   </div>
 
-                  <p>{item.description}</p>
+                  {/* LINE */}
+                  <div className="timeline__line"></div>
 
-                  {/* TAGS */}
-                  <div className="timeline__tags">
-                    <span className="tag">{item.actor_role}</span>
+                  {/* CONTENT */}
+                  <div className="timeline__content">
+                    <div className="timeline__top">
+                      <h3>{item.action_type}</h3>
 
-                    <span className="tag">{item.category}</span>
+                      <span>{formatDate(item.timestamp)}</span>
+                    </div>
 
-                    <span className="tag">{item.ip_address}</span>
-                  </div>
+                    <p>{item.description}</p>
 
-                  {/* ACTOR */}
-                  <div
-                    style={{
-                      marginTop: "10px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    <strong
+                    {/* TAGS */}
+                    <div className="timeline__tags">
+                      <span className="tag">{item.actor_role}</span>
+
+                      <span className="tag">{item.category}</span>
+
+                      <span className="tag">{item.ip_address}</span>
+                    </div>
+
+                    {/* ACTOR */}
+                    <div
                       style={{
-                        color: "#2563eb",
+                        marginTop: "10px",
+                        fontSize: "13px",
                       }}
                     >
-                      Actor:
-                    </strong>{" "}
-                    <span
-                      style={{
-                        fontWeight: "600",
-                        color: "#1e293b",
-                      }}
-                    >
-                      {item.actor_name}
-                    </span>
+                      <strong
+                        style={{
+                          color: "#2563eb",
+                        }}
+                      >
+                        Actor:
+                      </strong>{" "}
+                      <span
+                        style={{
+                          fontWeight: "600",
+                          color: "#1e293b",
+                        }}
+                      >
+                        {item.actor_name}
+                      </span>
+                    </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div
+                style={{
+                  padding: "40px 0",
+                  textAlign: "center",
+                  color: "#64748b",
+                  fontWeight: "500",
+                }}
+              >
+                No system events found
               </div>
-            ))
-          ) : (
+            )}
+          </div>
+
+          {/* LOAD MORE */}
+          {nextPage && (
             <div
               style={{
-                padding: "40px 0",
-                textAlign: "center",
-                color: "#64748b",
-                fontWeight: "500",
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "30px",
               }}
             >
-              No system events found
+              <button
+                onClick={loadMoreActivities}
+                disabled={loadingMore}
+                style={{
+                  height: "50px",
+                  padding: "0 24px",
+                  borderRadius: "14px",
+                  border: "none",
+                  background: "#00008b",
+                  color: "#fff",
+                  fontWeight: "600",
+                  fontSize: "14px",
+                  cursor: "pointer",
+                  opacity: loadingMore ? 0.7 : 1,
+                  boxShadow: "0 8px 20px rgba(37,99,235,0.2)",
+                }}
+              >
+                {loadingMore
+                  ? "Loading..."
+                  : `Show More Activities (Page ${page + 1})`}
+              </button>
             </div>
           )}
-        </div>
+        </>
       )}
+
       {/* EXPORT MODAL */}
       {showExportModal && (
         <div
@@ -729,7 +788,7 @@ export default function SystemEvents({ data = [] }) {
                   padding: "0 20px",
                   borderRadius: "12px",
                   border: "none",
-                  background: "#2563eb",
+                  background: "#00008b",
                   color: "#fff",
                   fontWeight: "600",
                   cursor: "pointer",
