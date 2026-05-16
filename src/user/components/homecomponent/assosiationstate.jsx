@@ -160,60 +160,220 @@ export default function StateNetworkX() {
               ))}
             </svg>
 
-            {/* POPUP */}
-            {active && (
+            {/* 🔥 NEW ATTRACTIVE POPUP */}
+            {/* 🔥 NEW ATTRACTIVE POPUP */}
+{active && (
+  <div
+    className="map-popup"
+    onMouseEnter={() => setIsHovering(true)}
+    onMouseLeave={() => {
+      setIsHovering(false);
+      setActive(null);
+    }}
+    style={{
+      position: "absolute",
+      top: popupPos.y,
+      left: popupPos.x,
+      transform: "translate(-50%, -115%)",
+      zIndex: 1000,
+      animation: "popupFade 0.25s ease",
+    }}
+  >
+    <div
+      style={{
+        width: "290px",
+        maxWidth: "90vw",
+        borderRadius: "22px",
+        overflow: "hidden",
+        background: "rgba(255,255,255,0.96)",
+        backdropFilter: "blur(18px)",
+        boxShadow: "0 20px 50px rgba(0,0,0,0.22)",
+        border: "1px solid rgba(255,255,255,0.5)",
+        position: "relative",
+      }}
+    >
+      {/* 🔥 FIXED SIZE TOP IMAGE */}
+      <div
+        style={{
+          height: "120px",
+          minHeight: "120px",
+          maxHeight: "120px",
+          overflow: "hidden",
+          position: "relative",
+          background: "#e5e7eb",
+        }}
+      >
+        <img
+          src={active.image}
+          alt={active.name}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+
+        {/* OVERLAY */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.2))",
+          }}
+        />
+
+        {/* STATE NAME */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "14px",
+            left: "16px",
+            color: "#fff",
+          }}
+        >
+          <h3
+            style={{
+              margin: 0,
+              fontSize: "20px",
+              fontWeight: "700",
+              lineHeight: "1",
+            }}
+          >
+            {active.name}
+          </h3>
+
+          <p
+            style={{
+              margin: "6px 0 0",
+              fontSize: "12px",
+              opacity: 0.9,
+            }}
+          >
+            Malaysia State Network
+          </p>
+        </div>
+      </div>
+
+      {/* CONTENT */}
+      <div
+        style={{
+          padding: "18px",
+        }}
+      >
+        {/* STATS */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3,1fr)",
+            gap: "10px",
+            marginBottom: "18px",
+          }}
+        >
+          {[
+            {
+              label: "Clubs",
+              value: active.clubs,
+            },
+            {
+              label: "Athletes",
+              value: active.athletes,
+            },
+            {
+              label: "Medals",
+              value: active.medals || 0,
+            },
+          ].map((item, i) => (
+            <div
+              key={i}
+              style={{
+                background: "#f8fafc",
+                borderRadius: "14px",
+                padding: "12px 8px",
+                textAlign: "center",
+                border: "1px solid #eef2f7",
+              }}
+            >
               <div
-                className="map-popup"
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => {
-                  setIsHovering(false);
-                  setActive(null);
-                }}
                 style={{
-                  position: "absolute",
-                  top: popupPos.y,
-                  left: popupPos.x,
-                  transform: "translate(-50%, -120%)",
-                  zIndex: 100,
+                  fontSize: "20px",
+                  fontWeight: "700",
+                  color: "#111827",
                 }}
               >
-                <div className="popup-card">
-                  <div className="popup-img">
-                    <img src={active.image} alt={active.name} />
-                  </div>
-
-                  <div className="popup-content">
-                    <h4 className="popup-title">{active.name}</h4>
-
-                    <div className="popup-stats">
-                      <div className="statItem">
-                        <span>Clubs</span>
-                        <strong>{active.clubs}</strong>
-                      </div>
-
-                      <div className="statItem">
-                        <span>Athletes</span>
-                        <strong>{active.athletes}</strong>
-                      </div>
-
-                      <div className="statItem">
-                        <span>Medals</span>
-                        <strong>{active.medals || 0}</strong>
-                      </div>
-                    </div>
-
-                    <button
-                      className="popup-btn"
-                      onClick={() => {
-                        if (active?.id) navigate(`/state/${active.id}`);
-                      }}
-                    >
-                      View State
-                    </button>
-                  </div>
-                </div>
+                {item.value}
               </div>
-            )}
+
+              <div
+                style={{
+                  fontSize: "11px",
+                  color: "#6b7280",
+                  marginTop: "4px",
+                }}
+              >
+                {item.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* BUTTON */}
+        <button
+          onClick={() => {
+            if (active?.id) navigate(`/state/${active.id}`);
+          }}
+          style={{
+            width: "100%",
+            border: "none",
+            borderRadius: "14px",
+            padding: "13px",
+            background:
+              "linear-gradient(135deg,#0f172a,#2563eb)",
+            color: "#fff",
+            fontWeight: "600",
+            fontSize: "15px",
+            cursor: "pointer",
+            transition: "0.3s",
+            boxShadow:
+              "0 10px 20px rgba(37,99,235,0.35)",
+          }}
+        >
+          View State →
+        </button>
+      </div>
+
+      {/* POINTER */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "-10px",
+          left: "50%",
+          transform: "translateX(-50%) rotate(45deg)",
+          width: "20px",
+          height: "20px",
+          background: "white",
+        }}
+      />
+    </div>
+
+    {/* ANIMATION */}
+    <style>
+      {`
+        @keyframes popupFade {
+          from {
+            opacity: 0;
+            transform: translate(-50%, -100%) scale(0.92);
+          }
+          to {
+            opacity: 1;
+            transform: translate(-50%, -115%) scale(1);
+          }
+        }
+      `}
+    </style>
+  </div>
+)}
           </div>
         </div>
 
