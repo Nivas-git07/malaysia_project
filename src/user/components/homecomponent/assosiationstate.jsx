@@ -165,6 +165,7 @@ export default function StateNetworkX() {
             {/* 🔥 NEW ATTRACTIVE POPUP */}
 {active && (
   <div
+    key={active.name}
     className="map-popup"
     onMouseEnter={() => setIsHovering(true)}
     onMouseLeave={() => {
@@ -175,33 +176,34 @@ export default function StateNetworkX() {
       position: "absolute",
       top: popupPos.y,
       left: popupPos.x,
-      transform: "translate(-50%, -115%)",
       zIndex: 1000,
-      animation: "popupFade 0.25s ease",
+      transform: "translate(-50%, -120%)",
     }}
   >
+    {/* MAIN CARD */}
     <div
       style={{
-        width: "290px",
-        maxWidth: "90vw",
-        borderRadius: "22px",
+        width: "235px",
+        borderRadius: "18px",
         overflow: "hidden",
-        background: "rgba(255,255,255,0.96)",
-        backdropFilter: "blur(18px)",
-        boxShadow: "0 20px 50px rgba(0,0,0,0.22)",
-        border: "1px solid rgba(255,255,255,0.5)",
+        background: "rgba(255,255,255,0.97)",
+        backdropFilter: "blur(16px)",
+        border: "1px solid rgba(255,255,255,0.45)",
+        boxShadow: "0 18px 40px rgba(0,0,0,0.18)",
         position: "relative",
+        transformStyle: "preserve-3d",
+willChange: "transform, opacity",
+
+        /* ✅ SMOOTH ANIMATION */
+        animation: "popupFadeIn 0.55s ease forwards",
       }}
     >
-      {/* 🔥 FIXED SIZE TOP IMAGE */}
+      {/* IMAGE */}
       <div
         style={{
-          height: "120px",
-          minHeight: "120px",
-          maxHeight: "120px",
-          overflow: "hidden",
+          height: "92px",
           position: "relative",
-          background: "#e5e7eb",
+          overflow: "hidden",
         }}
       >
         <img
@@ -211,17 +213,16 @@ export default function StateNetworkX() {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            display: "block",
           }}
         />
 
-        {/* OVERLAY */}
+        {/* DARK OVERLAY */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.2))",
+              "linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.12))",
           }}
         />
 
@@ -229,17 +230,17 @@ export default function StateNetworkX() {
         <div
           style={{
             position: "absolute",
-            bottom: "14px",
-            left: "16px",
+            left: "14px",
+            bottom: "12px",
             color: "#fff",
           }}
         >
           <h3
             style={{
               margin: 0,
-              fontSize: "20px",
+              fontSize: "16px",
               fontWeight: "700",
-              lineHeight: "1",
+              lineHeight: 1,
             }}
           >
             {active.name}
@@ -247,12 +248,12 @@ export default function StateNetworkX() {
 
           <p
             style={{
-              margin: "6px 0 0",
-              fontSize: "12px",
+              margin: "4px 0 0",
+              fontSize: "10px",
               opacity: 0.9,
             }}
           >
-            Malaysia State Network
+            Malaysia State
           </p>
         </div>
       </div>
@@ -260,7 +261,7 @@ export default function StateNetworkX() {
       {/* CONTENT */}
       <div
         style={{
-          padding: "18px",
+          padding: "14px",
         }}
       >
         {/* STATS */}
@@ -268,8 +269,8 @@ export default function StateNetworkX() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3,1fr)",
-            gap: "10px",
-            marginBottom: "18px",
+            gap: "8px",
+            marginBottom: "14px",
           }}
         >
           {[
@@ -290,15 +291,15 @@ export default function StateNetworkX() {
               key={i}
               style={{
                 background: "#f8fafc",
-                borderRadius: "14px",
-                padding: "12px 8px",
+                borderRadius: "12px",
+                padding: "10px 6px",
                 textAlign: "center",
                 border: "1px solid #eef2f7",
               }}
             >
               <div
                 style={{
-                  fontSize: "20px",
+                  fontSize: "16px",
                   fontWeight: "700",
                   color: "#111827",
                 }}
@@ -308,9 +309,9 @@ export default function StateNetworkX() {
 
               <div
                 style={{
-                  fontSize: "11px",
+                  fontSize: "10px",
                   color: "#6b7280",
-                  marginTop: "4px",
+                  marginTop: "2px",
                 }}
               >
                 {item.label}
@@ -327,17 +328,16 @@ export default function StateNetworkX() {
           style={{
             width: "100%",
             border: "none",
-            borderRadius: "14px",
-            padding: "13px",
+            borderRadius: "12px",
+            padding: "11px",
             background:
               "linear-gradient(135deg,#0f172a,#2563eb)",
             color: "#fff",
             fontWeight: "600",
-            fontSize: "15px",
+            fontSize: "13px",
             cursor: "pointer",
-            transition: "0.3s",
             boxShadow:
-              "0 10px 20px rgba(37,99,235,0.35)",
+              "0 8px 18px rgba(37,99,235,0.28)",
           }}
         >
           View State →
@@ -348,31 +348,43 @@ export default function StateNetworkX() {
       <div
         style={{
           position: "absolute",
-          bottom: "-10px",
+          bottom: "-8px",
           left: "50%",
           transform: "translateX(-50%) rotate(45deg)",
-          width: "20px",
-          height: "20px",
+          width: "16px",
+          height: "16px",
           background: "white",
         }}
       />
     </div>
 
-    {/* ANIMATION */}
-    <style>
-      {`
-        @keyframes popupFade {
-          from {
-            opacity: 0;
-            transform: translate(-50%, -100%) scale(0.92);
-          }
-          to {
-            opacity: 1;
-            transform: translate(-50%, -115%) scale(1);
-          }
-        }
-      `}
-    </style>
+    {/* ✅ CORRECT ANIMATION */}
+   <style>
+{`
+@keyframes popupFadeIn {
+
+  0% {
+    opacity: 0;
+    transform: scale(0.75) translateY(35px);
+  }
+
+  40% {
+    opacity: 0.6;
+    transform: scale(0.88) translateY(16px);
+  }
+
+  70% {
+    opacity: 0.9;
+    transform: scale(1.02) translateY(-2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0px);
+  }
+}
+`}
+</style>
   </div>
 )}
           </div>
