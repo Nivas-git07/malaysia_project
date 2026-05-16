@@ -1,427 +1,168 @@
-/* ================= REPORT TITLE ================= */
-.AthleteReport{
- height: 50px;
-  padding:10px 24px;
-  background:#ED1D240D;
-  color:#c10000;
-  font-weight:600;
-  font-size:14px;
-  letter-spacing:.5px;
-  display:flex;
-  align-items:center;
+.reports-container {
+  /* padding: 18px 20px; */
+  background: #f5f7fb;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
 }
 
-.nationalWrapper{
-  margin-top:30px;
-
-  background:#ffffff;
-
-  padding:24px 20px 50px 20px;   /* ⭐ only bottom increased */
-  box-sizing:border-box;
+.reports-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
 }
 
-.tabsRow{
-  display:flex;
-  gap:10px;           /* ⭐ small equal spacing */
-  margin-bottom:16px;
+.reports-top h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+  line-height: 1.1;
 }
 
-.tab{
-  background:#D9D9D9;
-  border:none;
-  padding:12px 20px;
-  font-weight:500;
+.reports-top p {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #6b7280;
 }
 
-.tab.active{
-  background:#c10000;
-  color:#fff;
+.top-buttons {
+  display: flex;
+  gap: 10px;
 }
 
-
-
-/* ================= FILTER BAR ================= */
-/* ===== FILTER ROW ===== */
-.filterRow{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
-}
-
-.filtersLeft{
-  display:flex;
-  gap:14px;   /* ⭐ tighter spacing */
-}
-
-.filtersLeft select,
-.filtersLeft input{
-  background:#ECEAEC;
-  border:none;
-  padding:12px 14px;
-  height:44px;
-}
-
-/* EXPORT BUTTON */
-.exportBtn{
-  background:#c10000;
-  color:white;
-  border:none;
-  padding:12px 20px;   /* ⭐ small compact size */
-  font-weight:600;
-  height:44px;         /* ⭐ align with filters */
-}
-/* ================= TABLE ================= */
-
-.tableBlock{
-  width:100%;
-}
-
-.tableHead{
-  background:#c10000;
-  color:#fff;
-  display:grid;
-  grid-template-columns:1.2fr 2fr 1fr 1fr 1fr 1.4fr;
-  padding:14px 18px;
-  font-weight:500;
-}
-
-.tableRow{
-  display:grid;
-  grid-template-columns:1.2fr 2fr 1fr 1fr 1fr 1.4fr;
-  padding:18px;
-  border-bottom:1px solid #eee;
-  font-weight:400;
-}
-
-
-/* ================= DIVIDER LINE ================= */
-
-.tableBlock::after{
-  content:"";
-  display:block;
-  margin-top:12px;
-  border-bottom:2px solid #f1c9c9;
-}
-
-
-/* ================= CHART AREA ================= */
-/* ===========================
-   CHART AREA (EXACT ALIGNMENT)
-=========================== */
-/* ===============================
-   EXACT CHART SECTION ALIGNMENT
-================================ */
-
-/* OVERALL AREA SIZE */
-.chartArea{
-  /* width:1010px;
-  height:216px; */
-  display:flex;
-  align-items:center;
-  justify-content:space-around;
-  margin-top:18px;
-}
-
-/* ===== DONUT SIZE EXACT ===== */
-/* ===== DONUT CHART (EXACT SIZE LIKE DESIGN) ===== */
-.donut{
-  width:220px;
-  height:220px;
-  border-radius:50%;   /* ⭐ FIXED (must be 50%) */
-
-  background:
-  conic-gradient(
-    #f2171f 0% 65%,
-    #3f4cc9 65% 85%,
-    #000 85% 100%
-  );
-
-  position:relative;
-
-  margin-left:40px;
-  margin-right:40px;
-  margin-top:50px;
-}
-
-/* inner white hole — thinner ring */
-.donut::after{
-  content:"";
-  position:absolute;
-  width:130px;        /* ⭐ increased to make ring thin */
-  height:130px;
-  background:#fff;
-  border-radius:50%;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-}
-/* ================= PERCENTAGE BUBBLES (SMALLER + CENTERED) ================= */
-
-.percent{
-  position:absolute;
-
-  width:58px;          /* ⭐ smaller circle */
-  height:58px;
-
-  background:#f1f1f1;
-  border-radius:50%;
-
-  display:flex;
-  align-items:center;   /* ⭐ vertical center */
-  justify-content:center; /* ⭐ horizontal center */
-
-  font-weight:600;
-  font-size:14px;       /* ⭐ text little smaller */
-
-  color:#222;
-  box-shadow:0 6px 12px rgba(0,0,0,0.08);
-}
-
-/* ===== POSITIONING (same alignment, only refined) ===== */
-
-.p15{
-  top:-6px;
-  left:18px;
-}
-
-.p20{
-  top:28px;
-  right:-14px;
-}
-
-.p65{
-  bottom:-14px;
-  left:-4px;
-}
-
-/* ===== LEGEND SPACE ALLOCATION ===== */
-.legendBlock{
-  /* width:472.421875px;
-  height:193.16015625px; */
-  margin-right: 50px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  gap:22px;
-}
-
-/* SELECT TYPE ROW */
-.selectType{
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-  gap:18px;
-  margin-bottom:4px;
-}
-
-.selectType select{
-  width:260px;
-  height:42px;
-  border:1px solid #999;
-  background:#fff;
-  padding:6px 10px;
-}
-
-/* ===== LEGEND ITEMS EXACT GRID ===== */
-.legendItem{
-  display:grid;
-  grid-template-columns: 24px 1fr 80px;
-  align-items:center;
-  font-size:16px;
-  color:#6b6b6b;
-}
-
-/* VALUE ALIGN RIGHT */
-.legendItem b{
-  text-align:right;
-  font-weight:500;
-  color:#111;
-}
-
-/* DOT COLORS */
-.dot{
-  width:14px;
-  height:14px;
-  border-radius:50%;
-}
-
-.dot.red{ background:#f2171f; }
-.dot.blue{ background:#3f4cc9; }
-.dot.black{ background:#000; }
-/* ================= MOBILE RESPONSIVE ================= */
-
-/* ================= RESPONSIVE FIX (TABLET + MOBILE) ================= */
-
-@media(max-width:1200px){
-
-/* ===== TITLE BAR ===== */
-.AthleteReport{
-  position:relative;
-  left:auto;
-  right:auto;
-  top:auto;
-  margin:20px;
-}
-.tableBlock{
-  width:100%;
-  overflow-x:auto;      /* ⭐ allows horizontal scroll */
-}
-
-/* keep desktop grid layout */
-.tableHead,
-.tableRow{
-  min-width:850px;      /* ⭐ table keeps structure */
-}
-
-/* smoother mobile look */
-.tableRow{
-  background:#fff;
-}
-
-
-/* ===== MAIN CARD ===== */
-.nationalWrapper{
-  position:relative;
-  left:auto;
-  right:auto;
-  top:auto;
-  margin:0 20px;
-}
-
-/* ===== TABS WRAP ===== */
-
-
-/* ===== FILTER ROW STACK ===== */
-.filterRow{
-  flex-direction:column;
-  align-items:stretch;
-  gap:12px;
-}
-
-.filtersLeft{
-  flex-wrap:wrap;
-}
-
-.exportBtn{
-  width:100%;
-}
-
-/* ===== TABLE MOBILE STYLE ===== */
-
-
-/* ===== CHART AREA RESPONSIVE ===== */
-
-/* .chartArea{
-  width:100%;
-  height:auto;
-  flex-direction:column;
-  align-items:center;
-  gap:30px;
-} */
-
-/* DONUT CENTER */
-/* .donut{
-  margin:0;
-  width:180px;
-  height:180px;
-} */
-
-/* INNER HOLE SCALE */
-/* .donut::after{
-  width:105px;
-  height:105px;
-}
-
-/* LEGEND FULL WIDTH */
-/* .legendBlock{
-  width:100%;
-  height:auto;
-}  */
-
-/* SELECT ALIGN */
-/* .selectType{
-  justify-content:space-between;
-  width:100%;
-} */
-
-.selectType select{
-  width:100%;
-}
-
-}
-
-/* ================= SMALL MOBILE ================= */
-
-@media(max-width:600px){
-
-.tab{
-  flex:1;
-  text-align:center;
-  padding:10px;
-  font-size:13px;
-}
-
-.filtersLeft select,
-.filtersLeft input{
-  width:100%;
-}
-
-.percent{
-  width:48px;
-  height:48px;
-  font-size:12px;
-}
-
-.legendItem{
-  grid-template-columns:20px 1fr 60px;
-  font-size:14px;
-}
-
-}
-
-.inputError {
-  border: 1px solid #ef4444 !important;
-  background: #fff5f5;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
-}
-
-.errorText {
-  color: #ef4444;
-  font-size: 12px;
-  margin-top: 5px;
-  font-weight: 500;
-}
-
-.submitErrorBox {
-  background: #fff1f2;
-  border: 1px solid #ef4444;
-  color: #b91c1c;
-  padding: 14px 16px;
+.top-buttons button {
+  border: none;
+  outline: none;
+  padding: 11px 18px;
   border-radius: 12px;
-  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  transition: 0.25s ease;
+}
+
+.refresh-btn {
+  background: white;
+  color: #111827;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.export-btn {
+  background: #b30000;
+  color: white;
+
+  box-shadow: 0 6px 16px rgba(179, 0, 0, 0.16);
+}
+
+.export-btn:hover,
+.refresh-btn:hover {
+  transform: translateY(-2px);
+}
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.report-card {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.03);
+
+  transition: 0.25s ease;
+}
+
+.report-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.07),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #6b7280;
+}
+
+.report-card h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 10px;
   margin-bottom: 10px;
+  line-height: 1;
+}
+
+.trend-text {
+  font-size: 13px;
   font-weight: 600;
 }
 
-.tableInput,
-.tableSelect,
-.filterSelect {
-  transition: all 0.2s ease;
+.icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #faf5f5;
+
+  color: #b30000;
+  font-size: 20px;
+
+  box-shadow: inset 0 0 0 1px rgba(179, 0, 0, 0.06);
 }
 
-.tableInput:focus,
-.tableSelect:focus,
-.filterSelect:focus {
-  outline: none;
-  border-color: #2563eb !important;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+@media (max-width: 1200px) {
+  .reports-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.saveRecordBtn {
-  transition: all 0.2s ease;
-}
+@media (max-width: 768px) {
+  .reports-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
 
-.saveRecordBtn:hover {
-  transform: translateY(-1px);
+  .reports-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reports-top h1 {
+    font-size: 24px;
+  }
+
+  .top-buttons {
+    width: 100%;
+  }
+
+  .top-buttons button {
+    flex: 1;
+    justify-content: center;
+  }
 }

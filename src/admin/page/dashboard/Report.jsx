@@ -1,14 +1,59 @@
 import React from "react";
 import Navbar from "../navbar/nav";
 import "../../style/dashboard/Report.css";
-import { geteventRecords } from "../../api/record";
+import { getReport } from "../../api/report_api";
 import { useQuery } from "@tanstack/react-query";
 import SkeletonLoader from "../../components/common/SkeletonLoader";
 import ErrorState from "../../components/common/ErrorState";
-function Report() {
-  const { data: eventRecords, isLoading, error, refetch } = useQuery({
-    queryKey: ["eventRecords"],
-    queryFn: geteventRecords,
+
+import {
+  FiUsers,
+  FiCalendar,
+  FiFileText,
+  FiAward,
+  FiRefreshCw,
+  FiDownload,
+} from "react-icons/fi";
+
+export default function Report() {
+  const cards = [
+    {
+      title: "TOTAL ATHLETES",
+      value: "12,482",
+      trend: "+12% from last month",
+      color: "#16a34a",
+      icon: <FiUsers />,
+    },
+    {
+      title: "TOTAL EVENTS",
+      value: "842",
+      trend: "+4% this season",
+      color: "#16a34a",
+      icon: <FiCalendar />,
+    },
+    {
+      title: "TOTAL NEWS",
+      value: "1,204",
+      trend: "Stable engagement",
+      color: "#6b7280",
+      icon: <FiFileText />,
+    },
+    {
+      title: "ACTIVE MEMBERS",
+      value: "9,120",
+      trend: "-2.1% renewal gap",
+      color: "#dc2626",
+      icon: <FiAward />,
+    },
+  ];
+  const {
+    data: eventRecords,
+    isLoading,
+    error,
+    refetch,
+  } = getReport({
+    queryKey: ["getreport"],
+    queryFn: getReport,
     retry: false,
   });
 
@@ -44,109 +89,49 @@ function Report() {
     <>
       <Navbar />
       <div className="mu-membership-wrapper">
-        <div className="AthleteReport">REPORT</div>
-        <div className="nationalWrapper">
-          <div className="tabsRow">
-            <button className="tab active">National</button>
-            <button className="tab">State</button>
-            <button className="tab">Club</button>
-            <button className="tab">Athelete</button>
-            <button className="tab">Event – Based</button>
-          </div>
-
-          {/* ===== FILTER BAR ===== */}
-          <div className="filterRow">
-            <div className="filtersLeft">
-              <select>
-                <option>Filter by State</option>
-              </select>
-              <select>
-                <option>Filter by year</option>
-              </select>
-              <input placeholder="Select athlete or club" />
+        <div className="reports-container">
+          {/* Header */}
+          <div className="reports-top">
+            <div>
+              <h1>Reports & Analytics</h1>
+              <p>Real-time federation overview and performance metrics</p>
             </div>
 
-            <button className="exportBtn">Export CSV</button>
-          </div>
+            <div className="top-buttons">
+              <button className="refresh-btn">
+                <FiRefreshCw />
+                Category
+              </button>
 
-          {/* ===== TABLE ===== */}
-          <div className="tableBlock">
-            <div className="tableHead">
-              <div>Category</div>
-              <div>Entity</div>
-              <div>Participants</div>
-              <div>Medals</div>
-              <div>Events</div>
-              <div>Last Upload</div>
-            </div>
-
-            <div className="tableRow">
-              <div>State</div>
-              <div>Kuala Lumpur</div>
-              <div>215</div>
-              <div>32</div>
-              <div>8</div>
-              <div>2025-08-06</div>
-            </div>
-
-            <div className="tableRow">
-              <div>Club</div>
-              <div>BlueFin Racers</div>
-              <div>215</div>
-              <div>32</div>
-              <div>8</div>
-              <div>2025-08-06</div>
-            </div>
-
-            <div className="tableRow">
-              <div>State</div>
-              <div>Labuan</div>
-              <div>215</div>
-              <div>32</div>
-              <div>8</div>
-              <div>2025-08-06</div>
+              <button className="export-btn">
+                <FiDownload />
+                Export Report
+              </button>
             </div>
           </div>
 
-          {/* ===== CHART AREA ===== */}
-          <div className="chartArea">
-            <div className="donut">
-              <span className="percent p15">15%</span>
-              <span className="percent p20">20%</span>
-              <span className="percent p65">65%</span>
-            </div>
+          {/* Cards */}
+          <div className="reports-grid">
+            {cards.map((card, index) => (
+              <div className="report-card" key={index}>
+                <div className="card-top">
+                  <div>
+                    <span className="card-title">{card.title}</span>
 
-            <div className="legendBlock">
-              <div className="selectType">
-                <span>Select type</span>
-                <select>
-                  <option>State</option>
-                </select>
-              </div>
+                    <h2>{card.value}</h2>
 
-              <div className="legendItem">
-                <span className="dot red"></span>
-                Participants
-                <b>234</b>
-              </div>
+                    <p className="trend-text" style={{ color: card.color }}>
+                      {card.trend}
+                    </p>
+                  </div>
 
-              <div className="legendItem">
-                <span className="dot blue"></span>
-                metals
-                <b>38</b>
+                  <div className="icon-box">{card.icon}</div>
+                </div>
               </div>
-
-              <div className="legendItem">
-                <span className="dot black"></span>
-                Event Oraganized
-                <b>10</b>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
     </>
   );
 }
-
-export default Report;
