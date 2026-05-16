@@ -28,6 +28,7 @@ export default function StateNetworkX() {
   const [active, setActive] = useState(null);
   const [popupPos, setPopupPos] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [closing, setClosing] = useState(false);
 
   /* 🔥 CENTER CALCULATION */
   const getPolygonCenter = (points) => {
@@ -63,8 +64,8 @@ export default function StateNetworkX() {
       clubs: matched?.clubs_count || 0,
       athletes: matched?.athletes_count || 0,
       image:
-        matched?.image ||
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+       matched?.image ||
+"https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop",
     });
 
     setPopupPos({
@@ -72,6 +73,14 @@ export default function StateNetworkX() {
       y: center.y * scaleY,
     });
   };
+  const hidePopup = () => {
+  setClosing(true);
+
+  setTimeout(() => {
+    hidePopup();
+    setClosing(false);
+  }, 280);
+};
 
   const POLYGONS = [
     { name: "Pahang", pts: "376,441 565,411 595,442 667,536 687,591 687,663 708,753 625,731 466,626 454,616" },
@@ -115,10 +124,9 @@ export default function StateNetworkX() {
                   onMouseEnter={() => {
                     if (polygon) showPopup(item.state_name, polygon.pts);
                   }}
-                  onMouseLeave={() => {
-                    setIsHovering(false);
-                    setActive(null);
-                  }}
+                 onMouseLeave={() => {
+  setIsHovering(false);
+}}
                 >
                   <span className="mfsaStateX-radio"></span>
                   <p onClick={()=>{navigate(`/state/${item.user}`)}}>{item.state_name}</p>
@@ -130,7 +138,25 @@ export default function StateNetworkX() {
 
         {/* RIGHT SIDE */}
         <div className="mfsaStateX-right">
-          <div className="map-container" ref={containerRef} style={{ position: "relative" }}>
+   <div
+  className="map-container"
+  ref={containerRef}
+  onMouseLeave={(e) => {
+    const related = e.relatedTarget;
+
+    if (
+      related &&
+      containerRef.current?.contains(related)
+    ) {
+      return;
+    }
+
+    hidePopup();
+  }}
+  style={{
+    position: "relative",
+  }}
+>
             <img src={mapImg} alt="map" style={{ width: "100%" }} />
 
             {/* SVG HOVER */}
@@ -152,11 +178,7 @@ export default function StateNetworkX() {
                   stroke="transparent"
                   style={{ cursor: "pointer" }}
                   onMouseEnter={() => showPopup(s.name, s.pts)}
-                  onMouseLeave={() => {
-                    setTimeout(() => {
-                      if (!isHovering) setActive(null);
-                    }, 200);
-                  }}
+                 onMouseLeave={() => {}}
                 />
               ))}
             </svg>
@@ -170,7 +192,7 @@ export default function StateNetworkX() {
     onMouseEnter={() => setIsHovering(true)}
     onMouseLeave={() => {
       setIsHovering(false);
-      setActive(null);
+      hidePopup();
     }}
     style={{
       position: "absolute",
@@ -178,9 +200,9 @@ export default function StateNetworkX() {
       left: popupPos.x,
       zIndex: 1000,
       transform: "translate(-50%, -120%)",
+      pointerEvents: "auto",
     }}
   >
-    {/* MAIN CARD */}
     <div
       style={{
         width: "235px",
@@ -192,10 +214,11 @@ export default function StateNetworkX() {
         boxShadow: "0 18px 40px rgba(0,0,0,0.18)",
         position: "relative",
         transformStyle: "preserve-3d",
-willChange: "transform, opacity",
+        willChange: "transform, opacity",
 
-        /* ✅ SMOOTH ANIMATION */
-        animation: "popupFadeIn 0.55s ease forwards",
+        animation: closing
+          ? "popupFadeOut 0.28s ease forwards"
+          : "popupFadeIn 0.45s ease forwards",
       }}
     >
       {/* IMAGE */}
@@ -216,7 +239,7 @@ willChange: "transform, opacity",
           }}
         />
 
-        {/* DARK OVERLAY */}
+        {/* OVERLAY */}
         <div
           style={{
             position: "absolute",
@@ -226,7 +249,7 @@ willChange: "transform, opacity",
           }}
         />
 
-        {/* STATE NAME */}
+        {/* TITLE */}
         <div
           style={{
             position: "absolute",
@@ -358,33 +381,48 @@ willChange: "transform, opacity",
       />
     </div>
 
-    {/* ✅ CORRECT ANIMATION */}
-   <style>
-{`
-@keyframes popupFadeIn {
+    {/* ANIMATION */}
+    <style>
+      {`
+      @keyframes popupFadeIn {
 
-  0% {
-    opacity: 0;
-    transform: scale(0.75) translateY(35px);
-  }
+        0% {
+          opacity: 0;
+          transform:
+            scale(0.78)
+            translateY(26px);
+          filter: blur(8px);
+        }
 
-  40% {
-    opacity: 0.6;
-    transform: scale(0.88) translateY(16px);
-  }
+        100% {
+          opacity: 1;
+          transform:
+            scale(1)
+            translateY(0px);
+          filter: blur(0px);
+        }
+      }
 
-  70% {
-    opacity: 0.9;
-    transform: scale(1.02) translateY(-2px);
-  }
+      @keyframes popupFadeOut {
 
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0px);
-  }
-}
-`}
-</style>
+        0% {
+          opacity: 1;
+          transform:
+            scale(1)
+            translateY(0px);
+          filter: blur(0px);
+        }
+
+        100% {
+          opacity: 0;
+          transform:
+            scale(0.88)
+            translateY(18px);
+          filter: blur(6px);
+        }
+      }
+      `}
+    </style>
   </div>
 )}
           </div>
