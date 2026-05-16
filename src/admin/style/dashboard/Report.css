@@ -15,7 +15,7 @@
 .reports-top h1 {
   font-size: 28px;
   font-weight: 700;
-  color: #111827;
+  color: #00008b;
   margin-bottom: 4px;
   line-height: 1.1;
 }
@@ -164,5 +164,367 @@
   .top-buttons button {
     flex: 1;
     justify-content: center;
+  }
+}
+/* ================= ANALYTICS SECTION ================= */
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+/* ================= CARD ================= */
+
+.analytics-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 22px;
+
+  box-shadow:
+    0 2px 10px rgba(15, 23, 42, 0.04),
+    0 1px 2px rgba(15, 23, 42, 0.03);
+}
+
+/* ================= HEADER ================= */
+
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.analytics-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.analytics-header p {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* ================= INFO BUTTON ================= */
+
+.info-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: none;
+
+  background: #f8fafc;
+  color: #64748b;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s ease;
+}
+
+.info-btn:hover {
+  background: #f1f5f9;
+}
+
+/* ================= DISTRIBUTION ================= */
+
+.distribution-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 50px !important;
+}
+
+/* ================= DONUT ================= */
+
+.donut-chart {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+
+  background: conic-gradient(
+    #c40000 0% 45%,
+    #111111 45% 70%,
+    #1d4ed8 70% 90%,
+    #e2e8f0 90% 100%
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  flex-shrink: 0;
+}
+
+.donut-chart::before {
+  content: "";
+  position: absolute;
+
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.donut-center {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.donut-center h2 {
+  font-size: 34px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.donut-center span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+/* ================= LEGENDS ================= */
+
+.legend-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.legend-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 16px;
+  border-radius: 14px;
+
+  background: #f8fafc;
+}
+
+.legend-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend-left p {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.legend-item strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ================= DOTS ================= */
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.red {
+  background: #c40000;
+}
+
+.black {
+  background: #111111;
+}
+
+.blue {
+  background: #1d4ed8;
+}
+
+.gray {
+  background: #cbd5e1;
+}
+
+/* ================= SYSTEM HEALTH ================= */
+
+.health-badge {
+  padding: 7px 14px;
+  border-radius: 999px;
+
+  background: #dcfce7;
+  color: #15803d;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.health-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.health-item {
+  background: #fcfcfd;
+  border-radius: 18px;
+  padding: 18px;
+
+  border: 1px solid #eef2f7;
+}
+
+.health-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  margin-bottom: 14px;
+}
+
+.health-left {
+  display: flex;
+  gap: 14px;
+}
+
+.health-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+
+  flex-shrink: 0;
+}
+
+/* ================= ICON COLORS ================= */
+
+.ticket-icon {
+  background: #fef2f2;
+  color: #b30000;
+}
+
+.transfer-icon {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+.membership-icon {
+  background: #ecfdf5;
+  color: #15803d;
+}
+
+/* ================= TEXT ================= */
+
+.health-left h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 3px;
+}
+
+.health-left p {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.health-top strong {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1;
+}
+
+/* ================= PROGRESS ================= */
+
+.health-progress {
+  width: 100%;
+  height: 8px;
+
+  background: #edf2f7;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.health-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+/* ================= FILL COLORS ================= */
+
+.ticket-fill {
+  width: 65%;
+  background: linear-gradient(90deg, #b30000, #dc2626);
+}
+
+.transfer-fill {
+  width: 38%;
+  background: linear-gradient(90deg, #4338ca, #6366f1);
+}
+
+.membership-fill {
+  width: 92%;
+  background: linear-gradient(90deg, #16a34a, #22c55e);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1100px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .analytics-card {
+    padding: 18px;
+  }
+
+  .distribution-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .donut-chart {
+    width: 180px;
+    height: 180px;
+  }
+
+  .donut-chart::before {
+    width: 128px;
+    height: 128px;
+  }
+
+  .donut-center h2 {
+    font-size: 30px;
+  }
+
+  .analytics-header {
+    margin-bottom: 16px;
+  }
+
+  .health-item {
+    padding: 16px;
   }
 }
