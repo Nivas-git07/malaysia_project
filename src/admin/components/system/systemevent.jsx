@@ -375,15 +375,15 @@ export default function SystemEvents() {
             >
               <option value="ALL">All Categories</option>
 
-              <option value="AUTH">AUTH</option>
+              <option value="AUTH">Authentication</option>
 
-              <option value="MEMB">MEMB</option>
+              <option value="MEMB">Membership</option>
 
-              <option value="CONT">CONT</option>
+              <option value="CONT">Content Management</option>
 
-              <option value="RECO">RECO</option>
+              <option value="RECO">Record</option>
 
-              <option value="SYST">SYST</option>
+              <option value="SYST">System</option>
             </select>
           </div>
 
@@ -645,47 +645,35 @@ export default function SystemEvents() {
                 </p>
               </div>
 
-            <button
-  onClick={() =>
-    setShowExportModal(
-      false
-    )
-  }
-  style={{
-    width: "32px",
-    height: "32px",
-    borderRadius: "8px",
-    border:
-      "1px solid #e2e8f0",
-    background: "#ffffff",
-    cursor: "pointer",
-    color: "#475569",
-    display: "flex",
-    alignItems: "center",
-    justifyContent:
-      "center",
-    transition:
-      "0.2s ease",
-    boxShadow:
-      "0 2px 6px rgba(15,23,42,0.05)",
-  }}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.background =
-      "#f8fafc";
+              <button
+                onClick={() => setShowExportModal(false)}
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "8px",
+                  border: "1px solid #e2e8f0",
+                  background: "#ffffff",
+                  cursor: "pointer",
+                  color: "#475569",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  transition: "0.2s ease",
+                  boxShadow: "0 2px 6px rgba(15,23,42,0.05)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#f8fafc";
 
-    e.currentTarget.style.color =
-      "#ef4444";
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.background =
-      "#ffffff";
+                  e.currentTarget.style.color = "#ef4444";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#ffffff";
 
-    e.currentTarget.style.color =
-      "#475569";
-  }}
->
-  <FaTimes size={13} />
-</button>
+                  e.currentTarget.style.color = "#475569";
+                }}
+              >
+                <FaTimes size={13} />
+              </button>
             </div>
 
             {/* EXPORT TYPE */}
@@ -762,15 +750,15 @@ export default function SystemEvents() {
                     outline: "none",
                   }}
                 >
-                  <option value="AUTH">AUTH</option>
+                  <option value="AUTH">Authentication</option>
 
-                  <option value="MEMB">MEMB</option>
+                  <option value="MEMB">Membership</option>
 
-                  <option value="CONT">CONT</option>
+                  <option value="CONT">Content Management</option>
 
-                  <option value="RECO">RECO</option>
+                  <option value="RECO">Record</option>
 
-                  <option value="SYST">SYST</option>
+                  <option value="SYST">System</option>
                 </select>
               </div>
             )}
